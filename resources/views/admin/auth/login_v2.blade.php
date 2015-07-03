@@ -1,5 +1,8 @@
 @extends('admin.master')
 
+@section('title')
+    登录-后台管理中心-{{config('app.site_name')}}
+@endsection
 @section('body')
     <div class="login-cover">
         <div class="login-cover-image">

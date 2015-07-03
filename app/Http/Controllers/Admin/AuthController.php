@@ -35,8 +35,7 @@ class AuthController extends Controller
     public function getLogin()
     {
 
-
-        return $this->view('login');
+        return $this->view(config('admin.login_tpl', 'login_v2'));
     }
 
 
