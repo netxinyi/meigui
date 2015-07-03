@@ -2,7 +2,8 @@
 
 @section('title')
     登录-后台管理中心-{{config('app.site_name')}}
-@endsection
+@stop
+
 @section('body')
     <div class="login-cover">
         <div class="login-cover-image">
@@ -70,7 +71,7 @@
     </div>
     <!-- end page container -->
 
-@stop
+@overwrite
 
 @section('footer-last-js')
     <!-- ================== BEGIN PAGE LEVEL JS ================== -->
@@ -81,4 +82,4 @@
             LoginV2.init();
         });
     </script>
-@stop
+@overwrite

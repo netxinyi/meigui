@@ -82,7 +82,7 @@ class AuthController extends Controller
     /**
      * 执行退出登录操作
      */
-    public function getLogOut()
+    public function getLogout()
     {
 
         $this->auth->logout();
