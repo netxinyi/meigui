@@ -18,6 +18,8 @@ class Option extends BaseModel
 
     protected $fillable = ['title', 'code', 'desc', 'type', 'values', 'value', 'autoload'];
 
+    public $timestamps = false;
+
 
     public function scopeKey($query, $key)
     {

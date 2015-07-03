@@ -30,16 +30,11 @@
                     <span>首页</span>
                 </a>
             </li>
-            <li class="has-sub">
-                <a href="javascript:;">
-                    <b class="caret pull-right"></b>
+            <li>
+                <a href="{{url('admin/option')}}">
                     <i class="fa fa-cogs"></i>
                     <span>网站设置</span>
                 </a>
-                <ul class="sub-menu">
-                    <li><a href="{{url('admin/option')}}">基本设置</a></li>
-                    <li><a href="{{url('admin/option/add')}}">添加设置项</a></li>
-                </ul>
             </li>
             <li class="has-sub">
                 <a href="javascript:;">

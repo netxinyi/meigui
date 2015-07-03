@@ -38,4 +38,12 @@ class Option
         self::INPUT_TYPE_TEXTAREA => '文本域'
     ];
 
+    public static $inputTypeCode = [
+        self::INPUT_TYPE_TEXT     => 'text',
+        self::INPUT_TYPE_SELECT   => 'select',
+        self::INPUT_TYPE_RADIO    => 'radio',
+        self::INPUT_TYPE_CHECKBOX => 'checkbox',
+        self::INPUT_TYPE_TEXTAREA => 'textarea'
+    ];
+
 }

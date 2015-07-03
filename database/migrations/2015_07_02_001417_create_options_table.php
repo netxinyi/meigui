@@ -32,6 +32,7 @@ class CreateOptionsTable extends Migration
                 OptionEnum::INPUT_TYPE_TEXTAREA
             ])->default(OptionEnum::INPUT_TYPE_TEXT)->comment('录入方式');
             $table->string('values')->nullable()->comment('可选值列表');
+            $table->string('desc')->nullable()->comment('配置项描述');
 
             $table->unique(['code']);
             $table->index(['code']);
