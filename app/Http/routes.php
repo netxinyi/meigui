@@ -35,6 +35,17 @@ Route::controllers([
 | 后台管理
 |--------------------------------------------------------------------------
 */
-#Option管理-资源路由
-Route::resource('admin/option', 'Admin\OptionController');
+#Auth-后台登录验证
 Route::controller('admin/auth', 'Admin\AuthController');
+#后台管理
+Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function (){
+
+    Route::get('/', function (){
+
+        return view('admin.index');
+    });
+    #Option管理-资源路由
+    Route::resource('option', 'Admin\OptionController');
+});
+
+

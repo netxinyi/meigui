@@ -49,5 +49,17 @@
     <!-- end #page-loader -->
 @stop
 
+@section('body')
+    <!-- begin #page-container -->
+    <div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
+
+        <!-- begin #content -->
+        <div id="content" class="content">
+            @yeild('content')
+        </div>
+        <!-- end #content -->
+    </div>
+@stop
+
 @section('body-class')pace-top @stop
 

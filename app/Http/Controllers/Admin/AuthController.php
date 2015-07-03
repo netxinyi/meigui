@@ -29,8 +29,6 @@ class AuthController extends Controller
         $this->auth = $auth;
         $this->auth->setProvider($userProvider);
 
-        $this->middleware('auth.admin');
-
     }
 
 
@@ -42,7 +40,6 @@ class AuthController extends Controller
     {
 
 
-        return redirect('/admin/auth/login');
     }
 
 
@@ -52,7 +49,6 @@ class AuthController extends Controller
      */
     public function getLogin()
     {
-
         return $this->view(config('admin.login_tpl', 'login_v2'));
     }
 
@@ -85,4 +81,10 @@ class AuthController extends Controller
         return $this->error('用户不存在');
     }
 
+
+    public function getLogOut()
+    {
+
+        $this->auth->logout();
+    }
 }
