@@ -29,6 +29,8 @@ class AuthController extends Controller
         $this->auth = $auth;
         $this->auth->setProvider($userProvider);
 
+        $this->middleware('auth.admin');
+
     }
 
 
@@ -70,7 +72,7 @@ class AuthController extends Controller
 
         //获取表单数据
         $credentials = $this->request()->only(['admin_pass', 'admin_name']);
-
+        $credentials['admin_status'] = AdminEnum::STATUS_NORMAL;
         //登录验证
         if ($this->auth->attempt($credentials, $this->request()->has('remember'))) {
 
