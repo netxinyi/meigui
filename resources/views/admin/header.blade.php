@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <!-- begin mobile sidebar expand / collapse button -->
         <div class="navbar-header">
-            <a href="index.html" class="navbar-brand"><span class="navbar-logo"></span> Color Admin</a>
+            <a href="{{url('/admin/')}}" class="navbar-brand"><span class="navbar-logo"></span> Color Admin</a>
             <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -42,7 +42,7 @@
                     </li>
                     <li class="media">
                         <a href="javascript:;">
-                            <div class="media-left"><img src="assets/img/user-1.jpg" class="media-object"
+                            <div class="media-left"><img src="/assets/admin/img/user-1.jpg" class="media-object"
                                                          alt=""/></div>
                             <div class="media-body">
                                 <h6 class="media-heading">John Smith</h6>
@@ -55,7 +55,7 @@
                     </li>
                     <li class="media">
                         <a href="javascript:;">
-                            <div class="media-left"><img src="assets/img/user-2.jpg" class="media-object"
+                            <div class="media-left"><img src="/assets/admin/img/user-2.jpg" class="media-object"
                                                          alt=""/></div>
                             <div class="media-body">
                                 <h6 class="media-heading">Olivia</h6>
@@ -93,7 +93,7 @@
             </li>
             <li class="dropdown navbar-user">
                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="assets/img/user-13.jpg" alt=""/>
+                    <img src="/assets/admin/img/user-13.jpg" alt=""/>
                     <span class="hidden-xs">Adam Schwartz</span> <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu animated fadeInLeft">
