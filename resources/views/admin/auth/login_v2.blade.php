@@ -33,10 +33,20 @@
                     <div class="form-group m-b-20">
                         <input type="text" class="form-control input-lg" placeholder="用户名" name="admin_name"
                                value="{{old('admin_name')}}"/>
+                        @if($errors->has('admin_name'))
+                            <ul class="parsley-errors-list filled">
+                                <li class="parsley-required">{{$errors->first('admin_name')}}</li>
+                            </ul>
+                        @endif
                     </div>
-                    <div class="form-group m-b-20">
-                        <input type="password" class="form-control input-lg" placeholder="密码" name="password"
-                               value="{{old('password')}}"/>
+                    <div class="form-group m-b-20 has-error">
+                        <input type="password" class="form-control input-lg" placeholder="密码" name="admin_pass"
+                               value="{{old('admin_pass')}}"/>
+                        @if($errors->has('admin_pass'))
+                            <ul class="parsley-errors-list filled">
+                                <li class="parsley-required">{{$errors->first('admin_pass')}}</li>
+                            </ul>
+                        @endif
                     </div>
                     <div class="checkbox m-b-20">
                         <label>

@@ -102,7 +102,8 @@ return [
     */
 
     'attributes' => [
-        'admin_name' => '管理员账号'
+        'admin_name' => '管理员账号',
+        'admin_pass' => '管理员密码'
     ],
 
 ];
