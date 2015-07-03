@@ -11,13 +11,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Auth\Guard as Auth;
 use App\Providers\Auth\AdminAuthUserProvider;
 use App\Model\Admin;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Enum\Admin as AdminEnum;
+
 
 class AuthController extends Controller
 {
 
-
-    use AuthenticatesUsers;
 
     protected $viewPrefix = 'admin.auth';
 
@@ -29,7 +28,6 @@ class AuthController extends Controller
 
         $this->auth = $auth;
         $this->auth->setProvider($userProvider);
-
 
     }
 
@@ -57,6 +55,10 @@ class AuthController extends Controller
     }
 
 
+    /**
+     * 执行登录操作
+     * @return $this|\App\Http\Controllers\Controller|\Illuminate\Contracts\Routing\ResponseFactory
+     */
     public function postLogin()
     {
 
@@ -73,18 +75,12 @@ class AuthController extends Controller
         if ($this->auth->attempt($credentials, $this->request()->has('remember'))) {
 
             //登录成功,跳转回登录前页面
-            return $this->success('登录成功', array(), $this->redirect()->intended('/'));
+
+            return $this->success('登录成功', array(), $this->redirect()->intended('/admin'));
 
         }
         //TODO 异常代码
         return $this->error('用户不存在');
-    }
-
-
-    public function loginUsername()
-    {
-
-        return 'admin_name';
     }
 
 }

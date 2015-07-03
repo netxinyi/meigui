@@ -21,6 +21,7 @@ class CreateOptionsTable extends Migration
             $table->increments('id');
             $table->string('key', '100')->comment('配置名');
             $table->string('value')->nullable()->comment('配置值');
+            $table->boolean('autoload')->default(false)->comment('自动加载');
 
             $table->unique(['key']);
 
@@ -29,7 +30,7 @@ class CreateOptionsTable extends Migration
 
         });
 
-        $this->seedDefaultOptions();
+        //  $this->seedDefaultOptions();
     }
 
 
@@ -48,18 +49,19 @@ class CreateOptionsTable extends Migration
     public function seedDefaultOptions(){
 
         Option::create([
-            [
-                'key'   =>  'site_name',
-                'value' =>   '',
-            ],
-            [
-                'key'   =>  'site_keywords',
-                'value' =>  ''
-            ],
-            [
-                'key'   =>  'site_description',
-                'value' =>  ''
-            ]
+            'key'      => 'site_name',
+            'value'    => '',
+            'autoload' => true
+        ]);
+        Option::create([
+            'key'      => 'site_keywords',
+            'value'    => '',
+            'autoload' => true
+        ]);
+        Option::create([
+            'key'      => 'site_description',
+            'value'    => '',
+            'autoload' => true
         ]);
     }
 }

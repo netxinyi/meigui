@@ -103,7 +103,7 @@ class AdminAuthUserProvider implements UserProvider
         $query = $this->createModel()->newQuery();
 
         foreach ($credentials as $key => $value) {
-            if (!str_contains($key, 'password')) {
+            if ($key != 'admin_pass') {
                 $query->where($key, $value);
             }
         }
@@ -123,8 +123,7 @@ class AdminAuthUserProvider implements UserProvider
     public function validateCredentials(UserContract $user, array $credentials)
     {
 
-        $plain = $credentials['password'];
-
+        $plain = $credentials['admin_pass'];
         return $this->hasher->check($plain, $user->getAuthPassword());
     }
 }

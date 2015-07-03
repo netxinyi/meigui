@@ -53,7 +53,13 @@
                             <input type="checkbox" name="remember" value="1" @if(old('remember')) checked @endif/>
                             记住登录状态
                         </label>
+                        @if($errors->has('error'))
+                            <ul class="parsley-errors-list filled">
+                                <li class="parsley-required">{{$errors->first('error')}}</li>
+                            </ul>
+                        @endif
                     </div>
+
                     <div class="login-buttons">
                         <button type="submit" class="btn btn-success btn-block btn-lg">登录</button>
                     </div>

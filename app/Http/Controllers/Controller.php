@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Routing\Controller as BaseController;
 use App\Providers\Rest\RestServiceTrait;
 use Illuminate\Http\Exception\HttpResponseException;
+use Illuminate\Http\RedirectResponse;
 
 
 abstract class Controller extends BaseController
@@ -106,7 +107,11 @@ abstract class Controller extends BaseController
 
         $message = is_array($message) ? $message : ['error' => $message];
 
-        return $this->redirect()->to($redirect ?: app('Illuminate\Routing\UrlGenerator')->previous())->withInput()->withErrors($message);
+        if (!$redirect instanceof RedirectResponse) {
+            $redirect = $this->redirect()->to($redirect ?: app('Illuminate\Routing\UrlGenerator')->previous());
+        }
+
+        return $redirect->withInput()->withErrors($message);
     }
 
 
