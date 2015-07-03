@@ -9,8 +9,10 @@
                     <a href="javascript:;"><img src="/assets/admin/img/user-13.jpg" alt=""/></a>
                 </div>
                 <div class="info">
+                    @if(Auth::check())
                     {{Auth::user()->admin_name}}
                     <small>{{Auth::user()->email}}</small>
+                    @endif
                 </div>
             </li>
         </ul>
