@@ -29,15 +29,19 @@
             <!-- end brand -->
             <div class="login-content">
                 <form action="{{url('/admin/auth/login')}}" method="POST" class="margin-bottom-0">
+                    <input type="hidden" name="_token" value="{{csrf_token()}}">
                     <div class="form-group m-b-20">
-                        <input type="text" class="form-control input-lg" placeholder="用户名"/>
+                        <input type="text" class="form-control input-lg" placeholder="用户名" name="admin_name"
+                               value="{{old('admin_name')}}"/>
                     </div>
                     <div class="form-group m-b-20">
-                        <input type="text" class="form-control input-lg" placeholder="密码"/>
+                        <input type="password" class="form-control input-lg" placeholder="密码" name="password"
+                               value="{{old('password')}}"/>
                     </div>
                     <div class="checkbox m-b-20">
                         <label>
-                            <input type="checkbox"/> 记住登录状态
+                            <input type="checkbox" name="remember" value="1" @if(old('remember')) checked @endif/>
+                            记住登录状态
                         </label>
                     </div>
                     <div class="login-buttons">

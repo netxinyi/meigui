@@ -46,7 +46,9 @@ class AuthController extends Controller
     {
 
         $this->validate([
-            'username' => 'required'
+            'admin_name' => 'required',
+            'password'   => 'required'
         ]);
+
     }
 }

@@ -107,7 +107,7 @@ abstract class Controller extends BaseController
     protected function success($message = '', $data = array(), $redirect = null, $code = 1000)
     {
 
-        if (!$this->request->ajax()) {
+        if ($this->request->ajax()) {
             return $this->rest()->make($data, $message, $code);
         }
 
