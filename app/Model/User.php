@@ -39,4 +39,8 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
      */
     protected $hidden = ['password', 'remember_token'];
 
+    protected $appends = [
+        'is_admin' => false
+    ];
+
 }

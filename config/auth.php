@@ -29,6 +29,7 @@ return [
     */
 
     'model' => App\Model\User::class,
+    'admin' => App\Model\Admin::class,
 
     /*
     |--------------------------------------------------------------------------

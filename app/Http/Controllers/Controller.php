@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Routing\Controller as BaseController;
 use App\Providers\Rest\RestServiceTrait;
 use Illuminate\Http\Exception\HttpResponseException;
@@ -16,20 +16,6 @@ abstract class Controller extends BaseController
     use  RestServiceTrait;
 
     protected $viewPrefix;
-
-    protected $request;
-
-
-    /**
-     * @param Request $request
-     */
-    public function __construct(Request $request)
-    {
-
-        $this->request = $request;
-
-
-    }
 
 
     /**
@@ -65,7 +51,7 @@ abstract class Controller extends BaseController
     protected function validate(array $rules, array $messages = [], array $customAttributes = [])
     {
 
-        $validator = app('Illuminate\Contracts\Validation\Factory')->make($this->request->all(), $rules, $messages,
+        $validator = app('Illuminate\Contracts\Validation\Factory')->make($this->request()->all(), $rules, $messages,
             $customAttributes);
 
         if ($validator->fails()) {
@@ -77,17 +63,24 @@ abstract class Controller extends BaseController
     }
 
 
+    protected function request()
+    {
+
+        return Request::instance();
+    }
+
+
     /**
      * 响应失败消息
      *
      * @param string $message
-     * @param null   $redirect
      * @param int    $code
+     * @param null   $redirect
      * @param array  $data
      *
      * @return $this|\App\Http\Controllers\Controller|\Illuminate\Contracts\Routing\ResponseFactory
      */
-    protected function error($message = '', $redirect = null, $code = 500, $data = array())
+    protected function error($message = '', $code = 500, $redirect = null, $data = array())
     {
 
         return $this->success($message, $data, $redirect, $code);
@@ -107,7 +100,7 @@ abstract class Controller extends BaseController
     protected function success($message = '', $data = array(), $redirect = null, $code = 1000)
     {
 
-        if ($this->request->ajax()) {
+        if ($this->request()->ajax()) {
             return $this->rest()->make($data, $message, $code);
         }
 
