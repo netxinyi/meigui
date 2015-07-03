@@ -16,4 +16,18 @@ class Option extends BaseModel
 
     protected $primaryKey = 'id';
 
+
+    public function scopeKey($query, $key)
+    {
+
+        return $query->where('key', $key);
+    }
+
+
+    public function scopeAutoload($query, $autoload = true)
+    {
+
+        return $query->where('autoload', $autoload);
+    }
+
 }

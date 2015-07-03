@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author 迁迁
+ * @E-Mail 521287718@qq.com
+ * Date: 2015-07-02 00:27
+ */
 
 namespace App\Model;
 
@@ -9,6 +14,8 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 class User extends BaseModel implements AuthenticatableContract, CanResetPasswordContract
 {
+
+
     use Authenticatable, CanResetPassword;
 
     /**
@@ -31,4 +38,5 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
 }

@@ -1,8 +1,10 @@
 <?php
 /**
- * @author vision.shi@yunzhihui.com
- * Date: 2015-06-24 09:25
+ * @author 迁迁
+ * @E-Mail 521287718@qq.com
+ * Date: 2015-07-02 00:27
  */
+
 namespace App\Providers\Rest;
 
 use Illuminate\Contracts\Support\Arrayable;
@@ -80,6 +82,18 @@ class RestService implements Arrayable, Jsonable
 
 
     /**
+     * 获取请求实例
+     *
+     * @return  Request $request
+     */
+    public function getRequest()
+    {
+
+        return $this->request;
+    }
+
+
+    /**
      * 设置请求实例
      *
      * @param Request $request
@@ -96,14 +110,14 @@ class RestService implements Arrayable, Jsonable
 
 
     /**
-     * 获取请求实例
+     * 获取响应实例
      *
-     * @return  Request $request
+     * @return Response
      */
-    public function getRequest()
+    public function getResponse()
     {
 
-        return $this->request;
+        return $this->response;
     }
 
 
@@ -124,156 +138,19 @@ class RestService implements Arrayable, Jsonable
 
 
     /**
-     * 获取响应实例
+     * 响应一个异常
      *
-     * @return Response
-     */
-    public function getResponse()
-    {
-
-        return $this->response;
-    }
-
-
-    /**获取响应code
-     *
-     * @return int
-     */
-    public function getCode()
-    {
-
-        return $this->code;
-    }
-
-
-    /**获取响应消息
-     * @return string
-     */
-    public function getMessage()
-    {
-
-        return $this->message;
-    }
-
-
-    /**
-     * 获取响应数据
-     *
-     * @return array
-     */
-    public function getData()
-    {
-
-        return $this->data;
-    }
-
-
-    /**
-     * 设置响应code
-     *
-     * @param int $code
+     * @param \Exception $exception
+     * @param Array      $data
+     * @param string     $format
      *
      * @return $this
      */
-    public function setCode($code)
+    public function exception(\Exception $exception, $data = array(), $format = null)
     {
 
-        $this->code = $code;
+        return $this->make($data, $exception->getMessage(), $exception->getCode(), $format);
 
-        return $this;
-    }
-
-
-    /**
-     * 设置响应消息
-     *
-     * @param string $message
-     *
-     * @return $this
-     */
-    public function setMessage($message = '')
-    {
-
-        if (is_array($message)) {
-            $message = head($message);
-        }
-        $this->message = $message;
-
-        return $this;
-    }
-
-
-    /**
-     * 设置响应数据
-     *
-     * @param array $data
-     *
-     * @return $this
-     */
-    public function setData($data = array())
-    {
-
-        if ($data instanceof Arrayable) {
-            $data = $data->toArray();
-        }
-        $this->data = $data;
-
-        return $this;
-    }
-
-
-    /**
-     * 设置响应格式
-     *
-     * @param $format
-     *
-     * @return $this
-     */
-    public function setFormat($format)
-    {
-
-        $this->format = $format;
-
-        return $this;
-    }
-
-
-    /**
-     * 获取响应格式
-     * @return string
-     */
-    public function getFormat()
-    {
-
-        return $this->format;
-    }
-
-
-    /**
-     * 设置jsonp时的回调参数名
-     *
-     * @param $callback
-     *
-     * @return $this
-     */
-    public function setCallback($callback)
-    {
-
-        $this->callback = $callback;
-
-        return $this;
-    }
-
-
-    /**
-     * 从请求中获取jsonp时的回调参数值
-     *
-     * @return mixed
-     */
-    public function getCallback()
-    {
-
-        return $this->request->get($this->callback);
     }
 
 
@@ -317,19 +194,221 @@ class RestService implements Arrayable, Jsonable
 
 
     /**
-     * 响应一个异常
+     * 获取响应格式
+     * @return string
+     */
+    public function getFormat()
+    {
+
+        return $this->format;
+    }
+
+
+    /**
+     * 设置响应格式
      *
-     * @param \Exception $exception
-     * @param Array      $data
-     * @param string     $format
+     * @param $format
      *
      * @return $this
      */
-    public function exception(\Exception $exception, $data = array(), $format = null)
+    public function setFormat($format)
     {
 
-        return $this->make($data, $exception->getMessage(), $exception->getCode(), $format);
+        $this->format = $format;
 
+        return $this;
+    }
+
+
+    /**
+     * 生成响应内容格式XML
+     *
+     * @return mixed
+     */
+    public function toXML()
+    {
+
+        $data = $this->toArray();
+
+        $xml = simplexml_load_string('<rest />');
+
+        $xml->addChild('code', $data['code']);
+
+        switch (gettype($data['msg'])) {
+            case    'array' :
+            case    'object':
+                $xml->addChild('msg', head($data['msg']));
+                break;
+            default:
+                $xml->addChild('msg', $data['msg']);
+                break;
+        }
+
+        switch (gettype($data['data'])) {
+            case    'array' :
+            case    'object':
+                $xml->addChild('data', '');
+                $this->makeXML((array)$data['data'], $xml->data);
+                break;
+            default:
+                $xml->addChild('data', $data['data']);
+                break;
+        }
+
+        return $xml->saveXML();
+    }
+
+
+    /**
+     * 转换成数组
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+
+        return array(
+            'code' => $this->getCode(),
+            'msg'  => $this->getMessage(),
+            'data' => $this->getData()
+        );
+    }
+
+
+    /**获取响应code
+     *
+     * @return int
+     */
+    public function getCode()
+    {
+
+        return $this->code;
+    }
+
+
+    /**
+     * 设置响应code
+     *
+     * @param int $code
+     *
+     * @return $this
+     */
+    public function setCode($code)
+    {
+
+        $this->code = $code;
+
+        return $this;
+    }
+
+
+    /**获取响应消息
+     * @return string
+     */
+    public function getMessage()
+    {
+
+        return $this->message;
+    }
+
+
+    /**
+     * 设置响应消息
+     *
+     * @param string $message
+     *
+     * @return $this
+     */
+    public function setMessage($message = '')
+    {
+
+        if (is_array($message)) {
+            $message = head(array_flatten($message));
+        }
+        $this->message = $message;
+
+
+        return $this;
+    }
+
+
+    /**
+     * 获取响应数据
+     *
+     * @return array
+     */
+    public function getData()
+    {
+
+        return $this->data;
+    }
+
+
+    /**
+     * 设置响应数据
+     *
+     * @param array $data
+     *
+     * @return $this
+     */
+    public function setData($data = array())
+    {
+
+        if ($data instanceof Arrayable) {
+            $data = $data->toArray();
+        }
+        $this->data = $data;
+
+        return $this;
+    }
+
+
+    /**
+     * 创建XML元素
+     *
+     * @param      $data
+     * @param null $xml
+     */
+    private function makeXML($data, $xml = null)
+    {
+
+        foreach ($data as $k => $v) {
+            if (is_array($v)) {
+                $x = $xml->addChild($k);
+                $this->makeXML($v, $x);
+            } else {
+                $xml->addChild($k, $v);
+            }
+        }
+
+    }
+
+
+    /**
+     * 从请求中获取jsonp时的回调参数值
+     *
+     * @return mixed
+     */
+    public function getCallback()
+    {
+
+        return $this->request->get($this->callback);
+    }
+
+
+    /**
+     * 设置jsonp时的回调参数名
+     *
+     * @param $callback
+     *
+     * @return $this
+     */
+    public function setCallback($callback)
+    {
+
+        $this->callback = $callback;
+
+        return $this;
     }
 
 
@@ -363,20 +442,6 @@ class RestService implements Arrayable, Jsonable
 
 
     /**
-     * 获取验证器的错误消息
-     *
-     * @param Validator $validator
-     *
-     * @return array
-     */
-    protected function validatorMessage(Validator $validator)
-    {
-
-        return array_flatten($validator->errors()->getMessages());
-    }
-
-
-    /**
      * 响应一个Response实例
      *
      * @param Response $response
@@ -396,10 +461,10 @@ class RestService implements Arrayable, Jsonable
     /**
      * 响应一个模型
      *
-     * @param Model  $model
+     * @param Model         $model
      * @param string $message
      * @param int    $code
-     * @param null   $format
+     * @param null          $format
      *
      * @return Response
      */
@@ -479,7 +544,7 @@ class RestService implements Arrayable, Jsonable
     /**
      * 响应一个成功的消息
      *
-     * @param array  $data
+     * @param array $data
      * @param string $message
      * @param int    $code
      *
@@ -509,82 +574,6 @@ class RestService implements Arrayable, Jsonable
 
 
     /**
-     * 生成响应内容格式XML
-     *
-     * @return mixed
-     */
-    public function toXML()
-    {
-
-        $data = $this->toArray();
-
-        $xml = simplexml_load_string('<rest />');
-
-        $xml->addChild('code', $data['code']);
-
-        switch (gettype($data['msg'])) {
-            case    'array' :
-            case    'object':
-                $xml->addChild('msg', head($data['msg']));
-                break;
-            default:
-                $xml->addChild('msg', $data['msg']);
-                break;
-        }
-
-        switch (gettype($data['data'])) {
-            case    'array' :
-            case    'object':
-                $xml->addChild('data', '');
-                $this->makeXML((array)$data['data'], $xml->data);
-                break;
-            default:
-                $xml->addChild('data', $data['data']);
-                break;
-        }
-
-        return $xml->saveXML();
-    }
-
-
-    /**
-     * 创建XML元素
-     *
-     * @param      $data
-     * @param null $xml
-     */
-    private function makeXML($data, $xml = null)
-    {
-
-        foreach ($data as $k => $v) {
-            if (is_array($v)) {
-                $x = $xml->addChild($k);
-                $this->makeXML($v, $x);
-            } else {
-                $xml->addChild($k, $v);
-            }
-        }
-
-    }
-
-
-    /**
-     * 转换成数组
-     *
-     * @return array
-     */
-    public function toArray()
-    {
-
-        return array(
-            'code' => $this->getCode(),
-            'msg'  => $this->getMessage(),
-            'data' => $this->getData()
-        );
-    }
-
-
-    /**
      * 转换成json格式
      *
      * @param int $options
@@ -595,5 +584,19 @@ class RestService implements Arrayable, Jsonable
     {
 
         return json_decode($this->toArray(), $options);
+    }
+
+
+    /**
+     * 获取验证器的错误消息
+     *
+     * @param Validator $validator
+     *
+     * @return array
+     */
+    protected function validatorMessage(Validator $validator)
+    {
+
+        return array_flatten($validator->errors()->getMessages());
     }
 }

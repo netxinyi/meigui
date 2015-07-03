@@ -1,7 +1,8 @@
 <?php
 /**
- * @author vision.shi@yunzhihui.com
- * Date: 2015-07-01 17:17
+ * @author 迁迁
+ * @E-Mail 521287718@qq.com
+ * Date: 2015-07-02 00:27
  */
 
 namespace App\Providers\Rest;
@@ -28,7 +29,7 @@ trait RestServiceTrait
     {
 
         if (is_null($this->restService)) {
-            $this->restService = App::make('rest');
+            $this->restService = app('App\Providers\Rest\RestService');
         }
 
         return $this->restService;

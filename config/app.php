@@ -139,6 +139,8 @@ return [
         /*
          * 应用的服务提供者
          */
+        #App启动服务
+        \App\Providers\AppServiceProvider::class,
         #路由服务
         App\Providers\RouteServiceProvider::class,
         #REST服务

@@ -1,7 +1,8 @@
 <?php
 /**
- * @author vision.shi@yunzhihui.com
- * Date: 2015-06-24 15:04
+ * @author 迁迁
+ * @E-Mail 521287718@qq.com
+ * Date: 2015-07-02 00:27
  */
 
 namespace App\Providers\Rest;
@@ -10,234 +11,293 @@ class RestClient
 {
 
 
-	private $curl;
+    protected $url;
 
-	protected $url;
+    protected $data;
 
-	protected $data;
+    protected $method;
 
-	protected $method;
+    private   $curl;
 
-	private $_cookies = array();
-	private $_headers = array();
+    private   $_cookies = array();
 
-
-	private $response;
-
-	private $error_no = 0;
-
-	private $error_message;
-
-	private $http_status_code;
-
-	private $http_error;
+    private   $_headers = array();
 
 
-	public function __construct(){
+    private $response;
 
-		if (!extension_loaded('curl')) {
-			throw new \ErrorException('cURL library is not loaded');
-		}
+    private $error_no = 0;
 
-		$this->init();
-	}
+    private $error_message;
 
-	public function __destruct(){
-		$this->close();
-	}
+    private $http_status_code;
 
-	public function init(){
-		$this->curl = curl_init();
-		return $this;
-	}
-
-	public function close(){
-		if (is_resource($this->curl)) {
-			curl_close($this->curl);
-		}
-	}
-
-	public function getCurl(){
-		return $this->curl;
-	}
-
-	public function setUrl($url){
-		$this->url = $url;
-		return $this;
-	}
-
-	public function setData($data = array()){
-		$this->data = $data;
-		return $this;
-	}
-
-	public function setCookie($name, $value =''){
-		if(is_array($name)){
-			foreach($name as $key=>$val){
-				$this->_cookies[$key] = $val;
-			}
-		}else{
-			$this->_cookies[$name] = $value;
-		}
-		return $this;
-
-	}
-
-	public function setHeader($name, $value='')
-	{
-		if(is_array($name)){
-			foreach($name as $key=>$val){
-				$this->_headers[] =$key.': '. $val;
-			}
-		}else{
-			$this->_headers[] = $name.': '.$value;
-		}
-		return $this;
-	}
+    private $http_error;
 
 
-	public function setMethod($method){
-		$this->method = strtoupper($method);
-		return $this;
-	}
-	public function setOpt($option, $value){
-		
-		curl_setOpt($this->curl, $option, $value);
+    public function __construct()
+    {
 
-		return $this;
-	}
+        if (!extension_loaded('curl')) {
+            throw new \ErrorException('cURL library is not loaded');
+        }
 
-	public function setOptArray(array $options){
-		curl_setopt_array($this->curl,$options);
-		return $this;
-	}
+        $this->init();
+    }
 
-	public function  make($method,$url,$data = array(),$headers = array()){
 
-		$this->setMethod($method)
-			->setData($data)
-			->setUrl($url)
-			->setHeader($headers);
+    public function init()
+    {
 
-		return $this->exec();
-	}
+        $this->curl = curl_init();
+        return $this;
+    }
 
-	protected function exec(){
 
-		switch($this->method){
-			case 'GET' :
-				$this->setopt(CURLOPT_HTTPGET, true);
-				break;
-			case 'POST' :
-				$this->setOptArray(array(
-					CURLOPT_POST	=>	true,
-					CURLOPT_POSTFIELDS => is_array($this->data) ? http_build_query($this->data) :$this->data
-				));
-				break;
-			case 'PATCH' :
-				$this->setOptArray(array(
-					CURLOPT_CUSTOMREQUEST	=>	'PATCH',
-					CURLOPT_POSTFIELDS => is_array($this->data) ? http_build_query($this->data) :$this->data
-				));
-				break;
+    public function __destruct()
+    {
+
+        $this->close();
+    }
+
+
+    public function close()
+    {
+
+        if (is_resource($this->curl)) {
+            curl_close($this->curl);
+        }
+    }
+
+
+    public function getCurl()
+    {
+
+        return $this->curl;
+    }
+
+
+    public function setCookie($name, $value = '')
+    {
+
+        if (is_array($name)) {
+            foreach ($name as $key => $val) {
+                $this->_cookies[$key] = $val;
+            }
+        } else {
+            $this->_cookies[$name] = $value;
+        }
+        return $this;
+
+    }
+
+
+    public function get($url, $data = array(), $headers = array())
+    {
+
+        if ($data && is_array($data)) {
+            $url = str_finish($url, '?').http_build_query($data);
+        }
+
+        return $this->make('GET', $url, array(), $headers);
+
+    }
+
+
+    public function  make($method, $url, $data = array(), $headers = array())
+    {
+
+        $this->setMethod($method)->setData($data)->setUrl($url)->setHeader($headers);
+
+        return $this->exec();
+    }
+
+
+    public function setHeader($name, $value = '')
+    {
+
+        if (is_array($name)) {
+            foreach ($name as $key => $val) {
+                $this->_headers[] = $key.': '.$val;
+            }
+        } else {
+            $this->_headers[] = $name.': '.$value;
+        }
+        return $this;
+    }
+
+
+    public function setUrl($url)
+    {
+
+        $this->url = $url;
+        return $this;
+    }
+
+
+    public function setData($data = array())
+    {
+
+        $this->data = $data;
+        return $this;
+    }
+
+
+    public function setMethod($method)
+    {
+
+        $this->method = strtoupper($method);
+        return $this;
+    }
+
+
+    protected function exec()
+    {
+
+        switch ($this->method) {
+            case 'GET' :
+                $this->setopt(CURLOPT_HTTPGET, true);
+                break;
+            case 'POST' :
+                $this->setOptArray(array(
+                    CURLOPT_POST       => true,
+                    CURLOPT_POSTFIELDS => is_array($this->data) ? http_build_query($this->data) : $this->data
+                ));
+                break;
+            case 'PATCH' :
+                $this->setOptArray(array(
+                    CURLOPT_CUSTOMREQUEST => 'PATCH',
+                    CURLOPT_POSTFIELDS    => is_array($this->data) ? http_build_query($this->data) : $this->data
+                ));
+                break;
             case 'PUT':
                 $this->setOptArray(array(
-                    CURLOPT_CUSTOMREQUEST	 =>	'PUT',
-                    CURLOPT_POSTFIELDS => is_array($this->data) ? http_build_query($this->data) :$this->data
+                    CURLOPT_CUSTOMREQUEST => 'PUT',
+                    CURLOPT_POSTFIELDS    => is_array($this->data) ? http_build_query($this->data) : $this->data
                 ));
                 break;
             case 'DELETE':
                 $this->setOptArray(array(
-                    CURLOPT_CUSTOMREQUEST	 =>	'DELETE',
-                    CURLOPT_POSTFIELDS => is_array($this->data) ? http_build_query($this->data) :$this->data
+                    CURLOPT_CUSTOMREQUEST => 'DELETE',
+                    CURLOPT_POSTFIELDS    => is_array($this->data) ? http_build_query($this->data) : $this->data
                 ));
                 break;
-			default:
-				$this->setOpt(CURLOPT_CUSTOMREQUEST, $this->method);
-				break;
-		}
+            default:
+                $this->setOpt(CURLOPT_CUSTOMREQUEST, $this->method);
+                break;
+        }
 
-		$this->setOpt(CURLOPT_URL,$this->url);
-		$this->setOpt(CURLOPT_HTTPHEADER,$this->_headers);
-		$this->setOpt(CURLOPT_RETURNTRANSFER,true);
-		$this->response = curl_exec($this->curl);
+        $this->setOpt(CURLOPT_URL, $this->url);
+        $this->setOpt(CURLOPT_HTTPHEADER, $this->_headers);
+        $this->setOpt(CURLOPT_RETURNTRANSFER, true);
+        $this->response = curl_exec($this->curl);
 
-		$this->error_no = curl_errno($this->curl);
-		$this->error_message = curl_error($this->curl);
+        $this->error_no      = curl_errno($this->curl);
+        $this->error_message = curl_error($this->curl);
 
-		$this->http_status_code = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
-		$this->http_error = in_array(floor($this->http_status_code / 100), array(4, 5));
+        $this->http_status_code = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
+        $this->http_error       = in_array(floor($this->http_status_code / 100), array(4, 5));
 
-		$this->close();
-		return $this;
-	}
-
-	public function get($url, $data = array(),$headers = array())
-	{
-		if($data && is_array($data) ){
-			$url = str_finish($url , '?') . http_build_query($data);
-		}
-
-		return $this->make('GET',$url,array(),$headers);
-
-	}
-
-	public function post($url, $data = array(),$headers = array())
-	{
-
-		return $this->make('POST',$url,$data,$headers);
-
-	}
-
-	public function put($url, $data = array(),$headers = array())
-	{
-		if($data && is_array($data) ){
-			$url = str_finish($url , '?') . http_build_query($data);
-		}
-
-		return $this->make('PUT',$url,array(),$headers);
+        $this->close();
+        return $this;
+    }
 
 
-	}
+    public function setOpt($option, $value)
+    {
 
-	public function patch($url, $data = array(),$headers =array())
-	{
-		return $this->make('PATCH',$url,$data,$headers);
-	}
+        curl_setOpt($this->curl, $option, $value);
 
-
-	public function delete($url, $data = array(),$headers =array())
-	{
-		if($data && is_array($data) ){
-			$url = str_finish($url , '?') . http_build_query($data);
-		}
-
-		return $this->make('DELETE',$url,array(),$headers);
-	}
+        return $this;
+    }
 
 
-	public function isError(){
-		return $this->error_no !== 0;
-	}
+    public function setOptArray(array $options)
+    {
 
-	public function getErrorMessage(){
-		return $this->error_message;
-	}
+        curl_setopt_array($this->curl, $options);
+        return $this;
+    }
 
-	public function getHttpError(){
-		return $this->http_error;
-	}
 
-	public function getStatus(){
-		return $this->http_status_code;
-	}
+    public function post($url, $data = array(), $headers = array())
+    {
 
-	public function getResponse(){
-		return $this->response;
-	}
-	public function __toString(){
+        return $this->make('POST', $url, $data, $headers);
 
-		return $this->getResponse();
-	}
+    }
+
+
+    public function put($url, $data = array(), $headers = array())
+    {
+
+        if ($data && is_array($data)) {
+            $url = str_finish($url, '?').http_build_query($data);
+        }
+
+        return $this->make('PUT', $url, array(), $headers);
+
+
+    }
+
+
+    public function patch($url, $data = array(), $headers = array())
+    {
+
+        return $this->make('PATCH', $url, $data, $headers);
+    }
+
+
+    public function delete($url, $data = array(), $headers = array())
+    {
+
+        if ($data && is_array($data)) {
+            $url = str_finish($url, '?').http_build_query($data);
+        }
+
+        return $this->make('DELETE', $url, array(), $headers);
+    }
+
+
+    public function isError()
+    {
+
+        return $this->error_no !== 0;
+    }
+
+
+    public function getErrorMessage()
+    {
+
+        return $this->error_message;
+    }
+
+
+    public function getHttpError()
+    {
+
+        return $this->http_error;
+    }
+
+
+    public function getStatus()
+    {
+
+        return $this->http_status_code;
+    }
+
+
+    public function __toString()
+    {
+
+        return $this->getResponse();
+    }
+
+
+    public function getResponse()
+    {
+
+        return $this->response;
+    }
 
 }

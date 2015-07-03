@@ -23,8 +23,18 @@ Route::get('/', function (){
 |--------------------------------------------------------------------------
 |
 */
+#Auth登录注册-密码找回-控制器路由
 Route::controllers([
 
     'auth'     => 'Auth\AuthController',
     'password' => 'Auth\PasswordController'
 ]);
+
+/*
+|--------------------------------------------------------------------------
+| 后台管理
+|--------------------------------------------------------------------------
+*/
+#Option管理-资源路由
+Route::resource('admin/option', 'Admin\OptionController');
+Route::controller('admin/auth', 'Admin\AuthController');

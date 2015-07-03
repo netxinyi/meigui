@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author 迁迁
+ * @E-Mail 521287718@qq.com
+ * Date: 2015-07-02 00:27
+ */
 
 namespace App\Providers;
 
@@ -26,7 +31,6 @@ class RestServiceProvider extends ServiceProvider
     {
 
 
-
         $this->app->singleton('rest', RestService::class);
 
         $this->app->singleton('rest.client', RestClient::class);
@@ -35,6 +39,7 @@ class RestServiceProvider extends ServiceProvider
 
     public function providers()
     {
+
         return array('rest', 'rest.client');
     }
 
