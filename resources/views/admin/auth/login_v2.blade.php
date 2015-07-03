@@ -75,11 +75,9 @@
 @section('footer-last-js')
     <!-- ================== BEGIN PAGE LEVEL JS ================== -->
     <script src="/assets/admin/js/login-v2.demo.min.js"></script>
-    <script src="/assets/admin/js/apps.min.js"></script>
     <!-- ================== END PAGE LEVEL JS ================== -->
     <script>
         $(document).ready(function () {
-            App.init();
             LoginV2.init();
         });
     </script>

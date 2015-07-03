@@ -34,7 +34,13 @@
     <![endif]-->
     <script src="/assets/lib/slimscroll/jquery.slimscroll.min.js"></script>
     <script src="/assets/lib/jquery-cookie/jquery.cookie.js"></script>
+    <script src="/assets/admin/js/apps.min.js"></script>
     <!-- ================== END BASE JS ================== -->
+    <script>
+        $(document).ready(function () {
+            App.init();
+        });
+    </script>
 @stop
 
 @section('head')
