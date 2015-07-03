@@ -16,6 +16,8 @@ class Option extends BaseModel
 
     protected $primaryKey = 'id';
 
+    protected $fillable = ['title', 'code', 'desc', 'type', 'values', 'value', 'autoload'];
+
 
     public function scopeKey($query, $key)
     {

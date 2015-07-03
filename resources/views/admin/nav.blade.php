@@ -37,19 +37,19 @@
                     <span>网站设置</span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="active"><a href="{{url('admin/option')}}">基本设置</a></li>
+                    <li><a href="{{url('admin/option')}}">基本设置</a></li>
                     <li><a href="{{url('admin/option/add')}}">添加设置项</a></li>
                 </ul>
             </li>
             <li class="has-sub">
                 <a href="javascript:;">
                     <b class="caret pull-right"></b>
-                    <i class="fa fa-fa-user"></i>
+                    <i class="fa fa-user"></i>
                     <span>会员管理</span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="active"><a href="">会员列表</a></li>
-                    <li class="active"><a href="">高级搜索</a></li>
+                    <li><a href="">会员列表</a></li>
+                    <li><a href="">高级搜索</a></li>
                     <li><a href="">添加会员</a></li>
                 </ul>
             </li>
