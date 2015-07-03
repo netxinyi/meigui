@@ -3,14 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta content="战狼技术团队" name="author"/>
     @yield('meta')
     <title>
-        @yield('title','Cloudwise Big Data') -
-        {{Config::get('site.sitename')}}
+        @yield('title','Cloudwise Big Data')
     </title>
-
     <link rel="shortcut icon" href="/favicon.ico">
     @yield('first-css')
     @yield('global-css')
@@ -21,7 +19,7 @@
     @yield('header')
 </head>
 
-<body @yield('body-attr')>
+<body @yield('body-attr') class="@yield('body-class')">
 @yield('head')
 @yield('body')
 @yield('foot')

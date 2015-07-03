@@ -1,39 +1,47 @@
 @extends('layouts.layout')
 @section('global-css')
 
-    <!-- Bootstrap Style -->
-    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
-    <!-- Main Style -->
-    <link rel="stylesheet" href="/css/admin/main.css">
+    <!-- ================== BEGIN BASE CSS STYLE ================== -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <link href="/assets/lib/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet"/>
+    <link href="/assets/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/assets/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="/assets/admin/css/animate.min.css" rel="stylesheet"/>
+    <link href="/assets/admin/css/style.min.css" rel="stylesheet"/>
+    <link href="/assets/admin/css/style-responsive.min.css" rel="stylesheet"/>
+    <link href="/assets/admin/css/theme/default.css" rel="stylesheet" id="theme"/>
+    <!-- ================== END BASE CSS STYLE ================== -->
+
 @stop
 
 @section('header-global-js')
-    <!--[if lt IE 9]>
-    <script type="text/javascript" src="/lib/html5shiv/html5shiv.min.js"></script>
-    <![endif]-->
-    <!--[if lt IE 8]>
-    <script type="text/javascript">
-        window.onload = function () {
-            document.getElementsByTagName('body')[0].innerHTML = '<div class="alert alert-danger">您的浏览器版本太低了，赶紧升级吧，亲！！！！</div>';
-        }
-    </script>
-    <![endif]-->
+    <!-- ================== BEGIN BASE JS ================== -->
+    <script src="/assets/lib/pace/pace.min.js"></script>
+    <!-- ================== END BASE JS ================== -->
 
 @stop
 
 @section('footer-global-js')
-    <script src="/lib/jquery/jquery-1.11.3.min.js" type="text/javascript"></script>
-    <script src="/lib/bootstrap/js/bootstrap.js" type="text/javascript "></script>
-    <script src="/js/common/common.js" type="text/javascript "></script>
+    <!-- ================== BEGIN BASE JS ================== -->
+    <script src="/assets/lib/jquery/jquery-1.9.1.min.js"></script>
+    <script src="/assets/lib/jquery/jquery-migrate-1.1.0.min.js"></script>
+    <script src="/assets/lib/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+    <script src="/assets/lib/bootstrap/js/bootstrap.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="/assets/admin/crossbrowserjs/html5shiv.js"></script>
+    <script src="/assets/admin/crossbrowserjs/respond.min.js"></script>
+    <script src="/assets/admin/crossbrowserjs/excanvas.min.js"></script>
+    <![endif]-->
+    <script src="/assets/lib/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="/assets/lib/jquery-cookie/jquery.cookie.js"></script>
+    <!-- ================== END BASE JS ================== -->
 @stop
 
-@section('foot')
-    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content"></div>
-        </div>
-    </div>
-@endsection
 @section('head')
-    @include('admin.nav')
+    <!-- begin #page-loader -->
+    <div id="page-loader" class="fade in"><span class="spinner"></span></div>
+    <!-- end #page-loader -->
 @stop
+
+@section('body-class')pace-top @stop
+
