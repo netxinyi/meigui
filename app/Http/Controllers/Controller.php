@@ -16,6 +16,10 @@ abstract class Controller extends BaseController
 
     use  RestServiceTrait;
 
+    /**
+     * 模板所在目录
+     * @var string
+     */
     protected $viewPrefix;
 
 
@@ -32,7 +36,7 @@ abstract class Controller extends BaseController
     {
 
         if (!is_null($view)) {
-            //添加view前缀
+            //添加view目录前缀
             $view = str_finish($this->viewPrefix, '.').$view;
         }
 
@@ -56,14 +60,18 @@ abstract class Controller extends BaseController
             $customAttributes);
 
         if ($validator->fails()) {
-            throw new HttpResponseException($this->error($validator->errors()->getMessages()));
 
+            throw new HttpResponseException($this->error($validator->errors()->getMessages()));
         }
 
         return $validator;
     }
 
 
+    /**
+     * 获取request实例
+     * @return Request
+     */
     protected function request()
     {
 
@@ -76,7 +84,7 @@ abstract class Controller extends BaseController
      *
      * @param string $message
      * @param int    $code
-     * @param null   $redirect
+     * @param string|RedirectResponse $redirect
      * @param array  $data
      *
      * @return $this|\App\Http\Controllers\Controller|\Illuminate\Contracts\Routing\ResponseFactory
@@ -93,7 +101,7 @@ abstract class Controller extends BaseController
      *
      * @param string $message
      * @param array  $data
-     * @param null   $redirect
+     * @param string|RedirectResponse $redirect
      * @param int    $code
      *
      * @return $this|\Illuminate\Contracts\Routing\ResponseFactory
@@ -130,4 +138,5 @@ abstract class Controller extends BaseController
 
         return redirect($to, $status, $headers, $secure);
     }
+
 }
