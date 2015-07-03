@@ -10,7 +10,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Guard as Auth;
 use App\Providers\Auth\AdminAuthUserProvider;
-use App\Model\Admin;
 use App\Enum\Admin as AdminEnum;
 
 
@@ -18,8 +17,16 @@ class AuthController extends Controller
 {
 
 
+    /**
+     * 模板所在目录
+     * @var string
+     */
     protected $viewPrefix = 'admin.auth';
 
+    /**
+     * Auth支持
+     * @var \Illuminate\Auth\Guard
+     */
     private $auth;
 
 
@@ -33,22 +40,12 @@ class AuthController extends Controller
 
 
     /**
-     * 跳转到登录页
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function getIndex()
-    {
-
-
-    }
-
-
-    /**
      * 显示登录页面
      * @return \Illuminate\View\View
      */
     public function getLogin()
     {
+
         return $this->view(config('admin.login_tpl', 'login_v2'));
     }
 
@@ -77,14 +74,19 @@ class AuthController extends Controller
             return $this->success('登录成功', array(), $this->redirect()->intended('/admin'));
 
         }
-        //TODO 异常代码
+        //TODO 抛出异常代码
         return $this->error('用户不存在');
     }
 
 
+    /**
+     * 执行退出登录操作
+     */
     public function getLogOut()
     {
 
         $this->auth->logout();
+
+        return $this->redirect('/auth/admin/login');
     }
 }

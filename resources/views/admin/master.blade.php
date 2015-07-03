@@ -52,10 +52,11 @@
 @section('body')
     <!-- begin #page-container -->
     <div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
-
+        @include('admin.header')
+        @include('admin.nav')
         <!-- begin #content -->
         <div id="content" class="content">
-            @yeild('content')
+            @yield('content')
         </div>
         <!-- end #content -->
     </div>
