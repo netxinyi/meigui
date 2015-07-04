@@ -57,7 +57,7 @@
 
 @section('body')
     <!-- begin #page-container -->
-    <div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
+    <div id="page-container" class="fade">
         @include('admin.header')
         @include('admin.nav')
         <!-- begin #content -->
@@ -65,8 +65,20 @@
             @yield('content')
         </div>
         <!-- end #content -->
+
+        <div class="footer">
+            <p class="text-center text-inverse">
+                © Color Admin All Right Reserved 2015
+            </p>
+        </div>
+
     </div>
 @stop
+
+@section('foot')
+
+
+@endsection
 
 @section('body-class')pace-top @stop
 
