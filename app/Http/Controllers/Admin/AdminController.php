@@ -25,7 +25,9 @@ class AdminController extends Controller
     public function index()
     {
 
-        return $this->view('index');
+        $admins = Admin::all();
+
+        return $this->view('index')->with('admins', $admins);
     }
 
 
@@ -109,5 +111,16 @@ class AdminController extends Controller
 
         return $this->error('添加管理员失败');
 
+    }
+
+
+    public function destroy(Admin $admin)
+    {
+
+        if ($admin->delete()) {
+            return $this->success('删除成功');
+        }
+
+        return $this->error('删除失败');
     }
 }

@@ -23,8 +23,9 @@ class Admin extends BaseModel implements AuthenticatableContract
 
     protected $fillable = ['admin_name', 'admin_role', 'email', 'admin_pass', 'admin_status', 'admin_role'];
 
-    protected $hidden = ['admin_pass'];
-    protected $appends = [
+    protected $hidden   = ['admin_pass'];
+
+    protected $appends  = [
         'is_admin' => true
     ];
 
@@ -36,6 +37,7 @@ class Admin extends BaseModel implements AuthenticatableContract
      */
     public function getAuthPassword()
     {
+
         return $this->admin_pass;
     }
 

@@ -39,8 +39,6 @@ class CreateAdminsTable extends Migration
             ])->default(AdminEnum::ROLE_ADMIN);
             $table->rememberToken();
             $table->timestamps();
-            $table->softDeletes();
-
             $table->unique(['admin_name', 'email']);
         });
 

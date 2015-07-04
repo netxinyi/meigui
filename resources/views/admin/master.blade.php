@@ -2,6 +2,9 @@
 @section('title')
     后台管理中心
 @stop
+@section('meta')
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
+@stop
 @section('global-css')
 
     <!-- ================== BEGIN BASE CSS STYLE ================== -->
