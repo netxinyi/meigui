@@ -25,12 +25,13 @@
                 <a href="javascript:;">
                     <b class="caret pull-right"></b>
                     <i class="fa fa-bookmark"></i>
-                    <span>栏目管理</span>
+                    <span>文章管理</span>
                 </a>
                 <ul class="sub-menu">
-                    <li><a href="">栏目列表</a></li>
-                    <li><a href="">发布栏目</a></li>
-                    <li><a href="">发表文章</a></li>
+                    <li><a href="{{route('admin.article.index')}}">文章列表</a></li>
+                    <li><a href="{{route('admin.article.create')}}">发表文章</a></li>
+                    <li><a href="{{route('admin.column.index')}}">栏目管理</a></li>
+                    <li><a href="{{route('admin.column.create')}}">发布栏目</a></li>
                 </ul>
             </li>
             <li class="has-sub">
