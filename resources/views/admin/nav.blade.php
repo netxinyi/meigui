@@ -21,19 +21,18 @@
                     <span>网站设置</span>
                 </a>
             </li>
-            @if(Auth::check() && Auth::user()->admin_role == App\Enum\Admin::ROLE_SUPERADMIN)
             <li class="has-sub">
                 <a href="javascript:;">
                     <b class="caret pull-right"></b>
-                    <i class="fa fa-user"></i>
-                    <span>管理员管理</span>
+                    <i class="fa fa-bookmark"></i>
+                    <span>栏目管理</span>
                 </a>
                 <ul class="sub-menu">
-                    <li><a href="{{route('admin.admins.index')}}">管理员列表</a></li>
-                    <li><a href="{{route('admin.admins.create')}}">添加管理员</a></li>
+                    <li><a href="">栏目列表</a></li>
+                    <li><a href="">发布栏目</a></li>
+                    <li><a href="">发表文章</a></li>
                 </ul>
             </li>
-            @endif
             <li class="has-sub">
                 <a href="javascript:;">
                     <b class="caret pull-right"></b>
@@ -46,6 +45,19 @@
                     <li><a href="">添加会员</a></li>
                 </ul>
             </li>
+            @if(Auth::check() && Auth::user()->admin_role == App\Enum\Admin::ROLE_SUPERADMIN)
+                <li class="has-sub">
+                    <a href="javascript:;">
+                        <b class="caret pull-right"></b>
+                        <i class="fa fa-user"></i>
+                        <span>管理员管理</span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li><a href="{{route('admin.admins.index')}}">管理员列表</a></li>
+                        <li><a href="{{route('admin.admins.create')}}">添加管理员</a></li>
+                    </ul>
+                </li>
+            @endif
         </ul>
         <!-- end sidebar nav -->
     </div>
