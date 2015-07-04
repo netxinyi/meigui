@@ -21,10 +21,23 @@
                     <span>网站设置</span>
                 </a>
             </li>
+            @if(Auth::check() && Auth::user()->admin_role == App\Enum\Admin::ROLE_SUPERADMIN)
             <li class="has-sub">
                 <a href="javascript:;">
                     <b class="caret pull-right"></b>
                     <i class="fa fa-user"></i>
+                    <span>管理员管理</span>
+                </a>
+                <ul class="sub-menu">
+                    <li><a href="{{route('admin.admins.index')}}">管理员列表</a></li>
+                    <li><a href="{{route('admin.admins.create')}}">添加管理员</a></li>
+                </ul>
+            </li>
+            @endif
+            <li class="has-sub">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-users"></i>
                     <span>会员管理</span>
                 </a>
                 <ul class="sub-menu">

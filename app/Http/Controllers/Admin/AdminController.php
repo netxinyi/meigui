@@ -18,6 +18,10 @@ class AdminController extends Controller
     protected $viewPrefix = 'admin.admin';
 
 
+    /**
+     * 显示管理员列表界面
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
 
@@ -25,6 +29,13 @@ class AdminController extends Controller
     }
 
 
+    /**
+     * 显示编辑管理员界面
+     *
+     * @param \App\Model\Admin $admin
+     *
+     * @return $this
+     */
     public function edit(Admin $admin)
     {
 
@@ -32,6 +43,12 @@ class AdminController extends Controller
     }
 
 
+    /**
+     * 执行更新管理员操作
+     * @param \App\Model\Admin $admin
+     *
+     * @return $this|\App\Http\Controllers\Controller|\Illuminate\Contracts\Routing\ResponseFactory
+     */
     public function update(Admin $admin)
     {
 
@@ -56,6 +73,41 @@ class AdminController extends Controller
         }
 
         return $this->error('修改失败，请稍后再试');
+
+    }
+
+
+    /**
+     * 显示添加管理员界面
+     * @return \Illuminate\View\View
+     */
+    public function create()
+    {
+
+        return $this->view('create');
+    }
+
+
+    public function store()
+    {
+
+        //验证表单
+        $this->validate([
+            'admin_name'         => 'required|min:5|max:15|unique:admins',
+            'email'              => 'required|email|unique:admins',
+            'admin_status'       => 'required|in:' . implode(',', array_keys(AdminEnum::$statusForm)),
+            'admin_role'         => 'required|in:' . implode(',', array_keys(AdminEnum::$rolesForm)),
+            'admin_pass'         => 'required|min:5|max:20',
+            'admin_pass_confirm' => 'required|required_with:admin_pass|same:admin_pass'
+        ]);
+
+        $form = $this->request()->only(['admin_name', 'admin_role', 'email', 'admin_status', 'admin_pass']);
+
+        if ($admin = Admin::create($form)) {
+            return $this->success('添加管理员成功', $admin);
+        }
+
+        return $this->error('添加管理员失败');
 
     }
 }
