@@ -30,7 +30,6 @@ class CreateAdminsTable extends Migration
             $table->enum('admin_status', [
                 AdminEnum::STATUS_NORMAL,
                 AdminEnum::STATUS_STOP,
-                AdminEnum::STATUS_DELETE
             ])->default(AdminEnum::STATUS_NORMAL)->comment('管理员状态');
             $table->string('email', 100)->comment('管理员邮箱');
             $table->enum('admin_role', [

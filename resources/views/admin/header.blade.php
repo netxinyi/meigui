@@ -28,7 +28,8 @@
                 </a>
                 <ul class="dropdown-menu animated fadeInLeft">
                     <li class="arrow"></li>
-                    <li><a href="{{url('admin/my',array('admin_id' => Auth::user()->admin_id))}}">个人信息</a></li>
+                    <li><a href="{{route('admin.admins.edit',array('admin_id' => Auth::user()->admin_id))}}">个人信息</a>
+                    </li>
                     <li class="divider"></li>
                     <li><a href="{{url('admin/auth/logout')}}">退出登录</a></li>
                 </ul>

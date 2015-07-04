@@ -15,13 +15,20 @@ class Admin
 
     const STATUS_STOP   = 2;
 
-    const STATUS_DELETE = 3;
-
 
     const ROLE_SUPERADMIN = 1;
 
-    const ROLE_POSTER     = 2;
+    const ROLE_ADMIN = 2;
 
-    const ROLE_ADMIN      = 3;
+
+    public static $statusForm = [
+        self::STATUS_NORMAL => '正常',
+        self::STATUS_STOP   => '已禁用'
+    ];
+
+    public static $rolesForm  = [
+        self::ROLE_SUPERADMIN => '超级管理员',
+        self::ROLE_ADMIN      => '普通管理员'
+    ];
 
 }

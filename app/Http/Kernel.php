@@ -13,6 +13,7 @@ use App\Http\Middleware\Authenticate;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\AuthAdmin;
+use App\Http\Middleware\SuperAdmin;
 
 class Kernel extends HttpKernel
 {
@@ -42,7 +43,8 @@ class Kernel extends HttpKernel
         'auth'       => Authenticate::class,
         'auth.basic' => AuthenticateWithBasicAuth::class,
         'guest'      => RedirectIfAuthenticated::class,
-        'auth.admin' => AuthAdmin::class
+        'auth.admin'       => AuthAdmin::class,
+        'auth.admin.super' => SuperAdmin::class
     ];
 
 }

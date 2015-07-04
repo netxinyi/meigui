@@ -1,5 +1,9 @@
 <?php
 
+Route::bind('admins', function ($admin_id){
+
+    return App\Model\Admin::find($admin_id);
+});
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -47,7 +51,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function (){
     #Option管理-资源路由
     Route::resource('option', 'Admin\OptionController');
     #管理员管理
-    Route::resource('admins', 'Admin\AdminController');
+    Route::resource('admins', 'Admin\AdminController', ['middleware' => 'auth.admin.super']);
 
 
 });
