@@ -7,11 +7,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-#继承Controller
+
 use App\Http\Controllers\Controller;
 #Option模型
 use App\Model\Option;
-use App\Enum\Option as OptionEnum;
+
 
 class OptionController extends Controller
 {
@@ -46,13 +46,10 @@ class OptionController extends Controller
     }
 
 
-    public function create()
-    {
-
-        return $this->view('create');
-    }
-
-
+    /**
+     * 保存网站设置
+     * @return $this|\App\Http\Controllers\Controller|\Illuminate\Contracts\Routing\ResponseFactory
+     */
     public function store()
     {
 

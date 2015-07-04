@@ -87,6 +87,6 @@ class AuthController extends Controller
 
         $this->auth->logout();
 
-        return $this->redirect('/auth/admin/login');
+        return $this->redirect('/admin/auth/login');
     }
 }

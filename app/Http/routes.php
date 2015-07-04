@@ -46,6 +46,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function (){
     });
     #Option管理-资源路由
     Route::resource('option', 'Admin\OptionController');
+    #管理员管理
+    Route::resource('admins', 'Admin\AdminController');
+
+
 });
 
 

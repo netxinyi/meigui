@@ -1,4 +1,7 @@
 @extends('layouts.layout')
+@section('title')
+    后台管理中心
+@stop
 @section('global-css')
 
     <!-- ================== BEGIN BASE CSS STYLE ================== -->

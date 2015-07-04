@@ -43,3 +43,12 @@ if (!function_exists('rollback')) {
         return DB::rollback();
     }
 }
+
+if (!function_exists('option')) {
+
+    function option($key, $default = '')
+    {
+
+        return config('app.' . $key, $default);
+    }
+}

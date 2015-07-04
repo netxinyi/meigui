@@ -1,5 +1,9 @@
 @extends('admin.master')
 
+@section('title')
+    网站设置 - 后台管理中心
+@stop
+
 @section('content')
     <!-- begin breadcrumb -->
     <ol class="breadcrumb pull-right">
