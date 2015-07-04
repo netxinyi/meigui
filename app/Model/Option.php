@@ -16,7 +16,7 @@ class Option extends BaseModel
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['title', 'code', 'desc', 'type', 'values', 'value', 'autoload'];
+    protected $fillable = ['key', 'value'];
 
     public $timestamps = false;
 

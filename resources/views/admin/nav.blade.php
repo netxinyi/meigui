@@ -2,21 +2,6 @@
 <div id="sidebar" class="sidebar">
     <!-- begin sidebar scrollbar -->
     <div data-scrollbar="true" data-height="100%">
-        <!-- begin sidebar user -->
-        <ul class="nav">
-            <li class="nav-profile">
-                <div class="image">
-                    <a href="javascript:;"><img src="/assets/admin/img/user-13.jpg" alt=""/></a>
-                </div>
-                <div class="info">
-                    @if(Auth::check())
-                    {{Auth::user()->admin_name}}
-                    <small>{{Auth::user()->email}}</small>
-                    @endif
-                </div>
-            </li>
-        </ul>
-        <!-- end sidebar user -->
         <!-- begin sidebar nav -->
         <ul class="nav">
             <!-- begin sidebar minify button -->

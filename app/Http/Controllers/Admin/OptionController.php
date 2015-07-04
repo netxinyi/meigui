@@ -32,7 +32,13 @@ class OptionController extends Controller
     {
 
         //查询所有Options
-        $options = Option::all();
+        $options = [];
+
+
+        Option::all(['key', 'value'])->each(function ($option) use (&$options){
+
+            $options[$option->key] = $option->value;
+        });
 
         //响应一个模板
         return $this->view('index', ['options' => $options]);
@@ -51,33 +57,33 @@ class OptionController extends Controller
     {
 
         $this->validate([
-            'title' => 'required|max:100',
-            'code'  => 'required|max:50|alpha|unique:options',
-            'desc'  => 'max:255',
-            'type'  => 'required|in:' . implode(',', OptionEnum::$inputTypes),
-            'value' => 'max:255'
+            'site_name' => 'required|max:255',
+            'site_url'  => 'url',
+
         ], [
-            'title.required' => '请填写标题',
-            'title.max'      => '标题最长不能超过100个字符',
-            'code.required'  => '请填写编码',
-            'code.max'       => '编码最长不能超过50个字符',
-            'code.alpha'     => '编码只能由纯字母组成',
-            'code.unique'    => '编码已存在',
-            'type.required'  => '请选择录入方式',
-            'type.in'        => '请选择录入方式',
-            'value.max'      => '默认值最长不能超过255个字符'
+            'site_name.required' => '请填写网站名称',
+            'site_name.max'      => '网站名称最长不能超过255个字符',
+            'site_url.url'       => '网站地址格式不正确'
         ]);
 
-        $form             = $this->request()->only(['title', 'code', 'desc', 'type', 'value', 'values']);
-        $form['autoload'] = $this->request()->has('autoload');
 
-        if ($option = Option::create($form)) {
+        $options = $this->request()->only(['site_name', 'site_url', 'site_icp', 'site_keywords', 'site_description']);
 
-            return $this->success('添加成功', $option, $this->redirect()->back());
+        try{
+            transaction();
+            foreach ($options as $key => $option) {
+                Option::where('key', $key)->update(['value' => $option]);
+            }
+
+            commit();
+
+            return $this->success('保存成功');
+        } catch(\Exception $exception){
+            rollback();
 
         }
 
-        return $this->error('添加失败');
+        return $this->error('修改失败,请稍后再试');
 
     }
 

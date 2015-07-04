@@ -92,6 +92,7 @@ abstract class Controller extends BaseController
     protected function error($message = '', $code = 500, $redirect = null, $data = array())
     {
 
+        $message = is_array($message) ? $message : ['error' => $message];
         return $this->success($message, $data, $redirect, $code);
     }
 
@@ -113,7 +114,7 @@ abstract class Controller extends BaseController
             return $this->rest()->make($data, $message, $code);
         }
 
-        $message = is_array($message) ? $message : ['error' => $message];
+        $message = is_array($message) ? $message : ['success' => $message];
 
         if (!$redirect instanceof RedirectResponse) {
             $redirect = $this->redirect()->to($redirect ?: app('Illuminate\Routing\UrlGenerator')->previous());

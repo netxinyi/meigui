@@ -26,119 +26,92 @@
             <h4 class="panel-title">基本设置</h4>
         </div>
         <div class="panel-body">
+            @if($errors->has('error'))
+                <div class="alert alert-danger fade in m-b-15">
+                    {{$errors->first('error')}}
+                    <span class="close" data-dismiss="alert">×</span>
+                </div>
+            @endif
+            @if($errors->has('success'))
+                <div class="alert alert-success fade in m-b-15">
+                    {{$errors->first('success')}}
+                    <span class="close" data-dismiss="alert">×</span>
+                </div>
+            @endif
             <form class="form-horizontal" action="{{url('admin/option')}}" method="post">
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
 
                 <div class="form-group">
-                    <label class="col-md-2 control-label">标题</label>
+                    <label class="col-md-2 control-label">网站名称</label>
 
                     <div class="col-md-8">
-                        <input type="text" class="form-control" placeholder="设置项标题" name="title"
-                               value="{{old('title')}}"/>
-                        @if($errors->has('title'))
+                        <input type="text" class="form-control" placeholder="设置网站的名称" name="site_name"
+                               value="{{old('site_name',$options['site_name'])}}"/>
+                        @if($errors->has('site_name'))
                             <ul class="parsley-errors-list filled">
-                                <li class="parsley-required">{{$errors->first('title')}}</li>
+                                <li class="parsley-required">{{$errors->first('site_name')}}</li>
+                            </ul>
+                        @endif
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">网站地址</label>
+
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="设置网站的URL" name="site_url"
+                               value="{{old('site_url',$options['site_url'])}}"/>
+                        @if($errors->has('site_url'))
+                            <ul class="parsley-errors-list filled">
+                                <li class="parsley-required">{{$errors->first('site_url')}}</li>
                             </ul>
                         @endif
 
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-2 control-label">编码</label>
+                    <label class="col-md-2 control-label">网站关键词</label>
 
                     <div class="col-md-8">
-                        <input type="text" class="form-control" placeholder="设置项编码" name="code"
-                               value="{{old('code')}}"/>
-                        @if($errors->has('title'))
+                        <input type="text" class="form-control" placeholder="设置网站默认的关键词" name="site_keywords"
+                               value="{{old('site_keywords',$options['site_keywords'])}}"/>
+                        @if($errors->has('site_keywords'))
                             <ul class="parsley-errors-list filled">
-                                <li class="parsley-required">{{$errors->first('title')}}</li>
+                                <li class="parsley-required">{{$errors->first('site_keywords')}}</li>
                             </ul>
                         @endif
+
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-2 control-label">默认值</label>
+                    <label class="col-md-2 control-label">网站描述</label>
 
                     <div class="col-md-8">
-                        <input type="text" class="form-control" placeholder="默认值" name="value"
-                               value="{{old('value')}}"/>
-                        @if($errors->has('title'))
+                        <input type="text" class="form-control" placeholder="设置网站默认描述" name="site_description"
+                               value="{{old('site_description',$options['site_description'])}}"/>
+                        @if($errors->has('site_description'))
                             <ul class="parsley-errors-list filled">
-                                <li class="parsley-required">{{$errors->first('title')}}</li>
+                                <li class="parsley-required">{{$errors->first('site_description')}}</li>
                             </ul>
                         @endif
+
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-2 control-label">描述</label>
+                    <label class="col-md-2 control-label">ICP备案号</label>
 
                     <div class="col-md-8">
-                        <textarea class="form-control" placeholder="设置项描述" rows="5"
-                                  name="desc">{{old('desc')}}</textarea>
-                        @if($errors->has('desc'))
+                        <input type="text" class="form-control" placeholder="设置网站ICP备案号" name="site_icp"
+                               value="{{old('site_icp',$options['site_icp'])}}"/>
+                        @if($errors->has('site_icp'))
                             <ul class="parsley-errors-list filled">
-                                <li class="parsley-required">{{$errors->first('desc')}}</li>
+                                <li class="parsley-required">{{$errors->first('site_icp')}}</li>
                             </ul>
                         @endif
+
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label class="col-md-2 control-label">录入方式</label>
-
-                    <div class="col-md-8">
-                        <select name="type" class="form-control">
-
-                            @foreach(App\Enum\Option::$inputTypesForm as $value=>$lable)
-                                <option value="{{$value}}" @if(old('type') == $value)
-                                        selected @endif>{{$lable}}</option>
-
-                            @endforeach
-                        </select>
-                        @if($errors->has('type'))
-                            <ul class="parsley-errors-list filled">
-                                <li class="parsley-required">{{$errors->first('type')}}</li>
-                            </ul>
-                        @endif
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-2 control-label">可选值</label>
-
-                    <div class="col-md-8">
-                        <textarea class="form-control" placeholder="可选值列表，一行一个" rows="5"
-                                  name="values">{{old('values')}}</textarea>
-                        @if($errors->has('values'))
-                            <ul class="parsley-errors-list filled">
-                                <li class="parsley-required">{{$errors->first('values')}}</li>
-                            </ul>
-                        @endif
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-2 control-label">自动加载</label>
-
-                    <div class="col-md-8">
-                        <label class="radio-inline">
-                            <input type="radio" name="autoload" checked/>
-                            是
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="autoload"/>
-                            否
-                        </label>
-                        @if($errors->has('autoload'))
-                            <ul class="parsley-errors-list filled">
-                                <li class="parsley-required">{{$errors->first('autoload')}}</li>
-                            </ul>
-                        @endif
-                    </div>
-                </div>
-                @if($errors->has('error'))
-                    <ul class="parsley-errors-list filled">
-                        <li class="parsley-required">{{$errors->first('error')}}</li>
-                    </ul>
-                @endif
                 <div class="form-group">
                     <label class="col-md-2"></label>
 
