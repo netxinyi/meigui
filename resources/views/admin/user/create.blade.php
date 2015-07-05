@@ -81,19 +81,19 @@
                     <label class="col-md-2 control-label">所在地</label>
 
                     <div class="col-md-2">
-                        <select class="form-control default-select2" name="province_id" data-level="0">
-                            <option>请选择</option>
+                        <select class="form-control default-select2" name="province">
+
                         </select>
                     </div>
 
                     <div class="col-md-2">
-                        <select class="form-control" name="city_id" data-level="1">
-                            <option>请选择</option>
+                        <select class="form-control" name="city">
+
                         </select>
                     </div>
                     <div class="col-md-2">
-                        <select class="form-control" name="area_id" data-level="2">
-                            <option>请选择</option>
+                        <select class="form-control" name="area">
+
                         </select>
                     </div>
                 </div>
@@ -153,6 +153,7 @@
 
                     </div>
                 </div>
+                A
                 <div class="form-group">
                     <label class="col-md-2 control-label">确认密码</label>
 
@@ -187,6 +188,7 @@
 @section('footer-last-js')
     <!-- ================== BEGIN PAGE LEVEL JS ================== -->
     <script src="/assets/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="/assets/lib/pcas/pcas.js"></script>
     <!-- ================== END PAGE LEVEL JS ================== -->
 
     <script type="text/javascript">
@@ -197,30 +199,8 @@
                 format: "yyyy-mm-dd"
 
             });
+            new PCAS("province", "city", "area");
 
-            function mkArea(dom, provid) {
-
-                $.get('/api/area/' + provid, function (ret) {
-                    var provinces = ret.data;
-                    var select = $(dom);
-                    $(select).html('<option>请选择</option>');
-                    for (var i in provinces) {
-
-                        $(select).append('<option value="' + i + '">' + provinces[i].name + "</option>");
-                    }
-
-                });
-            }
-
-            $('#area-select select').change(function () {
-
-                var index = $(this).data('level') + 1;
-                var next = $('#area-select').find('select[data-level="' + index + '"]');
-                if (next.length > 0) {
-                    mkArea($('#area-select').find('select[data-level="' + index + '"]'), $(this).val());
-                }
-            });
-            mkArea($('#area-select select')[0], 0);
 
         });
 

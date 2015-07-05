@@ -56,6 +56,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function (){
     Route::resource('column', 'Admin\ColumnController');
     #文章管理
     Route::resource('article', 'Admin\ArticleController');
+    #用户管理
+    Route::resource('user', 'Admin\UserController');
 
 });
 
