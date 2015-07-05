@@ -60,3 +60,22 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function (){
 });
 
 
+Route::group(['prefix' => 'api'], function (){
+
+
+    #省份地区
+    Route::get('area/{province_id?}/{city_id?}', function ($province = null, $city = null){
+
+        $ares = file_get_contents(public_path() . '/static/areas');
+        $area = json_decode($ares, true);
+        if (!is_null($province)) {
+            $key = rtrim($province . '.' . $city, '.');
+            $ret = array_get($area, $key);
+        } else {
+            $ret = $area;
+        }
+
+        return app('App\Providers\Rest\RestService')->make($ret);
+
+    });
+});

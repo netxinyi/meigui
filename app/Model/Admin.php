@@ -21,13 +21,9 @@ class Admin extends BaseModel implements AuthenticatableContract
 
     protected $primaryKey = 'admin_id';
 
-    protected $fillable = ['admin_name', 'admin_role', 'email', 'admin_pass', 'admin_status', 'admin_role'];
+    protected $fillable   = ['admin_name', 'admin_role', 'email', 'admin_pass', 'admin_status', 'admin_role'];
 
-    protected $hidden   = ['admin_pass'];
-
-    protected $appends  = [
-        'is_admin' => true
-    ];
+    //protected $hidden   = ['admin_pass'];
 
 
     /**
@@ -42,13 +38,20 @@ class Admin extends BaseModel implements AuthenticatableContract
     }
 
 
+    /**
+     * 密码调整器
+     *
+     * @param $password
+     */
     public function setAdminPassAttribute($password)
     {
 
         if (Hash::needsRehash($password)) {
 
-            $this->attributes['admin_pass'] = Hash::make($password);
+            $password = Hash::make($password);
         }
+
+        $this->attributes['admin_pass'] = $password;
 
 
     }

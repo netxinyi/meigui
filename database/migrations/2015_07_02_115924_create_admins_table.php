@@ -34,7 +34,6 @@ class CreateAdminsTable extends Migration
             $table->string('email', 100)->comment('管理员邮箱');
             $table->enum('admin_role', [
                 AdminEnum::ROLE_SUPERADMIN,
-                AdminEnum::ROLE_POSTER,
                 AdminEnum::ROLE_ADMIN
             ])->default(AdminEnum::ROLE_ADMIN);
             $table->rememberToken();
@@ -42,21 +41,9 @@ class CreateAdminsTable extends Migration
             $table->unique(['admin_name', 'email']);
         });
 
-        $this->seedAdmin();
     }
 
 
-    public function seedAdmin()
-    {
-
-        Admin::create([
-            'admin_name'   => 'admin',
-            'admin_pass'   => bcrypt('admin888'),
-            'email'        => 'admin@admin.com',
-            'admin_status' => AdminEnum::STATUS_NORMAL,
-            'admin_role'   => AdminEnum::ROLE_SUPERADMIN,
-        ]);
-    }
 
 
     /**
