@@ -41,7 +41,7 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
         'sex',
         'marital_status',
         'salary',
-        'hight',
+        'height',
         'education'
     ];
 
@@ -53,7 +53,7 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
     protected $hidden = ['password', 'remember_token'];
 
     protected $appends = [
-        'is_admin' => false
+        'is_admin'
     ];
 
 
@@ -81,5 +81,12 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
 
         $this->attributes['birthday'] = $birthday;
 
+    }
+
+
+    public function getIsAdminAttribute($value)
+    {
+
+        return true;
     }
 }

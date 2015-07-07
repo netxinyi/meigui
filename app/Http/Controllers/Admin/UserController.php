@@ -61,7 +61,6 @@ class UserController extends Controller
             'mobile',
             'birthday',
             'password',
-            'password_confirm',
             'marital_status',
             'height',
             'education',
@@ -76,5 +75,69 @@ class UserController extends Controller
 
         return $this->error('添加失败');
 
+    }
+
+
+    public function edit(User $user)
+    {
+
+        return $this->view('edit')->withUser($user);
+
+    }
+
+
+    public function update(User $user)
+    {
+
+        //验证表单
+        $this->validate([
+            'mobile'           => 'required|digits:11',
+            'birthday'         => 'required|date',
+            'sex'              => 'required|in:' . array_keys_impload(UserEnum::$sexForm),
+            'password'         => 'min:5|max:20',
+            'password_confirm' => 'required_with:password|same:password',
+            'marital_status'   => 'in:' . array_keys_impload(UserEnum::$maritalForm),
+            'height'           => 'numeric|digits:3|min:130|max:210',
+            'education'        => 'in:' . array_keys_impload(UserEnum::$educationForm),
+            'salary'           => 'in:' . array_keys_impload(UserEnum::$salaryForm),
+            'user_name'        => 'required|min:2|max:15|unique:users,user_name,' . $user->user_id . ',user_id',
+            'email'            => 'required|email|unique:users,email,' . $user->user_id . ',user_id',
+        ]);
+
+
+        $form = $this->request()->only([
+            'user_name',
+            'email',
+            'mobile',
+            'birthday',
+            'marital_status',
+            'height',
+            'education',
+            'salary',
+            'province',
+            'city',
+            'area'
+        ]);
+
+        if ($password = $this->request()->get('password')) {
+            $form['password'] = $password;
+        }
+
+        if ($user->update($form)) {
+            return $this->success('保存成功', $user);
+        }
+
+        return $this->error('修改失败，请稍后再试');
+    }
+
+
+    public function destroy(User $user)
+    {
+
+        if ($user->delete()) {
+            return $this->success('删除成功');
+        }
+
+        return $this->error('删除失败');
     }
 }

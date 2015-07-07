@@ -69,9 +69,9 @@
                             <td>{{$user->email}}</td>
                             <td>{{$user->created_at}}</td>
                             <td class="text-center">
-                                <a href="{{route('admin.admins.edit',[$user->user_id])}}"
+                                <a href="{{route('admin.user.edit',[$user->user_id])}}"
                                    class="btn btn-sm btn-success  m-r-5">编辑</a>
-                                <a href="{{route('admin.admins.destroy',[$user->user_id])}}"
+                                <a href="{{route('admin.user.destroy',[$user->user_id])}}"
                                    class="btn btn-sm btn-danger" data-method="delete">删除</a>
                             </td>
                         </tr>
