@@ -53,14 +53,6 @@ class User
 
     const SALARY_50000   = 7;
 
-    const SALARY_100000  = 8;
-
-    const SALARY_200000  = 9;
-
-    const SALARY_500000  = 10;
-
-    const SALARY_1000000 = 11;
-
     const SALARY_OTHER   = 12;
 
     #月收入组
@@ -70,11 +62,7 @@ class User
         self::SALARY_10000   => '5000-1万元',
         self::SALARY_20000   => '1万元-2万元',
         self::SALARY_50000   => '2万元-5万元',
-        self::SALARY_100000  => '5万元-10万元',
-        self::SALARY_200000  => '10万元-20万元',
-        self::SALARY_500000  => '20万元-50万元',
-        self::SALARY_1000000 => '50万元-100万元',
-        self::SALARY_OTHER   => '100万元以上'
+        self::SALARY_OTHER => '5万元以上'
     ];
 
     #教育程度

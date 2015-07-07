@@ -52,3 +52,12 @@ if (!function_exists('option')) {
         return config('app.' . $key, $default);
     }
 }
+
+if (!function_exists('array_keys_impload')) {
+
+    function array_keys_impload(array $array, $splide = ',')
+    {
+
+        return implode($splide, array_keys($array));
+    }
+}

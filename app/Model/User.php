@@ -27,12 +27,23 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
 
 
     protected $primaryKey = 'user_id';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = [
+        'user_name',
+        'email',
+        'password',
+        'mobile',
+        'sex',
+        'marital_status',
+        'salary',
+        'hight',
+        'education'
+    ];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -45,4 +56,30 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
         'is_admin' => false
     ];
 
+
+    /**
+     * 密码调整器
+     *
+     * @param $password
+     */
+    public function setPasswordAttribute($password)
+    {
+
+        if (Hash::needsRehash($password)) {
+
+            $password = Hash::make($password);
+        }
+
+        $this->attributes['password'] = $password;
+
+
+    }
+
+
+    public function setBirthdayAttribute($birthday)
+    {
+
+        $this->attributes['birthday'] = $birthday;
+
+    }
 }
