@@ -45,6 +45,17 @@
                     <li><a href="{{route('admin.user.create')}}">添加会员</a></li>
                 </ul>
             </li>
+            <li class="has-sub">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-users"></i>
+                    <span>成功案例</span>
+                </a>
+                <ul class="sub-menu">
+                    <li><a href="{{route('admin.case.index')}}">案例列表</a></li>
+                    <li><a href="{{route('admin.case.create')}}">添加案例</a></li>
+                </ul>
+            </li>
             @if(Auth::check() && Auth::user()->admin_role == App\Enum\Admin::ROLE_SUPERADMIN)
                 <li class="has-sub">
                     <a href="javascript:;">
