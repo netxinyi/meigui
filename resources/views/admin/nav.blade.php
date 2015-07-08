@@ -48,7 +48,7 @@
             <li class="has-sub">
                 <a href="javascript:;">
                     <b class="caret pull-right"></b>
-                    <i class="fa fa-users"></i>
+                    <i class="fa fa-crosshairs"></i>
                     <span>成功案例</span>
                 </a>
                 <ul class="sub-menu">
