@@ -37,6 +37,26 @@
             <li class="has-sub">
                 <a href="javascript:;">
                     <b class="caret pull-right"></b>
+                    <i class="fa fa-comment"></i>
+                    <span>评论管理</span>
+                </a>
+                <ul class="sub-menu">
+                    <li><a href="{{route('admin.comment.index')}}">评论列表</a></li>
+                </ul>
+            </li>
+            <li class="has-sub">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-edit"></i>
+                    <span>留言管理</span>
+                </a>
+                <ul class="sub-menu">
+                    <li><a href="{{route('admin.guestbook.index')}}">留言列表</a></li>
+                </ul>
+            </li>
+            <li class="has-sub">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
                     <i class="fa fa-users"></i>
                     <span>会员管理</span>
                 </a>
