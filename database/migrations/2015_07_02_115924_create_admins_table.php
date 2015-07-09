@@ -27,6 +27,7 @@ class CreateAdminsTable extends Migration
             $table->increments('admin_id')->comment('管理员ID');
             $table->string('admin_name')->comment('管理员用户名');
             $table->char('admin_pass', 60)->comment('管理员密码');
+            $table->string('avatar')->comment('头像');
             $table->enum('admin_status', [
                 AdminEnum::STATUS_NORMAL,
                 AdminEnum::STATUS_STOP,
@@ -66,6 +67,13 @@ class CreateAdminsTable extends Migration
             'admin_name'   => '超级管理员',
             'admin_role'   => AdminEnum::ROLE_SUPERADMIN,
             'email'        => '521287718@qq.com',
+            'admin_pass'   => '123456',
+            'admin_status' => AdminEnum::STATUS_NORMAL,
+        ]);
+        Admin::create([
+            'admin_name'   => 'admin',
+            'admin_role'   => AdminEnum::ROLE_SUPERADMIN,
+            'email'        => 'admin@admin.com',
             'admin_pass'   => '123456',
             'admin_status' => AdminEnum::STATUS_NORMAL,
         ]);

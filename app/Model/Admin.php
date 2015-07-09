@@ -39,7 +39,8 @@ class Admin extends BaseModel implements AuthenticatableContract
         'admin_role',
         'email',
         'admin_pass',
-        'admin_status'
+        'admin_status',
+        'avatar'
     ];
 
     /**
@@ -78,7 +79,6 @@ class Admin extends BaseModel implements AuthenticatableContract
      */
     public function getAvatarAttribute()
     {
-
         if (!$this->attributes['avatar']) {
             return asset('/assets/admin/img/default-avatar.jpg');
         }
