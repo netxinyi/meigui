@@ -22,6 +22,7 @@ class CreateOptionsTable extends Migration
             $table->increments('id');
             $table->string('key', 100)->comment('配置名');
             $table->string('value')->nullable()->comment('配置值');
+            $table->boolean('autoload')->default(false)->comment('自动加载');
             $table->unique(['key']);
             $table->index(['key']);
 

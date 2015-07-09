@@ -12,8 +12,16 @@ class AdminMessage extends BaseModel
 {
 
 
+    /**
+     * 表名
+     * @var string
+     */
     protected $table      = 'admin_messages';
 
+    /**
+     * 主键
+     * @var string
+     */
     protected $primaryKey = 'id';
 
 }

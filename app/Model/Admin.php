@@ -15,19 +15,48 @@ class Admin extends BaseModel implements AuthenticatableContract
 {
 
 
+    //支持Auth的Trait
     use Authenticatable;
 
-    protected $table      = 'admins';
-
-    protected $primaryKey = 'admin_id';
-
-    protected $fillable = ['admin_name', 'admin_role', 'email', 'admin_pass', 'admin_status'];
-
-    //protected $hidden   = ['admin_pass'];
-
+    /**
+     * 表名
+     * @var string
+     */
+    protected $table = 'admins';
 
     /**
-     * Get the password for the user.
+     * 主键
+     * @var string
+     */
+    protected $primaryKey = 'admin_id';
+
+    /**
+     * 批量赋值白名单
+     * @var array
+     */
+    protected $fillable = [
+        'admin_name',
+        'admin_role',
+        'email',
+        'admin_pass',
+        'admin_status'
+    ];
+
+    /**
+     * 隐藏项
+     * @var array
+     */
+    protected $hidden = ['admin_pass'];
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Auth支持
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * 获取密码
      *
      * @return string
      */
@@ -37,6 +66,30 @@ class Admin extends BaseModel implements AuthenticatableContract
         return $this->admin_pass;
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | 访问器
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * 用户头像
+     * @return string
+     */
+    public function getAvatarAttribute()
+    {
+
+        if (!$this->attributes['avatar']) {
+            return asset('/assets/admin/img/default-avatar.jpg');
+        }
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | 调整器
+    |--------------------------------------------------------------------------
+    */
 
     /**
      * 密码调整器

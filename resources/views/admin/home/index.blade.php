@@ -14,7 +14,7 @@
                     <p>3,291,922</p>
                 </div>
                 <div class="stats-link">
-                    <a href="javascript:;">总访问量: 8976</a>
+                    <a href="javascript:;">总访问量: {{$visits}}</a>
                 </div>
             </div>
         </div>
@@ -26,10 +26,10 @@
                 <div class="stats-info">
                     <h4>今日注册用户</h4>
 
-                    <p>231</p>
+                    <p>{{$todayUsers}}</p>
                 </div>
                 <div class="stats-link">
-                    <a href="javascript:;">总用户数:345</a>
+                    <a href="javascript:;">总用户数:{{$totalUsers}}</a>
                 </div>
             </div>
         </div>

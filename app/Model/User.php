@@ -17,20 +17,25 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
 {
 
 
+    //支持Auth的Trait
     use Authenticatable, CanResetPassword;
 
     /**
-     * The database table used by the model.
+     * 表名
      *
      * @var string
      */
     protected $table = 'users';
 
 
+    /**
+     * 主键
+     * @var string
+     */
     protected $primaryKey = 'user_id';
 
     /**
-     * The attributes that are mass assignable.
+     * 批量赋值白名单
      *
      * @var array
      */
@@ -52,12 +57,18 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
     ];
 
     /**
-     * The attributes excluded from the model's JSON form.
+     * 隐藏项
      *
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | 调整器
+    |--------------------------------------------------------------------------
+    */
 
     /**
      * 密码调整器
@@ -78,10 +89,34 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
     }
 
 
+    /**
+     * 生日调整器
+     *
+     * @param $birthday
+     */
     public function setBirthdayAttribute($birthday)
     {
 
         $this->attributes['birthday'] = $birthday;
 
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | 范围查询
+    |--------------------------------------------------------------------------
+    */
+    /**
+     * 查询今天的用户
+     *
+     * @param $query
+     *
+     * @return mixed
+     */
+    public function scopeToday($query)
+    {
+
+        return $query->where('created_at', '>', date('Y-m-d 00:00:00', time()))->where('created_at', '<',
+            date('Y-m-d 00:00:00', time() + 86400));
     }
 }

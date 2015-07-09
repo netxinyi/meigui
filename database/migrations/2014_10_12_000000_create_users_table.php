@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration
             $table->enum('sex', array_keys(UserEnum::$sexForm))->comment('性别');
 
 
+            $table->string('avatar')->nullable()->comment('头像');
             $table->string('province', 100)->nullable()->comment('省份');
             $table->string('city', 100)->nullable()->comment('城市');
             $table->string('area', 100)->nullable()->comment('区/县');
