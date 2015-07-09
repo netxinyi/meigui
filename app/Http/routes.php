@@ -45,10 +45,7 @@ Route::controller('admin/auth', 'Admin\AuthController');
 #后台管理
 Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function (){
 
-    Route::get('/', function (){
-
-        return view('admin.index');
-    });
+    Route::get('/', ['uses' => 'Admin\HomeController@index']);
     #Option管理-资源路由
     Route::resource('option', 'Admin\OptionController', ['only' => ['index', 'store']]);
     #管理员管理
