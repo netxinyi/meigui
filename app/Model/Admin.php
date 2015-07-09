@@ -79,6 +79,7 @@ class Admin extends BaseModel implements AuthenticatableContract
      */
     public function getAvatarAttribute()
     {
+
         if (!$this->attributes['avatar']) {
             return asset('/assets/admin/img/default-avatar.jpg');
         }
@@ -109,4 +110,19 @@ class Admin extends BaseModel implements AuthenticatableContract
 
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | 关系映射
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * 管理员消息表的关系--一对多关系
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function messages()
+    {
+
+        return $this->hasMany('App\Model\AdminMessage', 'admin_id', 'admin_id');
+    }
 }

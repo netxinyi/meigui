@@ -23,7 +23,7 @@
             @if(Auth::check())
             <li class="dropdown navbar-user">
                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="/assets/admin/img/user-13.jpg" alt=""/>
+                    <img src="{{Auth::user()->avatar}}" alt=""/>
                     <span class="hidden-xs">{{Auth::user()->admin_name}}</span> <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu animated fadeInLeft">

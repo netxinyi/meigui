@@ -8,6 +8,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Model\AdminMessage;
 use App\Model\Option;
 use App\Model\User;
 
@@ -28,10 +29,11 @@ class HomeController extends Controller
         $todayUsers = User::today()->count('user_id');
         //总用户数
         $totalUsers = User::count('user_id');
-
+        //管理员聊天记录
+        $chatMessages = AdminMessage::with('admin')->limit(10)->latest()->get();
 
         return $this->view('index')->with('visits', $visits)->with('todayUsers', $todayUsers)->with('totalUsers',
-                $totalUsers);
+                $totalUsers)->with('chatMessages', $chatMessages);
 
     }
 }

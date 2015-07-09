@@ -160,47 +160,19 @@
                 <div class="panel-body bg-silver">
                     <div data-scrollbar="true" data-height="225px">
                         <ul class="chats">
-                            <li class="left">
-                                <span class="date-time">yesterday 11:23pm</span>
-                                <a href="javascript:;" class="name">Sowse Bawdy</a>
-                                <a href="javascript:;" class="image"><img alt=""
-                                                                          src="/assets/admin/img/user-12.jpg"/></a>
+                            @foreach($chatMessages as $message)
+                                <li class=" @if($message->admin->admin_id == Auth::user()->admin_id) right @else left @endif">
+                                    <span class="date-time">{{$message->created_at}}</span>
+                                    <a href="javascript:;" class="name">{{$message->admin->admin_name}}</a>
+                                    <a href="javascript:;" class="image">
+                                        <img alt=""
+                                             src="{{$message->admin->avatar}}"/></a>
 
-                                <div class="message">
-                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit volutpat. Praesent mattis
-                                    interdum arcu eu feugiat.
-                                </div>
-                            </li>
-                            <li class="right">
-                                <span class="date-time">08:12am</span>
-                                <a href="#" class="name"><span class="label label-primary">ADMIN</span> Me</a>
-                                <a href="javascript:;" class="image"><img alt=""
-                                                                          src="/assets/admin/img/user-13.jpg"/></a>
-
-                                <div class="message">
-                                    Nullam posuere, nisl a varius rhoncus, risus tellus hendrerit neque.
-                                </div>
-                            </li>
-                            <li class="left">
-                                <span class="date-time">09:20am</span>
-                                <a href="#" class="name">Neck Jolly</a>
-                                <a href="javascript:;" class="image"><img alt=""
-                                                                          src="/assets/admin/img/user-10.jpg"/></a>
-
-                                <div class="message">
-                                    Euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-                                </div>
-                            </li>
-                            <li class="left">
-                                <span class="date-time">11:15am</span>
-                                <a href="#" class="name">Shag Strap</a>
-                                <a href="javascript:;" class="image"><img alt=""
-                                                                          src="/assets/admin/img/user-14.jpg"/></a>
-
-                                <div class="message">
-                                    Nullam iaculis pharetra pharetra. Proin sodales tristique sapien mattis placerat.
-                                </div>
-                            </li>
+                                    <div class="message">
+                                        {{$message->content}}
+                                    </div>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
