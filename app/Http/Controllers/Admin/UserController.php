@@ -21,7 +21,7 @@ class UserController extends Controller
     public function index()
     {
 
-        $users = User::all(['user_id', 'user_name', 'sex', 'email', 'mobile', 'created_at']);
+        $users = User::all(['user_id', 'user_name', 'sex', 'email', 'mobile', 'created_at', 'age']);
 
         return $this->view('index')->with('users', $users);
     }

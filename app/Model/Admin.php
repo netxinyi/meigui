@@ -21,7 +21,7 @@ class Admin extends BaseModel implements AuthenticatableContract
 
     protected $primaryKey = 'admin_id';
 
-    protected $fillable   = ['admin_name', 'admin_role', 'email', 'admin_pass', 'admin_status', 'admin_role'];
+    protected $fillable = ['admin_name', 'admin_role', 'email', 'admin_pass', 'admin_status'];
 
     //protected $hidden   = ['admin_pass'];
 

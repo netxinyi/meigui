@@ -11,6 +11,7 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Hash;
 
 class User extends BaseModel implements AuthenticatableContract, CanResetPasswordContract
 {
@@ -39,10 +40,15 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
         'password',
         'mobile',
         'sex',
+        'birthday',
         'marital_status',
         'salary',
         'height',
-        'education'
+        'education',
+        'age',
+        'province',
+        'city',
+        'area',
     ];
 
     /**
@@ -51,10 +57,6 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
-
-    protected $appends = [
-        'is_admin'
-    ];
 
 
     /**
@@ -81,12 +83,5 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
 
         $this->attributes['birthday'] = $birthday;
 
-    }
-
-
-    public function getIsAdminAttribute($value)
-    {
-
-        return true;
     }
 }

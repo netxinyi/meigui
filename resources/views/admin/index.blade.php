@@ -220,7 +220,7 @@
             <!-- begin panel -->
             <div class="panel panel-inverse">
                 <div class="panel-heading">
-                    <h4 class="panel-title">New Registered Users</h4>
+                    <h4 class="panel-title">最新注册用户</h4>
                 </div>
                 <ul class="registered-users-list clearfix">
                     <li>

@@ -41,6 +41,7 @@ class CreateAdminsTable extends Migration
             $table->unique(['admin_name', 'email']);
         });
 
+        $this->seedAdmin();
     }
 
 
@@ -55,5 +56,18 @@ class CreateAdminsTable extends Migration
     {
 
         Schema::dropIfExists('admins');
+    }
+
+
+    public function seedAdmin()
+    {
+
+        Admin::create([
+            'admin_name'   => '超级管理员',
+            'admin_role'   => AdminEnum::ROLE_SUPERADMIN,
+            'email'        => '521287718@qq.com',
+            'admin_pass'   => '123456',
+            'admin_status' => AdminEnum::STATUS_NORMAL,
+        ]);
     }
 }
