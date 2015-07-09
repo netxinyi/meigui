@@ -23,7 +23,7 @@ class HomeController extends Controller
     {
 
         //总访问量
-        $visits = Option::key('visits')->first()->value();
+        $visits = Option::key('visits')->first()->value;
         //今日注册用户
         $todayUsers = User::today()->count('user_id');
         //总用户数
