@@ -52,19 +52,28 @@ class CreateOptionsTable extends Migration
     {
 
         Option::create([
-            'key' => 'site_name'
+            'key'      => 'site_name',
+            'autoload' => true
         ]);
         Option::create([
-            'key' => 'site_url'
+            'key'      => 'site_url',
+            'autoload' => true
         ]);
         Option::create([
-            'key' => 'site_keywords'
+            'key'      => 'site_keywords',
+            'autoload' => true
         ]);
         Option::create([
-            'key' => 'site_description'
+            'key'      => 'site_description',
+            'autoload' => true
         ]);
         Option::create([
-            'key' => 'site_icp'
+            'key'      => 'site_icp',
+            'autoload' => true
+        ]);
+        Option::create([
+            'key'   => 'visits',
+            'value' => 1
         ]);
     }
 

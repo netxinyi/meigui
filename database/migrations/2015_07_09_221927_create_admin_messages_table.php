@@ -46,9 +46,5 @@ class CreateAdminMessagesTable extends Migration
     public function seedMessage()
     {
 
-        AdminMessage::create([
-            'admin_id' => '1',
-            'content'  => '欢迎您登录后台管理'
-        ]);
     }
 }
