@@ -30,7 +30,7 @@ class HomeController extends Controller
         //总用户数
         $totalUsers = User::count('user_id');
         //管理员聊天记录
-        $chatMessages = AdminMessage::with('admin')->limit(10)->latest()->get();
+        $chatMessages = AdminMessage::with('admin')->limit(10)->oldest()->get();
 
         return $this->view('index')->with('visits', $visits)->with('todayUsers', $todayUsers)->with('totalUsers',
                 $totalUsers)->with('chatMessages', $chatMessages);
