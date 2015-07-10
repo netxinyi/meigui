@@ -5,7 +5,7 @@
     <!-- begin row -->
     <div class="row">
         <!-- begin col-3 -->
-        <div class="col-md-3 col-sm-6">
+        <div class="col-md-3 col-sm-6 hidden-xs">
             <div class="widget widget-stats bg-green">
                 <div class="stats-icon"><i class="fa fa-desktop"></i></div>
                 <div class="stats-info">
@@ -20,7 +20,7 @@
         </div>
         <!-- end col-3 -->
         <!-- begin col-3 -->
-        <div class="col-md-3 col-sm-6">
+        <div class="col-md-3 col-sm-6 hidden-xs">
             <div class="widget widget-stats bg-blue">
                 <div class="stats-icon"><i class="fa fa-users"></i></div>
                 <div class="stats-info">
@@ -35,7 +35,7 @@
         </div>
         <!-- end col-3 -->
         <!-- begin col-3 -->
-        <div class="col-md-3 col-sm-6">
+        <div class="col-md-3 col-sm-6 hidden-xs">
             <div class="widget widget-stats bg-purple">
                 <div class="stats-icon"><i class="fa fa-comment"></i></div>
                 <div class="stats-info">
@@ -50,7 +50,7 @@
         </div>
         <!-- end col-3 -->
         <!-- begin col-3 -->
-        <div class="col-md-3 col-sm-6">
+        <div class="col-md-3 col-sm-6 hidden-xs">
             <div class="widget widget-stats bg-red">
                 <div class="stats-icon"><i class="fa fa-edit"></i></div>
                 <div class="stats-info">
@@ -84,14 +84,14 @@
                     <li class="active">
                         <a href="#latest-message" data-toggle="tab">
                             <i class="fa fa-edit m-r-5"></i>
-                            <span class="hidden-xs">最新留言</span>
+                            <span>最新留言</span>
                         </a>
                     </li>
 
                     <li class="">
                         <a href="#latest-comment" data-toggle="tab">
                             <i class="fa fa-weixin m-r-5"></i>
-                            <span class="hidden-xs">最新评论</span>
+                            <span>最新评论</span>
                         </a>
                     </li>
                 </ul>

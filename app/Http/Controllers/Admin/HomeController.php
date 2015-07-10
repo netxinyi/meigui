@@ -9,7 +9,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Model\AdminMessage;
-use App\Model\Option;
 use App\Model\User;
 
 class HomeController extends Controller
@@ -24,7 +23,7 @@ class HomeController extends Controller
     {
 
         //总访问量
-        $visits = Option::key('visits')->first()->value;
+        $visits = \Cache::get('visits', 0);
         //今日注册用户
         $todayUsers = User::today()->count('user_id');
         //总用户数
