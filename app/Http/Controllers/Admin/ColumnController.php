@@ -8,48 +8,24 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Model\Column;
 
 class ColumnController extends Controller
 {
 
 
+    use ResourceTrait;
+
+    /**
+     * 文本文件目录前缀
+     * @var string
+     */
     protected $viewPrefix = 'admin.column';
 
+    /**
+     * 管理模型
+     * @var
+     */
+    protected $model = Column::class;
 
-    public function index()
-    {
-
-        return $this->view('index');
-
-    }
-
-
-    public function show()
-    {
-
-    }
-
-
-    public function edit()
-    {
-
-    }
-
-
-    public function update()
-    {
-
-    }
-
-
-    public function store()
-    {
-
-    }
-
-
-    public function destroy()
-    {
-
-    }
 }

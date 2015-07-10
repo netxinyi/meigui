@@ -5,6 +5,7 @@ Route::bind('admins', function ($admin_id){
     return App\Model\Admin::find($admin_id);
 });
 Route::model('user', 'App\Model\User');
+Route::model('column', 'App\Model\Column');
 /*
 |--------------------------------------------------------------------------
 | Application Routes

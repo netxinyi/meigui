@@ -49,16 +49,27 @@
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>用户名</th>
-                        <th>E-Mail</th>
-                        <th>角色</th>
-                        <th>状态</th>
+                        <th>栏目名称</th>
+                        <th>文章数量</th>
                         <th>创建时间</th>
                         <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
-
+                    @foreach($models as $model)
+                        <tr>
+                            <td>{{$model->column_id}}</td>
+                            <td>{{$model->column_name}}</td>
+                            <td>{{$model->articles()->count()}}</td>
+                            <td>{{$model->created_at}}</td>
+                            <td class="text-center">
+                                <a href="{{route('admin.column.edit',['column_id'=>$model->column_id])}}"
+                                   class="btn btn-sm btn-success  m-r-5">编辑</a>
+                                <a href="{{route('admin.column.destroy',['column_id'=>$model->column_id])}}"
+                                   class="btn btn-sm btn-danger" data-method="delete">删除</a>
+                            </td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>

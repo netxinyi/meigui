@@ -25,7 +25,7 @@
                 <a href="javascript:;">
                     <b class="caret pull-right"></b>
                     <i class="fa fa-bookmark"></i>
-                    <span>文章管理</span>
+                    <span>栏目管理</span>
                 </a>
                 <ul class="sub-menu">
                     <li><a href="{{route('admin.article.index')}}">文章列表</a></li>

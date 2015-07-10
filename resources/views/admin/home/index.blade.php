@@ -180,9 +180,9 @@
                     <form name="send_message_form" data-id="message-form">
                         <div class="input-group">
                             <input type="text" class="form-control input-sm" name="message"
-                                   placeholder="Enter your message here.">
+                                   placeholder="输入消息内容">
                                     <span class="input-group-btn">
-                                        <button class="btn btn-primary btn-sm" type="button">Send</button>
+                                        <button class="btn btn-primary btn-sm" type="button">发送</button>
                                     </span>
                         </div>
                     </form>
