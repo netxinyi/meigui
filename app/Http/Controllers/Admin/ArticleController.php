@@ -58,6 +58,15 @@ class ArticleController extends Controller
     }
 
 
+    public function edit(Article $model)
+    {
+
+        $colums = Column::all(['column_id', 'column_name']);
+
+
+        return $this->view('edit')->with('columns', $colums)->with('model', $model);
+    }
+
     public function store()
     {
 
