@@ -21,7 +21,7 @@ class CreateArticlesTable extends Migration
             $table->integer('column_id')->comment('栏目ID');
             $table->string('title')->comment('文章标题');
             $table->text('content')->comment('文章内容');
-            $table->integer('user_id')->comment('作者');
+            $table->integer('admin_id')->comment('作者');
             $table->timestamps();
 
             $table->index(['column_id']);

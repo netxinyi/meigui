@@ -6,6 +6,7 @@ Route::bind('admins', function ($admin_id){
 });
 Route::model('user', 'App\Model\User');
 Route::model('column', 'App\Model\Column');
+Route::model('article', 'App\Model\Article');
 /*
 |--------------------------------------------------------------------------
 | Application Routes
