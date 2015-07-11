@@ -83,6 +83,8 @@ class Admin extends BaseModel implements AuthenticatableContract
         if (!$this->attributes['avatar']) {
             return asset('/assets/admin/img/default-avatar.jpg');
         }
+
+        return $this->attributes['avatar'];
     }
 
 

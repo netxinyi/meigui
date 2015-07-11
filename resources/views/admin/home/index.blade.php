@@ -99,21 +99,23 @@
                     <div class="tab-pane fade active in" id="latest-message">
                         <div class="height-sm" data-scrollbar="true">
                             <ul class="media-list media-list-with-divider media-messaging">
-                                <li class="media media-sm">
-                                    <a href="javascript:;" class="pull-left">
-                                        <img src="/assets/admin/img/user-5.jpg" alt=""
-                                             class="media-object rounded-corner"/>
-                                    </a>
+                                @foreach($guestBook as $message)
+                                    <li class="media media-sm">
+                                        <a href="{{route('admin.user.edit',['user_id'=>$message->user->user_id])}}"
+                                           class="pull-left" title="{{$message->user->user_name}}">
+                                            <img src="{{$message->user->avatar}}" alt="{{$message->user->user_name}}"
+                                                 class="media-object rounded-corner"/>
+                                        </a>
 
-                                    <div class="media-body">
-                                        <h5 class="media-heading">John Doe</h5>
+                                        <div class="media-body">
+                                            <h5 class="media-heading">{{$message->title}}</h5>
 
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id nunc non
-                                            eros fermentum vestibulum ut id felis. Nunc molestie libero eget urna
-                                            aliquet, vitae laoreet felis ultricies. Fusce sit amet massa malesuada,
-                                            tincidunt augue vitae, gravida felis.</p>
-                                    </div>
-                                </li>
+                                            <p>{{$message->content}}</p>
+                                            <i class="text-muted">发表于:{{$message->created_at}}</i>
+                                        </div>
+                                    </li>
+                                @endforeach
+
                             </ul>
                         </div>
                     </div>
@@ -121,25 +123,28 @@
                     <div class="tab-pane fade" id="latest-comment">
                         <div class="height-sm" data-scrollbar="true">
                             <ul class="media-list media-list-with-divider">
-                                <li class="media media-sm">
-                                    <a href="javascript:;" class="pull-left">
-                                        <img src="/assets/admin/img/user-1.jpg" alt=""
-                                             class="media-object rounded-corner"/>
-                                    </a>
+                                @foreach($comments as $comment)
+                                    <li class="media media-sm">
+                                        <a href="{{route('admin.user.edit',['user_id'=>$comment->user->user_id])}}"
+                                           class="pull-left" title="{{$comment->user->user_name}}">
+                                            <img src="{{$comment->user->avatar}}" alt="{{$comment->user->user_name}}"
+                                                 class="media-object rounded-corner"/>
+                                        </a>
 
-                                    <div class="media-body">
-                                        <a href="javascript:;"><h4 class="media-heading">Lorem ipsum dolor sit amet,
-                                                consectetur adipiscing elit.</h4></a>
+                                        <div class="media-body">
+                                            <a href="{{route('admin.comment.edit',['comment_id'=>$comment->comment_id])}}">
+                                                <h4 class="media-heading"
+                                                    title="{{$comment->title}}">{{$comment->article->title}}</h4>
+                                            </a>
 
-                                        <p class="m-b-5">
-                                            Aenean mollis arcu sed turpis accumsan dignissim. Etiam vel tortor at risus
-                                            tristique convallis. Donec adipiscing euismod arcu id euismod. Suspendisse
-                                            potenti. Aliquam lacinia sapien ac urna placerat, eu interdum mauris
-                                            viverra.
-                                        </p>
-                                        <i class="text-muted">Received on 04/16/2013, 12.39pm</i>
-                                    </div>
-                                </li>
+                                            <p class="m-b-5">
+                                                {{$comment->content}}
+                                            </p>
+                                            <i class="text-muted">评论于:{{$comment->created_at}}</i>
+                                        </div>
+                                    </li>
+                                @endforeach
+
 
                             </ul>
                         </div>
@@ -195,90 +200,18 @@
                     <h4 class="panel-title">最新注册用户</h4>
                 </div>
                 <ul class="registered-users-list clearfix">
+                    @foreach($users as $user)
+
                     <li>
-                        <a href="javascript:;"><img src="/assets/admin/img/user-5.jpg" alt=""/></a>
+                        <a href="{{route('admin.user.edit',['user_id'=>$message->user->user_id])}}"
+                           title="{{$message->user->user_name}}"><img src="{{$user->avatar}}"
+                                                                      alt="{{$message->user->user_name}}"/></a>
                         <h4 class="username text-ellipsis">
-                            Savory Posh
-                            <small>Algerian</small>
+                            {{$user->user_name}}
+                            <small>{{$user->sex_lang}},{{$user->age}},{{$user->province}}</small>
                         </h4>
                     </li>
-                    <li>
-                        <a href="javascript:;"><img src="/assets/admin/img/user-3.jpg" alt=""/></a>
-                        <h4 class="username text-ellipsis">
-                            Ancient Caviar
-                            <small>Korean</small>
-                        </h4>
-                    </li>
-                    <li>
-                        <a href="javascript:;"><img src="/assets/admin/img/user-1.jpg" alt=""/></a>
-                        <h4 class="username text-ellipsis">
-                            Marble Lungs
-                            <small>Indian</small>
-                        </h4>
-                    </li>
-                    <li>
-                        <a href="javascript:;"><img src="/assets/admin/img/user-8.jpg" alt=""/></a>
-                        <h4 class="username text-ellipsis">
-                            Blank Bloke
-                            <small>Japanese</small>
-                        </h4>
-                    </li>
-                    <li>
-                        <a href="javascript:;"><img src="/assets/admin/img/user-2.jpg" alt=""/></a>
-                        <h4 class="username text-ellipsis">
-                            Hip Sculling
-                            <small>Cuban</small>
-                        </h4>
-                    </li>
-                    <li>
-                        <a href="javascript:;"><img src="/assets/admin/img/user-6.jpg" alt=""/></a>
-                        <h4 class="username text-ellipsis">
-                            Flat Moon
-                            <small>Nepalese</small>
-                        </h4>
-                    </li>
-                    <li>
-                        <a href="javascript:;"><img src="/assets/admin/img/user-4.jpg" alt=""/></a>
-                        <h4 class="username text-ellipsis">
-                            Packed Puffs
-                            <small>Malaysian></small>
-                        </h4>
-                    </li>
-                    <li>
-                        <a href="javascript:;"><img src="/assets/admin/img/user-9.jpg" alt=""/></a>
-                        <h4 class="username text-ellipsis">
-                            Clay Hike
-                            <small>Swedish</small>
-                        </h4>
-                    </li>
-                    <li>
-                        <a href="javascript:;"><img src="/assets/admin/img/user-2.jpg" alt=""/></a>
-                        <h4 class="username text-ellipsis">
-                            Hip Sculling
-                            <small>Cuban</small>
-                        </h4>
-                    </li>
-                    <li>
-                        <a href="javascript:;"><img src="/assets/admin/img/user-6.jpg" alt=""/></a>
-                        <h4 class="username text-ellipsis">
-                            Flat Moon
-                            <small>Nepalese</small>
-                        </h4>
-                    </li>
-                    <li>
-                        <a href="javascript:;"><img src="/assets/admin/img/user-4.jpg" alt=""/></a>
-                        <h4 class="username text-ellipsis">
-                            Packed Puffs
-                            <small>Malaysian></small>
-                        </h4>
-                    </li>
-                    <li>
-                        <a href="javascript:;"><img src="/assets/admin/img/user-9.jpg" alt=""/></a>
-                        <h4 class="username text-ellipsis">
-                            Clay Hike
-                            <small>Swedish</small>
-                        </h4>
-                    </li>
+                    @endforeach
                 </ul>
             </div>
             <!-- end panel -->

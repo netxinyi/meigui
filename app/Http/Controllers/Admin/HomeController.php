@@ -9,6 +9,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Model\AdminMessage;
+use App\Model\Comment;
+use App\Model\GuestBook;
 use App\Model\User;
 
 class HomeController extends Controller
@@ -31,9 +33,16 @@ class HomeController extends Controller
         $totalUsers = User::count('user_id');
         //管理员聊天记录
         $chatMessages = AdminMessage::with('admin')->limit(10)->oldest()->get();
+        //最新留言
+        $guestBook = GuestBook::with('user')->limit(10)->oldest()->get();
+        //最新注册用户
+        $users = User::limit(24)->oldest()->get();
+        //最新评论
+        $comments = Comment::limit(10)->oldest()->get();
 
         return $this->view('index')->with('visits', $visits)->with('todayUsers', $todayUsers)->with('totalUsers',
-                $totalUsers)->with('chatMessages', $chatMessages);
+                $totalUsers)->with('chatMessages', $chatMessages)->with('guestBook', $guestBook)->with('users',
+                $users)->with('comments', $comments);
 
     }
 }

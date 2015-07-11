@@ -12,6 +12,7 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Hash;
+use App\Enum\User as UserEnum;
 
 class User extends BaseModel implements AuthenticatableContract, CanResetPasswordContract
 {
@@ -44,6 +45,7 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
         'email',
         'password',
         'mobile',
+        'avatar',
         'sex',
         'birthday',
         'marital_status',
@@ -62,6 +64,12 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    /**
+     * 追加属性
+     * @var array
+     */
+    protected $append = ['sex_lang'];
 
 
     /*
@@ -99,6 +107,37 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
 
         $this->attributes['birthday'] = $birthday;
 
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | 访问器
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * 头像-默认头像
+     * @return string
+     */
+    public function getAvatarAttribute()
+    {
+
+        if (!$this->attributes['avatar']) {
+            return asset('/assets/admin/img/default-avatar.jpg');
+        }
+
+        return $this->attributes['avatar'];
+    }
+
+
+    /**
+     * 性别-文字
+     * @return mixed
+     */
+    public function getSexLangAttribute()
+    {
+
+        return UserEnum::$sexForm[$this->attributes['sex']];
     }
 
     /*
