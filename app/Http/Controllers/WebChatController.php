@@ -12,6 +12,7 @@ use Overtrue\Wechat\Server;
 use Overtrue\Wechat\Message;
 use Illuminate\Http\Request;
 use App\Model\Option;
+use Log;
 
 class WebChatController extends Controller
 {
