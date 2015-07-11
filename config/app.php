@@ -146,6 +146,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         #REST服务
         App\Providers\RestServiceProvider::class,
+        #统计服务
+        \App\Providers\StatsProvider::class
 
     ],
 
