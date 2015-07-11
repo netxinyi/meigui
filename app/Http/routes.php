@@ -23,7 +23,7 @@ Route::get('/', function (){
 
     return Response::make('welcome');
 });
-
+Route::match(['get', 'post'], '/weixin/api', ['uses' => 'WebChatController@index']);
 
 /*
 |--------------------------------------------------------------------------
