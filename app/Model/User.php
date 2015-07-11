@@ -145,17 +145,5 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
     | 范围查询
     |--------------------------------------------------------------------------
     */
-    /**
-     * 查询今天的用户
-     *
-     * @param $query
-     *
-     * @return mixed
-     */
-    public function scopeToday($query)
-    {
 
-        return $query->where('created_at', '>', date('Y-m-d 00:00:00', time()))->where('created_at', '<',
-            date('Y-m-d 00:00:00', time() + 86400));
-    }
 }

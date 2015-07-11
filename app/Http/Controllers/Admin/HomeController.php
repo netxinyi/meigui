@@ -26,7 +26,6 @@ class HomeController extends Controller
 
         //总访问量
         $visits = \Cache::get('visits', 0);
-
         //今日注册用户
         $todayUsers = User::today()->count('user_id');
         //总用户数
