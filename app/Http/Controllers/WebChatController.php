@@ -9,6 +9,7 @@ namespace App\Http\Controllers;
 
 
 use Overtrue\Wechat\Server;
+use Overtrue\Wechat\Message;
 use Illuminate\Http\Request;
 use App\Model\Option;
 
@@ -32,6 +33,12 @@ class WebChatController extends Controller
 
     public function index()
     {
+
+        $this->wx->message(function ($message){
+
+            return Message::make(Message::TEXT)->content($message->Content);
+        });
+
 
         return $this->wx->serve();
     }
