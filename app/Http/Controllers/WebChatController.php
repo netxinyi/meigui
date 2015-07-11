@@ -34,8 +34,10 @@ class WebChatController extends Controller
     public function index()
     {
 
+        Log::info('收到消息');
         $this->wx->message(function ($message){
 
+            Log::info($message);
             return Message::make(Message::TEXT)->content($message->Content);
         });
 
