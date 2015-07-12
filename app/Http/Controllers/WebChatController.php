@@ -13,6 +13,8 @@ use Overtrue\Wechat\Message;
 use Illuminate\Http\Request;
 use App\Model\Option;
 use Log;
+use Vicens\WebChat\WebChat;
+use Vicens\WebChat\Receive\Text;
 
 class WebChatController extends Controller
 {
@@ -27,7 +29,8 @@ class WebChatController extends Controller
         $options = Option::whereIn('key', ['wx_app_id', 'wx_token', 'wx_encoding_key', 'wx_app_secret'])->lists('value',
             'key');
 
-        $this->wx = new Server($options['wx_app_id'], $options['wx_token'], $options['wx_encoding_key']);
+        dd($this->request()->all());
+        $this->wx = new WebChat($options);
 
     }
 
@@ -35,14 +38,30 @@ class WebChatController extends Controller
     public function index()
     {
 
-        Log::info('收到消息');
-        $this->wx->message(function ($message){
+        try{
 
-            Log::info($message);
-            return Message::make(Message::TEXT)->content($message->Content);
-        });
+            $this->wx->text(Text::class);
 
 
-        return $this->wx->serve();
+        } catch(\Exception $exception){
+            throw $exception;
+        }
+
+
     }
+
+
+    public function createMenu()
+    {
+
+        $menu = $this->request()->all();
+
+        if ($this->wx->menu($menu)) {
+            return $this->success('创建菜单成功');
+        } else {
+            return $this->error('创建菜单失败');
+        }
+    }
+
+
 }
