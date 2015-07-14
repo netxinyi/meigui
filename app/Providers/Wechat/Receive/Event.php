@@ -13,4 +13,10 @@ abstract class Event extends WechatEvent
 {
 
 
+    public function subscribe()
+    {
+
+        return 'sas';
+    }
+
 }

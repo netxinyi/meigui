@@ -9,6 +9,7 @@ namespace Vicens\Wechat;
 
 use Vicens\Wechat\Http\Request;
 use Vicens\Wechat\Messages\BaseMessage;
+use Vicens\Wechat\Message;
 use Vicens\Wechat\Utils\Bag;
 use Vicens\Wechat\Utils\XML;
 
@@ -158,51 +159,32 @@ class Wechat
     public function response()
     {
 
-        dd($this->request->xml());
         $msgType = $this->request->get('MsgType');
         if (in_array($msgType, $this->receive)) {
 
             $object = new $this->receive[$msgType]($this->request->xml());
 
-            return $object->response();
+            $response = $object->response();
+
+            if ($response instanceof BaseMessage) {
+
+                $return = $response->from($this->input->get('ToUserName'))->to($this->input->get('FromUserName'))->buildForReply();
+
+                if ($this->security) {
+                    $return = $this->getCrypt()->encryptMsg($return, $this->input->get('nonce'),
+                        $this->input->get('timestamp'));
+                }
+
+                return $return;
+            }
+
         }
 
     }
 
 
-    /**
-     * 初始化POST请求数据
-     *
-     * @return Bag
-     */
-    protected function prepareInput()
-    {
-
-        if ($this->input instanceof Bag) {
-            return;
-        }
-
-        $xmlInput = file_get_contents('php://input');
-
-        $input = XML::parse($xmlInput);
-
-        if (!empty( $_REQUEST['encrypt_type'] ) && $_REQUEST['encrypt_type'] === 'aes'
-        ) {
-            $this->security = true;
-
-            $input = $this->getCrypt()->decryptMsg($_REQUEST['msg_signature'], $_REQUEST['nonce'],
-                $_REQUEST['timestamp'], $xmlInput);
-        }
-
-        $this->input = new Bag(array_merge($_REQUEST, (array)$input));
-    }
 
 
-    /**
-     * 获取Crypt服务
-     *
-     * @return Crypt
-     */
     protected function getCrypt()
     {
 
@@ -220,116 +202,7 @@ class Wechat
     }
 
 
-    /**
-     * 处理微信的请求
-     *
-     * @return mixed
-     */
-    protected function handleRequest()
-    {
 
-        dd($this->input);
-
-        if ($this->input->has('MsgType') && $this->input->get('MsgType') === 'event') {
-
-            return $this->handleEvent($this->input);
-
-        } elseif ($this->input->has('MsgId')) {
-
-            return $this->handleMessage($this->input);
-        }
-
-        return false;
-    }
-
-
-    /**
-     * 处理消息
-     *
-     * @param Bag $message
-     *
-     * @return mixed
-     */
-    protected function handleMessage($message)
-    {
-
-        if (!is_null($response = $this->call('message.*', array($message)))) {
-            return $response;
-        }
-
-        return $this->call("message.{$message['MsgType']}", array($message));
-    }
-
-
-    /**
-     * 处理事件
-     *
-     * @param Bag $event
-     *
-     * @return mixed
-     */
-    protected function handleEvent($event)
-    {
-
-        if (!is_null($response = $this->call('event.*', array($event)))) {
-            return $response;
-        }
-
-        $event['Event'] = strtolower($event['Event']);
-
-        return $this->call("event.{$event['Event']}", array($event));
-    }
-
-
-    /**
-     * 调用监听器
-     *
-     * @param string      $key
-     * @param array       $args
-     * @param string|null $default
-     *
-     * @return mixed
-     */
-    protected function call($key, $args, $default = null)
-    {
-
-        $handlers = (array)$this->listeners[$key];
-
-        foreach ($handlers as $handler) {
-            if (!is_callable($handler)) {
-                continue;
-            }
-
-            $res = call_user_func_array($handler, $args);
-
-            if (!empty( $res )) {
-                return $res;
-            }
-        }
-
-        return $default;
-    }
-
-
-    /**
-     * 魔术调用
-     *
-     * @param string $method
-     * @param array  $args
-     *
-     * @return mixed
-     */
-    public function __call($method, $args)
-    {
-
-        if (in_array($method, $this->events, true)) {
-            $callback = array_shift($args);
-
-            is_callable($callback) && $this->listeners->set($method, $callback);
-
-            return;
-        }
-    }
 
 
 }

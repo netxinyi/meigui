@@ -15,5 +15,6 @@ abstract class Event extends Recevie
     public function subscribe()
     {
 
+        return 'sas';
     }
 }
