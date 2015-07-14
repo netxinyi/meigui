@@ -93,7 +93,7 @@ abstract class Controller extends BaseController
     {
 
         $message = is_array($message) ? $message : ['error' => $message];
-        return $this->success($message, $data, $redirect, $code);
+        return $this->success($message, $data, $redirect, $code)->withInput();
     }
 
 
@@ -120,7 +120,7 @@ abstract class Controller extends BaseController
             $redirect = $this->redirect()->to($redirect ?: app('Illuminate\Routing\UrlGenerator')->previous());
         }
 
-        return $redirect->withInput()->withErrors($message);
+        return $redirect->withErrors($message);
     }
 
 
