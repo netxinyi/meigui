@@ -7,14 +7,12 @@
 
 namespace App\Http\Controllers;
 
-
-use Overtrue\Wechat\Server;
-use Overtrue\Wechat\Message;
+use Vicens\Wechat\Wechat;
 use Illuminate\Http\Request;
 use App\Model\Option;
-use Log;
-use Vicens\WebChat\WebChat;
-use Vicens\WebChat\Receive\Text;
+use Vicens\Wechat\Receive\Recevie;
+use Vicens\Wechat\Receive\Event;
+use Vicens\Wechat\Http\Request as WechatRequest;
 
 class WebChatController extends Controller
 {
@@ -26,11 +24,13 @@ class WebChatController extends Controller
     public function __construct(Request $request)
     {
 
+
         $options = Option::whereIn('key', ['wx_app_id', 'wx_token', 'wx_encoding_key', 'wx_app_secret'])->lists('value',
             'key');
 
-        dd($this->request()->all());
-        $this->wx = new WebChat($options);
+
+        $this->wx = new Wechat($options['wx_app_id'], $options['wx_token'], $options['wx_encoding_key']);
+
 
     }
 
@@ -38,29 +38,10 @@ class WebChatController extends Controller
     public function index()
     {
 
-        try{
+        $this->wx->event(\App\Providers\Wechat\Receive\Event::class);
 
-            $this->wx->text(Text::class);
+        return $this->wx->signature()->response();
 
-
-        } catch(\Exception $exception){
-            throw $exception;
-        }
-
-
-    }
-
-
-    public function createMenu()
-    {
-
-        $menu = $this->request()->all();
-
-        if ($this->wx->menu($menu)) {
-            return $this->success('创建菜单成功');
-        } else {
-            return $this->error('创建菜单失败');
-        }
     }
 
 
