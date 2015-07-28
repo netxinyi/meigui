@@ -2926,282 +2926,326 @@
             "redis"
         ]
     },
-  {
-    "name": "league/flysystem",
-    "version": "1.0.7",
-    "version_normalized": "1.0.7.0",
-    "source": {
-      "type": "git",
-      "url": "https://github.com/thephpleague/flysystem.git",
-      "reference": "b58431785768abbb4f00c10e66a065095a0693ef"
+    {
+        "name": "league/flysystem",
+        "version": "1.0.7",
+        "version_normalized": "1.0.7.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/thephpleague/flysystem.git",
+            "reference": "b58431785768abbb4f00c10e66a065095a0693ef"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/b58431785768abbb4f00c10e66a065095a0693ef",
+            "reference": "b58431785768abbb4f00c10e66a065095a0693ef",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0"
+        },
+        "require-dev": {
+            "ext-fileinfo": "*",
+            "mockery/mockery": "~0.9",
+            "phpspec/phpspec": "^2.2",
+            "phpspec/prophecy-phpunit": "~1.0",
+            "phpunit/phpunit": "~4.1"
+        },
+        "suggest": {
+            "ext-fileinfo": "Required for MimeType",
+            "league/flysystem-aws-s3-v2": "Allows you to use S3 storage with AWS SDK v2",
+            "league/flysystem-aws-s3-v3": "Allows you to use S3 storage with AWS SDK v3",
+            "league/flysystem-azure": "Allows you to use Windows Azure Blob storage",
+            "league/flysystem-cached-adapter": "Flysystem adapter decorator for metadata caching",
+            "league/flysystem-copy": "Allows you to use Copy.com storage",
+            "league/flysystem-dropbox": "Allows you to use Dropbox storage",
+            "league/flysystem-eventable-filesystem": "Allows you to use EventableFilesystem",
+            "league/flysystem-rackspace": "Allows you to use Rackspace Cloud Files",
+            "league/flysystem-sftp": "Allows you to use SFTP server storage via phpseclib",
+            "league/flysystem-webdav": "Allows you to use WebDAV storage",
+            "league/flysystem-ziparchive": "Allows you to use ZipArchive adapter"
+        },
+        "time": "2015-07-11 14:58:06",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.1-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "League\\Flysystem\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Frank de Jonge",
+                "email": "info@frenky.net"
+            }
+        ],
+        "description": "Filesystem abstraction: Many filesystems, one API.",
+        "keywords": [
+            "Cloud Files",
+            "WebDAV",
+            "abstraction",
+            "aws",
+            "cloud",
+            "copy.com",
+            "dropbox",
+            "file systems",
+            "files",
+            "filesystem",
+            "filesystems",
+            "ftp",
+            "rackspace",
+            "remote",
+            "s3",
+            "sftp",
+            "storage"
+        ]
     },
-    "dist": {
-      "type": "zip",
-      "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/b58431785768abbb4f00c10e66a065095a0693ef",
-      "reference": "b58431785768abbb4f00c10e66a065095a0693ef",
-      "shasum": ""
+    {
+        "name": "phpunit/phpunit-mock-objects",
+        "version": "2.3.5",
+        "version_normalized": "2.3.5.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
+            "reference": "1c330b1b6e1ea8fd15f2fbea46770576e366855c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/1c330b1b6e1ea8fd15f2fbea46770576e366855c",
+            "reference": "1c330b1b6e1ea8fd15f2fbea46770576e366855c",
+            "shasum": ""
+        },
+        "require": {
+            "doctrine/instantiator": "~1.0,>=1.0.2",
+            "php": ">=5.3.3",
+            "phpunit/php-text-template": "~1.2"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~4.4"
+        },
+        "suggest": {
+            "ext-soap": "*"
+        },
+        "time": "2015-07-04 05:41:32",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.3.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "src/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Sebastian Bergmann",
+                "email": "sb@sebastian-bergmann.de",
+                "role": "lead"
+            }
+        ],
+        "description": "Mock Object library for PHPUnit",
+        "homepage": "https://github.com/sebastianbergmann/phpunit-mock-objects/",
+        "keywords": [
+            "mock",
+            "xunit"
+        ]
     },
-    "require": {
-      "php": ">=5.4.0"
+    {
+        "name": "vicens/weixinsdk",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/vicens/WeiXinSDK.git",
+            "reference": "bc2447f8efecafd9fe7e6de8e6192e0c28ae628d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/vicens/WeiXinSDK/zipball/bc2447f8efecafd9fe7e6de8e6192e0c28ae628d",
+            "reference": "bc2447f8efecafd9fe7e6de8e6192e0c28ae628d",
+            "shasum": ""
+        },
+        "time": "2015-07-12 09:59:06",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Vicens\\WebChat\\": ""
+            }
+        },
+        "authors": [
+            {
+                "name": "vicens",
+                "email": "master@vicens.cn",
+                "homepage": "http://www.vicens.cn"
+            }
+        ],
+        "description": "微信公众平台SDK-for-PHP",
+        "support": {
+            "source": "https://github.com/vicens/WeiXinSDK/tree/master",
+            "issues": "https://github.com/vicens/WeiXinSDK/issues"
+        }
     },
-    "require-dev": {
-      "ext-fileinfo": "*",
-      "mockery/mockery": "~0.9",
-      "phpspec/phpspec": "^2.2",
-      "phpspec/prophecy-phpunit": "~1.0",
-      "phpunit/phpunit": "~4.1"
+    {
+        "name": "curl/curl",
+        "version": "1.2.1",
+        "version_normalized": "1.2.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-mod/curl.git",
+            "reference": "67f7c490060751fbf24a02bc1ff3b32073aeb5e0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/php-mod/curl/zipball/67f7c490060751fbf24a02bc1ff3b32073aeb5e0",
+            "reference": "67f7c490060751fbf24a02bc1ff3b32073aeb5e0",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "3.7.*",
+            "squizlabs/php_codesniffer": "~2.1"
+        },
+        "time": "2015-04-09 16:29:25",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Curl": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Hassan Amouhzi",
+                "email": "hassan@anezi.net",
+                "homepage": "http://hassan.amouhzi.com"
+            },
+            {
+                "name": "php-curl-class",
+                "homepage": "https://github.com/php-curl-class"
+            },
+            {
+                "name": "user52",
+                "homepage": "https://github.com/user52"
+            }
+        ],
+        "description": "cURL class for PHP",
+        "homepage": "https://github.com/php-mod/curl",
+        "keywords": [
+            "curl",
+            "dot"
+        ]
     },
-    "suggest": {
-      "ext-fileinfo": "Required for MimeType",
-      "league/flysystem-aws-s3-v2": "Allows you to use S3 storage with AWS SDK v2",
-      "league/flysystem-aws-s3-v3": "Allows you to use S3 storage with AWS SDK v3",
-      "league/flysystem-azure": "Allows you to use Windows Azure Blob storage",
-      "league/flysystem-cached-adapter": "Flysystem adapter decorator for metadata caching",
-      "league/flysystem-copy": "Allows you to use Copy.com storage",
-      "league/flysystem-dropbox": "Allows you to use Dropbox storage",
-      "league/flysystem-eventable-filesystem": "Allows you to use EventableFilesystem",
-      "league/flysystem-rackspace": "Allows you to use Rackspace Cloud Files",
-      "league/flysystem-sftp": "Allows you to use SFTP server storage via phpseclib",
-      "league/flysystem-webdav": "Allows you to use WebDAV storage",
-      "league/flysystem-ziparchive": "Allows you to use ZipArchive adapter"
+    {
+        "name": "overtrue/wechat",
+        "version": "2.0.28",
+        "version_normalized": "2.0.28.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/overtrue/wechat.git",
+            "reference": "4e213b9a37835361dc4e3cada90db0f2dc42aa3d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/overtrue/wechat/zipball/4e213b9a37835361dc4e3cada90db0f2dc42aa3d",
+            "reference": "4e213b9a37835361dc4e3cada90db0f2dc42aa3d",
+            "shasum": ""
+        },
+        "require": {
+            "ext-mcrypt": "*",
+            "php": ">=5.3"
+        },
+        "time": "2015-07-19 16:32:19",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Overtrue\\Wechat\\": "src/Wechat/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "overtrue",
+                "email": "anzhengchao@gmail.com"
+            }
+        ],
+        "description": "微信SDK",
+        "keywords": [
+            "sdk",
+            "wechat",
+            "weixin",
+            "weixin-sdk"
+        ]
     },
-    "time": "2015-07-11 14:58:06",
-    "type": "library",
-    "extra": {
-      "branch-alias": {
-        "dev-master": "1.1-dev"
-      }
-    },
-    "installation-source": "dist",
-    "autoload": {
-      "psr-4": {
-        "League\\Flysystem\\": "src/"
-      }
-    },
-    "notification-url": "https://packagist.org/downloads/",
-    "license": [
-      "MIT"
-    ],
-    "authors": [
-      {
-        "name": "Frank de Jonge",
-        "email": "info@frenky.net"
-      }
-    ],
-    "description": "Filesystem abstraction: Many filesystems, one API.",
-    "keywords": [
-      "Cloud Files",
-      "WebDAV",
-      "abstraction",
-      "aws",
-      "cloud",
-      "copy.com",
-      "dropbox",
-      "file systems",
-      "files",
-      "filesystem",
-      "filesystems",
-      "ftp",
-      "rackspace",
-      "remote",
-      "s3",
-      "sftp",
-      "storage"
-    ]
-    },
-  {
-    "name": "phpunit/phpunit-mock-objects",
-    "version": "2.3.5",
-    "version_normalized": "2.3.5.0",
-    "source": {
-      "type": "git",
-      "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-      "reference": "1c330b1b6e1ea8fd15f2fbea46770576e366855c"
-    },
-    "dist": {
-      "type": "zip",
-      "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/1c330b1b6e1ea8fd15f2fbea46770576e366855c",
-      "reference": "1c330b1b6e1ea8fd15f2fbea46770576e366855c",
-      "shasum": ""
-    },
-    "require": {
-      "doctrine/instantiator": "~1.0,>=1.0.2",
-      "php": ">=5.3.3",
-      "phpunit/php-text-template": "~1.2"
-    },
-    "require-dev": {
-      "phpunit/phpunit": "~4.4"
-    },
-    "suggest": {
-      "ext-soap": "*"
-    },
-    "time": "2015-07-04 05:41:32",
-    "type": "library",
-    "extra": {
-      "branch-alias": {
-        "dev-master": "2.3.x-dev"
-      }
-    },
-    "installation-source": "dist",
-    "autoload": {
-      "classmap": [
-        "src/"
-      ]
-    },
-    "notification-url": "https://packagist.org/downloads/",
-    "license": [
-      "BSD-3-Clause"
-    ],
-    "authors": [
-      {
-        "name": "Sebastian Bergmann",
-        "email": "sb@sebastian-bergmann.de",
-        "role": "lead"
-      }
-    ],
-    "description": "Mock Object library for PHPUnit",
-    "homepage": "https://github.com/sebastianbergmann/phpunit-mock-objects/",
-    "keywords": [
-      "mock",
-      "xunit"
-    ]
-    },
-  {
-    "name": "vicens/weixinsdk",
-    "version": "dev-master",
-    "version_normalized": "9999999-dev",
-    "source": {
-      "type": "git",
-      "url": "https://github.com/vicens/WeiXinSDK.git",
-      "reference": "bc2447f8efecafd9fe7e6de8e6192e0c28ae628d"
-    },
-    "dist": {
-      "type": "zip",
-      "url": "https://api.github.com/repos/vicens/WeiXinSDK/zipball/bc2447f8efecafd9fe7e6de8e6192e0c28ae628d",
-      "reference": "bc2447f8efecafd9fe7e6de8e6192e0c28ae628d",
-      "shasum": ""
-    },
-    "time": "2015-07-12 09:59:06",
-    "type": "library",
-    "installation-source": "dist",
-    "autoload": {
-      "psr-4": {
-        "Vicens\\WebChat\\": ""
-      }
-    },
-    "authors": [
-      {
-        "name": "vicens",
-        "email": "master@vicens.cn",
-        "homepage": "http://www.vicens.cn"
-      }
-    ],
-    "description": "微信公众平台SDK-for-PHP",
-    "support": {
-      "source": "https://github.com/vicens/WeiXinSDK/tree/master",
-      "issues": "https://github.com/vicens/WeiXinSDK/issues"
-    }
-  },
-  {
-    "name": "curl/curl",
-    "version": "1.2.1",
-    "version_normalized": "1.2.1.0",
-    "source": {
-      "type": "git",
-      "url": "https://github.com/php-mod/curl.git",
-      "reference": "67f7c490060751fbf24a02bc1ff3b32073aeb5e0"
-    },
-    "dist": {
-      "type": "zip",
-      "url": "https://api.github.com/repos/php-mod/curl/zipball/67f7c490060751fbf24a02bc1ff3b32073aeb5e0",
-      "reference": "67f7c490060751fbf24a02bc1ff3b32073aeb5e0",
-      "shasum": ""
-    },
-    "require": {
-      "ext-curl": "*",
-      "php": ">=5.3.0"
-    },
-    "require-dev": {
-      "phpunit/phpunit": "3.7.*",
-      "squizlabs/php_codesniffer": "~2.1"
-    },
-    "time": "2015-04-09 16:29:25",
-    "type": "library",
-    "installation-source": "dist",
-    "autoload": {
-      "psr-0": {
-        "Curl": "src/"
-      }
-    },
-    "notification-url": "https://packagist.org/downloads/",
-    "license": [
-      "MIT"
-    ],
-    "authors": [
-      {
-        "name": "Hassan Amouhzi",
-        "email": "hassan@anezi.net",
-        "homepage": "http://hassan.amouhzi.com"
-      },
-      {
-        "name": "php-curl-class",
-        "homepage": "https://github.com/php-curl-class"
-      },
-      {
-        "name": "user52",
-        "homepage": "https://github.com/user52"
-      }
-    ],
-    "description": "cURL class for PHP",
-    "homepage": "https://github.com/php-mod/curl",
-    "keywords": [
-      "curl",
-      "dot"
-    ]
-  },
-  {
-    "name": "overtrue/wechat",
-    "version": "dev-master",
-    "version_normalized": "9999999-dev",
-    "source": {
-      "type": "git",
-      "url": "https://github.com/overtrue/wechat.git",
-      "reference": "b568abfb78514f29af4ef2e04ad34a7d4ae4c0ba"
-    },
-    "dist": {
-      "type": "zip",
-      "url": "https://api.github.com/repos/overtrue/wechat/zipball/b568abfb78514f29af4ef2e04ad34a7d4ae4c0ba",
-      "reference": "b568abfb78514f29af4ef2e04ad34a7d4ae4c0ba",
-      "shasum": ""
-    },
-    "require": {
-      "ext-mcrypt": "*",
-      "php": ">=5.3"
-    },
-    "time": "2015-07-08 08:36:12",
-    "type": "library",
-    "installation-source": "dist",
-    "autoload": {
-      "psr-4": {
-        "Overtrue\\Wechat\\": "src/Wechat/"
-      }
-    },
-    "notification-url": "https://packagist.org/downloads/",
-    "license": [
-      "MIT"
-    ],
-    "authors": [
-      {
-        "name": "overtrue",
-        "email": "anzhengchao@gmail.com"
-      }
-    ],
-    "description": "微信SDK",
-    "keywords": [
-      "sdk",
-      "wechat",
-      "weixin",
-      "weixin-sdk"
-    ]
+    {
+        "name": "overtrue/laravel-wechat",
+        "version": "2.0.3",
+        "version_normalized": "2.0.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/overtrue/laravel-wechat.git",
+            "reference": "4564e81ccd1aa2b61573977e2dc78b55997066cd"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/overtrue/laravel-wechat/zipball/4564e81ccd1aa2b61573977e2dc78b55997066cd",
+            "reference": "4564e81ccd1aa2b61573977e2dc78b55997066cd",
+            "shasum": ""
+        },
+        "require": {
+            "overtrue/wechat": "2.0.*"
+        },
+        "time": "2015-06-04 01:30:56",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Overtrue\\LaravelWechat\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "overtrue",
+                "email": "anzhengchao@gmail.com"
+            }
+        ],
+        "description": "微信 SDK for Laravel",
+        "keywords": [
+            "laravel",
+            "sdk",
+            "wechat",
+            "weixin"
+        ]
     }
 ]

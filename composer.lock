@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f3680c9fc8971a909c93c5ca380f7dc8",
+    "hash": "a707437a11c66d15ac9e0fc235973eeb",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -838,17 +838,59 @@
             "time": "2015-05-02 15:40:40"
         },
         {
-            "name": "overtrue/wechat",
-            "version": "dev-master",
+            "name": "overtrue/laravel-wechat",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/overtrue/wechat.git",
-                "reference": "b568abfb78514f29af4ef2e04ad34a7d4ae4c0ba"
+                "url": "https://github.com/overtrue/laravel-wechat.git",
+                "reference": "4564e81ccd1aa2b61573977e2dc78b55997066cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overtrue/wechat/zipball/b568abfb78514f29af4ef2e04ad34a7d4ae4c0ba",
-                "reference": "b568abfb78514f29af4ef2e04ad34a7d4ae4c0ba",
+                "url": "https://api.github.com/repos/overtrue/laravel-wechat/zipball/4564e81ccd1aa2b61573977e2dc78b55997066cd",
+                "reference": "4564e81ccd1aa2b61573977e2dc78b55997066cd",
+                "shasum": ""
+            },
+            "require": {
+                "overtrue/wechat": "2.0.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Overtrue\\LaravelWechat\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "overtrue",
+                    "email": "anzhengchao@gmail.com"
+                }
+            ],
+            "description": "微信 SDK for Laravel",
+            "keywords": [
+                "laravel",
+                "sdk",
+                "wechat",
+                "weixin"
+            ],
+            "time": "2015-06-04 01:30:56"
+        },
+        {
+            "name": "overtrue/wechat",
+            "version": "2.0.28",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/overtrue/wechat.git",
+                "reference": "4e213b9a37835361dc4e3cada90db0f2dc42aa3d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/overtrue/wechat/zipball/4e213b9a37835361dc4e3cada90db0f2dc42aa3d",
+                "reference": "4e213b9a37835361dc4e3cada90db0f2dc42aa3d",
                 "shasum": ""
             },
             "require": {
@@ -878,7 +920,7 @@
                 "weixin",
                 "weixin-sdk"
             ],
-            "time": "2015-07-08 08:36:12"
+            "time": "2015-07-19 16:32:19"
         },
         {
             "name": "predis/predis",
@@ -3105,8 +3147,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "vicens/weixinsdk": 20,
-        "overtrue/wechat": 20
+        "vicens/weixinsdk": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
