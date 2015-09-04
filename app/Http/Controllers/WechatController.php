@@ -55,7 +55,7 @@ class WechatController extends Controller
 
         $user = WxUser::openid($userInfo->get('FromUserName'))->first();
         if (!( $user && $user->exists )) {
-            $wxInfo = $this->wechatUser->get($userInfo->get('FromUserName'));
+            //$wxInfo = $this->wechatUser->get($userInfo->get('FromUserName'));
             //dd($wxInfo);
         }
     }
