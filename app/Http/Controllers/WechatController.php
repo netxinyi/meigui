@@ -7,14 +7,11 @@
 
 namespace App\Http\Controllers;
 
-use Vicens\Wechat\Wechat;
+
 use Illuminate\Http\Request;
 use App\Model\Option;
-use Vicens\Wechat\Receive\Recevie;
-use Vicens\Wechat\Receive\Event;
-use Vicens\Wechat\Http\Request as WechatRequest;
 
-class WebChatController extends Controller
+class WechatController extends Controller
 {
 
 
@@ -28,8 +25,6 @@ class WebChatController extends Controller
         $options = Option::whereIn('key', ['wx_app_id', 'wx_token', 'wx_encoding_key', 'wx_app_secret'])->lists('value',
             'key');
 
-
-        $this->wx = new Wechat($options['wx_app_id'], $options['wx_token'], $options['wx_encoding_key']);
 
 
     }

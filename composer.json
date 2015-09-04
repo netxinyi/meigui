@@ -4,19 +4,12 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/vicens/weixinsdk"
-    }
-  ],
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.1.*",
       "predis/predis": "~1.0",
-      "vicens/weixinsdk": "dev-master",
       "curl/curl": "^1.2",
-      "overtrue/wechat": "dev-master"
+      "overtrue/laravel-wechat": "2.1.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
