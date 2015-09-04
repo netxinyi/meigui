@@ -24,7 +24,7 @@ Route::get('/', function (){
     return Response::make('welcome');
 });
 Route::match(['get', 'post'], '/weixin/api', ['uses' => 'WechatController@index']);
-
+Route::get('/weixin/authorize/{openid}', ['uses' => 'WechatController@authorize']);
 /*
 |--------------------------------------------------------------------------
 | Auth支持-控制器路由
@@ -45,6 +45,7 @@ Route::controllers([
 */
 #Auth-后台登录验证
 Route::controller('admin/auth', 'Admin\AuthController');
+
 #后台管理
 Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function (){
 
