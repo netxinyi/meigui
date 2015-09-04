@@ -1,0 +1,602 @@
+html, body, div, p, span, label, img, a, ol, ul, dl, dt, dd, li, table, tr, td, th, tbody, thead, tfoot, form, fieldset, legent, h1, h2, h3, h4, h5, h6, strong, b, em, blockquote, cite, pre, code, hr, br, input, button, textarea, article, aside, details, figcaption, figure, footer, header, group, menu, nav, section {
+    padding: 0px;
+    margin: 0px;
+}
+
+html {
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    font-family: "Microsoft yahei", "SimHei";
+    color: #fff;
+    overflow: hidden;
+}
+
+a {
+    border: 0 none;
+    cursor: pointer;
+}
+
+a:link, a:visited {
+    text-decoration: none;
+}
+
+ol, ul {
+    list-style-type: none;
+}
+
+em, i {
+    font-style: normal;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+.clearfix:after {
+    clear: both;
+    content: "";
+    display: block;
+    height: 0;
+    visibility: hidden;
+    line-height: 0;
+}
+
+.left {
+    float: left;
+    display: inline;
+}
+
+.right {
+    float: right;
+    display: inline;
+}
+
+.hidden {
+    display: none;
+}
+
+.popup {
+    position: absolute;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .3);
+}
+
+.popup:before {
+    content: " ";
+    position: absolute;
+    left: 50%;
+    bottom: -12px;
+    margin-left: -6px;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    font-size: 0;
+    border: 6px dashed transparent;
+    border-top: 6px solid #fff;
+}
+
+/*--滚动条--*/
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    background-color: #fff;
+}
+
+::-webkit-scrollbar:hover {
+    background-color: #eee;
+}
+
+::-webkit-resizer {
+}
+
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 4px;
+    background-color: #ccc;
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #bbb;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background-color: #888;
+}
+
+/* 全屏警告框 */
+.full-warning {
+    width: 100%;
+    background: #fff8d4;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+    display: none;
+}
+
+.full-warning .close {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #837955;
+    font-size: 30px;
+}
+
+.full-warning .warn-content {
+    width: 910px;
+    margin: 0 auto;
+    background: url(../img/warning.png) 0 20px no-repeat;
+    color: #837955;
+    font-size: 14px;
+    line-height: 30px;
+    padding: 20px 20px 20px 80px;
+}
+
+.full-warning .content a {
+    color: #837955;
+}
+
+#wrap {
+    position: relative;
+    width: 100%;
+    min-width: 1014px;
+    overflow: hidden;
+    background: #fff url(../img/bg.gif) center 0 no-repeat;
+}
+
+#content {
+    width: 910px;
+    height: auto;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+/* 头部 */
+#header {
+    padding-top: 25px;
+}
+
+#header img {
+    max-height: 96px;
+}
+
+#header > * {
+    height: 96px;
+    max-height: 96px;
+    float: left;
+}
+
+#header .logo {
+    display: block;
+    width: 220px;
+    line-height: 96px;
+}
+
+#header .logo img {
+    vertical-align: middle;
+    max-width: 220px;
+}
+
+#header ul.wrap-list {
+    float: left;
+    position: relative;
+    width: 580px;
+    background: url(../img/header-wrap-bg.png) center 0 no-repeat;
+}
+
+#header ul.wrap-list li {
+    width: 100%;
+    height: 84px;
+    padding-top: 10px;
+    font-size: 24px;
+    text-align: center;
+    line-height: 38px;
+    position: absolute;
+    overflow: hidden;
+    display: none;
+}
+
+#header ul.wrap-list li:first-child {
+    display: block;
+}
+
+#header .qrcode {
+    float: right;
+}
+
+#container {
+    margin-top: 15px;
+    width: 910px;
+    height: 555px;
+    overflow: hidden;
+}
+
+/* 微信消息墙 */
+#message-wall {
+    display: block;
+}
+
+#message-wall .message-list {
+    width: 100%;
+}
+
+.message-list .message-item {
+    border: 1px solid rgba(252, 61, 66, 1);
+    background: rgba(255, 255, 255, 1);
+    opacity: 0.9;
+    border-radius: 3px;
+    position: relative;
+    height: 166px;
+    margin-bottom: 15px;
+}
+
+.message-item > * {
+    float: left;
+    max-height: 166px;
+}
+
+.message-item .user-avatar {
+    position: relative;
+    padding: 34px;
+}
+
+.message-item .user-avatar img {
+    max-height: 90px;
+    max-width: 90px;
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #ff5858;
+    display: inline-block;
+}
+
+.message-item .content-box {
+    padding-top: 10px;
+    overflow: hidden;
+    position: relative;
+    color: #e7234f;
+}
+
+.content-box .user-name {
+    font-size: 30px;
+    display: inline-block;
+    width: 690px;
+    height: 38px;
+    line-height: 38px;
+    overflow: hidden;
+}
+
+.content-box .content {
+    display: block;
+    word-break: break-all;
+    word-wrap: break-word;
+    max-height: 105px;
+    overflow: hidden;
+    font-size: 25px;
+    width: 720px;
+    text-overflow: ellipsis;
+}
+
+.content-box .content.large {
+    font-size: 60px;
+}
+
+.content-box .content.small {
+    font-size: 16px;
+}
+
+.message-item .content-more {
+    width: 70px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    cursor: pointer;
+    display: none;
+    background: url(../img/content-more-bg.png) 0 0 repeat-y;
+
+}
+
+.content-more .arrow {
+    display: inline-block;
+    width: 16px;
+    height: 31px;
+    background: url(../img/content-more-arrow.png) 0 0 no-repeat;
+    position: absolute;
+    top: 70px;
+    right: 20px;
+}
+
+.message-item:hover .content-more {
+    display: block;
+}
+
+#footer {
+    padding: 10px;
+    position: relative;
+    z-index: 1002;
+}
+
+#footer .logo {
+    float: left;
+    max-width: 245px;
+    line-height: 65px;
+}
+
+#footer .logo img {
+    vertical-align: middle;
+    max-height: 65px;
+}
+
+#footer .notice {
+    float: right;
+    padding: 0 0 0 60px;
+    width: 618px;
+    color: #fff;
+    background: url(../img/icon-notice.png) no-repeat 0 center;
+    border-radius: 5px;
+    overflow: hidden;
+    display: none;
+}
+
+#footer .contrl-list {
+    float: right;
+    position: relative;
+    padding-top: 10px;
+}
+
+.ctn {
+    float: left;
+    display: block;
+    width: 35px;
+    height: 35px;
+    background: url(../img/contrl-icons.png) no-repeat;
+    text-indent: -9999em;
+    margin-right: 10px;
+    position: relative;
+}
+
+.ctn:hover .popup {
+    display: block;
+}
+
+.ctn-player {
+    float: left;
+    display: block;
+    width: 35px;
+    height: 35px;
+    text-indent: -9999em;
+    margin-right: 10px;
+    background: url(../img/contrl-player.png) no-repeat;
+}
+
+.ctn-player:hover, .ctn:hover {
+    opacity: .7;
+}
+
+.ctn.ctn-wifi {
+    background-position: -40px 0;
+}
+
+.ctn.ctn-shake {
+    background-position: 0 -360px;
+}
+
+.ctn.ctn-style {
+    background-position: 0 -320px;
+}
+
+.ctn.ctn-checkin {
+    background-position: 0 -280px;
+}
+
+.ctn.ctn-tag {
+    background-position: 0 -240px;
+}
+
+.ctn.ctn-vote {
+    background-position: 0 -200px;
+}
+
+.ctn.ctn-pair {
+    background-position: 0 -160px;
+}
+
+.ctn.ctn-lottery {
+    background-position: 0 -120px;
+}
+
+.ctn.ctn-setting {
+    background-position: 0 -80px;
+}
+
+.ctn.ctn-full {
+    background-position: 0 -40px;
+}
+
+.ctn.ctn-menu {
+    background-position: 0 -600px;
+}
+
+.ctn-player.ctn-player-first {
+    background-position: 0 0;
+}
+
+.ctn-player.ctn-player-prev {
+    background-position: -50px 0;
+}
+
+.ctn-player.ctn-player-play {
+    background-position: -197px -40px;
+}
+
+.ctn-player.ctn-player-play.play {
+    font-size: 20px;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 .1em rgba(255, 255, 255, .7);
+}
+
+.ctn-player.ctn-player-play.play:before {
+    position: absolute;
+    clip: rect(0, 1em, 1em, .5em);
+    content: '';
+    animation: circle-clipper 1s ease-in-out infinite;
+    -webkit-animation: circle-clipper 1s ease-in-out infinite;
+    -o-animation: circle-clipper 1s ease-in-out infinite;
+    -moz-animation: circle-clipper 1s ease-in-out infinite;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 .1em #3aa8ed;
+    display: block;
+    width: 35px;
+    height: 35px;
+}
+
+/* 圆形动画 */
+@-webkit-keyframes circle-clipper {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-o-keyframes circle-clipper {
+    0% {
+        -o-transform: rotate(0deg);
+    }
+
+    100% {
+        -o-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes circle-clipper {
+    0% {
+        -moz-transform: rotate(0deg);
+    }
+
+    100% {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@keyframes circle-clipper {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.ctn-player.ctn-player-play.pause {
+    background-position: -197px 0;
+}
+
+.ctn-player.ctn-player-next {
+    background-position: -100px 0;
+}
+
+.ctn-player.ctn-player-last {
+    background-position: -150px 0;
+}
+
+/* 应用列表 */
+.popup.app-list {
+    padding: 15px;
+    width: 270px;
+    top: -126px;
+    left: -134px;
+    display: none;
+    opacity: 0;
+
+}
+
+.app-list .app-icon {
+    float: left;
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    margin: 0 10px 10px 0;
+    border-radius: 3px;
+    background: url(../img/app-icons.png) no-repeat 0 0;
+    cursor: pointer;
+}
+
+.app-icon:hover {
+    opacity: .7;
+}
+
+.app-icon.app-icon-choujiang {
+    background-position: 0 0;
+    background-color: #1bbc9b;
+}
+
+.app-icon.app-icon-duiduipeng {
+    background-color: #e3506c;
+    background-position: 0 -35px;
+}
+
+.app-icon.app-icon-toupiao {
+    background-position: 0 -70px;
+    background-color: #1eb7c1;
+}
+
+.app-icon.app-icon-qiandao {
+    background-color: #317bd9;
+    background-position: 0 -105px;
+}
+
+.app-icon.app-icon-yaoyiyao {
+    background-color: #9648b8;
+    background-position: -35px 0;
+}
+
+.app-icon.app-icon-danmu {
+    background-color: #ef7115;
+    background-position: -35px -35px;
+}
+
+.app-icon.app-icon-pingfen {
+    background-color: #d7a807;
+    background-position: -35px -70px;
+}
+
+.app-icon.app-icon-laohuji {
+    background-color: #e2653f;
+    background-position: -35px -105px;
+}
+
+.app-icon.app-icon-dashang {
+    background-color: #70ab09;
+    background-position: -70px 0;
+}
+
+.app-icon.app-icon-dazhuanpan {
+    background-color: #d83e31;
+    background-position: -70px -35px;
+}
+
+.app-icon.app-icon-hongbao {
+    background-color: #f65c5c;
+    background-position: -70px -70px;
+}
+
+.app-icon.app-icon-xuyuanshu {
+    background-color: #f443db;
+    background-position: -70px -105px;
+}

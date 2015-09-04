@@ -32,5 +32,7 @@ return array(
     'Faker\\' => array($vendorDir . '/fzaninotto/faker/src/Faker'),
     'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),
     'ClassPreloader\\' => array($vendorDir . '/classpreloader/classpreloader/src'),
+    'Overtrue\\Wechat\\'        => array($vendorDir . '/overtrue/wechat/src/Wechat'),
+    'Overtrue\\LaravelWechat\\' => array($vendorDir . '/overtrue/laravel-wechat/src'),
     'App\\' => array($baseDir . '/app'),
 );

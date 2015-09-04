@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\Option;
+use Overtrue\LaravelWechat;
 
 class WechatController extends Controller
 {
@@ -32,10 +33,6 @@ class WechatController extends Controller
 
     public function index()
     {
-
-        $this->wx->event(\App\Providers\Wechat\Receive\Event::class);
-
-        return $this->wx->signature()->response();
 
     }
 
