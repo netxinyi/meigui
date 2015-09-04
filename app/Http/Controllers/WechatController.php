@@ -39,10 +39,16 @@ class WechatController extends Controller
     public function index()
     {
 
-        $this->wechat->on('message', 'text', function (Bag $userInfo){
+        $this->wechat->event('subscribe', function (){
+
+            return Message::make('text')->content('感谢关注新依网络');
+        });
+
+        $this->wechat->on('message', function (Bag $userInfo){
 
             $this->save($userInfo);
-            return Message::make()->content('您好');
+
+            return Message::make()->content($userInfo->get('Context'));
         });
 
 
