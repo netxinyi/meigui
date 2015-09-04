@@ -48,7 +48,8 @@ class WechatController extends Controller
 
             $this->save($userInfo);
 
-            return Message::make()->content($userInfo->get('Context'));
+            return Message::make()->content(md5(rand(100000, 999999)) . $userInfo->get('Context') . md5(rand(100000,
+                    999999)));
         });
 
 
