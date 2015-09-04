@@ -10,8 +10,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\Option;
-use Overtrue\Wechat\Server as Server;
-use Overtrue\Wechat\Message as Message;
+use Overtrue\Wechat\Server;
+use Overtrue\Wechat\Message;
+use Overtrue\Wechat\User;
+use Overtrue\Wechat\Utils\Bag;
+use App\Model\WxUser;
 
 class WechatController extends Controller
 {
@@ -28,6 +31,7 @@ class WechatController extends Controller
         $options = Option::whereIn('key', ['wx_app_id', 'wx_token', 'wx_encoding_key', 'wx_app_secret'])->lists('value',
             'key');
         $this->wechat = new Server($options['wx_app_id'], $options['wx_token']);
+        $this->wechatUser = new User($options['wx_app_id'], $options['wx_app_secret']);
 
     }
 
@@ -35,8 +39,9 @@ class WechatController extends Controller
     public function index()
     {
 
-        $this->wechat->on('message', 'text', function (){
+        $this->wechat->on('message', 'text', function (Bag $userInfo){
 
+            $this->save($userInfo);
             return Message::make()->content('您好');
         });
 
@@ -45,4 +50,13 @@ class WechatController extends Controller
     }
 
 
+    private function save(Bag $userInfo)
+    {
+
+        $user = WxUser::openid($userInfo->get('FromUserName'))->first();
+        if (!( $user && $user->exists )) {
+            $wxInfo = $this->wechatUser->get($userInfo->get('FromUserName'));
+            //dd($wxInfo);
+        }
+    }
 }
