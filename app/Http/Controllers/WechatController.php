@@ -48,7 +48,7 @@ class WechatController extends Controller
 
             $this->save($userInfo);
 
-            return Message::make()->content("您说：" . $userInfo->get('Context'));
+            return Message::make()->content("您说：" . $userInfo->get('Content'));
         });
 
 
