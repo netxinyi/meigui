@@ -51,15 +51,19 @@
             $(this).hide();
         });
         //播放列表按钮
-        //翻第一页
-        $('.ctn-player.ctn-player-first').click(function () {
-            MW.models.msgWall.first();
+        ["first", "last", "next", "prev"].map(function (btn) {
+            $('.ctn-player.ctn-player-' + btn).click(function () {
+                MW.models.msgWall[btn]();
+            });
         });
-        //最后一页
-        $('.ctn-player.ctn-player-last').click(function () {
-            MW.models.msgWall.last();
+        $('.ctn-player.ctn-player-play').click(function () {
+            if ($(this).hasClass("play")) {
+                MW.models.msgWall.stop();
+            } else {
+                MW.models.msgWall.start();
+            }
+            $(this).toggleClass("play").toggleClass("pause");
         });
-
         /* 底部公告栏和控制面板轮询显示 */
         var footNoticeTimer;
         fadeShowNotice();
@@ -201,9 +205,12 @@
             return this.to(0);
         },
         next: function () {
+            var top = -(parseFloat(this.wrap.css("top"))) + 183;
+            return this.to(top);
         },
         prev: function () {
-
+            var top = -(parseFloat(this.wrap.css("top"))) - 183;
+            return this.to(top);
         },
         last: function () {
             var top = this.wrap.height() - (3 * 183);
@@ -217,6 +224,9 @@
             this.detailElement.find(".user-name").html(message.user.nickname).next("span").html("来自" + (message.user.from || "微信"));
             this.detailElement.find(".detail-content").html(message.content);
             this.detailElement.show();
+        },
+        play: function () {
+
         }
     });
 
