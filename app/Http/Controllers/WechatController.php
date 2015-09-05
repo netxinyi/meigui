@@ -45,22 +45,32 @@ class WechatController extends Controller
     public function messages()
     {
 
-        $lastId = 0;
         header('Content-Type: text/event-stream');
-
+        $messages   = WxMessage::with('user')->orderBy('message_id', 'desc')->limit(6)->get();
+        $lastId     = $this->eventEcho($messages->reverse());
         while (true) {
 
-
+            sleep(3);
             $messages = WxMessage::where('message_time', '>', date('Y-m-d H:i:s', time() - 7200))->where('message_id',
                 '>', $lastId)->with('user')->get();
-            if ($messages->last()) {
-                $lastId = $messages->last()->message_id;
-                echo "data: " . $messages->toJson() . "\n\n";
-            }
+            $lastId = $this->eventEcho($messages);
             ob_flush();
             flush();
-            sleep(3);
+
         }
+    }
+
+
+    private function eventEcho($messages)
+    {
+
+        $lastId = 0;
+        if ($messages->last()) {
+            $lastId = $messages->last()->message_id;
+            echo "data: " . $messages->toJson() . "\n\n";
+        }
+
+        return $lastId;
     }
 
 
