@@ -51,8 +51,9 @@ class WechatController extends Controller
         $this->wechat->on('message', function (Bag $userInfo){
 
             $this->save($userInfo);
+            $content = $userInfo->get('Content');
 
-            switch ($userInfo->get('Content')) {
+            switch ($content) {
                 case '授权':
                 case '我要授权':
                     return Message::make()->content("点击以下链接完成授权：\n <a href=\"http://114.215.135.10/weixin/authorize/" . $userInfo['FromUserName'] . '">点此授权</a>');
@@ -76,7 +77,7 @@ class WechatController extends Controller
         if (!( $user && $user->exists )) {
             $auth = new WxAuth($this->options['wx_app_id'], $this->options['wx_app_secret']);
 
-            return $auth->authorize($to = null, $scope = 'snsapi_userinfo', $state = 'STATE');
+            return $auth->authorize();
         }
 
         return Message::make()->content("恭喜您:" . $user->nickname . "授权成功");
