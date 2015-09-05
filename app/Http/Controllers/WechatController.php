@@ -8,6 +8,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Model\WxMessage;
 use Illuminate\Http\Request;
 use App\Model\Option;
 use Overtrue\Wechat\Server;
@@ -34,12 +35,22 @@ class WechatController extends Controller
         $this->options    = Option::whereIn('key',
             ['wx_app_id', 'wx_token', 'wx_encoding_key', 'wx_app_secret'])->lists('value', 'key');
         $this->wechat     = new Server($this->options['wx_app_id'], $this->options['wx_token']);
-        $this->wechatUser = new User($this->options['wx_app_id'], $this->options['wx_app_secret']);
+
 
     }
 
 
-    public function index()
+    public function messages()
+    {
+
+        $start_time = $this->request()->get('start_time', time() - 3600);
+        $messages   = WxMessage::where('message_time', '>', $start_time)->with(['user'])->get();
+
+        return $this->rest()->success($messages);
+    }
+
+
+    public function wxapi()
     {
 
         $this->wechat->event('subscribe', function (){
@@ -50,16 +61,22 @@ class WechatController extends Controller
 
         $this->wechat->on('message', function (Bag $userInfo){
 
-            $this->save($userInfo);
+            $user    = $this->save($userInfo);
             $content = $userInfo->get('Content');
-
+            $message = new WxMessage(array(
+                'type'          => 'text',
+                'content'       => $content,
+                'message_time'  => date('Y-m-d H:i:s', time()),
+                'wx_message_id' => $userInfo['MsgId']
+            ));
+            $user->messages()->save($message);
             switch ($content) {
                 case '授权':
                 case '我要授权':
                     return Message::make()->content("点击以下链接完成授权：\n <a href=\"http://114.215.135.10/weixin/authorize/" . $userInfo['FromUserName'] . '">点此授权</a>');
                     break;
                 default:
-                    return Message::make()->content("您说：" . $userInfo->get('Content'));
+                    return Message::make()->content($user->nickname . $userInfo->get('Content'));
             }
 
 
@@ -91,6 +108,20 @@ class WechatController extends Controller
         if (!( $user && $user->exists )) {
             //$wxInfo = $this->wechatUser->get($userInfo->get('FromUserName'));
             //dd($wxInfo);
+            $user = WxUser::create(array(
+                'openid'         => $userInfo->get('FromUserName'),
+                'nickname'       => '迁迁' . rand(1, 9999),
+                'sex'            => rand(0, 1),
+                'country'        => '中国',
+                'province'       => '河北',
+                'city'           => '邢台',
+                'avatar'         => 'http://wx.qlogo.cn/mmopen/ajNVdqHZLLC11iaTPfGbdHUicPBALG3IWicILXibyrkGQnyib6CvicxpSApR6m4WwYOwhNwicb8pI3KvCUAm9K6djum5A/0',
+                'remark'         => '',
+                'subscribe_time' => time()
+            ));
+
         }
+
+        return $user;
     }
 }

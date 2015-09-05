@@ -8,7 +8,7 @@
 namespace App\Model;
 
 
-class WxUser extends BaseModel
+class WxMessage extends BaseModel
 {
 
 
@@ -16,30 +16,27 @@ class WxUser extends BaseModel
      * 表名
      * @var string
      */
-    protected $table = 'wx_users';
+    protected $table      = 'wx_messages';
+
+    public    $timestamps = false;
 
     /**
      * 主键
      * @var string
      */
-    protected $primaryKey = 'user_id';
+    protected $primaryKey = 'message_id';
 
-    public $timestamps = false;
     /**
      * 批量赋值白名单
      * @var array
      */
     protected $fillable = [
-        'nickname',
-        'openid',
-        'avatar',
-        'country',
-        'province',
-        'city',
-        'subscribe_time',
-        'remark',
-        'groupid',
-        'sex'
+        'message_id',
+        'type',
+        'content',
+        'user_id',
+        'created_at',
+        'wx_message_id'
     ];
 
 
@@ -56,11 +53,13 @@ class WxUser extends BaseModel
     |--------------------------------------------------------------------------
     */
 
-    public function messages()
+    public function user()
     {
 
-        return $this->hasMany('App\\Model\\WxMessage', 'user_id', 'user_id');
+        return $this->belongsTo('App\\Model\\WxUser', 'user_id', 'user_id');
     }
+
+
     /*
     |--------------------------------------------------------------------------
     | 范围查询
