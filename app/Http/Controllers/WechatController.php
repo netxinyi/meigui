@@ -51,7 +51,7 @@ class WechatController extends Controller
         while (true) {
 
 
-            $messages = WxMessage::where('message_time', '>', date('Y-m-d H:i:s', time() - 3600))->where('message_id',
+            $messages = WxMessage::where('message_time', '>', date('Y-m-d H:i:s', time() - 7200))->where('message_id',
                 '>', $lastId)->with('user')->get();
             if ($messages->last()) {
                 $lastId = $messages->last()->message_id;
@@ -59,7 +59,7 @@ class WechatController extends Controller
             }
             ob_flush();
             flush();
-            sleep(1);
+            sleep(3);
         }
     }
 

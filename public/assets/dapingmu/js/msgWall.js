@@ -47,10 +47,85 @@
             $('.popup.app-list').show();
             $('.popup.app-list').focus();
         });
-
         $('.popup.app-list').blur(function () {
             $(this).hide();
         });
+        //播放列表按钮
+        //翻第一页
+        $('.ctn-player.ctn-player-first').click(function () {
+            MW.models.msgWall.first();
+        });
+        //最后一页
+        $('.ctn-player.ctn-player-last').click(function () {
+            MW.models.msgWall.last();
+        });
+
+        /* 底部公告栏和控制面板轮询显示 */
+        var footNoticeTimer;
+        fadeShowNotice();
+        function fadeShowNotice() {
+            clearTimeout(footNoticeTimer);
+            footNoticeTimer = setTimeout(function () {
+                $('#footer .contrl-list').fadeOut("slow", function () {
+                    $(this).hide();
+                    $('#footer .notice').fadeIn("slow", function () {
+                        $(this).show();
+                        $("#footer .notice .notice-wrap").kxbdSuperMarquee({
+                            isMarquee: true,
+                            isEqual: false,
+                            scrollDelay: 30,
+                            direction: 'left'
+                        });
+                    });
+                });
+
+            }, 3000);
+        }
+
+        function fadeShowContrlList() {
+            clearTimeout(footNoticeTimer);
+            $('#footer .notice').fadeOut("slow", function () {
+                $(this).hide();
+                $('#footer .contrl-list').fadeIn("slow", function () {
+                    $(this).show();
+                });
+            });
+        }
+
+        $('#footer').mouseenter(function () {
+            fadeShowContrlList();
+
+        }).mouseleave(function () {
+
+            fadeShowNotice();
+        });
+        var headerNoticeInterval;
+
+        function fadeChangeNotice() {
+            headerNoticeInterval = setInterval(function () {
+                var $active = $("#header .notice-list").find("li.active");
+                var $li = $active.next();
+                if ($li.length < 1) {
+                    $li = $("#header .notice-list").find("li").first();
+                }
+                $active.fadeOut("slow", function () {
+                    $li.fadeIn("slow", function () {
+                        $li.addClass('active').siblings().removeClass('active');
+                    });
+                });
+            }, 7000);
+        }
+
+        fadeChangeNotice();
+        $("#header .notice-list").hover(function () {
+            clearInterval(headerNoticeInterval);
+        }, function () {
+            fadeChangeNotice();
+        });
+
+
+
+
         MW.models.msgWall.start();
     };
 
@@ -60,36 +135,65 @@
     m.models.msgWall = new msgWall();
 
 
-    function msgWall() {
-        this.animate = null;
+    function msgWall(opt) {
+        $.extend(true, this, {
+            animate: 700,
+            wrap: $('#message-wall .message-list'),
 
+        }, opt);
+        return this;
     }
 
-    msgWall.prototype.start = function () {
-        this.requester = m.utils.requester('/weixin/messages');
-        this.requester.onmessage = this.onmessage;
-    };
-    msgWall.prototype.stop = function () {
-        this.requester.close();
-    };
-    msgWall.prototype.onmessage = function (message) {
-        var data = JSON.parse(message.data);
-        msgWall.prototype.addMsg(data);
+    $.extend(msgWall.prototype, {
+        start: function () {
+            var parent = this;
+            this.requester = m.utils.requester('/weixin/messages');
+            this.requester.onmessage = function (result) {
+                parent.onmessage(JSON.parse(result.data));
+            };
+            return this;
+        },
+        stop: function () {
+            this.requester.close();
+            return this;
+        },
+        onmessage: function (data) {
+            return this.add(data);
+        },
+        template: function (message) {
+            return '<li class="message-item" data-id="' + message.message_id + '"><div class="user-avatar"><img src="' + message.user.avatar + '" width="90" height="90" alt=""></div><div class="content-box"><p class="user-name">' + message.user.nickname + ':</p><p class="content">' + message.content + '</p></div><div class="content-more"><i class="arrow"></i></div></li>';
+        },
+        add: function (object) {
 
-    };
-    msgWall.prototype.addMsg = function (object) {
-        if (!$.isArray(object)) {
-            object = [object];
+            if (!$.isArray(object)) {
+                object = [object];
+            }
+
+            var parent = this;
+            object.map(function (message) {
+                parent.wrap.append($(parent.template(message)));
+            });
+            return this.last();
+        },
+        to: function (top) {
+            this.wrap.animate({top: -top + "px"}, this.animate, "linear");
+            return this;
+        },
+        first: function () {
+            return this.to(0);
+        },
+        next: function () {
+        },
+        prev: function () {
+
+        },
+        last: function () {
+            var top = this.wrap.height() - (3 * 183);
+
+            return this.to(top > 0 ? top : 0);
         }
-        object.map(function (message) {
-            var item = '<li class="message-item"><div class="user-avatar"><img src="' + message.user.avatar + '" width="90" height="90" alt=""></div><div class="content-box"><p class="user-name">' + message.user.nickname + ':</p><p class="content">' + message.content + '</p></div><div class="content-more"><i class="arrow"></i></div></li>';
-            $('#message-wall .message-list').append($(item));
-        });
-        var count = $('#message-wall .message-list').find('.message-item').length;
-        var top = count - 3 <= 0 ? 0 : -(count - 3) * 183;
-        $('#message-wall .message-list').animate({top: top + "px"});
+    });
 
-    };
 
 
     window.msgWall = msgWall;

@@ -149,7 +149,7 @@ em, i {
     width: 100%;
     min-width: 1014px;
     overflow: hidden;
-    background: #fff url(../img/bg.gif) center 0 no-repeat;
+    background: #fff url(../img/bg.jpg) center 0 no-repeat;
 }
 
 #content {
@@ -186,29 +186,27 @@ em, i {
     max-width: 220px;
 }
 
-#header ul.wrap-list {
+#header ul.notice-list {
     float: left;
     position: relative;
     width: 580px;
+    height: 96px;
     background: url(../img/header-wrap-bg.png) center 0 no-repeat;
+    overflow: hidden;;
 }
 
-#header ul.wrap-list li {
-    width: 100%;
-    height: 84px;
+#header ul.notice-list li {
     padding-top: 10px;
     font-size: 24px;
     text-align: center;
     line-height: 38px;
-    position: absolute;
-    overflow: hidden;
     display: none;
+    color: #fa3072;
 }
 
-#header ul.wrap-list li:first-child {
-    display: block;
+#header ul.notice-list li.active {
+    display: list-item;
 }
-
 #header .qrcode {
     float: right;
 }
@@ -216,7 +214,7 @@ em, i {
 #container {
     margin-top: 15px;
     width: 910px;
-    height: 555px;
+    height: 549px;
     overflow: hidden;
 }
 
@@ -344,12 +342,31 @@ em, i {
 #footer .notice {
     float: right;
     padding: 0 0 0 60px;
-    width: 618px;
     color: #fff;
     background: url(../img/icon-notice.png) no-repeat 0 center;
     border-radius: 5px;
-    overflow: hidden;
     display: none;
+    height: 54px;
+    width: 618px;
+}
+
+#footer .notice .notice-wrap {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#footer .notice ul.notice-lis {
+
+}
+
+#footer .notice ul.notice-list li {
+    height: 54px;
+    line-height: 54px;
+    float: left;
+    letter-spacing: 2px;
+    font-size: 30px;
+    color: #fa3072;
 }
 
 #footer .contrl-list {
@@ -385,13 +402,10 @@ em, i {
     background: url(../img/contrl-player.png) no-repeat;
 }
 
-.ctn-player:hover, .ctn:hover {
-    opacity: .7;
-}
-
 .ctn.ctn-wifi {
     background-position: -40px 0;
 }
+
 
 .ctn.ctn-shake {
     background-position: 0 -360px;
@@ -519,6 +533,13 @@ em, i {
     background-position: -150px 0;
 }
 
+.ctn:hover {
+    background-position-x: -40px;
+}
+
+.ctn-player:hover {
+    background-position-y: -40px;
+}
 /* 应用列表 */
 .popup.app-list {
     padding: 15px;
