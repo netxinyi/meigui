@@ -9,6 +9,7 @@ namespace App\Http\Controllers;
 
 
 use App\Model\WxMessage;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use App\Model\Option;
 use Overtrue\Wechat\Server;
@@ -40,13 +41,27 @@ class WechatController extends Controller
     }
 
 
+
     public function messages()
     {
 
-        $start_time = $this->request()->get('start_time', time() - 3600);
-        $messages   = WxMessage::where('message_time', '>', $start_time)->with(['user'])->get();
+        $lastId = 0;
+        header('Content-Type: text/event-stream');
 
-        return $this->rest()->success($messages);
+        for ($i = 0; $i <= 5; $i++) {
+            sleep(3);
+
+            $messages = WxMessage::where('message_time', '>', date('Y-m-d H:i:s', time() - 3600))->where('message_id',
+                '>', $lastId)->with('user')->get();
+            if ($messages->last()) {
+                $lastId = $messages->last()->message_id;
+            }
+
+
+            echo "data: " . $messages->toJson() . "\n\n";
+            ob_flush();
+            flush();
+        }
     }
 
 

@@ -227,6 +227,8 @@ em, i {
 
 #message-wall .message-list {
     width: 100%;
+    position: relative;
+    top: 0;
 }
 
 .message-list .message-item {
@@ -357,6 +359,7 @@ em, i {
 }
 
 .ctn {
+    cursor: pointer;
     float: left;
     display: block;
     width: 35px;
@@ -372,6 +375,7 @@ em, i {
 }
 
 .ctn-player {
+    cursor: pointer;
     float: left;
     display: block;
     width: 35px;
@@ -519,11 +523,14 @@ em, i {
 .popup.app-list {
     padding: 15px;
     width: 270px;
-    top: -126px;
-    left: -134px;
+    top: -119px;
+    left: -86px;
     display: none;
-    opacity: 0;
 
+}
+
+.popup.app-list:focus {
+    outline: none
 }
 
 .app-list .app-icon {

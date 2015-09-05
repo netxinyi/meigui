@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use Illuminate\Http\Response;
 use Request;
 use Illuminate\Routing\Controller as BaseController;
 use App\Providers\Rest\RestServiceTrait;
@@ -37,7 +38,7 @@ abstract class Controller extends BaseController
 
         if (!is_null($view)) {
             //添加view目录前缀
-            $view = str_finish($this->viewPrefix, '.').$view;
+            $view = str_finish($this->viewPrefix, '.') . $view;
         }
 
         return view($view, $data, $mergeData);
@@ -82,10 +83,10 @@ abstract class Controller extends BaseController
     /**
      * 响应失败消息
      *
-     * @param string $message
-     * @param int    $code
+     * @param string                  $message
+     * @param int                     $code
      * @param string|RedirectResponse $redirect
-     * @param array  $data
+     * @param array                   $data
      *
      * @return $this|\App\Http\Controllers\Controller|\Illuminate\Contracts\Routing\ResponseFactory
      */
@@ -93,6 +94,7 @@ abstract class Controller extends BaseController
     {
 
         $message = is_array($message) ? $message : ['error' => $message];
+
         return $this->success($message, $data, $redirect, $code)->withInput();
     }
 
@@ -100,10 +102,10 @@ abstract class Controller extends BaseController
     /**
      * 响应成功消息
      *
-     * @param string $message
-     * @param array  $data
+     * @param string                  $message
+     * @param array                   $data
      * @param string|RedirectResponse $redirect
-     * @param int    $code
+     * @param int                     $code
      *
      * @return $this|\Illuminate\Contracts\Routing\ResponseFactory
      */
@@ -140,4 +142,10 @@ abstract class Controller extends BaseController
         return redirect($to, $status, $headers, $secure);
     }
 
+
+    protected function response($content = '', $status = 200, array $headers = [])
+    {
+
+        return response($content, $status, $headers);
+    }
 }

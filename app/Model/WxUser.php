@@ -42,6 +42,7 @@ class WxUser extends BaseModel
         'sex'
     ];
 
+    protected $hidden = ['openid'];
 
     /*
     |--------------------------------------------------------------------------
