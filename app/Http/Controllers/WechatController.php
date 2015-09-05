@@ -27,6 +27,8 @@ class WechatController extends Controller
 
     protected $options;
 
+    protected $viewPrefix = 'weixin';
+
 
     public function __construct(Request $request)
     {
@@ -46,17 +48,11 @@ class WechatController extends Controller
     {
 
         header('Content-Type: text/event-stream');
-        $lastId = 0;
+        $lastId = $this->request()->get('last', 0);
         while (true) {
 
+            $messages = WxMessage::with('user')->where('message_id', '>', $lastId)->limit(3)->get();
 
-            $query = WxMessage::with('user')->orderBy('message_id', 'desc')->limit(6);
-
-            if ($lastId) {
-                $query->where('message_id', '>', $lastId);
-            }
-
-            $messages = $query->get();
             if (!$messages->isEmpty()) {
 
                 $lastId = $messages->max('message_id');
@@ -71,7 +67,14 @@ class WechatController extends Controller
     }
 
 
+    public function dapingmu($style = "")
+    {
 
+        $messages = WxMessage::with('user')->orderBy('message_id', 'desc')->limit(6)->get();
+
+        return $this->view('dapingmu')->with('style', $style)->with('messages', $messages->reverse())->with('last',
+            $messages->max('message_id'));
+    }
 
     public function wxapi()
     {

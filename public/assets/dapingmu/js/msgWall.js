@@ -35,7 +35,9 @@
     };
     MW.models = {};
 
-    MW.start = function () {
+    MW.options = {};
+    MW.start = function (options) {
+        MW.options = options;
         //全屏点击事件
         $('.contrl-list .ctn.ctn-full').click(function () {
             MW.utils.fullScrren();
@@ -126,11 +128,7 @@
         }, function () {
             fadeChangeNotice();
         });
-
-
-
-
-        MW.models.msgWall.start();
+        MW.models.msgWall.start(MW.options.msgWall || {});
     };
 
     window.MW = MW;
@@ -139,13 +137,10 @@
     m.models.msgWall = new msgWall();
 
 
-    function msgWall(opt) {
-        $.extend(true, this, {
-            animate: 700,
-            wrap: $('#message-wall .message-list'),
-            detailElement: $("#message-wall .content-detail")
-
-        }, opt);
+    function msgWall() {
+        this.wrap = $('#message-wall .message-list');
+        this.detailElement = $("#message-wall .content-detail");
+        this.options = {};
 
         var parent = this;
         parent.detailElement.find(".close").click(function () {
@@ -153,13 +148,24 @@
             parent.wrap.show();
 
         });
+
+
         return this;
     }
 
     $.extend(msgWall.prototype, {
-        start: function () {
+        start: function (opt) {
+
+            $.extend(true, this.options, {
+                messages: [],
+                lastId: 0,
+                animate: 700
+            }, opt);
+
             var parent = this;
-            this.requester = m.utils.requester('/weixin/messages');
+
+            parent.add(parent.options.messages);
+            this.requester = m.utils.requester('/weixin/messages?last=' + parent.options.lastId);
             this.requester.onmessage = function (result) {
                 parent.onmessage(JSON.parse(result.data));
             };
@@ -198,7 +204,7 @@
             return this.last();
         },
         to: function (top) {
-            this.wrap.animate({top: -top + "px"}, this.animate, "linear");
+            this.wrap.animate({top: -top + "px"}, this.options.animate, "linear");
             return this;
         },
         first: function () {
