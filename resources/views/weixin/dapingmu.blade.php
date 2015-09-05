@@ -157,10 +157,7 @@
 <script type="text/javascript" src="/assets/lib/jquery-scroll-marquee/scroll-marquee.js"></script>
 <script type="text/javascript" src="/assets/dapingmu/js/msgWall.js"></script>
 <script type="text/javascript">
-    var messages = {
-    !!$messages ? : ""
-    !!
-    }
+    var messages = {!! $messages ? : "[]" !!}
     MW.start({
         msgWall: {
             messages: messages,
