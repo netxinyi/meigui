@@ -55,13 +55,11 @@ class WechatController extends Controller
                 '>', $lastId)->with('user')->get();
             if ($messages->last()) {
                 $lastId = $messages->last()->message_id;
+                echo "data: " . $messages->toJson() . "\n\n";
             }
-
-
-            echo "data: " . $messages->toJson() . "\n\n";
             ob_flush();
             flush();
-            sleep(3);
+            sleep(1);
         }
     }
 
