@@ -85,9 +85,9 @@
             var item = '<li class="message-item"><div class="user-avatar"><img src="' + message.user.avatar + '" width="90" height="90" alt=""></div><div class="content-box"><p class="user-name">' + message.user.nickname + ':</p><p class="content">' + message.content + '</p></div><div class="content-more"><i class="arrow"></i></div></li>';
             $('#message-wall .message-list').append($(item));
         });
-
-        var top = parseFloat($('#message-wall .message-list').css('top'));
-        $('#message-wall .message-list').animate({top: top - (183 * object.length) + "px"});
+        var count = $('#message-wall .message-list').find('.message-item').length;
+        var top = count - 3 <= 0 ? 0 : -(count - 3) * 183;
+        $('#message-wall .message-list').animate({top: top + "px"});
 
     };
 

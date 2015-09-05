@@ -48,8 +48,8 @@ class WechatController extends Controller
         $lastId = 0;
         header('Content-Type: text/event-stream');
 
-        for ($i = 0; $i <= 5; $i++) {
-            sleep(3);
+        while (true) {
+
 
             $messages = WxMessage::where('message_time', '>', date('Y-m-d H:i:s', time() - 3600))->where('message_id',
                 '>', $lastId)->with('user')->get();
@@ -61,6 +61,7 @@ class WechatController extends Controller
             echo "data: " . $messages->toJson() . "\n\n";
             ob_flush();
             flush();
+            sleep(3);
         }
     }
 
