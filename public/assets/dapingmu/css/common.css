@@ -221,6 +221,8 @@ em, i {
 /* 微信消息墙 */
 #message-wall {
     display: block;
+    height: 534px;
+    overflow: hidden;
 }
 
 #message-wall .message-list {
@@ -249,7 +251,7 @@ em, i {
     padding: 34px;
 }
 
-.message-item .user-avatar img {
+.user-avatar img {
     max-height: 90px;
     max-width: 90px;
     height: 90px;
@@ -320,8 +322,86 @@ em, i {
 
 .message-item:hover .content-more {
     display: block;
+    background-color: #ffffff;
 }
 
+#message-wall .content-detail {
+    display: none;
+    position: absolute;
+    width: 908px;
+    left: 0;
+    top: 136px;
+    height: 532px;
+    overflow: hidden;
+    z-index: 1000;
+    border: 1px solid #ff9dbe;
+    opacity: .9;
+}
+
+.content-detail .close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    background: url(../img/btn-close.png) 0 0 no-repeat;
+    z-index: 2;
+    display: none;
+}
+
+.content-detail:hover .close {
+    display: block;
+}
+
+.content-detail .detail-list {
+    width: 1818px;
+    height: 533px;
+    position: relative;
+    overflow: hidden;
+    transform: translate(0px, 0px);
+}
+
+.content-detail .detail-list .content-detail-item {
+    float: left;
+    width: 868px;
+    height: 493px;
+    padding: 20px;
+    cursor: pointer;
+    border: none;
+    background: #fff;
+    border-radius: 0;
+    color: #fa3072;
+}
+
+.content-detail-item .detail-header {
+    border-bottom: 1px solid #fa3072;
+    padding-bottom: 15px;
+}
+
+.content-detail-item .detail-header .user-avatar {
+    float: left;
+    position: relative;
+    margin: 14px 0 0 14px;
+}
+
+.content-detail-item .detail-header .user-info {
+    margin-left: 130px;
+    padding-top: 20px;
+    font-size: 24px;
+}
+
+.user-info .user-name {
+    display: block;
+    height: 65px;
+    font-size: 48px;
+    overflow: hidden;
+}
+
+.content-detail-item .detail-content {
+    padding-top: 15px;
+    word-break: break-all;
+    font-size: 48px;
+}
 #footer {
     padding: 10px;
     position: relative;

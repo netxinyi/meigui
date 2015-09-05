@@ -46,32 +46,31 @@ class WechatController extends Controller
     {
 
         header('Content-Type: text/event-stream');
-        $messages   = WxMessage::with('user')->orderBy('message_id', 'desc')->limit(6)->get();
-        $lastId     = $this->eventEcho($messages->reverse());
+        $lastId = 0;
         while (true) {
 
-            sleep(3);
-            $messages = WxMessage::where('message_time', '>', date('Y-m-d H:i:s', time() - 7200))->where('message_id',
-                '>', $lastId)->with('user')->get();
-            $lastId = $this->eventEcho($messages);
+
+            $query = WxMessage::with('user')->orderBy('message_id', 'desc')->limit(6);
+
+            if ($lastId) {
+                $query->where('message_id', '>', $lastId);
+            }
+
+            $messages = $query->get();
+            if (!$messages->isEmpty()) {
+
+                $lastId = $messages->max('message_id');
+                echo "data: " . json_encode($messages->reverse()) . "\n\n";
+            }
+
             ob_flush();
             flush();
+            sleep(3);
 
         }
     }
 
 
-    private function eventEcho($messages)
-    {
-
-        $lastId = 0;
-        if ($messages->last()) {
-            $lastId = $messages->last()->message_id;
-            echo "data: " . $messages->toJson() . "\n\n";
-        }
-
-        return $lastId;
-    }
 
 
     public function wxapi()

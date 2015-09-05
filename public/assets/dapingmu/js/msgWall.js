@@ -139,8 +139,16 @@
         $.extend(true, this, {
             animate: 700,
             wrap: $('#message-wall .message-list'),
+            detailElement: $("#message-wall .content-detail")
 
         }, opt);
+
+        var parent = this;
+        parent.detailElement.find(".close").click(function () {
+            parent.detailElement.hide();
+            parent.wrap.show();
+
+        });
         return this;
     }
 
@@ -161,7 +169,9 @@
             return this.add(data);
         },
         template: function (message) {
-            return '<li class="message-item" data-id="' + message.message_id + '"><div class="user-avatar"><img src="' + message.user.avatar + '" width="90" height="90" alt=""></div><div class="content-box"><p class="user-name">' + message.user.nickname + ':</p><p class="content">' + message.content + '</p></div><div class="content-more"><i class="arrow"></i></div></li>';
+
+            return $('<li class="message-item" data-id="' + message.message_id + '"><div class="user-avatar"><img src="' + message.user.avatar + '" width="90" height="90" alt=""></div><div class="content-box"><p class="user-name">' + message.user.nickname + ':</p><p class="content">' + message.content + '</p></div><div class="content-more"><i class="arrow"></i></div></li>');
+
         },
         add: function (object) {
 
@@ -170,8 +180,16 @@
             }
 
             var parent = this;
+
             object.map(function (message) {
-                parent.wrap.append($(parent.template(message)));
+
+                var $item = parent.template(message);
+
+                $item.appendTo(parent.wrap);
+
+                $item.find('.content-more').click(function () {
+                    parent.show(message);
+                });
             });
             return this.last();
         },
@@ -190,7 +208,15 @@
         last: function () {
             var top = this.wrap.height() - (3 * 183);
 
-            return this.to(top > 0 ? top : 0);
+            return this.to(top > 0 ? top + 15 : 0);
+        },
+        show: function (message) {
+            var parent = this;
+            this.wrap.hide();
+            this.detailElement.find(".user-avatar img").attr("src", message.user.avatar);
+            this.detailElement.find(".user-name").html(message.user.nickname).next("span").html("来自" + (message.user.from || "微信"));
+            this.detailElement.find(".detail-content").html(message.content);
+            this.detailElement.show();
         }
     });
 
