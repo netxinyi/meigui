@@ -129,7 +129,10 @@ class WechatController extends Controller
 
     public function header(){
 
-        dd($this->request()->header());
+        echo '<pre>';
+        print_r($this->request()->header());
+        return '';
+
     }
     private function save(Bag $userInfo)
     {
