@@ -203,9 +203,9 @@
                     @foreach($users as $user)
 
                     <li>
-                        <a href="{{route('admin.user.edit',['user_id'=>$message->user->user_id])}}"
-                           title="{{$message->user->user_name}}"><img src="{{$user->avatar}}"
-                                                                      alt="{{$message->user->user_name}}"/></a>
+                        <a href="{{route('admin.user.edit',['user_id'=>$user->user_id])}}"
+                           title="{{$user->user_name}}"><img src="{{$user->avatar}}"
+                                                             alt="{{$user->user_name}}"/></a>
                         <h4 class="username text-ellipsis">
                             {{$user->user_name}}
                             <small>{{$user->sex_lang}},{{$user->age}},{{$user->province}}</small>
