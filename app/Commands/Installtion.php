@@ -27,7 +27,7 @@ class Installtion extends Command implements SelfHandling
 
         $this->info('开始安装程序，请稍后...');
         //安装数据库
-        //  $this->call('migrate');
+          $this->call('migrate');
         $this->info('数据库安装完成');
         //设置缓存
         Cache::forever('visits', 1);
