@@ -5,19 +5,6 @@
 @stop
 
 @section('content')
-    <!-- begin breadcrumb -->
-    <ol class="breadcrumb pull-right">
-        <li><a href="{{url('admin')}}">首页</a></li>
-        <li><a href="javascript:;">文章列表</a></li>
-    </ol>
-    <!-- end breadcrumb -->
-    <!-- begin page-header -->
-    <h1 class="page-header">文章列表
-        <small></small>
-    </h1>
-    <!-- end page-header -->
-
-
     <!-- begin panel -->
     <div class="panel panel-inverse">
         <div class="panel-heading">
