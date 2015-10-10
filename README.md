@@ -9,7 +9,7 @@
 ### 安装方法
 #### 下载代码
 ```
-git clone https://gitub.com/netxinyi/meigui.git
+git clone https://github.com/netxinyi/meigui.git
 ```
 #### 设置目录可写权限
 ```
