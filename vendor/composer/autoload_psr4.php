@@ -7,7 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'XdgBaseDir\\' => array($vendorDir . '/dnoegel/php-xdg-base-dir/src'),
-    'Vicens\\WebChat\\' => array($vendorDir . '/vicens/weixinsdk'),
     'Symfony\\Component\\Yaml\\' => array($vendorDir . '/symfony/yaml'),
     'Symfony\\Component\\VarDumper\\' => array($vendorDir . '/symfony/var-dumper'),
     'Symfony\\Component\\Translation\\' => array($vendorDir . '/symfony/translation'),
@@ -32,7 +31,5 @@ return array(
     'Faker\\' => array($vendorDir . '/fzaninotto/faker/src/Faker'),
     'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),
     'ClassPreloader\\' => array($vendorDir . '/classpreloader/classpreloader/src'),
-    'Overtrue\\Wechat\\'        => array($vendorDir . '/overtrue/wechat/src/Wechat'),
-    'Overtrue\\LaravelWechat\\' => array($vendorDir . '/overtrue/laravel-wechat/src'),
     'App\\' => array($baseDir . '/app'),
 );
