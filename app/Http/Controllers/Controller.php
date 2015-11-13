@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-
-use Illuminate\Http\Response;
 use Request;
 use Illuminate\Routing\Controller as BaseController;
 use App\Providers\Rest\RestServiceTrait;
 use Illuminate\Http\Exception\HttpResponseException;
-use Illuminate\Http\RedirectResponse;
 
 
 abstract class Controller extends BaseController
@@ -70,59 +67,34 @@ abstract class Controller extends BaseController
 
 
     /**
-     * 获取request实例
-     * @return Request
-     */
-    protected function request()
-    {
-
-        return Request::instance();
-    }
-
-
-    /**
      * 响应失败消息
      *
-     * @param string                  $message
-     * @param int                     $code
-     * @param string|RedirectResponse $redirect
-     * @param array                   $data
+     * @param string $message
+     * @param int    $code
+     * @param array  $data
      *
      * @return $this|\App\Http\Controllers\Controller|\Illuminate\Contracts\Routing\ResponseFactory
      */
-    protected function error($message = '', $code = 500, $redirect = null, $data = array())
+    protected function error($message = '', $code = 500, $data = array())
     {
 
-        $message = is_array($message) ? $message : ['error' => $message];
-
-        return $this->success($message, $data, $redirect, $code)->withInput();
+        return $this->success($message, $data, $code);
     }
 
 
     /**
      * 响应成功消息
      *
-     * @param string                  $message
-     * @param array                   $data
-     * @param string|RedirectResponse $redirect
-     * @param int                     $code
+     * @param string $message
+     * @param array  $data
+     * @param int    $code
      *
      * @return $this|\Illuminate\Contracts\Routing\ResponseFactory
      */
-    protected function success($message = '', $data = array(), $redirect = null, $code = 1000)
+    protected function success($message = '', $data = array(), $code = 1000)
     {
 
-        if ($this->request()->ajax()) {
-            return $this->rest()->make($data, $message, $code);
-        }
-
-        $message = is_array($message) ? $message : ['success' => $message];
-
-        if (!$redirect instanceof RedirectResponse) {
-            $redirect = $this->redirect()->to($redirect ?: app('Illuminate\Routing\UrlGenerator')->previous());
-        }
-
-        return $redirect->withErrors($message);
+        return $this->rest()->make($data, $message, $code);
     }
 
 
@@ -143,6 +115,26 @@ abstract class Controller extends BaseController
     }
 
 
+    /**
+     * 获取request实例
+     * @return Request
+     */
+    protected function request()
+    {
+
+        return Request::instance();
+    }
+
+
+    /**
+     * 返回一个Response实例
+     *
+     * @param string $content
+     * @param int    $status
+     * @param array  $headers
+     *
+     * @return \Illuminate\Http\Response
+     */
     protected function response($content = '', $status = 200, array $headers = [])
     {
 
