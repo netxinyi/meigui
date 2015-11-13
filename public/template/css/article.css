@@ -1,0 +1,79 @@
+/*【1】首页样式--------------------------------------------*/
+/*1头部样式*/
+#head_id{height: 120px;width: 100%;margin: 0px;padding: 0px;}
+
+/*2顶部*/
+#top{width:1280px; margin: 0px auto;height: 20px;line-height: 100px;}
+#head{width:1280px;; margin: 0px auto;height: 100px;line-height: 100px;}
+
+/*3logo*/
+#logo { display: block;float:left; height:100%;line-height: 100% width: 200px;}
+#logo img{width: 200px;}
+
+/*4广告*/
+#guanggao { display: block;float:left;height: 100%;width: 180px;margin-left: 20px;}
+#guanggao img{width: 200px;}
+
+/*5展示数据信息*/
+#show_num{width: 200px;height: 100%;line-height: 100%;float:left;}
+
+#nav_show_num{font-size: 14px;float:left;height: 100px;margin: 0px;padding: 0px;line-height: 25px;width: 200px;color:#999999;}
+.show_num{width: 120px; background-color: #F38C6D;display: inherit;display:inline-block;margin-top: 2px;color: #fff;font-size: 16px;padding: 2px 3px 2px 10px;}
+
+/*登录部分*/
+#login_new{width:300px;height: 100%;line-height: 100%;margin: 0px;padding: 0px;float:right;text-align: right;}
+#more_login{margin-top: 50px}
+#more_login input{margin-left: 10px;height: 35px;line-height: 35px;font-size: 16px;width: 185px;}
+#more_login button{margin-left: 10px;margin-right: 10px;background-color: #f15481}
+#more_login span{border-bottom: 1px solid #ededed;padding-bottom: 5px;padding-right: 10px;}
+/*导航*/
+#nav{height:40px;width: 100%; background-color:#f15481;}
+.nav_content{width:1280px;margin: 0px auto;}  
+.nav_list{width: 930px;float: left;}
+.nav_list ul{width: 980px;margin: 0px;padding: 0px;}
+#nav .nav_list ul li{height: 40px;line-height: 40px;color: #fff;width: 130px;float:left;display: inline;text-align: center;}
+#nav .nav_list ul li a{display: block;width:130px;font-family: Microsoft Yahei,宋体;color: #fff}
+#nav .nav_list ul li a:hover{display: block;background-color:#dd406d;width:130px;}
+.nav_list_active{background-color:#dd406d}
+
+/*用户中心，登录帐号,退出帐号*/
+.nav_user_msg{width: 350px;height: 40px;float: right;line-height: 40px;background-color: #f15481;margin:0px;padding: 0px;}
+.nav_user_msg ul{width: 350px;height: 20px;line-height: 20px;margin-top: 10px;}
+.nav_user_msg ul li{float:left;display: inline;text-align: center;width:105px;}
+.nav_user_msg ul li a{display: block;font-family: Microsoft Yahei,宋体;color: #fff;height: 20px;}
+.right_xian{border-right: 1px solid #fff;}
+.nav_user_msg ul li a:hover{display: block;color:#fff713;}
+
+/*底部信息*/
+#footer_id{float:left;width: 100%; height: 100px;background-color:#e5e5e5;margin-bottom: 10px;}
+.footer{width: 1280px;margin: 0px auto;text-align: center;height: 40px;line-height: 40px;}
+.footer_list{width: 800px;margin: 0px auto;height: 40px;line-height: 40px;}
+.footer_list ul li{float:left;display: inline;width:94px;}
+.footer_list ul li a{color:#636363;}
+.footer_list ul li a:hover{color:red;}
+
+
+/*-----------------------------------------------分割线-----------------------------------------------------------*/
+/*主体内容*/
+.content{height:auto;width: 100%;min-width: 1280px;background-color:#fff;position: relative;float: left;padding-top:10px;}
+.content_w{width: 1280px;height:auto;margin: 0px auto;padding: 0px;}
+.content_w_title{width: 1280px;height:20px;margin: 0px auto;line-height: 20px;border-bottom: 3px solid #f15481;}
+.content_w_title span{padding-left: 15px;width: 130px;height: 30px;line-height: 30px; background-color: #f15481;display: inline-block;color: #fff}
+
+	/*左部分文章分类*/
+	.content_zuo{width: 300px;float:left;margin: 0px; padding: 0px;height: auto;}
+	.am-accordion-gapped{margin-top: 0px;margin-left: 0px;margin-right: 0px;}
+	.am-accordion-gapped .am-accordion-title{padding: .8rem 2rem .8rem 3rem;}
+	.am-accordion-item{margin-left: 35px;}
+	.am-list>li>a{padding-left: 2rem;}
+	.am-accordion-gapped .am-active .am-accordion-title{background-color:#f15481;color:#fff;}
+	#erweima{text-align: center;margin-top: 20px; margin-bottom: 20px;border:1px solid #dedede;}
+	
+
+	/*正文内容*/
+	.content_you{width: 950px;float:right;height: 100%;}
+	.am-article{border:1px solid #dedede;padding: 20px;}
+	.am-article-title{text-align: center;margin-top: 10px;}
+	.am-article-meta{text-align: right;}
+
+/*-----------------------------------------------分割线-----------------------------------------------------------*/
