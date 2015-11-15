@@ -1,0 +1,695 @@
+/*【1】首页样式--------------------------------------------*/
+/*1头部样式*/
+#head_id {
+    height: 120px;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+/*2顶部*/
+#top {
+    width: 1280px;
+    margin: 0px auto;
+    height: 20px;
+    line-height: 100px;
+}
+
+#head {
+    width: 1280px;;
+    margin: 0px auto;
+    height: 100px;
+    line-height: 100px;
+}
+
+/*3logo*/
+#logo {
+    display: block;
+    float: left;
+    height: 100%;
+    line-height: 100% width : 200 px;
+}
+
+#logo img {
+    width: 200px;
+}
+
+/*4广告*/
+#guanggao {
+    display: block;
+    float: left;
+    height: 100%;
+    width: 180px;
+    margin-left: 20px;
+}
+
+#guanggao img {
+    width: 200px;
+}
+
+/*5展示数据信息*/
+#show_num {
+    width: 200px;
+    height: 100%;
+    line-height: 100%;
+    float: left;
+}
+
+#nav_show_num {
+    font-size: 14px;
+    float: left;
+    height: 100px;
+    margin: 0px;
+    padding: 0px;
+    line-height: 25px;
+    width: 200px;
+    color: #999999;
+}
+
+.show_num {
+    width: 120px;
+    background-color: #F38C6D;
+    display: inherit;
+    display: inline-block;
+    margin-top: 2px;
+    color: #fff;
+    font-size: 16px;
+    padding: 2px 3px 2px 10px;
+}
+
+/*登录部分*/
+#login_new {
+    width: 680px;
+    height: 100%;
+    line-height: 100%;
+    margin: 0px;
+    padding: 0px;
+    float: right;
+}
+
+#more_login {
+    margin-top: 50px
+}
+
+#more_login input {
+    margin-left: 10px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 16px;
+    width: 185px;
+}
+
+#more_login button {
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #f15481
+}
+
+#login_new_home {
+    width: 300px;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    float: right;
+    text-align: right;
+}
+
+#more_login_home button {
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #f15481
+}
+
+#more_login_home span {
+    border-bottom: 1px solid #ededed;
+    padding-bottom: 5px;
+    padding-right: 10px;
+}
+
+/*导航*/
+#nav {
+    height: 40px;
+    width: 100%;
+    background-color: #f15481;
+}
+
+/*导航栏部分*/
+.nav_content {
+    width: 1280px;
+    margin: 0px auto;
+}
+
+.nav_list {
+    width: 930px;
+    float: left;
+}
+
+.nav_list ul {
+    width: 980px;
+    margin: 0px;
+    padding: 0px;
+}
+
+#nav .nav_list ul li {
+    height: 40px;
+    line-height: 40px;
+    color: #fff;
+    width: 130px;
+    float: left;
+    display: inline;
+    text-align: center;
+}
+
+#nav .nav_list ul li a {
+    display: block;
+    width: 130px;
+    font-family: Microsoft Yahei, 宋体;
+    color: #fff
+}
+
+#nav .nav_list ul li a:hover {
+    display: block;
+    background-color: #dd406d;
+    width: 130px;
+}
+
+.nav_list_active {
+    background-color: #dd406d
+}
+
+/*用户中心，登录帐号,退出帐号*/
+.nav_user_msg {
+    width: 350px;
+    height: 40px;
+    float: right;
+    line-height: 40px;
+    background-color: #f15481;
+    margin: 0px;
+    padding: 0px;
+}
+
+.nav_user_msg ul {
+    width: 350px;
+    height: 20px;
+    line-height: 20px;
+    margin-top: 10px;
+}
+
+.nav_user_msg ul li {
+    float: left;
+    display: inline;
+    text-align: center;
+    width: 105px;
+}
+
+.nav_user_msg ul li a {
+    display: block;
+    font-family: Microsoft Yahei, 宋体;
+    color: #fff;
+    height: 20px;
+}
+
+.right_xian {
+    border-right: 1px solid #fff;
+}
+
+.nav_user_msg ul li a:hover {
+    display: block;
+    color: #fff713;
+}
+
+/*内容部分---------------------*/
+.wap_content1 {
+    height: auto;
+    width: 100%;
+    min-width: 1280px;
+    padding: 0px;
+    position: relative;
+    float: left;
+    background: url("/images/bg_1.jpg")
+}
+
+.wap_content {
+    height: auto;
+    width: 100%;
+    min-width: 1280px;
+    padding: 0px;
+    background: #F9F4F0;
+    position: relative;
+    float: left;
+}
+
+.wap_content2 {
+    height: auto;
+    width: 100%;
+    min-width: 1280px;
+    padding: 0px;
+    background: #F9F4F0;
+    position: relative;
+    float: left;
+}
+
+.content {
+    margin: 0px auto;
+    width: 1280px;
+    min-width: 1280px;
+    border-top: 10px solid #F9F4F0;
+}
+
+/*左部分*/
+.c_left {
+    float: left;
+    width: 300px;
+    height: auto;
+    background-color: #fff;
+}
+
+.baomingTit {
+    height: 51px;
+    border-bottom: 1px solid #e0e0e0;
+    background: #fafafa;
+    line-height: 51px;
+    padding-left: 10px;
+}
+
+.baomingInner {
+    width: 90%;
+    margin: 0px auto;
+    color: #7B5035;
+    font-size: 12px;
+    padding-top: 10px;
+    margin-bottom: 4px;
+}
+
+.baomingInner div {
+    height: 35px;
+}
+
+.w_input {
+    height: 31px;
+    line-height: 31px;
+    width: 200px;
+    margin-left: 10px;
+}
+
+.radio_location {
+    width: 200px;
+    float: right;
+}
+
+.radio_location label {
+    margin-right: 10px;
+}
+
+.baomingInner button {
+    background-color: #f15481
+}
+
+.baomingtishi div {
+    font-size: 12px;
+    color: #7B5035;
+    width: 90%;
+    margin: 0px auto;
+    padding-top: 4px;
+    margin-bottom: 4px;
+}
+
+/*中间部分*/
+.c_modle {
+    float: left;
+    width: 670px;
+    height: 340px
+}
+
+/*右边部分*/
+.c_right {
+    float: left;
+    width: 300px;
+    height: 340px;
+    margin-left: 10px;
+}
+
+/*集结号*/
+.am-list-news-default {
+    margin: 0px 0px 0px 5px;
+}
+
+.am-list {
+    line-height: 4px;
+    font-size: 12px;
+}
+
+.am-list > li {
+    border: none;
+}
+
+.am-list .am-list-item-dated a {
+    color: #666;
+}
+
+.am-list .am-list-item-dated a:hover {
+    color: red;
+}
+
+.c_right_1 {
+    height: 202px;
+}
+
+.c_right_2 {
+    margin: 0px;
+    padding: 0px;
+}
+
+#show_huodong {
+    width: 100%;
+    height: 138px;
+}
+
+#show_huodong img {
+    width: 100%;
+    height: 138px;
+}
+
+/*切换男女*/
+.qienannv {
+    margin: 0px auto;
+    width: 243px;
+}
+
+.am-text-color {
+    color: #fff;
+    margin-right: 5px;
+}
+
+/*底部信息*/
+#footer_id {
+    float: left;
+    width: 100%;
+    height: 100px;
+    background-color: #e5e5e5;
+    margin-bottom: 10px;
+}
+
+.footer {
+    width: 1280px;
+    margin: 0px auto;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+}
+
+.footer_list {
+    width: 800px;
+    margin: 0px auto;
+    height: 40px;
+    line-height: 40px;
+}
+
+.footer_list ul li {
+    float: left;
+    display: inline;
+    width: 94px;
+}
+
+.footer_list ul li a {
+    color: #636363;
+}
+
+.footer_list ul li a:hover {
+    color: red;
+}
+
+/*悬浮二维码*/
+.side-bar {
+    float: left;
+    margin-left: 0px;
+    position: fixed;
+    bottom: 0px;
+}
+
+/*【2】会员专区--------------------------------------------*/
+
+/*栏目标题*/
+.wap_content_member {
+    height: auto;
+    width: 100%;
+    min-width: 1280px;
+    background: #F9F4F0;
+    position: relative;
+    float: left;
+    padding-top: 10px;
+}
+
+.content_title {
+    height: 30px;
+    background-color: #fff;
+    line-height: 30px;
+    width: 1280px;
+    margin: 0px auto;
+    border-bottom: 3px solid #f15481;
+}
+
+.title_1 {
+    float: left;
+    width: 150px;
+    color: #fff;
+    height: 30px;
+    border-top-right-radius: 25px;
+    background-color: #f15481;
+    padding-left: 20px;
+}
+
+.title_2 {
+    float: left;
+    width: 150px;
+    color: #BABABA;
+    height: 30px;
+    padding-left: 20px;
+}
+
+.more_url {
+    float: right;
+    width: 150px;
+    color: red;
+    text-align: right;
+    margin-right: 10px;
+    height: 50px;
+}
+
+.more_url a img {
+    margin-top: -6px;
+}
+
+.content_member {
+    width: 1280px;
+    margin: 0px auto;
+    height: auto;
+    background-color: #fff;
+}
+
+/*高端会员报名*/
+.member_baoming {
+    height: 50px;
+    line-height: 50px;
+}
+
+.member_baoming_num {
+    float: left;
+}
+
+.member_baoming_num span {
+    color: #e0690c;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.member_baoming_btn {
+    float: right;
+}
+
+.wap_content_member_top {
+    height: auto;
+    width: 100%;
+    min-width: 1280px;
+    background-color: #F5F7D4;
+    position: relative;
+    float: left;
+    padding-top: 10px;
+}
+
+.content_member_top {
+    width: 1280px;
+    margin: 0px auto;
+    height: auto;
+    border-left: 3px solid #fff;
+    border-right: 3px solid #fff;
+    border-top: 3px solid #fff;
+}
+
+.content_member_top li .am-gallery-item {
+    background-color: #fff
+}
+
+.content_title2 {
+    height: 30px;
+    background-color: #fff;
+    line-height: 30px;
+    width: 1280px;
+    margin: 0px auto;
+    border-bottom: 3px solid #F4812A;
+}
+
+.title_1_top {
+    float: left;
+    width: 150px;
+    color: #fff;
+    height: 30px;
+    border-top-right-radius: 25px;
+    background-color: #F4812A;
+    padding-left: 20px;
+}
+
+/*鸳鸯谱*/
+
+.wap_content_member_yuanyang {
+    height: auto;
+    width: 100%;
+    min-width: 1280px;
+    background-color: #4C4C4C;
+    position: relative;
+    float: left;
+    padding-top: 10px;
+}
+
+.content_member_yuanyang {
+    width: 1280px;
+    margin: 0px auto;
+    height: auto;
+    border-left: 3px solid #fff;
+    border-right: 3px solid #fff;
+    border-top: 3px solid #fff;
+}
+
+.content_title3 {
+    height: 30px;
+    background-color: #fff;
+    line-height: 30px;
+    width: 1280px;
+    margin: 0px auto;
+    border-bottom: 3px solid #73D0F4;
+}
+
+.title_1_yuanyang {
+    float: left;
+    width: 150px;
+    color: #fff;
+    height: 30px;
+    border-top-right-radius: 25px;
+    background-color: #73D0F4;
+    padding-left: 20px;
+}
+
+.title_2_yuanyang {
+    float: left;
+    width: 150px;
+    color: #FD7599;
+    height: 30px;
+    padding-left: 20px;
+}
+
+.more_url_yuanyang {
+    float: right;
+    width: 220px;
+    color: red;
+    text-align: right;
+    margin-right: 10px;
+    height: 50px;
+}
+
+.more_url_yuanyang a img {
+    margin-top: -6px;
+}
+
+#title_btn {
+    margin-top: -8px;
+    margin-right: 30px;
+}
+
+/*【3】我的会员中心-----------------------------------------*/
+
+/*主体内容*/
+.home_content {
+    height: auto;
+    width: 100%;
+    min-width: 1280px;
+    background: #F9F4F0;
+    position: relative;
+    float: left;
+    padding-top: 10px;
+}
+
+.home_content_v {
+    width: 1280px;
+    margin: 0px auto;
+    height: auto;
+    padding: 0px;
+    padding-top: 10px;
+}
+
+/*左部分*/
+.home_content_v_left {
+    width: 300px;
+    height: 500px;
+    float: left;
+}
+
+.side-1 {
+    width: 100%;
+    text-align: center;
+    padding-top: 40px;
+    border-bottom: 1px solid #eee
+}
+
+.side-1-img {
+    background: #fff;
+    padding-bottom: 50px;
+}
+
+.side-1-img img {
+    margin-top: -40px;
+    border: 3px solid #fff;
+}
+
+.side-2 .am-list {
+    text-align: center;
+    font-size: 18px;
+}
+
+.am-list > li > a {
+    color: #333
+}
+
+#caidan > .am-list > li {
+    border-bottom: 2px solid #eee
+}
+
+/*右部分*/
+.home_content_v_right {
+    width: 950px;
+    height: auto;
+    float: right;
+    margin-left: 30px;
+    padding-top: 40px
+}
+
+.dy_btn_color {
+    background-color: #f15481
+}
+
+.img_update_img_l {
+    padding-top: 20px;
+}
+
+.home_btn {
+    width: 48%;
+}

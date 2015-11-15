@@ -19,15 +19,7 @@ Route::model('guestbook', 'App\Model\GuestBook');
 |
 */
 
-Route::get('/', function (){
-
-    return Response::make('welcome');
-});
-Route::match(['get', 'post'], '/weixin/api', ['uses' => 'WechatController@wxapi']);
-Route::get('/weixin/authorize/{openid}', ['uses' => 'WechatController@authorize']);
-Route::get('/weixin/messages', ['uses' => 'WechatController@messages']);
-Route::get('/weixin/dapingmu/{style?}', ['uses' => 'WechatController@dapingmu']);
-Route::get('/weixin/header', ['uses' => 'WechatController@header']);
+Route::controller('/', 'HomeController');
 /*
 |--------------------------------------------------------------------------
 | Auth支持-控制器路由

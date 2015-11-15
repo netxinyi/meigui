@@ -110,3 +110,19 @@ if (!function_exists('array_keys_impload')) {
         return implode($splide, array_keys($array));
     }
 }
+
+//判断是否登录
+if (!function_exists('isLogin')) {
+    function isLogin()
+    {
+        return Auth::check();
+    }
+}
+
+//获取当前登录用户
+if (!function_exists('user')) {
+    function user()
+    {
+        return Auth::user();
+    }
+}
