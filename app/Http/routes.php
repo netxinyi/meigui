@@ -35,6 +35,13 @@ Route::controller('home', 'HomeController');
 */
 Route::get('member', 'MemberController@index');
 Route::get('member/{user}', 'MemberController@user');
+/*
+|--------------------------------------------------------------------------
+| 文章
+|--------------------------------------------------------------------------
+|
+*/
+Route::get('article/{article}', 'ArticleController@index');
 
 /*
 |--------------------------------------------------------------------------

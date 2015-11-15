@@ -8,6 +8,8 @@
 namespace App\Http\Controllers;
 
 
+use App\Model\User;
+
 class MemberController extends Controller
 {
 
@@ -18,4 +20,8 @@ class MemberController extends Controller
         return $this->view('index');
     }
 
+    public function user(User $user)
+    {
+        return $this->view('vip');
+    }
 }
