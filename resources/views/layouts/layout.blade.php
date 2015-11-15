@@ -7,7 +7,7 @@
     <meta content="战狼技术团队" name="author"/>
     @yield('meta')
     <title>
-        @yield('title','Cloudwise Big Data')
+        @yield('title','玫瑰花开')
     </title>
     <link rel="shortcut icon" href="/favicon.ico">
     @yield('first-css')

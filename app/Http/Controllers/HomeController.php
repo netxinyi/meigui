@@ -15,4 +15,14 @@ class HomeController extends Controller
     {
         return $this->view('home');
     }
+
+    public function getMember()
+    {
+        return $this->view('member');
+    }
+
+    public function getSearch()
+    {
+        return $this->view('search');
+    }
 }

@@ -39,7 +39,7 @@
     <div class="nav_content">
         <div class="nav_list">
             <ul>
-                <li><a href="/" class="nav_list_active">首页</a></li>
+                <li><a href="/">首页</a></li>
                 <li><a href="/member">会员专区</a></li>
                 <li><a href="/search">高级搜索</a></li>
                 <li><a href="/about">关于我们</a></li>
