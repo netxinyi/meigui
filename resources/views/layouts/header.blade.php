@@ -48,7 +48,7 @@
         @if(isLogin())
             <div class="nav_user_msg">
                 <ul>
-                    <li><a href="/user/" class="right_xian">会员中心</a></li>
+                    <li><a href="/home/" class="right_xian">会员中心</a></li>
                     <li><a href="#" class="right_xian">{{user()->user_name}}</a></li>
                     <li><a href="/auth/logout">退出帐号</a></li>
                 </ul>

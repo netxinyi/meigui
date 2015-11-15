@@ -25,7 +25,16 @@ Route::model('guestbook', 'App\Model\GuestBook');
 |--------------------------------------------------------------------------
 |
 */
-Route::controller('user', 'UserController');
+Route::controller('home', 'HomeController');
+
+/*
+|--------------------------------------------------------------------------
+| 会员专区
+|--------------------------------------------------------------------------
+|
+*/
+Route::get('member', 'MemberController@index');
+Route::get('member/{user}', 'MemberController@user');
 
 /*
 |--------------------------------------------------------------------------
@@ -72,4 +81,4 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
 });
 
 //首页
-Route::controller('/', 'HomeController');
+Route::controller('/', 'IndexController');
