@@ -27,15 +27,15 @@
     <div class="floatShadow">
         <ul class="floatDqq">
             <li><a target="_blank" href="tencent://message/?uin=1234567890&Site=sc.chinaz.com&Menu=yes"><img
-                            src="images/qq.png" align="absmiddle">在线客服1号</a></li>
+                            src="/assets/images/qq.png" align="absmiddle">在线客服1号</a></li>
             <li><a target="_blank" href="tencent://message/?uin=1234567890&Site=sc.chinaz.com&Menu=yes"><img
-                            src="images/qq.png" align="absmiddle">在线客服2号</a></li>
+                            src="/assets/images/qq.png" align="absmiddle">在线客服2号</a></li>
             <li><a target="_blank" href="tencent://message/?uin=1234567890&Site=sc.chinaz.com&Menu=yes"><img
-                            src="images/qq.png" align="absmiddle">在线客服3号</a></li>
+                            src="/assets/images/qq.png" align="absmiddle">在线客服3号</a></li>
         </ul>
         <div class="floatDtxt">热线电话</div>
-        <div class="floatDtel"><img src="images/online_phone.jpg" width="155" height="45" alt=""></div>
-        <div class="floatImg"><img src="images/erweima.jpg" width="100%">微信公众账号</div>
+        <div class="floatDtel"><img src="/assets/images/online_phone.jpg" width="155" height="45" alt=""></div>
+        <div class="floatImg"><img src="/assets/images/erweima.jpg" width="100%">微信公众账号</div>
     </div>
     <div class="floatDbg"></div>
 </div>

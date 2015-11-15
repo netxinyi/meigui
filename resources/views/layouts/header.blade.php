@@ -19,12 +19,12 @@
         @if(!isLogin())
             <div id="login_new">
                 <div id="more_login">
-                    <form action="/auth/login" method="post">
+                    <form action="/auth/login" method="post" id="login-form">
                         <input type="hidden" name="_token" value="{{csrf_token()}}">
 
-                        <span>帐号</span><input type="text" placeholder="手机/邮箱" name="username">
+                        <span>帐号</span><input type="text" placeholder="请输入手机号" name="mobile">
                         <span>密码</span><input type="password" name="password" placeholder="请输入密码">
-                        <button class="am-btn am-btn-warning" type="submit">登录</button>
+                        <button class="am-btn am-btn-warning" type="submit" data-loading-text="登录">登录</button>
                         <img src="/assets/images/wx_login.png" alt="用微信登录">
 
                     </form>

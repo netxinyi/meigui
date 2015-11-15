@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Request;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use App\Providers\Rest\RestServiceTrait;
-use Illuminate\Http\Exception\HttpResponseException;
+
 
 
 abstract class Controller extends BaseController
 {
 
 
-    use  RestServiceTrait;
+    use  RestServiceTrait, ValidatesRequests;
 
     /**
      * 模板所在目录
@@ -40,31 +42,6 @@ abstract class Controller extends BaseController
 
         return view($view, $data, $mergeData);
     }
-
-
-    /**
-     * 使用验证器验证所有表单
-     *
-     * @param array $rules
-     * @param array $messages
-     * @param array $customAttributes
-     *
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validate(array $rules, array $messages = [], array $customAttributes = [])
-    {
-
-        $validator = app('Illuminate\Contracts\Validation\Factory')->make($this->request()->all(), $rules, $messages,
-            $customAttributes);
-
-        if ($validator->fails()) {
-
-            throw new HttpResponseException($this->error($validator->errors()->getMessages()));
-        }
-
-        return $validator;
-    }
-
 
     /**
      * 响应失败消息
@@ -139,5 +116,24 @@ abstract class Controller extends BaseController
     {
 
         return response($content, $status, $headers);
+    }
+
+
+    /**
+     * Create the response for when a request fails validation.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  array $errors
+     * @return \Illuminate\Http\Response
+     */
+    protected function buildFailedValidationResponse(Request $request, array $errors)
+    {
+        if ($request->ajax() || $request->wantsJson()) {
+            return $this->error(head($errors), 422);
+        }
+
+        return $this->redirect($this->getRedirectUrl())
+            ->withInput($request->input())
+            ->withErrors($errors, $this->errorBag());
     }
 }

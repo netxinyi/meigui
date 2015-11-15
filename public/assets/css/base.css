@@ -1,0 +1,86 @@
+/*==================== 模态框警告  ============================*/
+.alert-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.modal-alert {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 30px;
+    z-index: 999999;
+}
+
+.modal-alert .alert {
+    margin: 0 auto;
+    width: 350px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.modal-alert .fa {
+    float: left;
+    margin-right: 20px;
+    margin-top: -4px;
+    font-size: 30px;
+}
+
+/*导航*/
+#nav {
+    height: 40px;
+    width: 100%;
+    background-color: #f15481;
+}
+
+/*导航栏部分*/
+.nav_content {
+    width: 1280px;
+    margin: 0px auto;
+}
+
+.nav_list {
+    width: 930px;
+    float: left;
+}
+
+.nav_list ul {
+    width: 980px;
+    margin: 0px;
+    padding: 0px;
+}
+
+#nav .nav_list ul li {
+    height: 40px;
+    line-height: 40px;
+    color: #fff;
+    width: 130px;
+    float: left;
+    display: inline;
+    text-align: center;
+}
+
+#nav .nav_list ul li a {
+    display: block;
+    width: 130px;
+    font-family: Microsoft Yahei, 宋体;
+    color: #fff
+}
+
+#nav .nav_list ul li a:hover {
+    display: block;
+    background-color: #dd406d;
+    width: 130px;
+}
+
+.nav_list_active {
+    background-color: #dd406d
+}

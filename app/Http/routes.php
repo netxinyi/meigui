@@ -1,6 +1,6 @@
 <?php
 
-Route::bind('admins', function ($admin_id){
+Route::bind('admins', function ($admin_id) {
 
     return App\Model\Admin::find($admin_id);
 });
@@ -19,7 +19,14 @@ Route::model('guestbook', 'App\Model\GuestBook');
 |
 */
 
-Route::controller('/', 'HomeController');
+/*
+|--------------------------------------------------------------------------
+| 用户中心
+|--------------------------------------------------------------------------
+|
+*/
+Route::controller('user', 'UserController');
+
 /*
 |--------------------------------------------------------------------------
 | Auth支持-控制器路由
@@ -29,7 +36,7 @@ Route::controller('/', 'HomeController');
 #Auth登录注册-密码找回-控制器路由
 Route::controllers([
 
-    'auth'     => 'Auth\AuthController',
+    'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController'
 ]);
 
@@ -42,7 +49,7 @@ Route::controllers([
 Route::controller('admin/auth', 'Admin\AuthController');
 
 #后台管理
-Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function (){
+Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
 
     Route::get('/', ['uses' => 'Admin\HomeController@index']);
     #Option管理-资源路由
@@ -63,3 +70,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function (){
     Route::resource('case', 'Admin\CaseController');
 
 });
+
+//首页
+Route::controller('/', 'HomeController');

@@ -126,56 +126,6 @@
     padding-right: 10px;
 }
 
-/*导航*/
-#nav {
-    height: 40px;
-    width: 100%;
-    background-color: #f15481;
-}
-
-/*导航栏部分*/
-.nav_content {
-    width: 1280px;
-    margin: 0px auto;
-}
-
-.nav_list {
-    width: 930px;
-    float: left;
-}
-
-.nav_list ul {
-    width: 980px;
-    margin: 0px;
-    padding: 0px;
-}
-
-#nav .nav_list ul li {
-    height: 40px;
-    line-height: 40px;
-    color: #fff;
-    width: 130px;
-    float: left;
-    display: inline;
-    text-align: center;
-}
-
-#nav .nav_list ul li a {
-    display: block;
-    width: 130px;
-    font-family: Microsoft Yahei, 宋体;
-    color: #fff
-}
-
-#nav .nav_list ul li a:hover {
-    display: block;
-    background-color: #dd406d;
-    width: 130px;
-}
-
-.nav_list_active {
-    background-color: #dd406d
-}
 
 /*用户中心，登录帐号,退出帐号*/
 .nav_user_msg {
