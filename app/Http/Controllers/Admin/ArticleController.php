@@ -70,7 +70,7 @@ class ArticleController extends Controller
     public function store()
     {
 
-        $this->validate([
+        $this->validate($this->request(), [
             'title'     => 'required|max:255',
             'content'   => 'required|min:10',
             'column_id' => 'required'

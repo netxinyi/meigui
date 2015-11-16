@@ -40,7 +40,7 @@ class UserController extends Controller
     {
 
         //验证表单
-        $this->validate([
+        $this->validate($this->request(), [
 
             'mobile'           => 'required|digits:11',
             'birthday'         => 'required|date',
@@ -90,7 +90,7 @@ class UserController extends Controller
     {
 
         //验证表单
-        $this->validate([
+        $this->validate($this->request(), [
             'mobile'           => 'required|digits:11',
             'birthday'         => 'required|date',
             'sex'              => 'required|in:' . array_keys_impload(UserEnum::$sexForm),

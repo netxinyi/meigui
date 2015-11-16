@@ -53,7 +53,7 @@ class OptionController extends Controller
     public function store()
     {
 
-        $this->validate([
+        $this->validate($this->request(), [
             'site_name' => 'required|max:255',
             'site_url'  => 'url',
 

@@ -55,7 +55,7 @@ class AdminController extends Controller
     {
 
 
-        $this->validate([
+        $this->validate($this->request(), [
             'admin_name'         => 'required|min:5|max:15|unique:admins,admin_name,' . $admin->admin_id . ',admin_id',
             'email'              => 'required|email|unique:admins,email,' . $admin->admin_id . ',admin_id',
             'admin_status'       => 'required|in:' . implode(',', array_keys(AdminEnum::$statusForm)),
@@ -94,7 +94,7 @@ class AdminController extends Controller
     {
 
         //验证表单
-        $this->validate([
+        $this->validate($this->request(), [
             'admin_name'         => 'required|min:5|max:15|unique:admins',
             'email'              => 'required|email|unique:admins',
             'admin_status'       => 'required|in:' . implode(',', array_keys(AdminEnum::$statusForm)),
