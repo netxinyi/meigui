@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Http\Request;
+use Request;
 use Illuminate\Routing\Controller as BaseController;
 use App\Providers\Rest\RestServiceTrait;
 
