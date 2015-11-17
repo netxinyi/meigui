@@ -10,6 +10,7 @@ use Log;
 use Illuminate\Http\Request;
 use Auth;
 use App\Model\User;
+use App\Model\Signup;
 
 class WechatController extends Controller
 {
@@ -103,7 +104,45 @@ class WechatController extends Controller
         }
     }
 
+	//微信报名
+	public function getSignup(){
+		return $this->view('signup');
+	}
 
+	public function postSignup(){
+		//验证字段有效性
+		$this->validate($this->request(), $rules = array(
+			'realname'        => 'required',
+			'mobile'          => 'required|digits:11',
+			'birthday'        => 'required',
+			'sex'             => 'required',
+			'marital_status' => 'required',
+		), $message = [
+			'realname.required'  => '请输入真实姓名',
+			'mobile.required'    => '请输入你的手机号',
+			'mobile.digits'      => '手机号格式不正确',
+			'birthday.required'  => '请选择生日',
+			'sex.require'        => '请选择性别',
+			'age.digits'         => '你输入的年龄格式不正确',
+			'marital_status.required'      => '请选择婚姻状况',
+		], $customAttributes = [
+
+		]);
+		//获取表单数据
+		$signupinfo             = $this->request()->only([
+			'user_id',
+			'realname',
+			'mobile',
+			'birthday',
+			'sex',
+			'marital_status'
+		]);
+		//插入注册信息
+		if ($users = Signup::create($signupinfo)) {
+			//注册成功，跳转到登陆界面
+			return $this->success('报名成功', array(), $this->redirect()->intended('/weixin/login'));
+		}
+	}
     /**
      * 处理微信的请求消息
      *
