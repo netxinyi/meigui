@@ -9,8 +9,8 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <link rel="alternate icon" type="image/png" href="{{'/assets/wx/i/favicon.png'}}">
-    <link rel="stylesheet" href="{{'/assets/wx/css/amazeui.min.css'}}"/>
+    <link rel="alternate icon" type="image/png" href="{{'/assets/weixin/i/favicon.png'}}">
+    <link rel="stylesheet" href="{{'/assets/weixin/css/amazeui.min.css'}}"/>
     <style>
         /*头部样式*/
         .am-header-default {
@@ -39,7 +39,7 @@
 </header>
 
 <div>
-    <form class="am-form" action="{{url('weixin/register/checkregister')}}" method="post">
+    <form class="am-form" action="{{url('weixin/register')}}" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <fieldset>
 
@@ -103,11 +103,11 @@
 
 <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
 <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="{{'/assets/wx/js/amazeui.ie8polyfill.min.js'}}"></script>
+<script src="{{'/assets/weixin/js/amazeui.ie8polyfill.min.js'}}"></script>
 <![endif]-->
 
 <!--[if (gte IE 9)|!(IE)]><!-->
-<script src="{{'/assets/wx/js/jquery.min.js'}}"></script>
+<script src="{{'/assets/weixin/js/jquery.min.js'}}"></script>
 <!--<![endif]-->
 </body>
 </html>
