@@ -150,9 +150,9 @@ class WechatController extends Controller
      *
      * @return string
      */
-    public function anyApi()
+    public function anyApi(Server $server)
     {
-        $server = new Server(config('wechat.app_id'), config('wechat.token'), config('wechat.encoding_key'));
+
         //关注回复
         $server->on('event', 'subscribe', function ($event){
 

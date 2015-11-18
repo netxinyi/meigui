@@ -1,6 +1,5 @@
 <?php
 return [
-    'use_alias'    => false,
     'app_id' => 'wxd4a0943fa53c5435', // 必填
     'secret' => 'ea1f6cd484f65da4625924f149ca5282', // 必填
     'token' => 'mghkwx',  // 必填
