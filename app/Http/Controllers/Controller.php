@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Request;
 use Illuminate\Routing\Controller as BaseController;
@@ -126,7 +125,7 @@ abstract class Controller extends BaseController
      * @param  array $errors
      * @return \Illuminate\Http\Response
      */
-    protected function buildFailedValidationResponse(Request $request, array $errors)
+    protected function buildFailedValidationResponse(\Illuminate\Http\Request $request, array $errors)
     {
         if ($request->ajax() || $request->wantsJson()) {
             return $this->error(head($errors), 422);
