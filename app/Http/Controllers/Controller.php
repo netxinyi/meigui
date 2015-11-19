@@ -126,7 +126,7 @@ abstract class Controller extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    protected function buildFailedValidationResponse(Request $request, array $errors)
+    protected function buildFailedValidationResponse(\Illuminate\Http\Request $request, array $errors)
     {
 
         if ($request->ajax() || $request->wantsJson()) {

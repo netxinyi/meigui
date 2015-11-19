@@ -1,9 +1,8 @@
 <?php
 return [
-    'use_alias'    => false,
-    'app_id'       => 'wx9faebf373036d2f2', // 必填
-    'secret'       => 'de023483d8b5b6381dff8efab164578c', // 必填
-    'token'        => 'd971905d7aab85f',  // 必填
-    'encoding_key' => '' // 加密模式需要，其它模式不需要
-    //'encoding_key' => 'eyGWIDMhOCETXiMnoJoH0iZkLkBNq9FIi6zcTAtmemR' // 加密模式需要，其它模式不需要
+    'app_id' => 'wxd4a0943fa53c5435', // 必填
+    'secret' => 'ea1f6cd484f65da4625924f149ca5282', // 必填
+    'token' => 'mghkwx',  // 必填
+    //'encoding_key' => 'AwWdy8TMQXrUG00xhy5lOg2kpaltffE7nGojFMcp66G' // 加密模式需要，其它模式不需要
+
 ];
