@@ -14,37 +14,48 @@
                     <h2>我要报名</h2>
                 </div>
                 <div class="baomingInner">
-                    <div>
-                        <span>真实姓名</span><input type="text" class="w_input">
-                    </div>
-                    <div>
-                        <span>手机号码</span><input type="text " class="w_input">
-                    </div>
-                    <div>
-                        <span>性别</span>
-
-                        <div class="radio_location">
-                            <input type="radio" name="sex" id="sex_1"><label for="sex_1">男</label><input type="radio"
-                                                                                                         name="sex"
-                                                                                                         id="sex_0"><label
-                                    for="sex_0">女</label><br>
+                    <form action="/auth/register" method="post" onsubmit="return false;" id="register-form">
+                        {{csrf_field()}}
+                        <div>
+                            <span>真实姓名</span><input type="text" class="w_input" name="realname">
                         </div>
-                    </div>
-                    <div>
-                        <span>出生年月</span><input type="text" class="w_input"><br>
-                    </div>
-                    <div>
-                        <span>婚姻状况</span>
-
-                        <div class="radio_location">
-                            <input type="radio" name="status" id="status_1"><label for="status_1">未婚</label><input
-                                    type="radio" name="status" id="status_2"><label for="status_2">离婚</label><input
-                                    type="radio" name="status" id="status_3"><label for="status_3">丧偶</label>
+                        <div>
+                            <span>手机号码</span><input type="text " class="w_input" name="mobile">
                         </div>
-                    </div>
-                    <div>
-                        <button type="button" class="am-btn am-btn-danger am-btn-block">马上报名</button>
-                    </div>
+                        <div>
+                            <span>性别</span>
+
+                            <div class="radio_location">
+                                <input type="radio" name="sex" id="sex_1" value="{{\App\Enum\User::SEX_MALE}}">
+                                <label for="sex_1">男</label>
+                                <input type="radio" name="sex" value="{{\App\Enum\User::SEX_MALE}}">
+                                <label for="sex_0">女</label><br>
+                            </div>
+                        </div>
+                        <div>
+                            <span>出生年月</span>
+                            <input type="text" class="w_input" name="birthday"><br>
+                        </div>
+                        <div>
+                            <span>婚姻状况</span>
+
+                            <div class="radio_location">
+                                <input type="radio" name="marital_status" id="status_1"
+                                       value="{{\App\Enum\User::MARITAL_STATUS_UNMARRIED}}" checked="checked">
+                                <label for="status_1">未婚</label>
+                                <input type="radio" name="marital_status" id="status_2"
+                                       value="{{\App\Enum\User::MARITAL_STATUS_DIVORCED}}">
+                                <label for="status_2">离婚</label>
+                                <input type="radio" name="marital_status" id="status_3"
+                                       value="{{\App\Enum\User::MARITAL_STATUS_WIDOWED}}">
+                                <label for="status_3">丧偶</label>
+                            </div>
+                        </div>
+                        <div>
+                            <button type="submit" class="am-btn am-btn-danger am-btn-block">马上报名</button>
+                        </div>
+                    </form>
+
                 </div>
                 <div class="baomingtishi">
                     <div>
@@ -137,7 +148,7 @@
                     <div class="am-gallery-item">
                         <a href="./vip.html" class="">
                             <img src="/assets/images/user_img/001.jpg" alt="白富美1号"
-                                    />
+                            />
 
                             <h3 class="am-gallery-title">白富美1号</h3>
 
@@ -149,7 +160,7 @@
                     <div class="am-gallery-item">
                         <a href="./vip.html" class="">
                             <img src="/assets/images/user_img/002.jpg" alt="白富美1号"
-                                    />
+                            />
 
                             <h3 class="am-gallery-title">白富美2号</h3>
 
@@ -161,7 +172,7 @@
                     <div class="am-gallery-item">
                         <a href="./vip.html" class="">
                             <img src="/assets/images/user_img/003.jpg" alt="不要太担心 只因为我相信"
-                                    />
+                            />
 
                             <h3 class="am-gallery-title">白富美3号</h3>
 
@@ -173,7 +184,7 @@
                     <div class="am-gallery-item">
                         <a href="./vip.html" class="">
                             <img src="/assets/images/user_img/004.jpg" alt="终会走过这条遥远的道路"
-                                    />
+                            />
 
                             <h3 class="am-gallery-title">白富美4号</h3>
 
@@ -185,7 +196,7 @@
                     <div class="am-gallery-item">
                         <a href="./vip.html" class="">
                             <img src="/assets/images/user_img/005.jpg" alt="某天 也许会相遇 相遇在这个好地方"
-                                    />
+                            />
 
                             <h3 class="am-gallery-title">白富美5号</h3>
 
@@ -197,7 +208,7 @@
                     <div class="am-gallery-item">
                         <a href="./vip.html" class="">
                             <img src="/assets/images/user_img/006.jpg" alt="不要太担心 只因为我相信"
-                                    />
+                            />
 
                             <h3 class="am-gallery-title">白富美6号</h3>
 
@@ -209,7 +220,7 @@
                     <div class="am-gallery-item">
                         <a href="./vip.html" class="">
                             <img src="/assets/images/user_img/007.jpg" alt="终会走过这条遥远的道路"
-                                    />
+                            />
 
                             <h3 class="am-gallery-title">白富美7号</h3>
 
@@ -221,7 +232,7 @@
                     <div class="am-gallery-item">
                         <a href="./vip.html" class="">
                             <img src="/assets/images/user_img/008.jpg" alt="某天 也许会相遇 相遇在这个好地方"
-                                    />
+                            />
 
                             <h3 class="am-gallery-title">白富美8号</h3>
 
@@ -233,7 +244,7 @@
                     <div class="am-gallery-item">
                         <a href="./vip.html" class="">
                             <img src="/assets/images/user_img/009.jpg" alt="不要太担心 只因为我相信"
-                                    />
+                            />
 
                             <h3 class="am-gallery-title">白富美9号</h3>
 
@@ -245,7 +256,7 @@
                     <div class="am-gallery-item">
                         <a href="./vip.html" class="">
                             <img src="/assets/images/user_img/010.jpg" alt="终会走过这条遥远的道路"
-                                    />
+                            />
 
                             <h3 class="am-gallery-title">白富美10号</h3>
 
@@ -257,7 +268,7 @@
                     <div class="am-gallery-item">
                         <a href="./vip.html" class="">
                             <img src="/assets/images/user_img/011.jpg" alt="终会走过这条遥远的道路"
-                                    />
+                            />
 
                             <h3 class="am-gallery-title">白富美11号</h3>
 
@@ -269,7 +280,7 @@
                     <div class="am-gallery-item">
                         <a href="./vip.html" class="">
                             <img src="/assets/images/user_img/012.jpg" alt="终会走过这条遥远的道路"
-                                    />
+                            />
 
                             <h3 class="am-gallery-title">白富美12号</h3>
 
@@ -291,7 +302,7 @@
                     <div class="am-gallery-item">
                         <a href="./vip.html" class="">
                             <img src="/assets/images/user_img/101.jpg" alt="远方 有一个地方 那里种有我们的梦想"
-                                    />
+                            />
 
                             <h3 class="am-gallery-title">高富帅1号</h3>
 
@@ -303,7 +314,7 @@
                     <div class="am-gallery-item">
                         <a href="./vip.html" class="">
                             <img src="/assets/images/user_img/102.jpg" alt="某天 也许会相遇 相遇在这个好地方"
-                                    />
+                            />
 
                             <h3 class="am-gallery-title">高富帅2号</h3>
 
@@ -315,7 +326,7 @@
                     <div class="am-gallery-item">
                         <a href="./vip.html" class="">
                             <img src="/assets/images/user_img/103.jpg" alt="不要太担心 只因为我相信"
-                                    />
+                            />
 
                             <h3 class="am-gallery-title">高富帅3号</h3>
 
@@ -327,7 +338,7 @@
                     <div class="am-gallery-item">
                         <a href="./vip.html" class="">
                             <img src="/assets/images/user_img/104.jpg" alt="终会走过这条遥远的道路"
-                                    />
+                            />
 
                             <h3 class="am-gallery-title">高富帅1号</h3>
 
@@ -339,7 +350,7 @@
                     <div class="am-gallery-item">
                         <a href="./vip.html" class="">
                             <img src="/assets/images/user_img/105.jpg" alt="某天 也许会相遇 相遇在这个好地方"
-                                    />
+                            />
 
                             <h3 class="am-gallery-title">高富帅5号</h3>
 
@@ -351,7 +362,7 @@
                     <div class="am-gallery-item">
                         <a href="./vip.html" class="">
                             <img src="/images/user_img/106.jpg" alt="不要太担心 只因为我相信"
-                                    />
+                            />
 
                             <h3 class="am-gallery-title">高富帅6号</h3>
 
@@ -363,7 +374,7 @@
                     <div class="am-gallery-item">
                         <a href="./vip.html" class="">
                             <img src="/assets/images/user_img/107.jpg" alt="终会走过这条遥远的道路"
-                                    />
+                            />
 
                             <h3 class="am-gallery-title">高富帅7号</h3>
 
@@ -375,7 +386,7 @@
                     <div class="am-gallery-item">
                         <a href="./vip.html" class="">
                             <img src="/assets/images/user_img/108.jpg" alt="某天 也许会相遇 相遇在这个好地方"
-                                    />
+                            />
 
                             <h3 class="am-gallery-title">高富帅8号</h3>
 
@@ -387,7 +398,7 @@
                     <div class="am-gallery-item">
                         <a href="./vip.html" class="">
                             <img src="/assets/images/user_img/109.jpg" alt="不要太担心 只因为我相信"
-                                    />
+                            />
 
                             <h3 class="am-gallery-title">高富帅9号</h3>
 
@@ -399,7 +410,7 @@
                     <div class="am-gallery-item">
                         <a href="./vip.html" class="">
                             <img src="/assets/images/user_img/110.jpg" alt="终会走过这条遥远的道路"
-                                    />
+                            />
 
                             <h3 class="am-gallery-title">高富帅10号</h3>
 
@@ -411,7 +422,7 @@
                     <div class="am-gallery-item">
                         <a href="./vip.html" class="">
                             <img src="/assets/images/user_img/111.jpg" alt="终会走过这条遥远的道路"
-                                    />
+                            />
 
                             <h3 class="am-gallery-title">高富帅11号</h3>
 
@@ -423,7 +434,7 @@
                     <div class="am-gallery-item">
                         <a href="./vip.html" class="">
                             <img src="/assets/images/user_img/112.jpg" alt="终会走过这条遥远的道路"
-                                    />
+                            />
 
                             <h3 class="am-gallery-title">高富帅12号</h3>
 
@@ -451,5 +462,8 @@
 
         }
 
+        $('#register-form').success(function () {
+            $.redirect(null, 2);
+        }).form();
     </script>
 @stop
