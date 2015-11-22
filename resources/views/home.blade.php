@@ -144,150 +144,20 @@
         <div class="content">
             <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2
   am-avg-md-3 am-avg-lg-6 am-gallery-bordered" data-am-gallery="{  }">
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="/assets/images/user_img/001.jpg" alt="白富美1号"
-                            />
+                @foreach($users['female'] as $female)
+                    <li>
+                        <div class="am-gallery-item">
+                            <a href="/member/{{$female->user_id}}" class="">
+                                <img src="{{$female->avatar}}" alt="{{$female->user_name}}"/>
 
-                            <h3 class="am-gallery-title">白富美1号</h3>
+                                <h3 class="am-gallery-title">{{$female->user_name}}</h3>
 
-                            <div class="am-gallery-desc">2015-01-26</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="/assets/images/user_img/002.jpg" alt="白富美1号"
-                            />
+                                <div class="am-gallery-desc">{{$female->birthday}}</div>
+                            </a>
+                        </div>
+                    </li>
+                @endforeach
 
-                            <h3 class="am-gallery-title">白富美2号</h3>
-
-                            <div class="am-gallery-desc">2015-02-26</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="/assets/images/user_img/003.jpg" alt="不要太担心 只因为我相信"
-                            />
-
-                            <h3 class="am-gallery-title">白富美3号</h3>
-
-                            <div class="am-gallery-desc">2015-02-26</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="/assets/images/user_img/004.jpg" alt="终会走过这条遥远的道路"
-                            />
-
-                            <h3 class="am-gallery-title">白富美4号</h3>
-
-                            <div class="am-gallery-desc">2015-02-26</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="/assets/images/user_img/005.jpg" alt="某天 也许会相遇 相遇在这个好地方"
-                            />
-
-                            <h3 class="am-gallery-title">白富美5号</h3>
-
-                            <div class="am-gallery-desc">2015-02-26</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="/assets/images/user_img/006.jpg" alt="不要太担心 只因为我相信"
-                            />
-
-                            <h3 class="am-gallery-title">白富美6号</h3>
-
-                            <div class="am-gallery-desc">2015-02-26</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="/assets/images/user_img/007.jpg" alt="终会走过这条遥远的道路"
-                            />
-
-                            <h3 class="am-gallery-title">白富美7号</h3>
-
-                            <div class="am-gallery-desc">2015-02-26</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="/assets/images/user_img/008.jpg" alt="某天 也许会相遇 相遇在这个好地方"
-                            />
-
-                            <h3 class="am-gallery-title">白富美8号</h3>
-
-                            <div class="am-gallery-desc">2015-02-26</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="/assets/images/user_img/009.jpg" alt="不要太担心 只因为我相信"
-                            />
-
-                            <h3 class="am-gallery-title">白富美9号</h3>
-
-                            <div class="am-gallery-desc">2015-02-26</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="/assets/images/user_img/010.jpg" alt="终会走过这条遥远的道路"
-                            />
-
-                            <h3 class="am-gallery-title">白富美10号</h3>
-
-                            <div class="am-gallery-desc">2015-02-26</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="/assets/images/user_img/011.jpg" alt="终会走过这条遥远的道路"
-                            />
-
-                            <h3 class="am-gallery-title">白富美11号</h3>
-
-                            <div class="am-gallery-desc">2015-02-26</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="/assets/images/user_img/012.jpg" alt="终会走过这条遥远的道路"
-                            />
-
-                            <h3 class="am-gallery-title">白富美12号</h3>
-
-                            <div class="am-gallery-desc">2015-02-26</div>
-                        </a>
-                    </div>
-                </li>
             </ul>
         </div>
     </div>
@@ -298,150 +168,19 @@
         <div class="content">
             <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2
   am-avg-md-3 am-avg-lg-6 am-gallery-bordered" data-am-gallery="{  }">
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="/assets/images/user_img/101.jpg" alt="远方 有一个地方 那里种有我们的梦想"
-                            />
+                @foreach($users['male'] as $male)
+                    <li>
+                        <div class="am-gallery-item">
+                            <a href="/member/{{$male->user_id}}" class="">
+                                <img src="{{$male->avatar}}" alt="{{$male->user_name}}"/>
 
-                            <h3 class="am-gallery-title">高富帅1号</h3>
+                                <h3 class="am-gallery-title">{{$male->user_name}}</h3>
 
-                            <div class="am-gallery-desc">2015-01-26</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="/assets/images/user_img/102.jpg" alt="某天 也许会相遇 相遇在这个好地方"
-                            />
-
-                            <h3 class="am-gallery-title">高富帅2号</h3>
-
-                            <div class="am-gallery-desc">2015-01-26</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="/assets/images/user_img/103.jpg" alt="不要太担心 只因为我相信"
-                            />
-
-                            <h3 class="am-gallery-title">高富帅3号</h3>
-
-                            <div class="am-gallery-desc">2015-01-26</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="/assets/images/user_img/104.jpg" alt="终会走过这条遥远的道路"
-                            />
-
-                            <h3 class="am-gallery-title">高富帅1号</h3>
-
-                            <div class="am-gallery-desc">2015-01-26</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="/assets/images/user_img/105.jpg" alt="某天 也许会相遇 相遇在这个好地方"
-                            />
-
-                            <h3 class="am-gallery-title">高富帅5号</h3>
-
-                            <div class="am-gallery-desc">2015-01-26</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="/images/user_img/106.jpg" alt="不要太担心 只因为我相信"
-                            />
-
-                            <h3 class="am-gallery-title">高富帅6号</h3>
-
-                            <div class="am-gallery-desc">2015-01-26</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="/assets/images/user_img/107.jpg" alt="终会走过这条遥远的道路"
-                            />
-
-                            <h3 class="am-gallery-title">高富帅7号</h3>
-
-                            <div class="am-gallery-desc">2015-01-26</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="/assets/images/user_img/108.jpg" alt="某天 也许会相遇 相遇在这个好地方"
-                            />
-
-                            <h3 class="am-gallery-title">高富帅8号</h3>
-
-                            <div class="am-gallery-desc">2015-01-26</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="/assets/images/user_img/109.jpg" alt="不要太担心 只因为我相信"
-                            />
-
-                            <h3 class="am-gallery-title">高富帅9号</h3>
-
-                            <div class="am-gallery-desc">2015-01-26</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="/assets/images/user_img/110.jpg" alt="终会走过这条遥远的道路"
-                            />
-
-                            <h3 class="am-gallery-title">高富帅10号</h3>
-
-                            <div class="am-gallery-desc">2015-01-26</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="/assets/images/user_img/111.jpg" alt="终会走过这条遥远的道路"
-                            />
-
-                            <h3 class="am-gallery-title">高富帅11号</h3>
-
-                            <div class="am-gallery-desc">2015-01-26</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="/assets/images/user_img/112.jpg" alt="终会走过这条遥远的道路"
-                            />
-
-                            <h3 class="am-gallery-title">高富帅12号</h3>
-
-                            <div class="am-gallery-desc">2015-01-26</div>
-                        </a>
-                    </div>
-                </li>
+                                <div class="am-gallery-desc">{{$male->birthday}}</div>
+                            </a>
+                        </div>
+                    </li>
+                @endforeach
             </ul>
         </div>
     </div>

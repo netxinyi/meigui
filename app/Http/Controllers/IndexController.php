@@ -8,12 +8,19 @@
 namespace App\Http\Controllers;
 
 
+use App\Model\User;
+
 class IndexController extends Controller
 {
 
     public function getIndex()
     {
-        return $this->view('home');
+        $selects = array('user_id', 'user_name', 'avatar', 'sex', 'birthday');
+        $limit = 12;
+        $users['male'] = User::male()->recommended()->orderBy('recommended_order', 'asc')->limit($limit)->get($selects);
+        $users['female'] = User::female()->recommended()->orderBy('recommended_order', 'asc')->limit($limit)->get($selects);
+
+        return $this->view('home')->with('users', $users);
     }
 
     public function getSearch()

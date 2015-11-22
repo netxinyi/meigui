@@ -126,7 +126,7 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
             return asset('/assets/admin/img/default-avatar.jpg');
         }
 
-        return $this->attributes['avatar'];
+        return asset('/uploads/avatar/' . $this->attributes['avatar']);
     }
 
 
@@ -145,5 +145,18 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
     | 范围查询
     |--------------------------------------------------------------------------
     */
+    public function scopeRecommended($query)
+    {
+        return $query->where('recommended', 1);
+    }
 
+    public function scopeMale($query)
+    {
+        return $query->where('sex', \App\Enum\User::SEX_MALE);
+    }
+
+    public function scopeFemale($query)
+    {
+        return $query->where('sex', \App\Enum\User::SEX_FEMALE);
+    }
 }
