@@ -61,6 +61,7 @@
                     <span>会员管理</span>
                 </a>
                 <ul class="sub-menu">
+                    <li><a href="{{route('admin.user.check')}}">报名审核</a></li>
                     <li><a href="{{route('admin.user.index')}}">会员列表</a></li>
                     <li><a href="{{route('admin.user.create')}}">添加会员</a></li>
                 </ul>

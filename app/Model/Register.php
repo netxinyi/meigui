@@ -57,7 +57,7 @@ class Register extends BaseModel
      * 追加属性
      * @var array
      */
-    protected $append = ['sex_lang'];
+    protected $append = ['sex_lang', 'age_format', 'age', 'marital_status_lang'];
 
 
     /*
@@ -84,10 +84,34 @@ class Register extends BaseModel
         return UserEnum::$sexForm[$this->attributes['sex']];
     }
 
+    public function getAgeAttribute()
+    {
+        $birthday = strtotime($this->attributes['birthday']);
+        $diff = time() - $birthday;
+        return floor($diff / 31536000);
+    }
+
+    public function getAgeFormatAttribute()
+    {
+        return $this->getAgeAttribute() . '岁';
+    }
+
+
+    public function getMaritalStatusLangAttribute()
+    {
+        return UserEnum::$maritalForm[$this->attributes['marital_status']];
+    }
+
     /*
     |--------------------------------------------------------------------------
     | 范围查询
     |--------------------------------------------------------------------------
     */
+
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'user_id');
+    }
 
 }

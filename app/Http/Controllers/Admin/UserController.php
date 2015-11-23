@@ -8,6 +8,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Model\Register;
 use App\Model\User;
 use App\Enum\User as UserEnum;
 
@@ -42,17 +43,17 @@ class UserController extends Controller
         //验证表单
         $this->validate($this->request(), [
 
-            'mobile'           => 'required|digits:11',
-            'birthday'         => 'required|date',
-            'sex'              => 'required|in:' . array_keys_impload(UserEnum::$sexForm),
-            'password'         => 'required|min:5|max:20',
+            'mobile' => 'required|digits:11',
+            'birthday' => 'required|date',
+            'sex' => 'required|in:' . array_keys_impload(UserEnum::$sexForm),
+            'password' => 'required|min:5|max:20',
             'password_confirm' => 'required|required_with:password|same:password',
-            'marital_status'   => 'in:' . array_keys_impload(UserEnum::$maritalForm),
-            'height'           => 'digits:3|between:130,210',
-            'education'        => 'in:' . array_keys_impload(UserEnum::$educationForm),
-            'salary'           => 'in:' . array_keys_impload(UserEnum::$salaryForm),
-            'user_name'        => 'required|min:2|max:15|unique:users',
-            'email'            => 'required|email|unique:users',
+            'marital_status' => 'in:' . array_keys_impload(UserEnum::$maritalForm),
+            'height' => 'digits:3|between:130,210',
+            'education' => 'in:' . array_keys_impload(UserEnum::$educationForm),
+            'salary' => 'in:' . array_keys_impload(UserEnum::$salaryForm),
+            'user_name' => 'required|min:2|max:15|unique:users',
+            'email' => 'required|email|unique:users',
         ]);
 
         $form = $this->request()->only([
@@ -91,17 +92,17 @@ class UserController extends Controller
 
         //验证表单
         $this->validate($this->request(), [
-            'mobile'           => 'required|digits:11',
-            'birthday'         => 'required|date',
-            'sex'              => 'required|in:' . array_keys_impload(UserEnum::$sexForm),
-            'password'         => 'min:5|max:20',
+            'mobile' => 'required|digits:11',
+            'birthday' => 'required|date',
+            'sex' => 'required|in:' . array_keys_impload(UserEnum::$sexForm),
+            'password' => 'min:5|max:20',
             'password_confirm' => 'required_with:password|same:password',
-            'marital_status'   => 'in:' . array_keys_impload(UserEnum::$maritalForm),
-            'height'           => 'numeric|digits:3|min:130|max:210',
-            'education'        => 'in:' . array_keys_impload(UserEnum::$educationForm),
-            'salary'           => 'in:' . array_keys_impload(UserEnum::$salaryForm),
-            'user_name'        => 'required|min:2|max:15|unique:users,user_name,' . $user->user_id . ',user_id',
-            'email'            => 'required|email|unique:users,email,' . $user->user_id . ',user_id',
+            'marital_status' => 'in:' . array_keys_impload(UserEnum::$maritalForm),
+            'height' => 'numeric|digits:3|min:130|max:210',
+            'education' => 'in:' . array_keys_impload(UserEnum::$educationForm),
+            'salary' => 'in:' . array_keys_impload(UserEnum::$salaryForm),
+            'user_name' => 'required|min:2|max:15|unique:users,user_name,' . $user->user_id . ',user_id',
+            'email' => 'required|email|unique:users,email,' . $user->user_id . ',user_id',
         ]);
 
 
@@ -139,5 +140,11 @@ class UserController extends Controller
         }
 
         return $this->error('删除失败');
+    }
+
+    public function getRegister()
+    {
+        $user = Register::with('user')->get();
+        return $this->view('check')->with('users', $user);
     }
 }
