@@ -64,19 +64,18 @@ class AuthController extends Controller
         ]);
 
         //获取表单数据
-        $credentials                 = $this->request()->only(['admin_pass', 'admin_name']);
+        $credentials = $this->request()->only(['admin_pass', 'admin_name']);
         $credentials['admin_status'] = AdminEnum::STATUS_NORMAL;
         //登录验证
-        if ($this->auth->attempt($credentials, $this->request()->has('remember'))) {
+        if ($user = $this->auth->attempt($credentials, $this->request()->has('remember'))) {
 
             //登录成功,跳转回登录前页面
-
-            return $this->success('登录成功', array(), $this->redirect()->intended('/admin'));
+            return $this->redirect('/admin');
 
         }
 
         //TODO 抛出异常代码
-        return $this->error('用户不存在');
+        return $this->redirect()->back()->withErrors('账号或密码错误', 'error');
     }
 
 

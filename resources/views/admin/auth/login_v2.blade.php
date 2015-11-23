@@ -26,6 +26,7 @@
 @stop
 
 @section('body')
+
     <div class="login-cover">
         <div class="login-cover-image">
             <img src="/assets/admin/img/login-bg/bg-1.jpg" data-id="login-cover-image" alt=""/>
