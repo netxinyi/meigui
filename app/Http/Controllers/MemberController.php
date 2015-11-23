@@ -17,7 +17,21 @@ class MemberController extends Controller
 
     public function index()
     {
-        return $this->view('index');
+        $selects = array('user_name', 'avatar', 'sex', 'height', 'birthday', 'province', 'salary', 'height', 'education');
+        $user['male'] = User::male()->limit(18)->get($selects);
+        $user['female'] = User::female()->limit(18)->get($selects);
+        return $this->view('index')->with('users', $user);
+    }
+
+    public function getMale()
+    {
+        return $this->view('male');
+    }
+
+    public function getFemale()
+    {
+        return $this->view('female');
+
     }
 
     public function user(User $user)

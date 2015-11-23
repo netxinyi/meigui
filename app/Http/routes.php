@@ -1,6 +1,6 @@
 <?php
 
-Route::bind('admins', function ($admin_id){
+Route::bind('admins', function ($admin_id) {
 
     return App\Model\Admin::find($admin_id);
 });
@@ -34,6 +34,8 @@ Route::controller('home', 'HomeController');
 |
 */
 Route::get('member', 'MemberController@index');
+Route::get('male_member', 'MemberController@getMale');
+Route::get('female_member', 'MemberController@getFemale');
 Route::get('member/{user}', 'MemberController@user');
 /*
 |--------------------------------------------------------------------------
@@ -52,7 +54,7 @@ Route::get('article/{article}', 'ArticleController@index');
 #Auth登录注册-密码找回-控制器路由
 Route::controllers([
 
-    'auth'     => 'Auth\AuthController',
+    'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController'
 ]);
 /*
@@ -72,7 +74,7 @@ Route::controller('weixin', 'WechatController');
 Route::controller('admin/auth', 'Admin\AuthController');
 
 #后台管理
-Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function (){
+Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
 
     Route::get('/', ['uses' => 'Admin\HomeController@index']);
     #Option管理-资源路由

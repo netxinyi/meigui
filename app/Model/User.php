@@ -69,7 +69,7 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
      * 追加属性
      * @var array
      */
-    protected $append = ['sex_lang'];
+    protected $append = ['sex_lang', 'age_format', 'height_format', 'age', 'education_lang', 'salary_lang'];
 
 
     /*
@@ -138,6 +138,33 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
     {
 
         return UserEnum::$sexForm[$this->attributes['sex']];
+    }
+
+    public function getAgeAttribute()
+    {
+        $birthday = strtotime($this->attributes['birthday']);
+        $diff = time() - $birthday;
+        return floor($diff / 31536000);
+    }
+
+    public function getAgeFormatAttribute()
+    {
+        return $this->getAgeAttribute() . '岁';
+    }
+
+    public function getHeightFormatAttribute()
+    {
+        return $this->attributes['height'] . 'cm';
+    }
+
+    public function getEducationLangAttribute()
+    {
+        return \App\Enum\User::$educationForm[$this->attributes['education']];
+    }
+
+    public function getSalaryLangAttribute()
+    {
+        return \App\Enum\User::$salaryForm[$this->attributes['salary']];
     }
 
     /*
