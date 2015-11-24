@@ -86,10 +86,10 @@
             <font color="red"><?php echo $errors->first('nick'); ?></font>
 
             <div class="am-form-group">
-                <label for="doc-ipt-email-1">年龄</label>
-                <input type="text" name="age" class="" id="doc-ipt-email-1" placeholder="输入年龄">
+                <label for="doc-ipt-email-1">生日</label>
+                <input type="text" name="birthday" class="am-form-field" placeholder="选择日期" data-am-datepicker />
             </div>
-            <font color="red"><?php echo $errors->first('age'); ?></font>
+            <font color="red"><?php echo $errors->first('birthday'); ?></font>
 
             <p>
                 <button type="submit" class="am-btn am-btn-warning am-btn-block btn_color">提交注册</button>
@@ -109,5 +109,6 @@
 <!--[if (gte IE 9)|!(IE)]><!-->
 <script src="{{'/assets/weixin/js/jquery.min.js'}}"></script>
 <!--<![endif]-->
+<script src="{{'/assets/weixin/js/amazeui.min.js'}}"></script>
 </body>
 </html>

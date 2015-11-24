@@ -67,7 +67,7 @@ class WechatController extends Controller
             'password'  => 'required|confirmed|min:6',
             'email'     => 'required|email|unique:users',
             'user_name' => 'required',
-            'age'       => 'required|digits:2',
+            'birthday'       => 'required',
             'nick'      => 'required',
         ), $message = [
             'mobile.required'    => '请输入你的手机号',
@@ -80,8 +80,7 @@ class WechatController extends Controller
             'email.email'        => '不是合法的邮箱格式',
             'email.unique'       => '该邮箱已经存在',
             'user_name.required' => '请输入你的姓名',
-            'age.required'       => '请输入你的年龄',
-            'age.digits'         => '你输入的年龄格式不正确',
+            'birthday.required'  => '请输选择你的生日',
             'nick.required'      => '请输入昵称',
         ], $customAttributes = [
 
@@ -94,7 +93,7 @@ class WechatController extends Controller
             'email',
             'user_name',
             'sex',
-            'age'
+            'birthday'
         ]);
         $reginfo['password'] = bcrypt($reginfo['password']);
         //插入注册信息
