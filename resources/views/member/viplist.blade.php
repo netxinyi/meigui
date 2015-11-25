@@ -34,7 +34,7 @@
                         </a>
 
                         <div class="member_baoming">
-                            <div class="member_baoming_num"><span>报名人数：888人</span></div>
+                            <div class="member_baoming_num"><span>报名人数：{{$vip->count}}人</span></div>
                             <div class="member_baoming_btn">
                                 <button class="am-btn am-btn-warning ">我要报名</button>
                             </div>
