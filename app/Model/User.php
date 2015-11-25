@@ -159,12 +159,16 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
 
     public function getEducationLangAttribute()
     {
-        return \App\Enum\User::$educationForm[$this->attributes['education']];
+		if($this->attributes['education']){
+			return \App\Enum\User::$educationForm[$this->attributes['education']];
+		}
     }
 
     public function getSalaryLangAttribute()
     {
+		if($this->attributes['salary']){
         return \App\Enum\User::$salaryForm[$this->attributes['salary']];
+		}
     }
 
     /*

@@ -96,193 +96,31 @@
                 红娘一对一服务
             </div>
             <div class="more_url">
-                <a href="./vipList.html"><img src="./images/more2.gif" alt=""></a>
+                <a href="/viplist_member"><img src="/assets/images/more2.gif" alt=""></a>
             </div>
         </div>
         <div class="content_member_top">
             <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2   am-avg-md-3 am-avg-lg-5 am-gallery-bordered"
                 data-am-gallery="{  }">
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./svip.html" class="">
-                            <img src="./images/user_img/vip_1.jpg" alt="白富美1号"/>
+                @foreach($users['vip'] as $vip)
+                    <li>
 
-                            <h3 class="am-gallery-title">妮妮</h3>
+                        <div class="am-gallery-item">
+                            <a href="/member/{{$vip->user_id}}" class="">
+                                <img src="{{$vip->avatar}}" alt="{{$vip->user_name}}"/>
 
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
+                                <h3 class="am-gallery-title">{{$vip->user_name}}</h3>
 
-                        <div class="member_baoming">
-                            <div class="member_baoming_num"><span>报名人数：888人</span></div>
-                            <div class="member_baoming_btn">
-                                <button class="am-btn am-btn-warning ">我要报名</button>
-                            </div>
+                                <div class="am-gallery-desc">{{$vip->age_format}},{{$vip->province}}
+                                    ,{{$vip->height_format}},{{$vip->education_lang}}
+
+                                    <br/>
+                                    月收入 {{$vip->salary_lang}}
+                                </div>
+                            </a>
                         </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./svip.html" class="">
-                            <img src="./images/user_img/vip_2.jpg" alt="白富美1号"/>
-
-                            <h3 class="am-gallery-title">王诺诺</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-
-                        <div class="member_baoming">
-                            <div class="member_baoming_num"><span>报名人数：888人</span></div>
-                            <div class="member_baoming_btn">
-                                <button class="am-btn am-btn-warning ">我要报名</button>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./svip.html" class="">
-                            <img src="./images/user_img/vip_3.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">静静</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-
-                        <div class="member_baoming">
-                            <div class="member_baoming_num"><span>报名人数：888人</span></div>
-                            <div class="member_baoming_btn">
-                                <button class="am-btn am-btn-warning ">我要报名</button>
-                            </div>
-                        </div>
-                    </div>
-
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./svip.html" class="">
-                            <img src="./images/user_img/vip_4.jpg" alt="终会走过这条遥远的道路"/>
-
-                            <h3 class="am-gallery-title">何喵</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-
-                        <div class="member_baoming">
-                            <div class="member_baoming_num"><span>报名人数：888人</span></div>
-                            <div class="member_baoming_btn">
-                                <button class="am-btn am-btn-warning ">我要报名</button>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./svip.html" class="">
-                            <img src="./images/user_img/vip_5.jpg" alt="某天 也许会相遇 相遇在这个好地方"/>
-
-                            <h3 class="am-gallery-title">遇见</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-
-                        <div class="member_baoming">
-                            <div class="member_baoming_num"><span>报名人数：888人</span></div>
-                            <div class="member_baoming_btn">
-                                <button class="am-btn am-btn-warning ">我要报名</button>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./svip.html" class="">
-                            <img src="./images/user_img/vip_6.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">恬恬</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-
-                        <div class="member_baoming">
-                            <div class="member_baoming_num"><span>报名人数：888人</span></div>
-                            <div class="member_baoming_btn">
-                                <button class="am-btn am-btn-warning ">我要报名</button>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./svip.html" class="">
-                            <img src="./images/user_img/vip_7.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">琳琳</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-
-                        <div class="member_baoming">
-                            <div class="member_baoming_num"><span>报名人数：888人</span></div>
-                            <div class="member_baoming_btn">
-                                <button class="am-btn am-btn-warning ">我要报名</button>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./svip.html" class="">
-                            <img src="./images/user_img/vip_10.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">红颜一笑</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-
-                        <div class="member_baoming">
-                            <div class="member_baoming_num"><span>报名人数：888人</span></div>
-                            <div class="member_baoming_btn">
-                                <button class="am-btn am-btn-warning ">我要报名</button>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./svip.html" class="">
-                            <img src="./images/user_img/vip_11.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">大朵</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-
-                        <div class="member_baoming">
-                            <div class="member_baoming_num"><span>报名人数：888人</span></div>
-                            <div class="member_baoming_btn">
-                                <button class="am-btn am-btn-warning ">我要报名</button>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./svip.html" class="">
-                            <img src="./images/user_img/vip_12.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">鸟鸟先生</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-
-                        <div class="member_baoming">
-                            <div class="member_baoming_num"><span>报名人数：888人</span></div>
-                            <div class="member_baoming_btn">
-                                <button class="am-btn am-btn-warning ">我要报名</button>
-                            </div>
-                        </div>
-                    </div>
-                </li>
+                    </li>
+                @endforeach
             </ul>
         </div>
     </div>

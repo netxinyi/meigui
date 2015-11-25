@@ -36,6 +36,7 @@ Route::controller('home', 'HomeController');
 Route::get('member', 'MemberController@index');
 Route::get('male_member', 'MemberController@getMale');
 Route::get('female_member', 'MemberController@getFemale');
+Route::get('viplist_member', 'MemberController@getViplist');
 Route::get('member/{user}', 'MemberController@user');
 /*
 |--------------------------------------------------------------------------

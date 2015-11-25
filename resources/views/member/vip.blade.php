@@ -34,32 +34,32 @@
                         <div class="am-panel am-panel-default">
                             <!-- 基本信息 -->
                             <header class="am-panel-hd">
-                                <h3 class="am-panel-title">风韵犹存<span style="font-size:14px;margin-left:10px;color:#999">ID:114966356</span>
+                                <h3 class="am-panel-title">{{$user->user_name}}<span style="font-size:14px;margin-left:10px;color:#999">{{$user->user_id}}</span>
                                 </h3>
                             </header>
                             <div class="am-panel-bd">
                                 <table class="am-table">
                                     <tr>
-                                        <td>会员身份：<span class="msg_font_color">普通会员</span></td>
+                                        <td>会员身份：<span class="msg_font_color">{{$user->level}}</span></td>
                                         <td></td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">认证信息是会员自愿提供，目前中国无完整渠道确保100%真实，请理性对待。</td>
                                     </tr>
                                     <tr>
-                                        <td>年龄：<span class="msg_font_color">25岁</span></td>
-                                        <td>身高：<span class="msg_font_color">173cm</span></td>
+                                        <td>年龄：<span class="msg_font_color">{{$user->age_format}}</span></td>
+                                        <td>身高：<span class="msg_font_color">{{$user->height_format}}</span></td>
                                     </tr>
                                     <tr>
-                                        <td>学历：<span class="msg_font_color">本科</span></td>
-                                        <td>婚姻状况：<span class="msg_font_color">未婚</span></td>
+                                        <td>学历：<span class="msg_font_color">{{$user->education_lang}}</span></td>
+                                        <td>婚姻状况：<span class="msg_font_color">{{\App\Enum\User::$maritalForm[$user->marital_status]}}</span></td>
                                     </tr>
                                     <tr>
                                         <td>住房：<span class="msg_font_color">独自租房</span></td>
-                                        <td>月薪：<span class="msg_font_color">5000～10000元</span></td>
+                                        <td>月薪：<span class="msg_font_color">{{$user->salary_lang}}</span></td>
                                     </tr>
                                     <tr>
-                                        <td>籍贯：<span class="msg_font_color">北京</span></td>
+                                        <td>籍贯：<span class="msg_font_color">{{$user->province}}</span></td>
                                         <td>民族：<span class="msg_font_color">汉族</span></td>
                                     </tr>
                                     <tr>
