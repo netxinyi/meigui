@@ -43,7 +43,7 @@ class MemberController extends Controller
 	public function getViplist(){
 		$selects = array('user_id','user_name', 'avatar', 'sex', 'height', 'birthday', 'province', 'salary', 'height', 'education');
 		$viplevel = 3;
-		$user['vip']  = User::where('level','>',$viplevel)->limit(18)->get($selects);
+		$user['vip']  = User::where('level','>',$viplevel)->get($selects);
 		//添加报名人数字段
 		foreach($user['vip'] as $key=>$vip){
 				$user['vip'][$key]['count']=Register::where('user_id','=',$vip['user_id'])->count();
