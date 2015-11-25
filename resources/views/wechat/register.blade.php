@@ -74,16 +74,12 @@
             <div class="am-form-group">
                 <label for="doc-select-1">性别</label>
                 <select name="sex" id="doc-select-1">
-                    <option value="0">女士</option>
+                    <option value="2">女士</option>
                     <option value="1">男士</option>
                 </select>
                 <span class="am-form-caret"></span>
             </div>
-            <div class="am-form-group">
-                <label for="doc-ipt-email-1">昵称</label>
-                <input type="text" name="nick" class="" id="doc-ipt-email-1" placeholder="输入昵称">
-            </div>
-            <font color="red"><?php echo $errors->first('nick'); ?></font>
+            <font color="red"><?php echo $errors->first('sex'); ?></font>
 
             <div class="am-form-group">
                 <label for="doc-ipt-email-1">生日</label>

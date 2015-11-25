@@ -67,8 +67,8 @@ class WechatController extends Controller
             'password'  => 'required|confirmed|min:6',
             'email'     => 'required|email|unique:users',
             'user_name' => 'required',
+			'sex'       => 'required',
             'birthday'       => 'required',
-            'nick'      => 'required',
         ), $message = [
             'mobile.required'    => '请输入你的手机号',
             'mobile.digits'      => '手机号格式不正确',
@@ -80,15 +80,14 @@ class WechatController extends Controller
             'email.email'        => '不是合法的邮箱格式',
             'email.unique'       => '该邮箱已经存在',
             'user_name.required' => '请输入你的姓名',
+			'sex.required'       => '请选择性别',
             'birthday.required'  => '请输选择你的生日',
-            'nick.required'      => '请输入昵称',
         ], $customAttributes = [
 
         ]);
         //获取表单数据
         $reginfo             = $this->request()->only([
             'mobile',
-            'nick',
             'password',
             'email',
             'user_name',
