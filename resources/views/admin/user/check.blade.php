@@ -59,10 +59,10 @@
                             <td>{{$user->birthday}}</td>
                             <td>{{$user->created_at}}</td>
                             <td class="text-center">
-                                <a href="{{route('admin.user.edit',[$user->user_id])}}"
+                                <a href="{{route('admin.register.add',[$user->id])}}"
                                    class="btn btn-sm btn-success  m-r-5">通过审核</a>
-                                <a href="{{route('admin.user.destroy',[$user->user_id])}}"
-                                   class="btn btn-sm btn-danger" data-method="delete">拒绝申请</a>
+                                <a href="{{route('admin.register.destroy',[$user->id])}}"
+                                   class="btn btn-sm btn-danger">拒绝申请</a>
                             </td>
                         </tr>
                     @endforeach

@@ -147,4 +147,67 @@ class UserController extends Controller
         $user = Register::with('user')->get();
         return $this->view('check')->with('users', $user);
     }
+
+    public function getAdd(Register $register)
+    {
+
+
+        return $this->view('add')->with('user', $register);
+    }
+
+    public function postAdd(Register $register)
+    {
+        //验证表单
+        $this->validate($this->request(), [
+
+            'mobile' => 'required|digits:11',
+            'birthday' => 'required|date',
+            'sex' => 'required|in:' . array_keys_impload(UserEnum::$sexForm),
+            'password' => 'required|min:5|max:20',
+            'password_confirm' => 'required|required_with:password|same:password',
+            'marital_status' => 'in:' . array_keys_impload(UserEnum::$maritalForm),
+            'height' => 'digits:3|between:130,210',
+            'education' => 'in:' . array_keys_impload(UserEnum::$educationForm),
+            'salary' => 'in:' . array_keys_impload(UserEnum::$salaryForm),
+            'user_name' => 'required|min:2|max:15|unique:users',
+            'email' => 'required|email|unique:users',
+        ]);
+
+        $form = $this->request()->only([
+            'user_name',
+            'email',
+            'mobile',
+            'birthday',
+            'password',
+            'marital_status',
+            'height',
+            'education',
+            'salary',
+            'province',
+            'city',
+            'area'
+        ]);
+
+        try {
+            transaction();
+            $user = User::create($form);
+            $register->delete();
+            commit();
+            return $this->success('添加成功', $user);
+
+        } catch (\Exception $exp) {
+            rollback();
+            return $this->error('抱歉,添加失败');
+        }
+
+    }
+
+    public function destroyRegister(Register $register)
+    {
+        try {
+            $register->delete();
+        } catch (\Exception $ex) {
+
+        }
+    }
 }

@@ -8,6 +8,7 @@ Route::model('user', 'App\Model\User');
 Route::model('column', 'App\Model\Column');
 Route::model('article', 'App\Model\Article');
 Route::model('guestbook', 'App\Model\GuestBook');
+Route::model('register', 'App\Model\Register');
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -94,6 +95,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
     #用户审核
     Route::get('user/register', array('uses' => 'Admin\UserController@getRegister', 'as' => 'admin.user.check'));
     Route::post('user/register', 'Admin\UserController@postRegister');
+
+    Route::get('user/{register}/add', array('uses' => 'Admin\UserController@getAdd', 'as' => 'admin.register.add'));
+    Route::post('user/{register}/add', array('uses' => 'Admin\UserController@postAdd'));
+
+    Route::get('user/{register}/checkout', array('uses' => 'Admin\UserController@destroyRegister', 'as' => 'admin.register.destroy'));
+
+
     #用户管理
     Route::resource('user', 'Admin\UserController');
     #成功案例
