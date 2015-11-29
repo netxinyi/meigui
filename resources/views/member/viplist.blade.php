@@ -20,27 +20,41 @@
         <div class="content_member_top">
             <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2   am-avg-md-3 am-avg-lg-5 am-gallery-bordered"
                 data-am-gallery="{  }">
-                @foreach($user['vip'] as $vip)
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="/member/{{$vip->user_id}}" class="">
-                            <img src="{{$vip->avatar}}" alt="{{$vip->user_name}}"/>
+                @foreach($users as $user)
+                    <li>
 
-                            <h3 class="am-gallery-title">{{$vip->user_name}}</h3>
+                        <div class="am-gallery-item">
+                            <a href="/member/{{$user->user_id}}" class="">
+                                <img src="{{$user->avatar}}" alt="{{$user->user_name}}"/>
 
-                            <div class="am-gallery-desc">{{$vip->age_format}},{{$vip->province}}
-                                ,{{$vip->height_format}},{{$vip->education_lang}}<br/>
-                                月收入 {{$vip->salary_lang}}</div>
-                        </a>
+                                <h3 class="am-gallery-title">{{$user->user_name}}</h3>
 
-                        <div class="member_baoming">
-                            <div class="member_baoming_num"><span>报名人数：{{$vip->count}}人</span></div>
-                            <div class="member_baoming_btn">
-                                <button class="am-btn am-btn-warning ">我要报名</button>
+                                <div class="am-gallery-desc">
+                                    {{$user->age_lang}}
+                                    @if($user->work_city)
+                                        ,{{$user->work_city}}
+                                    @endif
+                                    @if($user->height_lang)
+                                        ,{{$user->height_lang}}
+                                    @endif
+                                    @if($user->education_lang)
+                                        ,{{$user->education_lang}}
+                                    @endif
+                                    @if($user->salary_lang)
+                                        <br/>
+                                        月收入 {{$user->salary_lang}}
+                                    @endif
+                                </div>
+                            </a>
+
+                            <div class="member_baoming">
+                                <div class="member_baoming_num"><span>报名人数：{{$user->like->count()}}</span></div>
+                                <div class="member_baoming_btn">
+                                    <button class="am-btn am-btn-warning ">我要报名</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
+                    </li>
                 @endforeach
             </ul>
         </div>

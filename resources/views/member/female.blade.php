@@ -20,18 +20,31 @@
         <div class="content_member">
             <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2   am-avg-md-3 am-avg-lg-6 am-gallery-bordered"
                 data-am-gallery="{  }">
-                @foreach($user['female'] as $female)
+                @foreach($users as $user)
                     <li>
 
                         <div class="am-gallery-item">
-                            <a href="/member/{{$female->user_id}}" class="">
-                                <img src="{{$female->avatar}}" alt="{{$female->user_name}}"/>
+                            <a href="/member/{{$user->user_id}}" class="">
+                                <img src="{{$user->avatar}}" alt="{{$user->user_name}}"/>
 
-                                <h3 class="am-gallery-title">{{$female->user_name}}</h3>
+                                <h3 class="am-gallery-title">{{$user->user_name}}</h3>
 
-                                <div class="am-gallery-desc">{{$female->age_format}},{{$female->province}}
-                                    ,{{$female->height_format}},{{$female->education_lang}}<br/>
-                                    月收入 {{$female->salary_lang}}</div>
+                                <div class="am-gallery-desc">
+                                    {{$user->age_lang}}
+                                    @if($user->work_city)
+                                        ,{{$user->work_city}}
+                                    @endif
+                                    @if($user->height_lang)
+                                        ,{{$user->height_lang}}
+                                    @endif
+                                    @if($user->education_lang)
+                                        ,{{$user->education_lang}}
+                                    @endif
+                                    @if($user->salary_lang)
+                                        <br/>
+                                        月收入 {{$user->salary_lang}}
+                                    @endif
+                                </div>
                             </a>
                         </div>
                     </li>

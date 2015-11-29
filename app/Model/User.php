@@ -49,6 +49,7 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
      */
     protected $append = ['sex_lang', 'age_lang', 'height_lang', 'age', 'education_lang', 'salary_lang'];
 
+
     /*
     |--------------------------------------------------------------------------
     | 调整器
@@ -78,6 +79,11 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
     | 访问器
     |--------------------------------------------------------------------------
     */
+
+    public function getUserNameAttribute()
+    {
+        return $this->attributes['user_name'] ?: "注册用户";
+    }
 
     /**
      * 头像-默认头像
@@ -111,14 +117,14 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
         return floor($diff / 31536000);
     }
 
-    public function getAgeFormatAttribute()
+    public function getAgeLangAttribute()
     {
         return $this->getAgeAttribute() . '岁';
     }
 
-    public function getHeightFormatAttribute()
+    public function getHeightLangAttribute()
     {
-        return $this->attributes['height'] . 'cm';
+        return is_null($this->attributes['height']) ? '' : $this->attributes['height'] . 'cm';
     }
 
     public function getEducationLangAttribute()
@@ -156,6 +162,10 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
         return $query->where('status', $status);
     }
 
+    public function scopeLevel($query, $level = \App\Enum\User::LEVEL_1)
+    {
+        return $query->where('level', $level);
+    }
 
     /*
    |--------------------------------------------------------------------------

@@ -21,21 +21,34 @@
         <div class="content_member">
             <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2   am-avg-md-3 am-avg-lg-6 am-gallery-bordered"
                 data-am-gallery="{  }">
-                @foreach($user['male'] as $male)
-                <li>
+                @foreach($users as $user)
+                    <li>
 
-                    <div class="am-gallery-item">
-                        <a href="/member/{{$male->user_id}}" class="">
-                            <img src="{{$male->avatar}}" alt="{{$male->user_name}}"/>
+                        <div class="am-gallery-item">
+                            <a href="/member/{{$user->user_id}}" class="">
+                                <img src="{{$user->avatar}}" alt="{{$user->user_name}}"/>
 
-                            <h3 class="am-gallery-title">{{$male->user_name}}</h3>
+                                <h3 class="am-gallery-title">{{$user->user_name}}</h3>
 
-                            <div class="am-gallery-desc">{{$male->age_format}},{{$male->province}}
-                                ,{{$male->height_format}},{{$male->education_lang}}<br/>
-                                月收入 {{$male->salary_lang}}</div>
-                        </a>
-                    </div>
-                </li>
+                                <div class="am-gallery-desc">
+                                    {{$user->age_lang}}
+                                    @if($user->work_city)
+                                        ,{{$user->work_city}}
+                                    @endif
+                                    @if($user->height_lang)
+                                        ,{{$user->height_lang}}
+                                    @endif
+                                    @if($user->education_lang)
+                                        ,{{$user->education_lang}}
+                                    @endif
+                                    @if($user->salary_lang)
+                                        <br/>
+                                        月收入 {{$user->salary_lang}}
+                                    @endif
+                                </div>
+                            </a>
+                        </div>
+                    </li>
                 @endforeach
             </ul>
         </div>

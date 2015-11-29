@@ -8,8 +8,8 @@
 namespace App\Http\Controllers;
 
 
-use App\Model\User;
-use App\Model\Register;
+use App\Enum\User;
+use App\Model\UserRecommend;
 
 class MemberController extends Controller
 {
@@ -18,42 +18,88 @@ class MemberController extends Controller
 
     public function index()
     {
-        $selects = array('user_id','user_name', 'avatar', 'sex', 'height', 'birthday', 'province', 'salary', 'height', 'education');
-        $user['male']   = User::male()->limit(18)->get($selects);
-        $user['female'] = User::female()->limit(18)->get($selects);
-		$viplevel = 3;
-		$user['vip']  = User::where('level','>',$viplevel)->limit(18)->get($selects);
-        return $this->view('index')->with('users', $user);
+        $recommends = UserRecommend::with(array(
+            'user' => function ($query) {
+                //只需要正常状态的会员
+                return $query->status()->select('user_id', 'avatar', 'user_name', 'work_city', 'height', 'education', 'salary', 'birthday', 'level', 'sex');
+            },
+            'user.like' => function ($query) {
+                return $query->select('id');
+            }
+        ))->home()->orderBy('order')->get(array('user_id'))->all();
+
+        $users = array(
+            'male' => array(),
+            'female' => array(),
+            'vip' => array()
+        );
+        foreach ($recommends as $recommend) {
+            foreach ($recommend->user->all() as $user) {
+                if ($user->sex == User::SEX_FEMALE) {
+                    $users['female'][] = $user;
+                } else if ($user->level == User::LEVEL_1) {
+                    $users['male'][] = $user;
+                } else if ($user->level == User::LEVEL_3) {
+                    $users['vip'][] = $user;
+                }
+            }
+        }
+
+        return $this->view('index')->with('users', $users);
     }
 
     public function getMale()
     {
-		$selects = array('user_id','user_name', 'avatar', 'sex', 'height', 'birthday', 'province', 'salary', 'height', 'education');
-		$user['male'] = User::male()->get($selects);
-        return $this->view('male')->with('user',$user);
+        $recommends = UserRecommend::with(array(
+            'user' => function ($query) {
+                //只需要正常状态的会员
+                return $query->status()->male()->level();
+            }
+        ))->home()->orderBy('order')->get()->all();
+        $users = array();
+        foreach ($recommends as $recommend) {
+
+            $users = array_merge($users, $recommend->user->all());
+        }
+        return $this->view('male')->with('users', $users);
     }
 
     public function getFemale()
     {
-		$selects = array('user_id','user_name', 'avatar', 'sex', 'height', 'birthday', 'province', 'salary', 'height', 'education');
-		$user['female'] = User::female()->get($selects);
-        return $this->view('female')->with('user',$user);
+        $recommends = UserRecommend::with(array(
+            'user' => function ($query) {
+                //只需要正常状态的会员
+                return $query->status()->female();
+            }
+        ))->home()->orderBy('order')->get()->all();
+        $users = array();
+        foreach ($recommends as $recommend) {
+
+            $users = array_merge($users, $recommend->user->all());
+        }
+
+        return $this->view('female')->with('users', $users);
     }
 
-	public function getViplist(){
-		$selects = array('user_id','user_name', 'avatar', 'sex', 'height', 'birthday', 'province', 'salary', 'height', 'education');
-		$viplevel = 3;
-		$user['vip']  = User::where('level','>',$viplevel)->get($selects);
-		//添加报名人数字段
-		foreach($user['vip'] as $key=>$vip){
-				$user['vip'][$key]['count']=Register::where('user_id','=',$vip['user_id'])->count();
-		}
-		return $this->view('viplist')->with('user',$user);
-	}
+    public function getViplist()
+    {
+        $recommends = UserRecommend::with(array(
+            'user' => function ($query) {
+                //只需要正常状态的会员
+                return $query->status()->male()->level(User::LEVEL_3);
+            }
+        ))->home()->orderBy('order')->get()->all();
+        $users = array();
+        foreach ($recommends as $recommend) {
+
+            $users = array_merge($users, $recommend->user->all());
+        }
+        return $this->view('viplist')->with('users', $users);
+    }
 
     public function user(User $user)
     {
-        return $this->view('vip')->with('user',$user);
+        return $this->view('vip')->with('user', $user);
     }
 
 }
