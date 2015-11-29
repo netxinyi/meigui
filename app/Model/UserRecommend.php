@@ -8,7 +8,7 @@
 namespace App\Model;
 
 
-use App\Enum\User;
+use App\Enum\User as UserEnum;
 
 class UserRecommend extends BaseModel
 {
@@ -19,6 +19,7 @@ class UserRecommend extends BaseModel
      * @var string
      */
     protected $table = 'user_recommend';
+    public $timestamps = false;
 
 
     /**
@@ -30,17 +31,17 @@ class UserRecommend extends BaseModel
 
     public function scopeIndex($query)
     {
-        return $query->where('page', User::RECOMMEND_INDEX);
+        return $query->where('page', UserEnum::RECOMMEND_INDEX);
     }
 
     public function scopeHome($query)
     {
-        return $query->where('page', User::RECOMMEND_HOME);
+        return $query->where('page', UserEnum::RECOMMEND_HOME);
     }
 
 
     public function user()
     {
-        return $this->hasMany(\App\Model\User::class, 'user_id', 'user_id');
+        return $this->hasMany(User::class, 'user_id', 'user_id');
     }
 }

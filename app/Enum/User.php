@@ -61,7 +61,8 @@ class User
     public static $salaryLang = [
         self::SALARY_0 => '1000元以下',
         self::SALARY_1000 => '1001-2000元',
-        self::SALARY_2000 => '2001-5000元',
+        self::SALARY_2000 => '2001-3000元',
+        self::SALARY_3000 => '3001-5000元',
         self::SALARY_5000 => '5001-8000元',
         self::SALARY_8000 => '8001-10000元',
         self::SALARY_10000 => '10001-20000元',

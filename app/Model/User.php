@@ -180,7 +180,7 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
 
     public function recommend()
     {
-        return $this->belongsTo(UserRecommend::class, 'user_id', 'user_id');
+        return $this->hasMany(UserRecommend::class, 'user_id', 'user_id');
     }
 
     public function object()

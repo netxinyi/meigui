@@ -8,54 +8,82 @@
 @section('body')
     <div class="wap_vip search_bg">
         <div class="wap_vip_m">
+            <form action="/search" method="GET">
             <div class="search_menu">
                 <div class="menu_xuan">
                     我要找：
-                    <select name="">
-                        <option value="0">女朋友</option>
-                        <option value="1">男朋友</option>
+                    <select name="sex">
+                        <option value="{{\App\Enum\User::SEX_FEMALE}}">女朋友</option>
+                        <option value="{{\App\Enum\User::SEX_MALE}}">男朋友</option>
                     </select>
                 </div>
                 <div class="menu_xuan">
                     选择年龄：
-                    <select name="">
-                        <option value="0">18</option>
-                        <option value="1">19</option>
-                        <option value="1">20</option>
-                        <option value="1">21</option>
-                        <option value="1">22</option>
-                        <option value="1">23</option>
-                        <option value="1">24</option>
-                        <option value="1">99</option>
+                    <select name="age">
+                        <option value="0">不限制</option>
+                        @for($i=0;$i<=70;$i++)
+
+                            <option value="{{$i}}">{{$i}}</option>
+                        @endfor
                     </select>
                     至
-                    <select name="">
+                    <select name="age">
                         <option value="0">不限制</option>
-                        <option value="0">18</option>
-                        <option value="1">19</option>
-                        <option value="1">20</option>
-                        <option value="1">21</option>
-                        <option value="1">22</option>
-                        <option value="1">23</option>
-                        <option value="1">24</option>
-                        <option value="1">99</option>
+                        @for($i=0;$i<=70;$i++)
+                            <option value="{{$i}}">{{$i}}</option>
+                        @endfor
                     </select>
                 </div>
                 <div class="menu_xuan">
                     来自：
-                    <select name="">
-                        <option value="0">北京</option>
-                        <option value="0">内蒙</option>
-                        <option value="0">天津</option>
-                        <option value="0">哈尔滨</option>
-                        <option value="0">河北</option>
-                        <option value="0">河南</option>
+                    <select name="work_province">
+                        <option value="0">不限制</option>
+                        <option>北京</option>
+                        <option>上海</option>
+                        <option>广州</option>
+                        <option>深圳</option>
+                        <option>重庆</option>
+                        <option>天津</option>
+
+                        <option>内蒙古</option>
+                        <option>广东</option>
+                        <option>江苏</option>
+                        <option>浙江</option>
+                        <option>四川</option>
+                        <option>福建</option>
+                        <option>山东</option>
+                        <option>湖北</option>
+                        <option>河北</option>
+                        <option>山西</option>
+
+                        <option>辽宁</option>
+                        <option>吉林</option>
+                        <option>黑龙江</option>
+                        <option>安徽</option>
+                        <option>江西</option>
+                        <option>河南</option>
+                        <option>湖南</option>
+                        <option>广西</option>
+                        <option>海南</option>
+                        <option>贵州</option>
+                        <option>云南</option>
+                        <option>西藏</option>
+                        <option>陕西</option>
+                        <option>甘肃</option>
+                        <option>青海</option>
+                        <option>宁夏</option>
+                        <option>新疆</option>
+
+                        <option>香港</option>
+                        <option>澳门</option>
+                        <option>台湾</option>
                     </select>
                 </div>
                 <div class="menu_xuan" id="menu_xuan_btn">
-                    <button type="button" class="am-btn am-btn-danger ">搜索</button>
+                    <button type="submit" class="am-btn am-btn-danger ">搜索</button>
                 </div>
             </div>
+            </form>
         </div>
     </div>
 
@@ -65,249 +93,20 @@
         <div class="content_member">
             <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2   am-avg-md-3 am-avg-lg-6 am-gallery-bordered"
                 data-am-gallery="{  }">
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_1.jpg" alt="白富美1号"/>
-
-                            <h3 class="am-gallery-title">Alan</h3>
-
-                            <div class="am-gallery-desc">28岁，北京，185cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_2.jpg" alt="白富美1号"/>
-
-                            <h3 class="am-gallery-title">起点</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，180cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
+                @foreach($users as $user)
                 <li>
                     <div class="am-gallery-item ">
-                        <a href="./svip.html" class="">
+                        <a href="/user/{{$user->user_id}}" class="">
 
-                            <img src="./images/user_img/1_3.jpg" alt="不要太担心 只因为我相信"/>
+                            <img src="{{$user->avatar}}" alt="{{$user->user_name}}"/>
 
-                            <h3 class="am-gallery-title">大猫 <span class="svip_tu">SVIP</span></h3>
+                            <h3 class="am-gallery-title">{$user->user_name}} <span class="svip_tu">SVIP</span></h3>
 
                             <div class="am-gallery-desc">28岁，北京，177cm，本科，5000～10000元</div>
                         </a>
                     </div>
                 </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_4.jpg" alt="终会走过这条遥远的道路"/>
-
-                            <h3 class="am-gallery-title">michael</h3>
-
-                            <div class="am-gallery-desc">28岁，北京，183cm，硕士，10000～20000元</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_5.jpg" alt="某天 也许会相遇 相遇在这个好地方"/>
-
-                            <h3 class="am-gallery-title">贺宁</h3>
-
-                            <div class="am-gallery-desc">26岁，北京，180cm，本科，5000～10000元</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./svip.html" class="">
-                            <img src="./images/user_img/1_6.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">狰狞之诗<span class="svip_tu">SVIP</span></h3>
-
-                            <div class="am-gallery-desc">28岁，北京，184cm，本科，10000～20000元</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_7.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">Jason Z</h3>
-
-                            <div class="am-gallery-desc">28岁，北京，185cm，本科，10000～20000元</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_8.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">chirs</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，185cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_9.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">浴缸</h3>
-
-                            <div class="am-gallery-desc">26岁，北京，187cm，大专，10000～20000元</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./svip.html" class="">
-                            <img src="./images/user_img/1_10.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">流年Triste<span class="svip_tu">SVIP</span></h3>
-
-                            <div class="am-gallery-desc">28岁，北京，185cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_11.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">MARS</h3>
-
-                            <div class="am-gallery-desc">28岁，北京，185cm，硕士，5000～10000元</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_12.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">鸟鸟先生</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_12.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">鸟鸟先生</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_12.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">鸟鸟先生</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_12.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">鸟鸟先生</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_12.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">鸟鸟先生</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_12.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">鸟鸟先生</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_12.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">鸟鸟先生</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_12.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">鸟鸟先生</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_12.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">鸟鸟先生</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_12.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">鸟鸟先生</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_12.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">鸟鸟先生</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
+                @endforeach
             </ul>
             <ul class="am-pagination am-pagination-right" id="fenye">
                 <li class="am-disabled"><a href="#">&laquo;</a></li>
