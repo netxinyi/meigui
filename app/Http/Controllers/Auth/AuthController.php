@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Model\Register;
 use App\Model\User;
 use App\Http\Controllers\Controller;
+use App\Model\UserInfo;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class AuthController extends Controller
@@ -37,10 +38,10 @@ class AuthController extends Controller
         $this->validate($this->request(), array(
             'realname' => 'required',
             'mobile' => 'required|size:11|unique:users,mobile',
-            'sex' => 'required:in:' . array_keys_impload(\App\Enum\User::$sexForm),
-            'birthday' => 'required|date|after:-17 year',
-            'marital_status' => 'required|in:' . array_keys_impload(\App\Enum\User::$maritalForm),
-            'user_id' => 'exists:users,user_id'
+            'sex' => 'required:in:' . array_keys_impload(\App\Enum\User::$sexLang),
+            'birthday' => 'required|date',
+            'marriage' => 'required|in:' . array_keys_impload(\App\Enum\User::$marriageLang),
+            'like' => 'exist|users,user_id'
         ), array(
             'realname.required' => '请填写真实姓名',
             'mobile.required' => '请填写手机号',
@@ -50,22 +51,34 @@ class AuthController extends Controller
             'sex.in' => '您填写的性别有误',
             'birthday.required' => '请填写您的生日',
             'birthday.date' => '您填写的生日格式不正确',
-            'birthday.after' => '不满18岁不允许注册',
-            'marital_status.required' => '您填写您的婚姻状态',
-            'marital_status.in' => '婚姻状态不正确',
-            'user_id.exists' => '您报名的用户不存在'
-
+            'marriage.required' => '您填写您的婚姻状态',
+            'marriage.in' => '婚姻状态不正确',
+            'like.exist' => '您报名的对象不存在'
         ));
 
-        if (Register::where('mobile', $this->request()->get('mobile'))->first()) {
-            return $this->error('您已注册,您耐心等待管理员审核');
-        }
-
-        $form = $this->request()->only(array('realname', 'mobile', 'sex', 'birthday', 'marital_status', 'user_id'));
+        $form = $this->request()->only('realname', 'mobile', 'sex', 'birthday', 'marriage');
         try {
-            $user = Register::create($form);
+            transaction();
+            //创建用户
+            $user = User::create($form);
+
+            if ($this->request()->has('like')) {
+                //创建喜欢的人
+                $user->like()->create(array(
+                    'like_user_id' => $this->request()->get('like')
+                ));
+            }
+            //创建用户信息
+            $user->info()->create(array());
+            //创建择偶条件
+            $user->object()->create(array(
+                //初始化性别,不允许同性恋
+                'sex' => $user->sex == \App\Enum\User::SEX_FEMALE ? \App\Enum\User::SEX_MALE : \App\Enum\User::SEX_FEMALE
+            ));
+            commit();
             return $this->rest()->success($user, '报名成功,管理员审核通过后即可登录');
         } catch (\Exception $ex) {
+            rollback();
             dd($ex->getMessage());
             return $this->rest()->error('抱歉,报名失败,请稍后再试');
         }

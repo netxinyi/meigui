@@ -13,13 +13,14 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Hash;
 use App\Enum\User as UserEnum;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends BaseModel implements AuthenticatableContract, CanResetPasswordContract
 {
 
 
     //支持Auth的Trait
-    use Authenticatable, CanResetPassword;
+    use Authenticatable, CanResetPassword, SoftDeletes;
 
     /**
      * 表名
@@ -36,29 +37,6 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
     protected $primaryKey = 'user_id';
 
     /**
-     * 批量赋值白名单
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'user_name',
-        'email',
-        'password',
-        'mobile',
-        'avatar',
-        'sex',
-        'birthday',
-        'marital_status',
-        'salary',
-        'height',
-        'education',
-        'age',
-        'province',
-        'city',
-        'area',
-    ];
-
-    /**
      * 隐藏项
      *
      * @var array
@@ -69,8 +47,7 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
      * 追加属性
      * @var array
      */
-    protected $append = ['sex_lang', 'age_format', 'height_format', 'age', 'education_lang', 'salary_lang'];
-
+    protected $append = ['sex_lang', 'age_lang', 'height_lang', 'age', 'education_lang', 'salary_lang'];
 
     /*
     |--------------------------------------------------------------------------
@@ -93,19 +70,6 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
 
         $this->attributes['password'] = $password;
 
-
-    }
-
-
-    /**
-     * 生日调整器
-     *
-     * @param $birthday
-     */
-    public function setBirthdayAttribute($birthday)
-    {
-
-        $this->attributes['birthday'] = $birthday;
 
     }
 
@@ -137,7 +101,7 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
     public function getSexLangAttribute()
     {
 
-        return UserEnum::$sexForm[$this->attributes['sex']];
+        return UserEnum::$sexLang[$this->attributes['sex']];
     }
 
     public function getAgeAttribute()
@@ -159,16 +123,16 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
 
     public function getEducationLangAttribute()
     {
-		if($this->attributes['education']){
-			return \App\Enum\User::$educationForm[$this->attributes['education']];
-		}
+        if ($this->attributes['education']) {
+            return \App\Enum\User::$educationLang[$this->attributes['education']];
+        }
     }
 
     public function getSalaryLangAttribute()
     {
-		if($this->attributes['salary']){
-        return \App\Enum\User::$salaryForm[$this->attributes['salary']];
-		}
+        if ($this->attributes['salary']) {
+            return \App\Enum\User::$salaryLang[$this->attributes['salary']];
+        }
     }
 
     /*
@@ -176,10 +140,6 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
     | 范围查询
     |--------------------------------------------------------------------------
     */
-    public function scopeRecommended($query)
-    {
-        return $query->where('recommended', 1);
-    }
 
     public function scopeMale($query)
     {
@@ -189,5 +149,47 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
     public function scopeFemale($query)
     {
         return $query->where('sex', \App\Enum\User::SEX_FEMALE);
+    }
+
+    public function scopeStatus($query, $status = \App\Enum\User::STATUS_OK)
+    {
+        return $query->where('status', $status);
+    }
+
+
+    /*
+   |--------------------------------------------------------------------------
+   | 关系映射
+   |--------------------------------------------------------------------------
+   */
+
+    public function info()
+    {
+        return $this->hasOne(UserInfo::class, 'user_id', 'user_id');
+    }
+
+    public function recommend()
+    {
+        return $this->belongsTo(UserRecommend::class, 'user_id', 'user_id');
+    }
+
+    public function object()
+    {
+        return $this->hasOne(UserObject::class, 'user_id', 'user_id');
+    }
+
+    public function gallery()
+    {
+        return $this->hasMany(UserGallery::class, 'user_id', 'user_id');
+    }
+
+    public function bind()
+    {
+        return $this->hasMany(UserBind::class, 'user_id', 'user_id');
+    }
+
+    public function like()
+    {
+        return $this->hasMany(UserLike::class, 'user_id', 'user_id');
     }
 }

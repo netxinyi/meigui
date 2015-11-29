@@ -26,7 +26,7 @@
                             <span>性别</span>
 
                             <div class="radio_location">
-                                <input type="radio" name="sex" id="sex_1" value="{{\App\Enum\User::SEX_MALE}}">
+                                <input type="radio" name="sex" id="sex_1" value="{{\App\Enum\User::SEX_MALE}}" checked>
                                 <label for="sex_1">男</label>
                                 <input type="radio" name="sex" value="{{\App\Enum\User::SEX_MALE}}">
                                 <label for="sex_0">女</label><br>
@@ -40,14 +40,14 @@
                             <span>婚姻状况</span>
 
                             <div class="radio_location">
-                                <input type="radio" name="marital_status" id="status_1"
-                                       value="{{\App\Enum\User::MARITAL_STATUS_UNMARRIED}}" checked="checked">
+                                <input type="radio" name="marriage" id="status_1"
+                                       value="{{\App\Enum\User::MARRIAGE_UNMARRIED}}" checked="checked">
                                 <label for="status_1">未婚</label>
-                                <input type="radio" name="marital_status" id="status_2"
-                                       value="{{\App\Enum\User::MARITAL_STATUS_DIVORCED}}">
+                                <input type="radio" name="marriage" id="status_2"
+                                       value="{{\App\Enum\User::MARRIAGE_DIVORCED}}">
                                 <label for="status_2">离婚</label>
-                                <input type="radio" name="marital_status" id="status_3"
-                                       value="{{\App\Enum\User::MARITAL_STATUS_WIDOWED}}">
+                                <input type="radio" name="marriage" id="status_3"
+                                       value="{{\App\Enum\User::MARRIAGE_WIDOWED}}">
                                 <label for="status_3">丧偶</label>
                             </div>
                         </div>
@@ -130,57 +130,34 @@
     <div class="wap_content">
         <div class="content">
             <div class="qienannv">
-                <button class="am-btn am-btn-success" onclick="see(2)"><i
-                            class="am-icon-user am-success am-text-color"></i>看女生
+                <button class="am-btn am-btn-success" data-change-sex="{{\App\Enum\User::SEX_FEMALE}}">
+                    <i class="am-icon-user am-success am-text-color"></i>看女生
                 </button>
-                <button class="am-btn am-btn-success" onclick="see(1)"><i
-                            class="am-icon-user am-success am-text-color"></i>看男生
+                <button class="am-btn am-btn-success" data-change-sex="{{\App\Enum\User::SEX_MALE}}">
+                    <i class="am-icon-user am-success am-text-color"></i>看男生
                 </button>
             </div>
         </div>
     </div>
     <!-- 展示女用户 -->
-    <div class="wap_content2" id="show_girl">
+    <div class="wap_content2">
         <div class="content">
             <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2
-  am-avg-md-3 am-avg-lg-6 am-gallery-bordered" data-am-gallery="{  }">
-                @foreach($users['female'] as $female)
-                    <li>
+  am-avg-md-3 am-avg-lg-6 am-gallery-bordered" data-am-gallery="{  }" id="index-recommend">
+                @foreach($users as $user)
+                    <li data-sex="{{$user->sex}}">
                         <div class="am-gallery-item">
-                            <a href="/member/{{$female->user_id}}" class="">
-                                <img src="{{$female->avatar}}" alt="{{$female->user_name}}"/>
+                            <a href="/member/{{$user->user_id}}" class="">
+                                <img src="{{$user->avatar}}" alt="{{$user->user_name}}"/>
 
-                                <h3 class="am-gallery-title">{{$female->user_name}}</h3>
+                                <h3 class="am-gallery-title">{{$user->user_name}}</h3>
 
-                                <div class="am-gallery-desc">{{$female->birthday}}</div>
+                                <div class="am-gallery-desc">{{$user->birthday}}</div>
                             </a>
                         </div>
                     </li>
                 @endforeach
 
-            </ul>
-        </div>
-    </div>
-
-    <!-- 展示男用户 -->
-
-    <div class="wap_content2" id="show_boy" style="display:none">
-        <div class="content">
-            <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2
-  am-avg-md-3 am-avg-lg-6 am-gallery-bordered" data-am-gallery="{  }">
-                @foreach($users['male'] as $male)
-                    <li>
-                        <div class="am-gallery-item">
-                            <a href="/member/{{$male->user_id}}" class="">
-                                <img src="{{$male->avatar}}" alt="{{$male->user_name}}"/>
-
-                                <h3 class="am-gallery-title">{{$male->user_name}}</h3>
-
-                                <div class="am-gallery-desc">{{$male->birthday}}</div>
-                            </a>
-                        </div>
-                    </li>
-                @endforeach
             </ul>
         </div>
     </div>
@@ -189,20 +166,19 @@
 @section('footer-last-js')
     <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
     <script>
-        function see(num) {
-            var num = num;
-            if (num == 1) {
-                $("#show_girl").hide();
-                $("#show_boy").show();
-            } else {
-                $("#show_boy").hide();
-                $("#show_girl").show();
-            }
 
-        }
 
-        $('#register-form').success(function () {
-            $.redirect(null, 2);
-        }).form();
+        $(function () {
+            $('[data-change-sex]').click(function () {
+                var sex = $(this).data('change-sex');
+                $('#index-recommend').find('li').hide().parent().find('li[data-sex="' + sex + '"]').show();
+            });
+
+
+            $('#register-form').success(function () {
+                $.redirect(null, 2);
+            }).form();
+            $('[data-change-sex="{{\App\Enum\User::SEX_FEMALE}}"]').click();
+        });
     </script>
 @stop

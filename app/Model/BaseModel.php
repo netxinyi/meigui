@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Builder;
 abstract class BaseModel extends Model
 {
 
+    protected $guarded = [];
 
     /**
      * 查询今天的数据
