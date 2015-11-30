@@ -275,6 +275,26 @@ class IndexController extends Controller
             ));
         }
     }
+
+    public function getSeedAvatar()
+    {
+        $FILE = new \Illuminate\Filesystem\Filesystem();
+
+        $files = $FILE->files('/Users/vicens/www/meigui/public/uploads/avatar');
+
+        $start = 166694;
+        foreach ($files as $path) {
+            $file = $FILE->name($path) . '.jpg';
+
+            $user = User::where('sex', 1)->where('avatar', '=', null)->first();
+            if ($user && !$user->avatar) {
+                $user->update(array(
+                    'avatar' => $file
+                ));
+            }
+
+        }
+    }
 }
 
 function arand($array)

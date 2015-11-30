@@ -80,7 +80,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
 
     Route::get('/', ['uses' => 'Admin\HomeController@index']);
     #Option管理-资源路由
-    Route::resource('option', 'Admin\OptionController', ['only' => ['index', 'store']]);
+    Route::controller('option', 'Admin\OptionController');
     #管理员管理
     Route::resource('admins', 'Admin\AdminController', ['middleware' => 'auth.admin.super']);
     #栏目管理

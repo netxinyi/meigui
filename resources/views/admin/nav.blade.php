@@ -15,11 +15,18 @@
                     <span>首页</span>
                 </a>
             </li>
-            <li>
-                <a href="{{url('admin/option')}}">
+            <li class="has-sub">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
                     <i class="fa fa-cogs"></i>
                     <span>网站设置</span>
                 </a>
+                <ul class="sub-menu">
+                    <li><a href="{{url('/admin/option/base')}}">基本设置</a></li>
+                    <li><a href="{{url('/admin/option/recommend')}}">会员推荐</a></li>
+                    <li><a href="{{url('/admin/option/flash')}}">轮播图片</a></li>
+                    <li><a href="{{url('/admin/option/wechat')}}">微信设置</a></li>
+                </ul>
             </li>
             <li class="has-sub">
                 <a href="javascript:;">
