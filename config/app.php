@@ -144,8 +144,6 @@ return [
         \App\Providers\AppServiceProvider::class,
         #路由服务
         App\Providers\RouteServiceProvider::class,
-        #REST服务
-        App\Providers\RestServiceProvider::class,
         Overtrue\LaravelWechat\ServiceProvider::class
 
     ],
