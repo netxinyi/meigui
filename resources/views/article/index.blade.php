@@ -17,19 +17,20 @@
                         <dt class="am-accordion-title">
                             {{$lanmu->column_name}}
                         </dt>
-                        @foreach($lanmu->articles as $article)
+
                         <dd class="am-accordion-bd am-collapse am-in">
                             <!-- 规避 Collapase 处理有 padding 的折叠内容计算计算有误问题， 加一个容器 -->
                             <div class="am-accordion-content">
                                 <ul class="am-list">
+                                    @foreach($lanmu->articles as $article)
                                     <li class="am-g am-list-item-dated">
                                         <a href="{{$article->article_id}}" class="am-list-item-hd ">{{$article->title}}</a>
                                         <span class="am-list-date">{{$article->created_at}}</span>
                                     </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </dd>
-                        @endforeach
                     </dl>
                     @endforeach
                 </section>
