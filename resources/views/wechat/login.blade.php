@@ -59,6 +59,7 @@
             <p>
                 <button type="submit" class="am-btn am-btn-warning am-btn-block btn_color">登录</button>
             </p>
+            <a href="{{url('weixin/register')}}" class="am-btn am-btn-warning am-btn-block btn_color">没有账号?点我注册</a>
         </fieldset>
     </form>
 

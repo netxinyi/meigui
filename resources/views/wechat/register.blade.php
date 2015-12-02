@@ -50,12 +50,6 @@
             <font color="red"><?php echo $errors->first('mobile'); ?></font>
 
             <div class="am-form-group">
-                <label for="doc-ipt-pwd-1">邮箱</label>
-                <input type="text" name="email" class="" id="doc-ipt-pwd-1" placeholder="输入邮箱">
-            </div>
-            <font color="red"><?php echo $errors->first('email'); ?></font>
-
-            <div class="am-form-group">
                 <label for="doc-ipt-email-1">密码</label>
                 <input type="password" name="password" class="" id="doc-ipt-email-1" placeholder="设置密码">
             </div>

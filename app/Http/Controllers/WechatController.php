@@ -21,8 +21,11 @@ class WechatController extends Controller
 
     public function getLogin()
     {
-
-        return $this->view('login');
+		if(isLogin()){
+			$openid = $_GET['openid'];
+		}else{
+			return $this->view('login');
+		}
     }
 
 
@@ -44,7 +47,7 @@ class WechatController extends Controller
         ]);
         $credentials = $this->request()->only(['mobile', 'password']);
         if (Auth::attempt($credentials)) {
-            return $this->success('登录成功', array(), $this->redirect()->intended('/weixin/register'));
+            return $this->success('登录成功', array(), $this->redirect()->intended('/'));
         }
 
         return $this->error('手机号或密码不正确');
@@ -65,7 +68,6 @@ class WechatController extends Controller
         $this->validate($this->request(), $rules = array(
             'mobile'    => 'required|digits:11|unique:users',
             'password'  => 'required|confirmed|min:6',
-            'email'     => 'required|email|unique:users',
             'user_name' => 'required',
 			'sex'       => 'required',
             'birthday'       => 'required',
@@ -76,9 +78,6 @@ class WechatController extends Controller
             'password.required'  => '请输入密码',
             'password.confirmed' => '两次输入的密码不一致',
             'password.min'       => '密码最少6位',
-            'email.required'     => '请输入你的邮箱',
-            'email.email'        => '不是合法的邮箱格式',
-            'email.unique'       => '该邮箱已经存在',
             'user_name.required' => '请输入你的姓名',
 			'sex.required'       => '请选择性别',
             'birthday.required'  => '请输选择你的生日',
@@ -89,7 +88,6 @@ class WechatController extends Controller
         $reginfo             = $this->request()->only([
             'mobile',
             'password',
-            'email',
             'user_name',
             'sex',
             'birthday'
@@ -98,7 +96,7 @@ class WechatController extends Controller
         //插入注册信息
         if ($users = User::create($reginfo)) {
             //注册成功，跳转到登陆界面
-            return $this->success('注册成功', array(), $this->redirect()->intended('/weixin/login'));
+            return $this->success('注册成功', array(), $this->redirect()->intended('/'));
         }
     }
 
@@ -174,7 +172,7 @@ class WechatController extends Controller
                 new MenuItem('会员搜索', 'click', 'search'),
             )),
             $buttonb->buttons(array(
-                new MenuItem('注册会员', 'view', 'http://www.soso.com/'),
+                new MenuItem('注册登陆', 'view', 'http://dev.meigui.com.cn/weixin/login'),
                 new MenuItem('绑定账号', 'click', 'binding'),
             )),
         );
@@ -255,7 +253,7 @@ class WechatController extends Controller
                     return Message::make('news')->items(function () use ($openid){
 
                         return array(
-                            Message::make('news_item')->title('绑定会员')->description('玫瑰花开绑定会员')->url('http://www.jiaozhixin.com/wxopenid/index.php?openid=' . $openid)->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('绑定会员')->description('玫瑰花开绑定会员')->url('http://dev.meigui.com.cn/weixin/login?openid='.$openid)->picUrl('http://www.baidu.com/demo.jpg'),
                         );
                     });
                     break;
