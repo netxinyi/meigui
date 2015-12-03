@@ -10,7 +10,6 @@ use Log;
 use Illuminate\Http\Request;
 use Auth;
 use App\Model\User;
-use App\Model\Signup;
 
 class WechatController extends Controller
 {
@@ -19,7 +18,7 @@ class WechatController extends Controller
     protected $viewPrefix = 'wechat';
 
 
-    public function getLogin()
+    /*public function getLogin()
     {
 		if(isLogin()){
 			$openid = $_GET['openid'];
@@ -51,7 +50,7 @@ class WechatController extends Controller
         }
 
         return $this->error('手机号或密码不正确');
-    }
+    }*/
 
 
     public function getRegister()
@@ -70,7 +69,8 @@ class WechatController extends Controller
             'password'  => 'required|confirmed|min:6',
             'user_name' => 'required',
 			'sex'       => 'required',
-            'birthday'       => 'required',
+            'birthday'  => 'required',
+			'marriage'  => 'required',
         ), $message = [
             'mobile.required'    => '请输入你的手机号',
             'mobile.digits'      => '手机号格式不正确',
@@ -81,6 +81,7 @@ class WechatController extends Controller
             'user_name.required' => '请输入你的姓名',
 			'sex.required'       => '请选择性别',
             'birthday.required'  => '请输选择你的生日',
+			'marriage'      => '请选择婚姻状况',
         ], $customAttributes = [
 
         ]);
@@ -101,7 +102,7 @@ class WechatController extends Controller
     }
 
 	//微信报名
-	public function getSignup(){
+	/*public function getSignup(){
 		return $this->view('signup');
 	}
 
@@ -112,7 +113,7 @@ class WechatController extends Controller
 			'mobile'          => 'required|digits:11',
 			'birthday'        => 'required',
 			'sex'             => 'required',
-			'marital_status' => 'required',
+			'marriage' => 'required',
 		), $message = [
 			'realname.required'  => '请输入真实姓名',
 			'mobile.required'    => '请输入你的手机号',
@@ -120,7 +121,7 @@ class WechatController extends Controller
 			'birthday.required'  => '请选择生日',
 			'sex.require'        => '请选择性别',
 			'age.digits'         => '你输入的年龄格式不正确',
-			'marital_status.required'      => '请选择婚姻状况',
+			'marriage'      => '请选择婚姻状况',
 		], $customAttributes = [
 
 		]);
@@ -138,7 +139,7 @@ class WechatController extends Controller
 			//注册成功，跳转到登陆界面
 			return $this->success('报名成功', array(), $this->redirect()->intended('/weixin/login'));
 		}
-	}
+	}*/
     /**
      * 处理微信的请求消息
      *
@@ -154,7 +155,7 @@ class WechatController extends Controller
 
             return Message::make('text')->content('您好！欢迎关注玫瑰花开网');
         });
-        $button = new MenuItem("公司介绍");
+       /* $button = new MenuItem("公司介绍");
         $buttona = new MenuItem("活动专场");
         $buttonb = new MenuItem("个人中心");
 
@@ -183,7 +184,7 @@ class WechatController extends Controller
             echo '设置成功！';
         } catch (\Exception $e) {
             echo '设置失败：' . $e->getMessage();
-        }
+        }*/
         $server->on('event', 'click', function ($event){
 
             switch ($event->EventKey) {

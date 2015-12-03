@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>注册会员</title>
+    <title>微信报名</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -33,7 +33,7 @@
 <header data-am-widget="header" class="am-header am-header-default">
     <h1 class="am-header-title">
         <a href="#title-link" class="">
-            注册会员
+            微信报名
         </a>
     </h1>
 </header>
@@ -81,9 +81,17 @@
             </div>
             <font color="red"><?php echo $errors->first('birthday'); ?></font>
 
-            <p>
-                <button type="submit" class="am-btn am-btn-warning am-btn-block btn_color">提交注册</button>
-            </p>
+            <div class="am-form-group">
+                <label for="doc-select-1">婚姻状况</label>
+                <select name="marriage" id="doc-select-1">
+                    <option value="1">未婚</option>
+                    <option value="2">离婚</option>
+                    <option value="3">丧偶</option>
+                </select>
+                <span class="am-form-caret"></span>
+            </div>
+            <font color="red"><?php echo $errors->first('marital_status'); ?></font>
+            <p><button type="submit" class="am-btn am-btn-warning am-btn-block btn_color">马上报名</button></p>
         </fieldset>
     </form>
 
