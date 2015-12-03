@@ -14,10 +14,7 @@ use App\Model\User;
 class WechatController extends Controller
 {
 
-
     protected $viewPrefix = 'wechat';
-
-
     /*public function getLogin()
     {
 		if(isLogin()){
@@ -101,7 +98,9 @@ class WechatController extends Controller
 				'openid' => $this->request()->get('openid')
 			));
             //注册成功，跳转到登陆界面
-            return "<script>alert('报名成功，等待客服联系');window.close();</script>";
+            return "<script>alert('报名成功，等待客服联系');
+				WeixinJSBridge.call('closeWindow');
+				</script>;";
         }
     }
 
