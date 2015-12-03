@@ -92,12 +92,14 @@ class WechatController extends Controller
             'user_name',
             'sex',
             'birthday',
-			'openid',
         ]);
         $reginfo['password'] = bcrypt($reginfo['password']);
-		dd($reginfo);
+		//dd($reginfo);
         //插入注册信息
         if ($users = User::create($reginfo)) {
+			$users->bind()->create(array(
+				'openid' => $this->request()->get('openid')
+			));
             //注册成功，跳转到登陆界面
             return $this->success('注册成功', array(), $this->redirect()->intended('/'));
         }

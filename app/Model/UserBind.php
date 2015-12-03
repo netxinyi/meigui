@@ -10,5 +10,19 @@ namespace App\Model;
 
 class UserBind extends BaseModel
 {
+	/**
+	 * 表名
+	 *
+	 * @var string
+	 */
+	protected $table = 'user_bind';
 
+
+	/**
+	 * 主键
+	 * @var string
+	 */
+	protected $primaryKey = 'bind_id';
+
+	public $timestamps = false;
 }
