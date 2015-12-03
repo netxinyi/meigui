@@ -154,7 +154,7 @@ class WechatController extends Controller
 
             return Message::make('text')->content('您好！欢迎关注玫瑰花开网');
         });
-        /*$button = new MenuItem("公司介绍");
+        $button = new MenuItem("公司介绍");
         $buttona = new MenuItem("活动专场");
         $buttonb = new MenuItem("个人中心");
 
@@ -172,8 +172,7 @@ class WechatController extends Controller
                 new MenuItem('会员搜索', 'click', 'search'),
             )),
             $buttonb->buttons(array(
-                new MenuItem('注册登陆', 'view', 'http://dev.meigui.com.cn/weixin/login'),
-                new MenuItem('绑定账号', 'click', 'binding'),
+                new MenuItem('报名通道', 'click', 'signup'),
             )),
         );
 
@@ -184,7 +183,7 @@ class WechatController extends Controller
             echo '设置成功！';
         } catch (\Exception $e) {
             echo '设置失败：' . $e->getMessage();
-        }*/
+        }
         $server->on('event', 'click', function ($event){
 
             switch ($event->EventKey) {
@@ -247,13 +246,13 @@ class WechatController extends Controller
                         );
                     });
                     break;
-                case 'binding':
+                case 'signup':
                     $openid = $event->FromUserName;
 
                     return Message::make('news')->items(function () use ($openid){
 
                         return array(
-                            Message::make('news_item')->title('绑定会员')->description('玫瑰花开绑定会员')->url('http://dev.meigui.com.cn/weixin/login?openid='.$openid)->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('报名通道')->description('参与玫瑰花开报名')->url('http://dev.meigui.com.cn/weixin/register?openid='.$openid)->picUrl('http://www.baidu.com/demo.jpg'),
                         );
                     });
                     break;
