@@ -253,7 +253,7 @@ class WechatController extends Controller
                     return Message::make('news')->items(function () use ($openid){
 
                         return array(
-                            Message::make('news_item')->title('报名通道')->description('参与玫瑰花开报名')->url('http://dev.meigui.com.cn/weixin/register?openid='.$openid)->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('报名通道')->description('参与玫瑰花开报名')->url('http://dev.meiguihuakai.com.cn/weixin/register?openid='.$openid)->picUrl('http://www.baidu.com/demo.jpg'),
                         );
                     });
                     break;
