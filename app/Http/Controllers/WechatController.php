@@ -101,7 +101,7 @@ class WechatController extends Controller
 				'openid' => $this->request()->get('openid')
 			));
             //注册成功，跳转到登陆界面
-            return "<script>alert('报名成功，等待客服联系')</script>";
+            return "<script>alert('报名成功，等待客服联系');window.close();</script>";
         }
     }
 
