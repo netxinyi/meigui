@@ -41,6 +41,7 @@
 <div>
     <form class="am-form" action="{{url('weixin/register')}}" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="openid" value="{{$_GET['openid']}}"/>
         <fieldset>
 
             <div class="am-form-group">
