@@ -19,6 +19,7 @@
             <h4 class="panel-title">编辑会员-{{$user->user_name}}</h4>
         </div>
         <div class="panel-body">
+
             @if($errors->has('error'))
                 <div class="alert alert-danger fade in m-b-15">
                     {{$errors->first('error')}}
@@ -98,7 +99,7 @@
                         <label class="col-md-2 control-label">会员等级</label>
 
                         <div class="col-md-8">
-                            <select name="height" class="form-control">
+                            <select name="level" class="form-control">
                                 @foreach(\App\Enum\User::$levelLang as $value=>$label)
                                     <option value="{{$value}}" @if(old('level',$user->level) == $value)
                                     selected @endif >{{$label}}

@@ -2,10 +2,11 @@
 
 @section('title')
     会员列表 - 后台管理中心
-@stop
+    @stop
 
-@section('content')
-    <!-- begin panel -->
+    @section('content')
+
+            <!-- begin panel -->
     <div class="panel panel-inverse">
         <div class="panel-heading">
             <div class="panel-heading-btn">
@@ -30,9 +31,30 @@
                 {{$errors->first('error')}}
             </div>
         @endif
+
         <div class="panel-body">
+            <div class="btn-group m-r-5 m-b-5">
+                <a href="javascript:;" data-toggle="dropdown"
+                   class="btn btn-default dropdown-toggle">{{array_get(\App\Enum\User::$statusLang,Request::get('status',-1),"全部状态")}}
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="?status=-1">全部状态</a></li>
+                    <li>
+                        <a href="?status={{\App\Enum\User::STATUS_OK}}">{{\App\Enum\User::$statusLang[\App\Enum\User::STATUS_OK]}}</a>
+                    </li>
+                    <li>
+                        <a href="?status={{\App\Enum\User::STATUS_CHECK}}">{{\App\Enum\User::$statusLang[\App\Enum\User::STATUS_CHECK]}}</a>
+                    </li>
+                    <li>
+                        <a href="?status={{\App\Enum\User::STATUS_NOCHECK}}">{{\App\Enum\User::$statusLang[\App\Enum\User::STATUS_NOCHECK]}}</a>
+                    </li>
+
+                </ul>
+            </div>
+            <br/>
+
             <div class="table-responsive">
-                <table id="data-table" class="table table-striped table-bordered">
+                <table id="data-table" class="table table-hover">
                     <thead>
                     <tr>
                         <th>用户ID</th>
@@ -55,9 +77,9 @@
 
                             <td>{{$user->created_at}}</td>
                             <td class="text-center">
-                                <a href="{{route('admin.user.edit',[$user->user_id])}}"
+                                <a href="/admin/user/{{$user->user_id}}/edit"
                                    class="btn btn-sm btn-success  m-r-5">编辑</a>
-                                <a href="{{route('admin.user.destroy',[$user->user_id])}}"
+                                <a href="admin/user/{{$user->user_id}}"
                                    class="btn btn-sm btn-danger" data-method="delete">删除</a>
                             </td>
                         </tr>
@@ -65,31 +87,22 @@
                     </tbody>
                 </table>
             </div>
+
+
+        </div>
+        <div class="panel-footer text-right">
+            <?php echo $users->render();?>
         </div>
     </div>
     <!-- end panel -->
 
 
 
-@stop
+    @stop
 
-@section('footer-last-js')
-    <!-- ================== BEGIN PAGE LEVEL JS ================== -->
-    <script src="/assets/lib/DataTables/js/jquery.dataTables.js"></script>
-    <script src="/assets/lib/DataTables/js/dataTables.colVis.js"></script>
-    <script src="/assets/admin//js/table-manage-colvis.demo.min.js"></script>
+    @section('footer-last-js')
+            <!-- ================== BEGIN PAGE LEVEL JS ================== -->
     <script src="/assets/admin/js/apps.min.js"></script>
     <!-- ================== END PAGE LEVEL JS ================== -->
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            TableManageColVis.init();
-        });
-    </script>
-@stop
-
-@section('last-css')
-    <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
-    <link href="/assets/lib/DataTables/css/data-table.css" rel="stylesheet"/>
-    <!-- ================== END PAGE LEVEL STYLE ================== -->
 @stop
