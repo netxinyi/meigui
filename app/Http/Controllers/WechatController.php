@@ -157,8 +157,8 @@ class WechatController extends Controller
 
             return Message::make('text')->content('您好！欢迎关注玫瑰花开网');
         });
-       /* $button = new MenuItem("公司介绍");
-        $buttona = new MenuItem("活动专场");
+        /*$button = new MenuItem("公司介绍",'click', 'about');
+        $buttona = new MenuItem("活动专场",'click','activity');
         $buttonb = new MenuItem("报名通道",'click', 'signup');
 
         $menus = array(
@@ -174,6 +174,8 @@ class WechatController extends Controller
                 new MenuItem('成功案例', 'click', 'case'),
                 new MenuItem('会员搜索', 'click', 'search'),
             )),
+            $button,
+            $buttona,
             $buttonb,
         );
 
@@ -192,63 +194,23 @@ class WechatController extends Controller
                     return Message::make('news')->items(function ()use($url){
 
                         return array(
-                            Message::make('news_item')->title('公司介绍')->description('玫瑰花开公司介绍')->url($url.'/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('关于公司')->description('玫瑰花开公司介绍')->url($url.'/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('业务介绍')->description('玫瑰花开业务介绍')->url($url.'/article/9')->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('联系我们')->description('联系我们')->url($url.'/article/10')->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('婚恋业务')->description('玫瑰花开婚恋业务')->url($url.'/article/11')->picUrl('http://www.baidu.com/demo.jpg'),
                         );
+
                     });
                     break;
-                case 'business':
+                case 'activity':
                     return Message::make('news')->items(function ()use($url){
 
                         return array(
-                            Message::make('news_item')->title('业务介绍')->description('玫瑰花开业务介绍')->url($url.'/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
-                        );
-                    });
-                    break;
-                case 'contact':
-                    return Message::make('news')->items(function ()use($url){
-
-                        return array(
-                            Message::make('news_item')->title('联系我们')->description('联系我们')->url($url.'/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
-                        );
-                    });
-                    break;
-                case 'marry':
-                    return Message::make('news')->items(function ()use($url){
-
-                        return array(
-                            Message::make('news_item')->title('婚恋业务')->description('玫瑰花开婚恋业务')->url($url.'/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
-                        );
-                    });
-                    break;
-                case 'guest':
-                    return Message::make('news')->items(function ()use($url){
-
-                        return array(
-                            Message::make('news_item')->title('待选嘉宾')->description('玫瑰花开待选嘉宾')->url($url.'/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
-                        );
-                    });
-                    break;
-                case 'talent':
-                    return Message::make('news')->items(function ()use($url){
-
-                        return array(
-                            Message::make('news_item')->title('才俊专场')->description('玫瑰花开才俊专场')->url($url.'/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
-                        );
-                    });
-                    break;
-                case 'case':
-                    return Message::make('news')->items(function ()use($url){
-
-                        return array(
-                            Message::make('news_item')->title('成功案例')->description('玫瑰花开业成功案例')->url($url.'/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
-                        );
-                    });
-                    break;
-                case 'search':
-                    return Message::make('news')->items(function ()use($url){
-
-                        return array(
-                            Message::make('news_item')->title('会员搜索')->description('玫瑰花开会员搜索')->url('http://www.meigui.com/search')->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('活动专场')->description('玫瑰花开活动专场')->url($url)->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('待选嘉宾')->description('玫瑰花开待选嘉宾')->url($url.'/article/12')->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('才俊专场')->description('玫瑰花开才俊专场')->url($url.'/viplist_member')->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('成功案例')->description('玫瑰花开业成功案例')->url($url.'/article/13')->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('会员搜索')->description('玫瑰花开会员搜索')->url($url.'/search')->picUrl('http://www.baidu.com/demo.jpg'),
                         );
                     });
                     break;

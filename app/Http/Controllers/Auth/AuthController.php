@@ -63,7 +63,8 @@ class AuthController extends Controller
     }
 
     public function postRegister()
-    {
+    {   
+
         $this->validate($this->request(), array(
             'realname' => 'required',
             'mobile' => 'required|size:11|unique:users,mobile',
@@ -113,4 +114,7 @@ class AuthController extends Controller
         }
 
     }
+
+
+
 }

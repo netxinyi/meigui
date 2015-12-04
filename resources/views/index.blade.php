@@ -142,8 +142,7 @@
     <!-- 展示女用户 -->
     <div class="wap_content2">
         <div class="content">
-            <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2
-  am-avg-md-3 am-avg-lg-6 am-gallery-bordered" data-am-gallery="{  }" id="index-recommend">
+            <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-3 am-avg-lg-6 am-gallery-bordered" data-am-gallery="{  }" id="index-recommend">
                 @foreach($users as $user)
                     <li data-sex="{{$user->sex}}">
                         <div class="am-gallery-item">
