@@ -10,10 +10,10 @@ use Log;
 use Illuminate\Http\Request;
 use Auth;
 use App\Model\User;
+use Illuminate\Support\Facades\Config;
 
 class WechatController extends Controller
 {
-
     protected $viewPrefix = 'wechat';
     /*public function getLogin()
     {
@@ -151,7 +151,7 @@ class WechatController extends Controller
      */
     public function anyApi(Server $server)
     {
-
+        $url = Config::get('app.url');
         //关注回复
         $server->on('event', 'subscribe', function ($event){
 
@@ -185,14 +185,14 @@ class WechatController extends Controller
         } catch (\Exception $e) {
             echo '设置失败：' . $e->getMessage();
         }*/
-        $server->on('event', 'click', function ($event){
+        $server->on('event', 'click', function ($event)use($url){
 
             switch ($event->EventKey) {
                 case 'about':
-                    return Message::make('news')->items(function (){
+                    return Message::make('news')->items(function ()use($url){
 
                         return array(
-                            Message::make('news_item')->title('公司介绍')->description('玫瑰花开公司介绍')->url('http://dev.meiguihuakai.com.cn/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('公司介绍')->description('玫瑰花开公司介绍')->url($url.'/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
                         );
                     });
                     break;
