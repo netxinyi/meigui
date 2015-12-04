@@ -22,7 +22,7 @@ class UserController extends Controller
     public function index()
     {
 
-        $users = User::all(['user_id', 'user_name', 'sex', 'email', 'mobile', 'created_at', 'birthday']);
+        $users = User::all(['user_id', 'user_name', 'sex', 'mobile', 'created_at', 'birthday']);
 
         return $this->view('index')->with('users', $users);
     }
@@ -144,7 +144,8 @@ class UserController extends Controller
 
     public function getRegister()
     {
-        $user = Register::with('user')->get();
+        $user = User::status(UserEnum::STATUS_NOCHECK)->get();
+
         return $this->view('check')->with('users', $user);
     }
 

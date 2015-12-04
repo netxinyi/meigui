@@ -103,7 +103,7 @@ class User
     const HOUSE_SUSHE = 4;
     const HOUSE_HUNGOU = 5;
 
-    public static $zhufangLang = [
+    public static $houseLang = [
         self::HOUSE_JIAREN => '与家人同住',
         self::HOUSE_ZUFANG => '租房',
         self::HOUSE_GOUFANG => '已购房',

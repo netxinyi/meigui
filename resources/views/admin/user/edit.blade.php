@@ -51,16 +51,15 @@
 
                         </div>
                     </div>
-
                     <div class="form-group">
-                        <label class="col-md-2 control-label">邮箱</label>
+                        <label class="col-md-2 control-label">真实姓名</label>
 
                         <div class="col-md-8">
-                            <input type="email" class="form-control" placeholder="E-Mail" name="email"
-                                   value="{{old('email',$user->email)}}" required=""/>
-                            @if($errors->has('email'))
+                            <input type="text" class="form-control" placeholder="" name="realname"
+                                   value="{{old('realname',$user->realname)}}" required=""/>
+                            @if($errors->has('realname'))
                                 <ul class="parsley-errors-list filled">
-                                    <li class="parsley-required">{{$errors->first('email')}}</li>
+                                    <li class="parsley-required">{{$errors->first('realname')}}</li>
                                 </ul>
                             @endif
 
@@ -96,10 +95,29 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-md-2 control-label">会员等级</label>
+
+                        <div class="col-md-8">
+                            <select name="height" class="form-control">
+                                @foreach(\App\Enum\User::$levelLang as $value=>$label)
+                                    <option value="{{$value}}" @if(old('level',$user->level) == $value)
+                                    selected @endif >{{$label}}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('level'))
+                                <ul class="parsley-errors-list filled">
+                                    <li class="parsley-required">{{$errors->first('level')}}</li>
+                                </ul>
+                            @endif
+
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-md-2 control-label">性别</label>
 
                         <div class="col-md-8">
-                            @foreach(\App\Enum\User::$sexForm as $value=>$lable)
+                            @foreach(\App\Enum\User::$sexLang as $value=>$lable)
 
                                 <label class="radio-inline">
                                     <input type="radio" name="sex"
@@ -115,30 +133,52 @@
                             @endif
                         </div>
                     </div>
-                </fieldset>
-                <fieldset>
-                    <legend>其他资料</legend>
                     <div class="form-group">
                         <label class="col-md-2 control-label">婚姻状况</label>
 
                         <div class="col-md-8">
-                            @foreach(\App\Enum\User::$maritalForm as $value=>$lable)
+                            @foreach(\App\Enum\User::$marriageLang as $value=>$lable)
 
                                 <label class="radio-inline">
-                                    <input type="radio" name="marital_status"
-                                           value="{{$value}}" @if($value == old('marital_status',$user->marital_status))
+                                    <input type="radio" name="marriage"
+                                           value="{{$value}}" @if($value == old('marriage',$user->marriage))
                                            checked @endif >
                                     {{$lable}}
                                 </label>
                             @endforeach
-                            @if($errors->has('marital_status'))
+                            @if($errors->has('marriage'))
                                 <ul class="parsley-errors-list filled">
-                                    <li class="parsley-required">{{$errors->first('marital_status')}}</li>
+                                    <li class="parsley-required">{{$errors->first('marriage')}}</li>
                                 </ul>
                             @endif
 
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">账号状态</label>
+
+                        <div class="col-md-8">
+                            @foreach(\App\Enum\User::$statusLang as $value=>$lable)
+
+                                <label class="radio-inline">
+                                    <input type="radio" name="status"
+                                           value="{{$value}}" @if($value == old('status',$user->status))
+                                           checked @endif >
+                                    {{$lable}}
+                                </label>
+                            @endforeach
+                            @if($errors->has('status'))
+                                <ul class="parsley-errors-list filled">
+                                    <li class="parsley-required">{{$errors->first('status')}}</li>
+                                </ul>
+                            @endif
+
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>其他资料</legend>
+
                     <div class="form-group">
                         <label class="col-md-2 control-label">身高</label>
 
@@ -166,7 +206,7 @@
                         <div class="col-md-8">
                             <select name="education" class="form-control">
                                 <option value="">请选择</option>
-                                @foreach(\App\Enum\User::$educationForm as $value=>$lable)
+                                @foreach(\App\Enum\User::$educationLang as $value=>$lable)
                                     <option value="{{$value}}" @if(old('education',$user->education) == $value)
                                             selected @endif>{{$lable}}</option>
                                 @endforeach
@@ -186,7 +226,7 @@
                         <div class="col-md-8">
                             <select name="salary" class="form-control">
                                 <option value="">请选择</option>
-                                @foreach(\App\Enum\User::$salaryForm as $value=>$lable)
+                                @foreach(\App\Enum\User::$salaryLang as $value=>$lable)
                                     <option value="{{$value}}" @if(old('salary',$user->salary) == $value)
                                             selected @endif>{{$lable}}</option>
                                 @endforeach
@@ -200,27 +240,81 @@
                         </div>
 
                     </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">住房情况</label>
+
+                        <div class="col-md-8">
+                            <select name="house" class="form-control">
+                                <option value="">请选择</option>
+                                @foreach(\App\Enum\User::$houseLang as $value=>$lable)
+                                    <option value="{{$value}}" @if(old('house',$user->house) == $value)
+                                    selected @endif>{{$lable}}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('house'))
+                                <ul class="parsley-errors-list filled">
+                                    <li class="parsley-required">{{$errors->first('house')}}</li>
+                                </ul>
+                            @endif
+
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">有无孩子</label>
+
+                        <div class="col-md-8">
+                            <select name="children" class="form-control">
+                                <option value="">请选择</option>
+                                @foreach(\App\Enum\User::$childrenLang as $value=>$lable)
+                                    <option value="{{$value}}" @if(old('children',$user->children) == $value)
+                                    selected @endif>{{$lable}}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('children'))
+                                <ul class="parsley-errors-list filled">
+                                    <li class="parsley-required">{{$errors->first('children')}}</li>
+                                </ul>
+                            @endif
+
+                        </div>
+
+                    </div>
                     <div class="form-group" id="area-select">
                         <label class="col-md-2 control-label">所在地</label>
 
                         <div class="col-md-2">
-                            <select class="form-control default-select2" name="province">
+                            <select class="form-control default-select2" name="work_province">
 
                             </select>
                         </div>
 
                         <div class="col-md-2">
-                            <select class="form-control" name="city">
-
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <select class="form-control" name="area">
+                            <select class="form-control" name="work_city">
 
                             </select>
                         </div>
                     </div>
 
+                </fieldset>
+                <fieldset>
+                    <legend>自我介绍</legend>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">账号状态</label>
+
+                        <div class="col-md-8">
+                            <label class="radio-inline">
+                                <textarea class="form-control"
+                                          name="introduce">{{old('introduce',$user->info->introduce)}}</textarea>
+                            </label>
+                            @if($errors->has('introduce'))
+                                <ul class="parsley-errors-list filled">
+                                    <li class="parsley-required">{{$errors->first('introduce')}}</li>
+                                </ul>
+                            @endif
+
+                        </div>
+                    </div>
                 </fieldset>
                 <fieldset>
                     <legend>修改密码</legend>
@@ -275,8 +369,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            new PCAS("province", "city", "area", "{{old('province',$user->province)}}", "{{old('city',$user->city)}}", "{{old('area',$user->area)}}");
-
+            new PCAS("work_province", "work_city", "{{old('work_province',$user->work_province)}}", "{{old('work_city',$user->work_city)}}");
 
         });
 

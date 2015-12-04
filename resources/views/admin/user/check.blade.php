@@ -41,7 +41,6 @@
                         <th>年龄</th>
                         <th>手机号</th>
                         <th>婚姻状态</th>
-                        <th>报名用户</th>
                         <th>生日</th>
                         <th>申请时间</th>
                         <th>操作</th>
@@ -52,14 +51,13 @@
                         <tr>
                             <td>{{$user->realname}}</td>
                             <td>{{$user->sex_lang}}</td>
-                            <td>{{$user->age_format}}</td>
+                            <td>{{$user->age_lang}}</td>
                             <td>{{$user->mobile}}</td>
-                            <td>{{$user->marital_status_lang}}</td>
-                            <td>&nbsp;</td>
+                            <td>{{$user->marriage_lang}}</td>
                             <td>{{$user->birthday}}</td>
                             <td>{{$user->created_at}}</td>
                             <td class="text-center">
-                                <a href="{{route('admin.register.add',[$user->id])}}"
+                                <a href="/admin/user/{{$user->user_id}}/edit"
                                    class="btn btn-sm btn-success  m-r-5">通过审核</a>
                                 <a href="{{route('admin.register.destroy',[$user->id])}}"
                                    class="btn btn-sm btn-danger">拒绝申请</a>

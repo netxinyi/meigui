@@ -40,7 +40,6 @@
                         <th>性别</th>
                         <th>年龄</th>
                         <th>手机号</th>
-                        <th>E-Mail</th>
                         <th>创建时间</th>
                         <th>操作</th>
                     </tr>
@@ -50,10 +49,10 @@
                         <tr>
                             <td>{{$user->user_id}}</td>
                             <td>{{$user->user_name}}</td>
-                            <td>{{App\Enum\User::$sexForm[$user->sex]}}</td>
+                            <td>{{$user->sex_lang}}</td>
                             <td>{{$user->age}}</td>
                             <td>{{$user->mobile}}</td>
-                            <td>{{$user->email}}</td>
+
                             <td>{{$user->created_at}}</td>
                             <td class="text-center">
                                 <a href="{{route('admin.user.edit',[$user->user_id])}}"
