@@ -45,20 +45,18 @@ class UserController extends Controller
 
             'mobile' => 'required|digits:11',
             'birthday' => 'required|date',
-            'sex' => 'required|in:' . array_keys_impload(UserEnum::$sexForm),
+            'sex' => 'required|in:' . array_keys_impload(UserEnum::$sexLang),
             'password' => 'required|min:5|max:20',
             'password_confirm' => 'required|required_with:password|same:password',
-            'marital_status' => 'in:' . array_keys_impload(UserEnum::$maritalForm),
+            'marital_status' => 'in:' . array_keys_impload(UserEnum::$marriageLang),
             'height' => 'digits:3|between:130,210',
-            'education' => 'in:' . array_keys_impload(UserEnum::$educationForm),
-            'salary' => 'in:' . array_keys_impload(UserEnum::$salaryForm),
+            'education' => 'in:' . array_keys_impload(UserEnum::$educationLang),
+            'salary' => 'in:' . array_keys_impload(UserEnum::$salaryLang),
             'user_name' => 'required|min:2|max:15|unique:users',
-            'email' => 'required|email|unique:users',
         ]);
 
         $form = $this->request()->only([
             'user_name',
-            'email',
             'mobile',
             'birthday',
             'password',
@@ -94,30 +92,28 @@ class UserController extends Controller
         $this->validate($this->request(), [
             'mobile' => 'required|digits:11',
             'birthday' => 'required|date',
-            'sex' => 'required|in:' . array_keys_impload(UserEnum::$sexForm),
+            'sex' => 'required|in:' . array_keys_impload(UserEnum::$sexLang),
             'password' => 'min:5|max:20',
             'password_confirm' => 'required_with:password|same:password',
-            'marital_status' => 'in:' . array_keys_impload(UserEnum::$maritalForm),
+            'marriage' => 'in:' . array_keys_impload(UserEnum::$marriageLang),
             'height' => 'numeric|digits:3|min:130|max:210',
-            'education' => 'in:' . array_keys_impload(UserEnum::$educationForm),
-            'salary' => 'in:' . array_keys_impload(UserEnum::$salaryForm),
-            'user_name' => 'required|min:2|max:15|unique:users,user_name,' . $user->user_id . ',user_id',
-            'email' => 'required|email|unique:users,email,' . $user->user_id . ',user_id',
+            'education' => 'in:' . array_keys_impload(UserEnum::$educationLang),
+            'salary' => 'in:' . array_keys_impload(UserEnum::$salaryLang),
+            'user_name' => 'required|min:2|max:15|unique:users,user_name,' . $user->user_id . ',user_id'
         ]);
 
 
         $form = $this->request()->only([
             'user_name',
-            'email',
             'mobile',
             'birthday',
-            'marital_status',
+            'marriage',
             'height',
             'education',
             'salary',
-            'province',
-            'city',
-            'area'
+            'work_province',
+            'work_city',
+
         ]);
 
         if ($password = $this->request()->get('password')) {

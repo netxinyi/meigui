@@ -27,6 +27,35 @@ class AuthController extends Controller
         $this->middleware('guest', ['except' => 'getLogout']);
     }
 
+    public function postLogin()
+    {
+
+        $this->validate($this->request(), [
+            $this->loginUsername() => 'required', 'password' => 'required',
+        ]);
+
+        $throttles = in_array(
+            \ThrottlesLogins::class, class_uses_recursive(get_class($this))
+        );
+
+        if ($throttles && $this->hasTooManyLoginAttempts($this->request())) {
+            return $this->sendLockoutResponse($this->request());
+        }
+        //TODO 用户状态检查
+        if (\Auth::attempt($this->getCredentials($this->request()), $this->request()->has('remember'))) {
+            if ($throttles) {
+                $this->clearLoginAttempts($this->request());
+            }
+
+            return $this->rest()->success(user(), '登录成功');
+        }
+
+        if ($throttles) {
+            $this->incrementLoginAttempts($this->request());
+        }
+
+        return $this->rest()->error("登录失败,账号或密码错误");
+    }
 
     public function getRegister()
     {
