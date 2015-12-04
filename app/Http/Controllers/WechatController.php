@@ -157,23 +157,23 @@ class WechatController extends Controller
 
             return Message::make('text')->content('您好！欢迎关注玫瑰花开网');
         });
-        $button = new MenuItem("公司介绍",'click', 'about');
+        /*$button = new MenuItem("公司介绍",'click', 'about');
         $buttona = new MenuItem("活动专场",'click','activity');
         $buttonb = new MenuItem("报名通道",'click', 'signup');
 
         $menus = array(
-            /*$button->buttons(array(
+            $button->buttons(array(
                 new MenuItem('关于公司', 'click', 'about'),
                 new MenuItem('业务介绍', 'click', 'business'),
                 new MenuItem('联系我们', 'click', 'contact'),
                 new MenuItem('婚恋业务', 'click', 'marry'),
-            )),*/
-            /*$buttona->buttons(array(
+            )),
+            $buttona->buttons(array(
                 new MenuItem('待选嘉宾', 'click', 'guest'),
                 new MenuItem('才俊专场', 'click', 'talent'),
                 new MenuItem('成功案例', 'click', 'case'),
                 new MenuItem('会员搜索', 'click', 'search'),
-            )),*/
+            )),
             $button,
             $buttona,
             $buttonb,
@@ -186,7 +186,7 @@ class WechatController extends Controller
             echo '设置成功！';
         } catch (\Exception $e) {
             echo '设置失败：' . $e->getMessage();
-        }
+        }*/
         $server->on('event', 'click', function ($event)use($url){
 
             switch ($event->EventKey) {
