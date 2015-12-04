@@ -382,6 +382,7 @@
  clear:none !important;
 }
 
+.am-gallery-bordered .am-gallery-item img, .am-gallery-one .am-gallery-item img{height: 200px;}
 /*【2】会员专区--------------------------------------------*/
 
 /*栏目标题*/
