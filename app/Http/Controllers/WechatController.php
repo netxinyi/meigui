@@ -160,7 +160,7 @@ class WechatController extends Controller
         });
        /* $button = new MenuItem("公司介绍");
         $buttona = new MenuItem("活动专场");
-        $buttonb = new MenuItem("个人中心");
+        $buttonb = new MenuItem("报名通道",'click', 'signup');
 
         $menus = array(
             $button->buttons(array(
@@ -175,9 +175,7 @@ class WechatController extends Controller
                 new MenuItem('成功案例', 'click', 'case'),
                 new MenuItem('会员搜索', 'click', 'search'),
             )),
-            $buttonb->buttons(array(
-                new MenuItem('报名通道', 'click', 'signup'),
-            )),
+            $buttonb,
         );
 
         try {
@@ -195,7 +193,7 @@ class WechatController extends Controller
                     return Message::make('news')->items(function (){
 
                         return array(
-                            Message::make('news_item')->title('公司介绍')->description('玫瑰花开公司介绍')->url('http://baidu.com/abc.php')->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('公司介绍')->description('玫瑰花开公司介绍')->url('http://dev.meiguihuakai.com.cn/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
                         );
                     });
                     break;
@@ -203,18 +201,23 @@ class WechatController extends Controller
                     return Message::make('news')->items(function (){
 
                         return array(
-                            Message::make('news_item')->title('业务介绍')->description('玫瑰花开业务介绍')->url('http://baidu.com/abc.php')->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('业务介绍')->description('玫瑰花开业务介绍')->url('http://dev.meiguihuakai.com.cn/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
                         );
                     });
                     break;
                 case 'contact':
-                    return Message::make('text')->content('您好！联系我们');
+                    return Message::make('news')->items(function (){
+
+                        return array(
+                            Message::make('news_item')->title('联系我们')->description('联系我们')->url('http://dev.meiguihuakai.com.cn/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
+                        );
+                    });
                     break;
                 case 'marry':
                     return Message::make('news')->items(function (){
 
                         return array(
-                            Message::make('news_item')->title('婚恋业务')->description('玫瑰花开婚恋业务')->url('http://baidu.com/abc.php')->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('婚恋业务')->description('玫瑰花开婚恋业务')->url('http://dev.meiguihuakai.com.cn/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
                         );
                     });
                     break;
@@ -222,7 +225,7 @@ class WechatController extends Controller
                     return Message::make('news')->items(function (){
 
                         return array(
-                            Message::make('news_item')->title('待选嘉宾')->description('玫瑰花开待选嘉宾')->url('http://baidu.com/abc.php')->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('待选嘉宾')->description('玫瑰花开待选嘉宾')->url('http://dev.meiguihuakai.com.cn/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
                         );
                     });
                     break;
@@ -230,7 +233,7 @@ class WechatController extends Controller
                     return Message::make('news')->items(function (){
 
                         return array(
-                            Message::make('news_item')->title('才俊专场')->description('玫瑰花开才俊专场')->url('http://baidu.com/abc.php')->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('才俊专场')->description('玫瑰花开才俊专场')->url('http://dev.meiguihuakai.com.cn/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
                         );
                     });
                     break;
@@ -238,7 +241,7 @@ class WechatController extends Controller
                     return Message::make('news')->items(function (){
 
                         return array(
-                            Message::make('news_item')->title('成功案例')->description('玫瑰花开业成功案例')->url('http://baidu.com/abc.php')->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('成功案例')->description('玫瑰花开业成功案例')->url('http://dev.meiguihuakai.com.cn/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
                         );
                     });
                     break;
@@ -246,7 +249,7 @@ class WechatController extends Controller
                     return Message::make('news')->items(function (){
 
                         return array(
-                            Message::make('news_item')->title('会员搜索')->description('玫瑰花开会员搜索')->url('http://baidu.com/abc.php')->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('会员搜索')->description('玫瑰花开会员搜索')->url('http://www.meigui.com/search')->picUrl('http://www.baidu.com/demo.jpg'),
                         );
                     });
                     break;
