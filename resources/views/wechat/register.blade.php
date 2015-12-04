@@ -43,27 +43,17 @@
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <input type="hidden" name="openid" value="{{$_GET['openid']}}"/>
         <fieldset>
-
-            <div class="am-form-group">
-                <label for="doc-ipt-email-1">手机</label>
-                <input type="text" name="mobile" class="" id="doc-ipt-email-1" placeholder="输入手机">
-            </div>
-            <font color="red"><?php echo $errors->first('mobile'); ?></font>
-
-            <div class="am-form-group">
-                <label for="doc-ipt-email-1">密码</label>
-                <input type="password" name="password" class="" id="doc-ipt-email-1" placeholder="设置密码">
-            </div>
-            <div class="am-form-group">
-                <label for="doc-ipt-email-1">确认密码</label>
-                <input type="password" name="password_confirmation" class="" id="doc-ipt-email-1" placeholder="输入确认密码">
-            </div>
-            <font color="red"><?php echo $errors->first('password'); ?></font>
-
             <div class="am-form-group">
                 <label for="doc-ipt-email-1">真实姓名</label>
                 <input type="text" name="user_name" class="" id="doc-ipt-email-1" placeholder="输入真实姓名">
             </div>
+
+            <div class="am-form-group">
+                <label for="doc-ipt-email-1">手机号</label>
+                <input type="text" name="mobile" class="" id="doc-ipt-email-1" placeholder="输入手机号">
+            </div>
+            <font color="red"><?php echo $errors->first('mobile'); ?></font>
+
             <font color="red"><?php echo $errors->first('user_name'); ?></font>
 
             <div class="am-form-group">

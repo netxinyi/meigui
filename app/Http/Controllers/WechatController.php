@@ -10,18 +10,17 @@ use Log;
 use Illuminate\Http\Request;
 use Auth;
 use App\Model\User;
+use App\Model\UserBind;
 use Illuminate\Support\Facades\Config;
 
 class WechatController extends Controller
 {
     protected $viewPrefix = 'wechat';
-    /*public function getLogin()
+    public function getLogin()
     {
-		if(isLogin()){
-			$openid = $_GET['openid'];
-		}else{
+
 			return $this->view('login');
-		}
+
     }
 
 
@@ -33,7 +32,7 @@ class WechatController extends Controller
             'mobile'   => 'required|digits:11|exists:users',
             'password' => 'required|min:6',
         ), $message = [
-            'mobile.exists'     => '手机号不存在',
+            'mobile.exists'     => '该手机号不存在',
             'mobile.required'   => '手机号不能为空',
             'mobile.digits'     => '手机号格式不正确',
             'password.required' => '密码不能为空',
@@ -42,12 +41,22 @@ class WechatController extends Controller
 
         ]);
         $credentials = $this->request()->only(['mobile', 'password']);
+        $openid = $this->request()->only('openid');
         if (Auth::attempt($credentials)) {
-            return $this->success('登录成功', array(), $this->redirect()->intended('/'));
+            $user_id = Auth::user()->user_id;
+            if(UserBind::where('openid','=',$openid)->get()){
+                $bindinfo['openid'] =  $openid;
+                $bindinfo['user_id'] = $user_id;
+                UserBind::create($bindinfo);
+            }else{
+                UserBind::where('user_id','=',$user_id)->update('openid','=',$openid);
+            }
+            return "<script>alert('绑定成功,请关闭当前页面');
+				</script>;";
         }
 
         return $this->error('手机号或密码不正确');
-    }*/
+    }
 
 
     public function getRegister()
@@ -63,7 +72,6 @@ class WechatController extends Controller
         //验证字段有效性
         $this->validate($this->request(), $rules = array(
             'mobile'    => 'required|digits:11|unique:users',
-            'password'  => 'required|confirmed|min:6',
             'user_name' => 'required',
 			'sex'       => 'required',
             'birthday'  => 'required',
@@ -72,10 +80,7 @@ class WechatController extends Controller
             'mobile.required'    => '请输入你的手机号',
             'mobile.digits'      => '手机号格式不正确',
             'mobile.unique'      => '该手机号已被注册',
-            'password.required'  => '请输入密码',
-            'password.confirmed' => '两次输入的密码不一致',
-            'password.min'       => '密码最少6位',
-            'user_name.required' => '请输入你的姓名',
+            'user_name.required' => '请输入你的真实姓名',
 			'sex.required'       => '请选择性别',
             'birthday.required'  => '请输选择你的生日',
 			'marriage'      => '请选择婚姻状况',
@@ -85,12 +90,11 @@ class WechatController extends Controller
         //获取表单数据
         $reginfo             = $this->request()->only([
             'mobile',
-            'password',
             'user_name',
             'sex',
             'birthday',
+            'marriage',
         ]);
-        $reginfo['password'] = bcrypt($reginfo['password']);
 		//dd($reginfo);
         //插入注册信息
         if ($users = User::create($reginfo)) {
@@ -159,7 +163,7 @@ class WechatController extends Controller
         });
         /*$button = new MenuItem("公司介绍",'click', 'about');
         $buttona = new MenuItem("活动专场",'click','activity');
-        $buttonb = new MenuItem("报名通道",'click', 'signup');
+        $buttonb = new MenuItem("个人中心");
 
         $menus = array(
             $button->buttons(array(
@@ -221,6 +225,7 @@ class WechatController extends Controller
 
                         return array(
                             Message::make('news_item')->title('报名通道')->description('参与玫瑰花开报名')->url($url.'/weixin/register?openid='.$openid)->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('绑定会员')->description('绑定会员')->url($url.'/weixin/login?openid='.$openid)->picUrl('http://www.baidu.com/demo.jpg'),
                         );
                     });
                     break;
