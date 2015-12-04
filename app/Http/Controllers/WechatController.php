@@ -197,55 +197,55 @@ class WechatController extends Controller
                     });
                     break;
                 case 'business':
-                    return Message::make('news')->items(function (){
+                    return Message::make('news')->items(function ()use($url){
 
                         return array(
-                            Message::make('news_item')->title('业务介绍')->description('玫瑰花开业务介绍')->url('http://dev.meiguihuakai.com.cn/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('业务介绍')->description('玫瑰花开业务介绍')->url($url.'/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
                         );
                     });
                     break;
                 case 'contact':
-                    return Message::make('news')->items(function (){
+                    return Message::make('news')->items(function ()use($url){
 
                         return array(
-                            Message::make('news_item')->title('联系我们')->description('联系我们')->url('http://dev.meiguihuakai.com.cn/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('联系我们')->description('联系我们')->url($url.'/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
                         );
                     });
                     break;
                 case 'marry':
-                    return Message::make('news')->items(function (){
+                    return Message::make('news')->items(function ()use($url){
 
                         return array(
-                            Message::make('news_item')->title('婚恋业务')->description('玫瑰花开婚恋业务')->url('http://dev.meiguihuakai.com.cn/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('婚恋业务')->description('玫瑰花开婚恋业务')->url($url.'/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
                         );
                     });
                     break;
                 case 'guest':
-                    return Message::make('news')->items(function (){
+                    return Message::make('news')->items(function ()use($url){
 
                         return array(
-                            Message::make('news_item')->title('待选嘉宾')->description('玫瑰花开待选嘉宾')->url('http://dev.meiguihuakai.com.cn/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('待选嘉宾')->description('玫瑰花开待选嘉宾')->url($url.'/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
                         );
                     });
                     break;
                 case 'talent':
-                    return Message::make('news')->items(function (){
+                    return Message::make('news')->items(function ()use($url){
 
                         return array(
-                            Message::make('news_item')->title('才俊专场')->description('玫瑰花开才俊专场')->url('http://dev.meiguihuakai.com.cn/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('才俊专场')->description('玫瑰花开才俊专场')->url($url.'/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
                         );
                     });
                     break;
                 case 'case':
-                    return Message::make('news')->items(function (){
+                    return Message::make('news')->items(function ()use($url){
 
                         return array(
-                            Message::make('news_item')->title('成功案例')->description('玫瑰花开业成功案例')->url('http://dev.meiguihuakai.com.cn/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('成功案例')->description('玫瑰花开业成功案例')->url($url.'/article/1')->picUrl('http://www.baidu.com/demo.jpg'),
                         );
                     });
                     break;
                 case 'search':
-                    return Message::make('news')->items(function (){
+                    return Message::make('news')->items(function ()use($url){
 
                         return array(
                             Message::make('news_item')->title('会员搜索')->description('玫瑰花开会员搜索')->url('http://www.meigui.com/search')->picUrl('http://www.baidu.com/demo.jpg'),
@@ -255,10 +255,10 @@ class WechatController extends Controller
                 case 'signup':
                     $openid = $event->FromUserName;
 
-                    return Message::make('news')->items(function () use ($openid){
+                    return Message::make('news')->items(function () use ($openid,$url){
 
                         return array(
-                            Message::make('news_item')->title('报名通道')->description('参与玫瑰花开报名')->url('http://dev.meiguihuakai.com.cn/weixin/register?openid='.$openid)->picUrl('http://www.baidu.com/demo.jpg'),
+                            Message::make('news_item')->title('报名通道')->description('参与玫瑰花开报名')->url($url.'/weixin/register?openid='.$openid)->picUrl('http://www.baidu.com/demo.jpg'),
                         );
                     });
                     break;
