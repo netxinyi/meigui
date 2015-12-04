@@ -7,6 +7,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\User;
+use App\Http\Controllers\Session;
 
 class HomeController extends Controller
 {
@@ -15,6 +17,10 @@ class HomeController extends Controller
 
     public function getIndex()
     {
+        $data = user();
+        dd($data);
+      // $user_data =  User::get()->toArray();
+ 
         return $this->view('index');
     }
 
