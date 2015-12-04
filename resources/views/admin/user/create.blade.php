@@ -97,7 +97,7 @@
                             <label class="col-md-2 control-label">性别</label>
 
                             <div class="col-md-8">
-                                @foreach(\App\Enum\User::$sexForm as $value=>$lable)
+                                @foreach(\App\Enum\User::$sexLang as $value=>$lable)
 
                                     <label class="radio-inline">
                                         <input type="radio" name="sex"
@@ -148,7 +148,7 @@
                             <label class="col-md-2 control-label">婚姻状况</label>
 
                             <div class="col-md-8">
-                                @foreach(\App\Enum\User::$maritalForm as $value=>$lable)
+                                @foreach(\App\Enum\User::$marriageLang as $value=>$lable)
 
                                     <label class="radio-inline">
                                         <input type="radio" name="marital_status"
@@ -190,7 +190,7 @@
                             <div class="col-md-8">
                                 <select name="education" class="form-control">
                                     <option value="">请选择</option>
-                                    @foreach(\App\Enum\User::$educationForm as $value=>$lable)
+                                    @foreach(\App\Enum\User::$educationLang as $value=>$lable)
                                         <option value="{{$value}}" @if(old('education') == $value)
                                                 selected @endif>{{$lable}}</option>
                                     @endforeach
@@ -210,7 +210,7 @@
                             <div class="col-md-8">
                                 <select name="salary" class="form-control">
                                     <option value="">请选择</option>
-                                    @foreach(\App\Enum\User::$salaryForm as $value=>$lable)
+                                    @foreach(\App\Enum\User::$salaryLang as $value=>$lable)
                                         <option value="{{$value}}" @if(old('salary') == $value)
                                                 selected @endif>{{$lable}}</option>
                                     @endforeach
