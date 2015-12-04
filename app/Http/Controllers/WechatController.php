@@ -41,16 +41,16 @@ class WechatController extends Controller
 
         ]);
         $credentials = $this->request()->only(['mobile', 'password']);
-        $openid = $this->request()->only('openid');
+        //$openid = $this->request()->only('openid');
         if (Auth::attempt($credentials)) {
-            $user_id = Auth::user()->user_id;
+            /*$user_id = Auth::user()->user_id;
             if(UserBind::where('openid','=',$openid)->get()){
                 $bindinfo['openid'] =  $openid;
                 $bindinfo['user_id'] = $user_id;
                 UserBind::create($bindinfo);
             }else{
                 UserBind::where('user_id','=',$user_id)->update('openid','=',$openid);
-            }
+            }*/
             return "<script>alert('绑定成功,请关闭当前页面');
 				</script>;";
         }
