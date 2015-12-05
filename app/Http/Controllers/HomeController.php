@@ -17,10 +17,6 @@ class HomeController extends Controller
 
     public function getIndex()
     {
-        $data = user();
-        dd($data);
-      // $user_data =  User::get()->toArray();
- 
         return $this->view('index');
     }
 
@@ -51,4 +47,66 @@ class HomeController extends Controller
         return $this->view('jieshao');
 
     }
+
+    // 保存基本信息
+     public function postUpdate()
+    {
+        //接收数据
+        $data = $this->request()->only('user_name','height','education','marriage','salary');
+
+          $this->validate($this->request(), array(
+            'user_name' => 'required',
+        ), array(
+            'user_name.required' => '昵称不能为空！',
+        ));
+
+        user()->update($data);
+        return $this->rest()->success('修改成功！');
+
+    }
+
+
+     // 保存详细信息
+     public function postXiangxi()
+    {
+         //接收数据
+        $info_data = $this->request()->only('card','stock','qq','email','origin_province','origin_city');
+        $user_data = $this->request()->only('mobile');
+
+        $this->validate($this->request(), $rules= array(
+            'mobile' => 'required|digits:11|exists:users',
+            'qq' => 'numeric',
+            'email' => 'email',
+        ), array(
+            'mobile.required' => '手机号码不能为空',
+            'mobile.digits' => '手机号码是11位',
+            'qq.numeric' => 'QQ格式有误',
+            'email.email' => '邮箱格式有误',
+        ));
+
+        user()->info()->update($info_data);
+        user()->update($user_data);
+        return $this->rest()->success('修改成功！');
+
+    }
+
+     // 保存自我介绍信息
+     public function postJieshao()
+    {
+         //接收数据
+        $data = $this->request()->only('introduce');
+
+        $this->validate($this->request(), $rules= array(
+            'introduce' => 'required',
+          
+        ), array(
+            'introduce.required' => '自我介绍内容不能为空',
+          
+        ));
+
+        user()->info()->update($data);
+        return $this->rest()->success('修改成功！');
+
+    }
+
 }

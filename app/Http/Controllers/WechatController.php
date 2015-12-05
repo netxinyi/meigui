@@ -12,6 +12,7 @@ use Auth;
 use App\Model\User;
 use App\Model\UserBind;
 use Illuminate\Support\Facades\Config;
+use \DB;
 
 class WechatController extends Controller
 {
@@ -41,18 +42,20 @@ class WechatController extends Controller
 
         ]);
         $credentials = $this->request()->only(['mobile', 'password']);
-        //$openid = $this->request()->only('openid');
+        $bindinfo = $this->request()->only('openid');
         if (Auth::attempt($credentials)) {
-            /*$user_id = Auth::user()->user_id;
-            if(UserBind::where('openid','=',$openid)->get()){
-                $bindinfo['openid'] =  $openid;
-                $bindinfo['user_id'] = $user_id;
-                UserBind::create($bindinfo);
+            $bindinfo['user_id'] = Auth::user()->user_id;
+            $user_id = UserBind::where('user_id',$bindinfo['user_id'])->exists();
+            //判断用户是否已经绑定,绑定更新openid,未绑定创建绑定
+            if($user_id){
+                $bind = UserBind::where('user_id','=',$bindinfo['user_id'])->first();
+                $bind->openid=$bindinfo['openid'];
+                $bind->save();
             }else{
-                UserBind::where('user_id','=',$user_id)->update('openid','=',$openid);
-            }*/
+                UserBind::create($bindinfo);
+            }
             return "<script>alert('绑定成功,请关闭当前页面');
-				</script>;";
+				//</script>";
         }
 
         return $this->error('手机号或密码不正确');
@@ -163,7 +166,7 @@ class WechatController extends Controller
         });
         /*$button = new MenuItem("公司介绍",'click', 'about');
         $buttona = new MenuItem("活动专场",'click','activity');
-        $buttonb = new MenuItem("个人中心");
+        $buttonb = new MenuItem("个人中心",'click','person');
 
         $menus = array(
             $button->buttons(array(
@@ -218,7 +221,7 @@ class WechatController extends Controller
                         );
                     });
                     break;
-                case 'signup':
+                case 'person':
                     $openid = $event->FromUserName;
 
                     return Message::make('news')->items(function () use ($openid,$url){
