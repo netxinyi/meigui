@@ -8,7 +8,8 @@
 namespace App\Http\Controllers;
 
 
-use App\Enum\User;
+use App\Enum\User as userEnum;
+use App\Model\User;
 use App\Model\UserRecommend;
 
 class MemberController extends Controller
@@ -35,11 +36,11 @@ class MemberController extends Controller
         );
         foreach ($recommends as $recommend) {
             foreach ($recommend->user->all() as $user) {
-                if ($user->sex == User::SEX_FEMALE) {
+                if ($user->sex == userEnum::SEX_FEMALE) {
                     $users['female'][] = $user;
-                } else if ($user->level == User::LEVEL_1) {
+                } else if ($user->level == userEnum::LEVEL_1) {
                     $users['male'][] = $user;
-                } else if ($user->level == User::LEVEL_3) {
+                } else if ($user->level == userEnum::LEVEL_3) {
                     $users['vip'][] = $user;
                 }
             }
@@ -86,7 +87,7 @@ class MemberController extends Controller
         $recommends = UserRecommend::with(array(
             'user' => function ($query) {
                 //只需要正常状态的会员
-                return $query->status()->male()->level(User::LEVEL_3);
+                return $query->status()->male()->level(userEnum::LEVEL_3);
             }
         ))->home()->orderBy('order')->get()->all();
         $users = array();
