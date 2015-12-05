@@ -121,4 +121,12 @@ class HomeController extends Controller
 
     }
 
+
+     // S图片
+     public function postPhotos()
+    {
+
+        dd(1111111111);
+
+    }
 }

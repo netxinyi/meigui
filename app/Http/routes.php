@@ -31,6 +31,8 @@ Route::group(array('middleware' => 'auth'), function () {
 
     Route::controller('home', 'HomeController');
 });
+
+
 /*
 |--------------------------------------------------------------------------
 | 会员专区
