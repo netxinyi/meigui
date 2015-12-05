@@ -2,14 +2,14 @@
     <div class="footer">
         <div class="footer_list">
             <ul>
-                <li><a href="./bottom.html">客服中心</a></li>
-                <li><a href="./bottom.html">关于我们</a></li>
-                <li><a href="./bottom.html">相亲通道</a></li>
-                <li><a href="./bottom.html">注册条款</a></li>
-                <li><a href="./bottom.html">交友信息</a></li>
-                <li><a href="./bottom.html">隐私保护</a></li>
-                <li><a href="./bottom.html">帮助中心</a></li>
-                <li><a href="./bottom.html">安全中心</a></li>
+                <li><a href="{{Config::get('url')}}/article/2">客服中心</a></li>
+                <li><a href="{{Config::get('url')}}/article/1">关于我们</a></li>
+                <li><a href="{{Config::get('url')}}/article/4">相亲通道</a></li>
+                <li><a href="{{Config::get('url')}}/article/3">注册条款</a></li>
+                <li><a href="{{Config::get('url')}}/article/5">交友信息</a></li>
+                <li><a href="{{Config::get('url')}}/article/6">隐私保护</a></li>
+                <li><a href="{{Config::get('url')}}/article/7">帮助中心</a></li>
+                <li><a href="{{Config::get('url')}}/article/14">安全中心</a></li>
             </ul>
         </div>
         <div class="footer_list">
