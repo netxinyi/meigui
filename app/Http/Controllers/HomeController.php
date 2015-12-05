@@ -109,4 +109,16 @@ class HomeController extends Controller
 
     }
 
+     // 保存择偶条件
+     public function postZeou()
+    {
+
+         //接收数据
+        $data = $this->request()->only('age_start','age_end','marriage','house','origin_province','origin_city','education','children','salary_start','salary_end','height_start','height_end');
+
+        user()->object()->update($data);
+        return $this->rest()->success('修改成功！');
+
+    }
+
 }
