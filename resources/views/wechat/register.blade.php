@@ -45,7 +45,7 @@
         <fieldset>
             <div class="am-form-group">
                 <label for="doc-ipt-email-1">真实姓名</label>
-                <input type="text" name="user_name" class="" id="doc-ipt-email-1" placeholder="输入真实姓名">
+                <input type="text" name="realname" class="" id="doc-ipt-email-1" placeholder="输入真实姓名">
             </div>
 
             <div class="am-form-group">

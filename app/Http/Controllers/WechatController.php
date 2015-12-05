@@ -75,7 +75,7 @@ class WechatController extends Controller
         //验证字段有效性
         $this->validate($this->request(), $rules = array(
             'mobile'    => 'required|digits:11|unique:users',
-            'user_name' => 'required',
+            'readlname' => 'required',
 			'sex'       => 'required',
             'birthday'  => 'required',
 			'marriage'  => 'required',
@@ -83,7 +83,7 @@ class WechatController extends Controller
             'mobile.required'    => '请输入你的手机号',
             'mobile.digits'      => '手机号格式不正确',
             'mobile.unique'      => '该手机号已被注册',
-            'user_name.required' => '请输入你的真实姓名',
+            'realname.required' => '请输入你的真实姓名',
 			'sex.required'       => '请选择性别',
             'birthday.required'  => '请输选择你的生日',
 			'marriage'      => '请选择婚姻状况',
@@ -93,7 +93,7 @@ class WechatController extends Controller
         //获取表单数据
         $reginfo             = $this->request()->only([
             'mobile',
-            'user_name',
+            'realname',
             'sex',
             'birthday',
             'marriage',
