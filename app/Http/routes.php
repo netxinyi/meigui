@@ -27,10 +27,10 @@ Route::model('register', 'App\Model\Register');
 |
 */
 
-Route::group(array('middleware'=>'auth'),function(){
+Route::group(array('middleware' => 'auth'), function () {
 
     Route::controller('home', 'HomeController');
-
+});
 /*
 |--------------------------------------------------------------------------
 | 会员专区
