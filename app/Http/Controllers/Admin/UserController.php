@@ -30,23 +30,24 @@ class UserController extends Controller
         $users = User::orderBy($orderby, $sortby);
 
         \DB::enableQueryLog();
-        foreach (array('status', 'sex', 'level', 'marriage', 'work_province', 'work_city', 'mobile', 'education', 'house', 'children', 'salary') as $field) {
+        foreach (array('status', 'sex', 'level', 'marriage', 'work_province', 'work_city', 'education', 'house', 'children', 'salary') as $field) {
 
             if (array_has($where, $field) && $where[$field] != -1) {
-                $users->where($field, $where[$field]);
+                $users->where($field, (string)$where[$field]);
             }
         }
 
         if (array_has($where, 'age_start') && $where['age_start'] != -1) {
-            $users->where('birthday', '>=', ageToYear($where['age_start']));
+            $users->where('birthday', '<=', ageToYear($where['age_start']));
         }
         if (array_has($where, 'age_end') && $where['age_end'] != -1) {
-            $users->where('birthday', '<=', ageToYear($where['age_end']));
+            $users->where('birthday', '>=', ageToYear($where['age_end']));
         }
 
         if (array_has($where, 'keyword') && $where['keyword']) {
 
             $users->where(function () use ($users, $where) {
+
                 $users->where('user_name', 'like', '%' . $where['keyword'] . '%');
                 $users->orWhere('mobile', $where['keyword']);
                 $users->orWhere('realname', 'like', '%' . $where['keyword'] . '%');
@@ -56,7 +57,7 @@ class UserController extends Controller
 
         $users = $users->paginate(array_get($where, 'size', 10))->appends($this->request()->all());
 
-
+        dd(\DB::getQueryLog());
         return $this->view('index')->with('users', $users);
     }
 

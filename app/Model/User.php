@@ -119,7 +119,8 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
     {
         $birthday = strtotime($this->attributes['birthday']);
         $diff = time() - $birthday;
-        return floor($diff / 31536000);
+
+        return ceil($diff / 31536000);
     }
 
     public function getAgeLangAttribute()

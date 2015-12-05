@@ -133,7 +133,8 @@ if (!function_exists('user')) {
  */
 function ageToYear($age)
 {
-    $time = strtotime(-$age);
+    $time = strtotime(-$age . 'year');
+
     return date('Y-m-d', $time);
 }
 
