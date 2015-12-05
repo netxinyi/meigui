@@ -16,8 +16,8 @@
                     <form action="" method="get">
                         <div class="form-group">
                             <label>关键词</label>
-                            <input type="text" name="keywords" class="form-control input-sm input-white"
-                                   placeholder="昵称/姓名/手机号">
+                            <input type="text" name="keyword" class="form-control input-sm input-white"
+                                   placeholder="昵称/姓名/手机号" value="{{Request::get('keyword')}}">
                         </div>
                         <div class="form-group">
                             <label>性别</label>
@@ -33,7 +33,7 @@
                             <select class="form-control input-sm input-white" name="age_start">
                                 <option value="-1">不限制</option>
                                 @for($i=18;$i<=70;$i++)
-                                    <option value="{{$i}}" {{queryActive('age_start',$i,'active')}}>{{$i}} 岁</option>
+                                    <option value="{{$i}}" {{queryActive('age_start',$i,'selected')}}>{{$i}} 岁</option>
                                 @endfor
                             </select>
                         </div>
