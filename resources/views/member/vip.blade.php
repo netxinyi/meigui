@@ -92,15 +92,15 @@
                                 </tr>
                                 <tr>
                                     <td>学历：<span class="msg_font_color">{{\App\Enum\User::$educationLang[$user->object->education]}}</span></td>
-                                    <td>婚姻状况：<span class="msg_font_color">{{\App\Enum\User::$educationLang[$user->object->marriage]}}</span></td>
+                                    <td>婚姻状况：<span class="msg_font_color">{{\App\Enum\User::$marriageLang[$user->object->marriage]}}</span></td>
                                 </tr>
                                 <tr>
-                                    <td>居住情况：<span class="msg_font_color">{{\App\Enum\User::$educationLang[$user->object->house]}}</span></td>
-                                    <td>月薪：<span class="msg_font_color">{{\App\Enum\User::$educationLang[$user->object->salary_start]}} 至 {{\App\Enum\User::$educationLang[$user->object->salary_end]}}</span></td>
+                                    <td>居住情况：<span class="msg_font_color">{{\App\Enum\User::$houseLang[$user->object->house]}}</span></td>
+                                    <td>月薪：<span class="msg_font_color">{{\App\Enum\User::$salaryLang[$user->object->salary_start]}} 至 {{\App\Enum\User::$salaryLang[$user->object->salary_end]}}</span></td>
                                 </tr>
                                 <tr>
                                     <td>籍贯：<span class="msg_font_color">{{$user->object->origin_province}} </span></td>
-                                    <td>有无孩子：<span class="msg_font_color">{{\App\Enum\User::$educationLang[$user->object->children]}}</span></td>
+                                    <td>有无孩子：<span class="msg_font_color">{{\App\Enum\User::$childrenLang[$user->object->children]}}</span></td>
                                 </tr>
                             </table>
                         </div>
