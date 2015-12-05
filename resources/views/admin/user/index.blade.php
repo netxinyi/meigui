@@ -2,101 +2,165 @@
 
 @section('title')
     会员列表 - 后台管理中心
-    @stop
+@stop
 
-    @section('content')
+@section('content')
 
-            <!-- begin panel -->
-    <div class="panel panel-inverse">
-        <div class="panel-heading">
-            <div class="panel-heading-btn">
-                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i
-                            class="fa fa-expand"></i></a>
+    <div class="p-20">
+        <!-- begin row -->
+        <div class="row">
+            <!-- begin col-2 -->
+            <div class="col-md-2">
+
+                <div class="hidden-sm hidden-xs">
+                    <form action="" method="get">
+                        <div class="form-group">
+                            <label>关键词</label>
+                            <input type="text" class="form-control input-sm input-white" placeholder="昵称/姓名/手机号">
+                        </div>
+                        <div class="form-group">
+                            <label>性别</label>
+                            <select class="form-control input-sm input-white" name="sex">
+                                <option value="-1">不限制</option>
+                                @foreach(\App\Enum\User::$sexLang as $val=>$label)
+                                    <option value="{{$val}}" {{queryActive('sex',$val,'selected')}}>{{$label}} </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>最小年龄</label>
+                            <select class="form-control input-sm input-white" name="age_start">
+                                <option value="-1">不限制</option>
+                                @for($i=18;$i<=70;$i++)
+                                    <option value="{{$i}}" {{queryActive('age_start',$i,'active')}}>{{$i}} 岁</option>
+                                @endfor
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>最大年龄</label>
+                            <select class="form-control input-sm input-white" name="age_end">
+                                <option value="-1">不限制</option>
+                                @for($i=18;$i<=70;$i++)
+                                    <option value="{{$i}}" {{queryActive('age_end',$i,'selected')}}>{{$i}} 岁</option>
+                                @endfor
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>会员状态</label>
+                            <select class="form-control input-sm input-white" name="status">
+                                <option value="-1">不限制</option>
+                                @foreach(\App\Enum\User::$statusLang as $val=>$label)
+                                    <option value="{{$val}}" {{queryActive('status',$val,'selected')}}>{{$label}} </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>会员等级</label>
+                            <select class="form-control input-sm input-white" name="level">
+                                <option value="-1">不限制</option>
+                                @foreach(\App\Enum\User::$levelLang as $val=>$label)
+                                    <option value="{{$val}}" {{queryActive('level',$val,'selected')}}>{{$label}} </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-inverse btn-xs">提交</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <h4 class="panel-title">会员列表</h4>
+            <!-- end col-2 -->
+            <!-- begin col-10 -->
+            <div class="col-md-10">
+                <form method="post">
+                    <div class="email-btn-row hidden-xs form-inline">
+                        <label class="btn btn-sm btn-inverse">
+                            <input type="checkbox">
+                            全选
+                        </label>
+
+                        <a href="#" class="btn btn-sm btn-inverse">通过审核</a>
+                        <a href="#" class="btn btn-sm btn-inverse">删除</a>
+
+                    </div>
+                    <div class="email-content">
+                        <table class="table table-email">
+                            <thead>
+                            <tr>
+                                <th class="email-select">
+                                    <a href="#" data-click="email-select-all">
+                                        <i class="fa fa-square-o fa-fw"></i>
+
+                                    </a>
+                                </th>
+                                <th>
+                                    昵称
+                                </th>
+                                <th>
+                                    性别
+                                </th>
+                                <th>
+                                    年龄
+                                </th>
+                                <th>
+                                    手机号
+                                </th>
+                                <th>
+                                    会员等级
+                                </th>
+
+                                <th>
+                                    注册时间
+                                </th>
+                                <th>
+                                    操作
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($users as $user)
+                                <tr>
+                                    <td class="email-select"><a href="#" data-click="email-select-single"><i
+                                                    class="fa fa-square-o fa-fw"></i></a></td>
+                                    <td class="email-sender">
+                                        {{$user->user_name}}
+                                    </td>
+                                    <td>
+                                        {{$user->sex_lang}}
+                                    </td>
+                                    <td>
+                                        {{$user->age_lang}}
+                                    </td>
+                                    <td>
+                                        {{$user->mobile}}
+                                    </td>
+                                    <td>
+                                        {{$user->level_lang}}
+                                    </td>
+
+                                    <td class="email-date">{{$user->created_at}}</td>
+                                    <td></td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                        <div class="email-footer clearfix">
+                            737 messages
+                            <ul class="pagination pagination-sm m-t-0 m-b-0 pull-right">
+                                <li class="disabled"><a href="javascript:;"><i class="fa fa-angle-double-left"></i></a>
+                                </li>
+                                <li class="disabled"><a href="javascript:;"><i class="fa fa-angle-left"></i></a></li>
+                                <li><a href="javascript:;"><i class="fa fa-angle-right"></i></a></li>
+                                <li><a href="javascript:;"><i class="fa fa-angle-double-right"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- end col-10 -->
         </div>
-        @if($errors->has('success'))
-            <div class="alert alert-success fade in">
-                <button type="button" class="close" data-dismiss="alert">
-                    <span aria-hidden="true">×</span>
-                </button>
-                {{$errors->first('success')}}
-            </div>
-        @endif
-        @if($errors->has('error'))
-            <div class="alert alert-danger fade in">
-                <button type="button" class="close" data-dismiss="alert">
-                    <span aria-hidden="true">×</span>
-                </button>
-                {{$errors->first('error')}}
-            </div>
-        @endif
-
-        <div class="panel-body">
-            <div class="btn-group m-r-5 m-b-5">
-                <a href="javascript:;" data-toggle="dropdown"
-                   class="btn btn-default dropdown-toggle">{{array_get(\App\Enum\User::$statusLang,Request::get('status',-1),"全部状态")}}
-                    <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="?status=-1">全部状态</a></li>
-                    <li>
-                        <a href="?status={{\App\Enum\User::STATUS_OK}}">{{\App\Enum\User::$statusLang[\App\Enum\User::STATUS_OK]}}</a>
-                    </li>
-                    <li>
-                        <a href="?status={{\App\Enum\User::STATUS_CHECK}}">{{\App\Enum\User::$statusLang[\App\Enum\User::STATUS_CHECK]}}</a>
-                    </li>
-                    <li>
-                        <a href="?status={{\App\Enum\User::STATUS_NOCHECK}}">{{\App\Enum\User::$statusLang[\App\Enum\User::STATUS_NOCHECK]}}</a>
-                    </li>
-
-                </ul>
-            </div>
-            <br/>
-
-            <div class="table-responsive">
-                <table id="data-table" class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th>用户ID</th>
-                        <th>昵称</th>
-                        <th>性别</th>
-                        <th>年龄</th>
-                        <th>手机号</th>
-                        <th>创建时间</th>
-                        <th>操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($users as $user)
-                        <tr>
-                            <td>{{$user->user_id}}</td>
-                            <td>{{$user->user_name}}</td>
-                            <td>{{$user->sex_lang}}</td>
-                            <td>{{$user->age}}</td>
-                            <td>{{$user->mobile}}</td>
-
-                            <td>{{$user->created_at}}</td>
-                            <td class="text-center">
-                                <a href="/admin/user/{{$user->user_id}}/edit"
-                                   class="btn btn-sm btn-success  m-r-5">编辑</a>
-                                <a href="admin/user/{{$user->user_id}}"
-                                   class="btn btn-sm btn-danger" data-method="delete">删除</a>
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-            </div>
-
-
-        </div>
-        <div class="panel-footer text-right">
-            <?php echo $users->render();?>
-        </div>
+        <!-- end row -->
     </div>
-    <!-- end panel -->
-
-
 
     @stop
 

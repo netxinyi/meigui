@@ -26,8 +26,11 @@ Route::model('register', 'App\Model\Register');
 |--------------------------------------------------------------------------
 |
 */
-Route::controller('home', 'HomeController');
+Route::group(array('middleware' => 'auth'), function () {
 
+    Route::controller('home', 'HomeController');
+
+});
 /*
 |--------------------------------------------------------------------------
 | 会员专区

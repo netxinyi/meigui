@@ -136,3 +136,26 @@ function ageToYear($age)
     $time = strtotime(-$age);
     return date('Y-m-d', $time);
 }
+
+function urlAdd($key, $val)
+{
+    $paramters = Request::query();
+    if (is_null($val)) {
+        unset($paramters[$key]);
+    } else {
+        $paramters[$key] = $val;
+
+    }
+    return '?' . http_build_query($paramters);
+}
+
+function queryActive($key, $val, $active = 'active')
+{
+    $query = Request::query($key);
+    if (is_numeric($query)) {
+        $query = (int)$query;
+    }
+    if ($query === $val) {
+        return ' ' . $active;
+    }
+}

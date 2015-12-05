@@ -37,10 +37,10 @@ class UserController extends Controller
             }
         }
 
-        if (array_has($where, 'age_start')) {
+        if (array_has($where, 'age_start') && $where['age_start'] != -1) {
             $users->where('birthday', '>=', ageToYear($where['age_start']));
         }
-        if (array_has($where, 'age_end')) {
+        if (array_has($where, 'age_end') && $where['age_end'] != -1) {
             $users->where('birthday', '<=', ageToYear($where['age_end']));
         }
 
@@ -48,7 +48,7 @@ class UserController extends Controller
             $users->where('user_name', 'like', '%' + $where['user_name'] + '%');
         }
 
-        $users = $users->paginate(array_get($where, 'size', 10));
+        $users = $users->paginate(array_get($where, 'size', 10))->appends($this->request()->all());
         return $this->view('index')->with('users', $users);
     }
 
