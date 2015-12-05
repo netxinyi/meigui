@@ -40,26 +40,26 @@
                             <div class="am-panel-bd">
                                 <table class="am-table">
                                     <tr>
-                                        <td>会员身份：<span class="msg_font_color">{{$user->level}}</span></td>
+                                        <td>会员身份：<span class="msg_font_color">{{$user->level_lang}}</span></td>
                                         <td></td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">认证信息是会员自愿提供，目前中国无完整渠道确保100%真实，请理性对待。</td>
                                     </tr>
                                     <tr>
-                                        <td>年龄：<span class="msg_font_color">{{$user->age_format}}</span></td>
-                                        <td>身高：<span class="msg_font_color">{{$user->height_format}}</span></td>
+                                        <td>年龄：<span class="msg_font_color">{{$user->age_lang}}</span></td>
+                                        <td>身高：<span class="msg_font_color">{{$user->height_lang}}</span></td>
                                     </tr>
                                     <tr>
                                         <td>学历：<span class="msg_font_color">{{$user->education_lang}}</span></td>
-                                        <td>婚姻状况：<span class="msg_font_color">{{\App\Enum\User::$maritalForm[$user->marital_status]}}</span></td>
+                                        <td>婚姻状况：<span class="msg_font_color">{{$user->marriage_lang}}</span></td>
                                     </tr>
                                     <tr>
                                         <td>住房：<span class="msg_font_color">独自租房</span></td>
                                         <td>月薪：<span class="msg_font_color">{{$user->salary_lang}}</span></td>
                                     </tr>
                                     <tr>
-                                        <td>籍贯：<span class="msg_font_color">{{$user->province}}</span></td>
+                                        <td>籍贯：<span class="msg_font_color">{{$user->info->origin_province}}</span></td>
                                         <td>民族：<span class="msg_font_color">汉族</span></td>
                                     </tr>
                                     <tr>
@@ -87,20 +87,20 @@
                         <div class="am-panel-bd">
                             <table class="am-table">
                                 <tr>
-                                    <td>年龄：<span class="msg_font_color">25岁</span></td>
-                                    <td>身高：<span class="msg_font_color">173cm</span></td>
+                                    <td>年龄：<span class="msg_font_color">{{$user->object->age_start}}岁 至 {{$user->object->age_end}}岁</span></td>
+                                    <td>身高：<span class="msg_font_color">{{$user->object->height_start}}cm 至 {{$user->object->height_end}}cm</span></td>
                                 </tr>
                                 <tr>
-                                    <td>学历：<span class="msg_font_color">本科</span></td>
-                                    <td>婚姻状况：<span class="msg_font_color">未婚</span></td>
+                                    <td>学历：<span class="msg_font_color">{{\App\Enum\User::$educationLang[$user->object->education]}}</span></td>
+                                    <td>婚姻状况：<span class="msg_font_color">{{\App\Enum\User::$educationLang[$user->object->marriage]}}</span></td>
                                 </tr>
                                 <tr>
-                                    <td>居住情况：<span class="msg_font_color">已购房（无房贷）</span></td>
-                                    <td>月薪：<span class="msg_font_color">5000～10000元</span></td>
+                                    <td>居住情况：<span class="msg_font_color">{{\App\Enum\User::$educationLang[$user->object->house]}}</span></td>
+                                    <td>月薪：<span class="msg_font_color">{{\App\Enum\User::$educationLang[$user->object->salary_start]}} 至 {{\App\Enum\User::$educationLang[$user->object->salary_end]}}</span></td>
                                 </tr>
                                 <tr>
-                                    <td>籍贯：<span class="msg_font_color">北京</span></td>
-                                    <td>有无孩子：<span class="msg_font_color">没有</span></td>
+                                    <td>籍贯：<span class="msg_font_color">{{$user->object->origin_province}} </span></td>
+                                    <td>有无孩子：<span class="msg_font_color">{{\App\Enum\User::$educationLang[$user->object->children]}}</span></td>
                                 </tr>
                             </table>
                         </div>
@@ -115,9 +115,7 @@
                         </header>
                         <div class="am-panel-bd">
                             <div class="ziwojieshao">
-                  <span>分手一年多了，我依旧单着。生活中并不是没出现过其他男生，但都不是适合我的类型。爱情中我并不高傲，但真的宁愿单着，都不要选择不适合自己的人随便拍拖。
-　　一个女孩子挺孤单的，身边的闺蜜都相继结婚拍拖，忙着没时间陪我了。以前读书时从没想过我会去参加相亲，到了这个年纪仍然找不到男朋友。引用一句话：生活就是这样，让幸福的人一直幸福，徘徊的人一直徘徊。又有人说：婚姻可以找，而爱情只可以等。而我，仍是那个在徘徊与等待的人。
-　　我在佛山南海的一家银行上班，希望可以找个工作稳定的实在男生，最好是在佛山，一起踏踏实实的过日子。我给人的印象是斯文型，生活中较爱干净，喜欢旅行，游泳，偶尔一个人安静的阅读。希望在这里能遇到对的你。</span>
+                              <span>{{$user->info->introduce}}</span>
                             </div>
                         </div>
                     </div>
