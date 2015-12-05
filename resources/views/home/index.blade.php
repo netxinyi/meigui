@@ -1,8 +1,7 @@
 @extends('home.layout')
 
 @section('content')
-    <form class="am-form" id="index-form" method="post" onsubmit="return false;" action="home/update"
- >
+    <form class="am-form" id="index-form" method="post" onsubmit="return false;" action="/home/update" >
         <div class="am-panel am-panel-default">
             <header class="am-panel-hd">
                 <h3 class="am-panel-title">基本信息</h3>

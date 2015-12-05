@@ -68,4 +68,27 @@ class HomeController extends Controller
         return $this->rest()->success('修改成功！');
 
     }
+
+
+     // 保存详细信息
+     public function postXiangxi()
+    {
+         //接收数据
+        $info_data = $this->request()->only('card','stock','qq','email','origin_province','origin_city');
+        $user_data = $this->request()->only('mobile');
+// dd($info_data);
+        $this->validate($this->request(), $rules= array(
+            'mobile' => 'required|digits:11|exists:users',
+        ), array(
+            'mobile.required' => '手机号码不能为空',
+            'mobile.digits' => '手机号码是11位',
+        ));
+
+        user()->info()->update($info_data);
+        user()->update($user_data);
+        return $this->rest()->success('修改成功！');
+        
+
+    }
+
 }
