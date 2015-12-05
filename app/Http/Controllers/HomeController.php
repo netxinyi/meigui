@@ -17,10 +17,6 @@ class HomeController extends Controller
 
     public function getIndex()
     {
-        // $data = user();
-      // dd($data['attributes']);
-      // $user_data =  User::get()->toArray();
- 
         return $this->view('index');
     }
 
@@ -76,18 +72,21 @@ class HomeController extends Controller
          //接收数据
         $info_data = $this->request()->only('card','stock','qq','email','origin_province','origin_city');
         $user_data = $this->request()->only('mobile');
-// dd($info_data);
+
         $this->validate($this->request(), $rules= array(
             'mobile' => 'required|digits:11|exists:users',
+            'qq' => 'numeric',
+            'email' => 'email',
         ), array(
             'mobile.required' => '手机号码不能为空',
             'mobile.digits' => '手机号码是11位',
+            'qq.numeric' => 'QQ格式有误',
+            'email.email' => '邮箱格式有误',
         ));
 
         user()->info()->update($info_data);
         user()->update($user_data);
         return $this->rest()->success('修改成功！');
-        
 
     }
 
