@@ -57,7 +57,6 @@ class UserController extends Controller
 
         $users = $users->paginate(array_get($where, 'size', 10))->appends($this->request()->all());
 
-        dd(\DB::getQueryLog());
         return $this->view('index')->with('users', $users);
     }
 
