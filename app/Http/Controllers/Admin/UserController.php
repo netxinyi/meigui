@@ -29,7 +29,7 @@ class UserController extends Controller
 
         $users = User::orderBy($orderby, $sortby);
 
-
+        \DB::enableQueryLog();
         foreach (array('status', 'sex', 'level', 'marriage', 'work_province', 'work_city', 'mobile', 'education', 'house', 'children', 'salary') as $field) {
 
             if (array_has($where, $field) && $where[$field] != -1) {
@@ -44,11 +44,19 @@ class UserController extends Controller
             $users->where('birthday', '<=', ageToYear($where['age_end']));
         }
 
-        if (array_has($where, 'user_name')) {
-            $users->where('user_name', 'like', '%' + $where['user_name'] + '%');
+        if (array_has($where, 'keyword') && $where['keyword']) {
+
+            $users->where(function () use ($users, $where) {
+                $users->where('user_name', 'like', '%' . $where['keyword'] . '%');
+                $users->orWhere('mobile', $where['keyword']);
+                $users->orWhere('realname', 'like', '%' . $where['keyword'] . '%');
+            });
+
         }
 
         $users = $users->paginate(array_get($where, 'size', 10))->appends($this->request()->all());
+
+
         return $this->view('index')->with('users', $users);
     }
 

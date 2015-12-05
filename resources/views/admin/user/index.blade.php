@@ -16,7 +16,8 @@
                     <form action="" method="get">
                         <div class="form-group">
                             <label>关键词</label>
-                            <input type="text" class="form-control input-sm input-white" placeholder="昵称/姓名/手机号">
+                            <input type="text" name="keywords" class="form-control input-sm input-white"
+                                   placeholder="昵称/姓名/手机号">
                         </div>
                         <div class="form-group">
                             <label>性别</label>
@@ -73,16 +74,6 @@
             <!-- begin col-10 -->
             <div class="col-md-10">
                 <form method="post">
-                    <div class="email-btn-row hidden-xs form-inline">
-                        <label class="btn btn-sm btn-inverse">
-                            <input type="checkbox">
-                            全选
-                        </label>
-
-                        <a href="#" class="btn btn-sm btn-inverse">通过审核</a>
-                        <a href="#" class="btn btn-sm btn-inverse">删除</a>
-
-                    </div>
                     <div class="email-content">
                         <table class="table table-email">
                             <thead>
@@ -139,20 +130,20 @@
                                     </td>
 
                                     <td class="email-date">{{$user->created_at}}</td>
-                                    <td></td>
+                                    <td>
+                                        <a class="btn btn-success btn-sm"
+                                           href="/admin/user/{{$user->user_id}}/edit">编辑</a>
+                                        <a class="btn btn-danger btn-sm" href="/admin/user/{{$user->user_id}}"
+                                           data-method="delete">删除</a>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
                         <div class="email-footer clearfix">
-                            737 messages
-                            <ul class="pagination pagination-sm m-t-0 m-b-0 pull-right">
-                                <li class="disabled"><a href="javascript:;"><i class="fa fa-angle-double-left"></i></a>
-                                </li>
-                                <li class="disabled"><a href="javascript:;"><i class="fa fa-angle-left"></i></a></li>
-                                <li><a href="javascript:;"><i class="fa fa-angle-right"></i></a></li>
-                                <li><a href="javascript:;"><i class="fa fa-angle-double-right"></i></a></li>
-                            </ul>
+                            共 {{$users->total() }} 条记录
+                            <?php echo str_replace('pagination', 'pagination pagination-sm m-t-0 m-b-0 pull-right', $users->render());?>
+
                         </div>
                     </div>
                 </form>
