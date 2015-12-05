@@ -8,7 +8,6 @@ use Illuminate\Routing\Controller as BaseController;
 use App\Providers\Rest\RestServiceTrait;
 
 
-
 abstract class Controller extends BaseController
 {
 
@@ -26,8 +25,8 @@ abstract class Controller extends BaseController
      * 响应一个视图
      *
      * @param string $view
-     * @param array  $data
-     * @param array  $mergeData
+     * @param array $data
+     * @param array $mergeData
      *
      * @return \Illuminate\View\View
      */
@@ -46,15 +45,19 @@ abstract class Controller extends BaseController
      * 响应失败消息
      *
      * @param string $message
-     * @param int    $code
-     * @param array  $data
+     * @param int $code
+     * @param array $data
      *
      * @return $this|\App\Http\Controllers\Controller|\Illuminate\Contracts\Routing\ResponseFactory
      */
     protected function error($message = '', $code = 500, $data = array())
     {
 
-        return $this->success($message, $data, $code);
+        if ($this->request()->ajax() || $this->request()->wantsJson()) {
+            return $this->rest()->make($data, $message, $code);
+        }
+
+        return $this->redirect()->back()->withErrors(array('error' => $message));
     }
 
 
@@ -62,15 +65,18 @@ abstract class Controller extends BaseController
      * 响应成功消息
      *
      * @param string $message
-     * @param array  $data
-     * @param int    $code
+     * @param array $data
+     * @param int $code
      *
      * @return $this|\Illuminate\Contracts\Routing\ResponseFactory
      */
     protected function success($message = '', $data = array(), $code = 1000)
     {
+        if ($this->request()->ajax() || $this->request()->wantsJson()) {
+            return $this->rest()->make($data, $message, $code);
+        }
 
-        return $this->rest()->make($data, $message, $code);
+        return $this->redirect()->back()->withErrors(array('success' => $message));
     }
 
 
@@ -78,9 +84,9 @@ abstract class Controller extends BaseController
      * 返回一个redirect实例
      *
      * @param  string|null $to
-     * @param  int         $status
-     * @param  array       $headers
-     * @param  bool        $secure
+     * @param  int $status
+     * @param  array $headers
+     * @param  bool $secure
      *
      * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
@@ -106,8 +112,8 @@ abstract class Controller extends BaseController
      * 返回一个Response实例
      *
      * @param string $content
-     * @param int    $status
-     * @param array  $headers
+     * @param int $status
+     * @param array $headers
      *
      * @return \Illuminate\Http\Response
      */

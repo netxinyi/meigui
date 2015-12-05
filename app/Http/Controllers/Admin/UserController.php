@@ -21,9 +21,34 @@ class UserController extends Controller
 
     public function index()
     {
+        $where = $this->request()->all();
 
-        $users = User::all(['user_id', 'user_name', 'sex', 'mobile', 'created_at', 'birthday']);
+        $orderby = array_get($where, 'order', 'created_at');
+        $sortby = array_get($where, 'sort', 'desc');
 
+
+        $users = User::orderBy($orderby, $sortby);
+
+
+        foreach (array('status', 'sex', 'level', 'marriage', 'work_province', 'work_city', 'mobile', 'education', 'house', 'children', 'salary') as $field) {
+
+            if (array_has($where, $field) && $where[$field] != -1) {
+                $users->where($field, $where[$field]);
+            }
+        }
+
+        if (array_has($where, 'age_start')) {
+            $users->where('birthday', '>=', ageToYear($where['age_start']));
+        }
+        if (array_has($where, 'age_end')) {
+            $users->where('birthday', '<=', ageToYear($where['age_end']));
+        }
+
+        if (array_has($where, 'user_name')) {
+            $users->where('user_name', 'like', '%' + $where['user_name'] + '%');
+        }
+
+        $users = $users->paginate(array_get($where, 'size', 10));
         return $this->view('index')->with('users', $users);
     }
 
@@ -46,27 +71,29 @@ class UserController extends Controller
             'mobile' => 'required|digits:11',
             'birthday' => 'required|date',
             'sex' => 'required|in:' . array_keys_impload(UserEnum::$sexLang),
-            'password' => 'required|min:5|max:20',
-            'password_confirm' => 'required|required_with:password|same:password',
-            'marital_status' => 'in:' . array_keys_impload(UserEnum::$marriageLang),
-            'height' => 'digits:3|between:130,210',
+            'password' => 'min:5|max:20',
+            'password_confirm' => 'required_with:password|same:password',
+            'marriage' => 'in:' . array_keys_impload(UserEnum::$marriageLang),
+            'height' => 'numeric|digits:3|min:130|max:210',
             'education' => 'in:' . array_keys_impload(UserEnum::$educationLang),
-            'salary' => 'in:' . array_keys_impload(UserEnum::$salaryLang),
-            'user_name' => 'required|min:2|max:15|unique:users',
+            'salary' => 'in:' . array_keys_impload(UserEnum::$salaryLang)
         ]);
 
         $form = $this->request()->only([
             'user_name',
             'mobile',
             'birthday',
-            'password',
-            'marital_status',
+            'marriage',
             'height',
             'education',
             'salary',
-            'province',
-            'city',
-            'area'
+            'work_province',
+            'work_city',
+            'level',
+            'house',
+            'children',
+            'realname',
+            'status'
         ]);
         if ($user = User::create($form)) {
             return $this->success('添加成功', $user);
@@ -99,7 +126,8 @@ class UserController extends Controller
             'height' => 'numeric|digits:3|min:130|max:210',
             'education' => 'in:' . array_keys_impload(UserEnum::$educationLang),
             'salary' => 'in:' . array_keys_impload(UserEnum::$salaryLang),
-            'user_name' => 'required|min:2|max:15|unique:users,user_name,' . $user->user_id . ',user_id'
+            'user_name' => 'required|min:2|max:15',
+
         ]);
 
 
@@ -113,6 +141,11 @@ class UserController extends Controller
             'salary',
             'work_province',
             'work_city',
+            'level',
+            'house',
+            'children',
+            'realname',
+            'status'
 
         ]);
 
@@ -120,11 +153,24 @@ class UserController extends Controller
             $form['password'] = $password;
         }
 
-        if ($user->update($form)) {
-            return $this->success('保存成功', $user);
+        $info = $this->request()->only(array(
+            'stock', 'origin_province', 'origin_city', 'introduce'
+        ));
+
+        $object = $this->request()->get('object');
+
+        try {
+            transaction();
+            $user->update($form);
+            $user->info()->update($info);
+            $user->object()->update($object);
+            commit();
+            return $this->redirect()->back()->withErrors(array('success' => '保存成功'));
+        } catch (\Exception $e) {
+            rollback();
         }
 
-        return $this->error('修改失败，请稍后再试');
+        return $this->redirect()->back()->withErrors(array('error' => '修改失败，请稍后再试'));
     }
 
 

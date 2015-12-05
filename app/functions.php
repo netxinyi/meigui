@@ -126,3 +126,13 @@ if (!function_exists('user')) {
         return Auth::user();
     }
 }
+/**
+ * 根据年龄算生日的年
+ * @param $age
+ * @return bool|string
+ */
+function ageToYear($age)
+{
+    $time = strtotime(-$age);
+    return date('Y-m-d', $time);
+}
