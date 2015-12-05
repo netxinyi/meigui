@@ -12,7 +12,7 @@
                 <div class="side-1">
                     <div class="side-1-img">
                         <a href="/home/avatar">
-                            <img class="am-img-thumbnail am-circle" src="" width="140" height="140"/></a>
+                            <img class="am-img-thumbnail am-circle" src="{{user()->avatar}}" width="140" height="140"/></a>
                     </div>
                 </div>
                 <div class="side-2" id="caidan">

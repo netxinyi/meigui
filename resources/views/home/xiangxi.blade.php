@@ -14,27 +14,27 @@
                     </tr>
                     <tr>
                         <td>真实姓名:</td>
-                        <td>唐国强</td>
+                        <td>{{user()->realname}}</td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>身份证号：</td>
-                        <td><input type="text"></td>
+                        <td><input  type="text"  name="card" value="{{user()->info->card}}"></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>手机号码:</td>
-                        <td><input type="text"></td>
+                        <td><input type="text" name="mobile" value="{{user()->mobile}}"></td>
                         <td>请填写正确号码，方便联系！</td>
                     </tr>
                     <tr>
                         <td>邮箱:</td>
-                        <td><input type="text"></td>
+                        <td><input  type="text"  name="email" value="{{user()->info->email}}"></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>QQ：</td>
-                        <td><input type="text"></td>
+                        <td><input type="text"  name="qq" value="{{user()->info->qq}}"></td>
                         <td></td>
                     </tr>
                     <tr>

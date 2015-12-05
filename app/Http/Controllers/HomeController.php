@@ -17,8 +17,8 @@ class HomeController extends Controller
 
     public function getIndex()
     {
-        $data = user();
-        dd($data);
+        // $data = user();
+      // dd($data['attributes']);
       // $user_data =  User::get()->toArray();
  
         return $this->view('index');
@@ -49,6 +49,23 @@ class HomeController extends Controller
     public function getJieshao()
     {
         return $this->view('jieshao');
+
+    }
+
+    // 保存基本信息
+     public function postUpdate()
+    {
+        //接收数据
+        $data = $this->request()->only('user_name','height','education','marriage','salary');
+
+          $this->validate($this->request(), array(
+            'user_name' => 'required',
+        ), array(
+            'user_name.required' => '昵称不能为空！',
+        ));
+
+        user()->update($data);
+        return $this->rest()->success('修改成功！');
 
     }
 }
