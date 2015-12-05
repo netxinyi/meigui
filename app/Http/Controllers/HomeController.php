@@ -90,4 +90,23 @@ class HomeController extends Controller
 
     }
 
+     // 保存自我介绍信息
+     public function postJieshao()
+    {
+         //接收数据
+        $data = $this->request()->only('introduce');
+
+        $this->validate($this->request(), $rules= array(
+            'introduce' => 'required',
+          
+        ), array(
+            'introduce.required' => '自我介绍内容不能为空',
+          
+        ));
+
+        user()->info()->update($data);
+        return $this->rest()->success('修改成功！');
+
+    }
+
 }

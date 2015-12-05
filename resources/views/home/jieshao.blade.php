@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <form class="am-form">
+    <form class="am-form"  id="jieshao-form" method="post" onsubmit="return false;" action="/home/jieshao">
         <div class="am-panel am-panel-default">
             <header class="am-panel-hd">
                 <h3 class="am-panel-title">自我介绍</h3>
@@ -11,7 +11,7 @@
                 <table class="am-table am-table-striped am-table-hover ">
                     <tr>
                         <td colspan="3">
-                            <textarea name="" id="" cols="30" rows="10"></textarea>
+                            <textarea name="introduce" id="" cols="30" rows="10">{{user()->info->introduce}}</textarea>
                         </td>
                     </tr>
                     <td colspan="3">温馨提示：<br/>
@@ -23,7 +23,8 @@
                     <tr>
                         <td></td>
                         <td>
-                            <button type="button" class="am-btn am-btn-danger dy_btn_color">保存信息</button>
+                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <button type="submit" class="am-btn am-btn-danger dy_btn_color">保存信息</button>
                         </td>
                         <td></td>
                     </tr>
@@ -31,4 +32,17 @@
             </div>
         </div>
     </form>
+@stop
+
+@section('footer-last-js')
+    <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+    <script>
+      
+        $(function () {
+             $('#jieshao-form').success(function () {
+               //$.redirect(null, 2);
+             }).form();
+
+        });
+    </script>
 @stop
