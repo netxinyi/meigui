@@ -59,8 +59,8 @@
             <div class="am-form-group">
                 <label for="doc-select-1">性别</label>
                 <select name="sex" id="doc-select-1">
-                    <option value="0">女士</option>
-                    <option value="1">男士</option>
+                    <option value="{{\App\Enum\User::SEX_FEMALE}}">女士</option>
+                    <option value="{{\App\Enum\User::SEX_MALE}}">男士</option>
                 </select>
                 <span class="am-form-caret"></span>
             </div>

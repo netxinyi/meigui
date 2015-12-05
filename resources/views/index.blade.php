@@ -28,7 +28,7 @@
                             <div class="radio_location">
                                 <input type="radio" name="sex" id="sex_1" value="{{\App\Enum\User::SEX_MALE}}" checked>
                                 <label for="sex_1">男</label>
-                                <input type="radio" name="sex" value="{{\App\Enum\User::SEX_MALE}}">
+                                <input type="radio" name="sex" value="{{\App\Enum\User::SEX_FEMALE}}">
                                 <label for="sex_0">女</label><br>
                             </div>
                         </div>
