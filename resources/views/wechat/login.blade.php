@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>会员登录</title>
+    <title>会员绑定</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -33,7 +33,7 @@
 <header data-am-widget="header" class="am-header am-header-default">
     <h1 class="am-header-title">
         <a href="#title-link" class="">
-            会员登录
+            会员绑定
         </a>
     </h1>
 </header>
@@ -41,10 +41,11 @@
 <div>
     <form class="am-form" action="{{url('weixin/login')}}" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="openid" value="{{$_GET['openid']}}"/>
         <fieldset>
 
             <div class="am-form-group">
-                <label for="doc-ipt-email-1">手机</label>
+                <label for="doc-ipt-email-1">手机号</label>
                 <input type="text" name="mobile" class="" placeholder="输入手机">
             </div>
             <font color="red"><?php echo $errors->first('mobile'); ?></font>
@@ -57,9 +58,8 @@
             <font color="red"><?php echo $errors->first('error'); ?></font>
 
             <p>
-                <button type="submit" class="am-btn am-btn-warning am-btn-block btn_color">登录</button>
+                <button type="submit" class="am-btn am-btn-warning am-btn-block btn_color">绑定</button>
             </p>
-            <a href="{{url('weixin/register')}}" class="am-btn am-btn-warning am-btn-block btn_color">没有账号?点我注册</a>
         </fieldset>
     </form>
 
