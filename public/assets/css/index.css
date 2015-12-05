@@ -649,3 +649,6 @@
 .home_btn {
     width: 48%;
 }
+
+.zeou_table_select{width: 200px !important;}
+.zeou_table_select_n_left{float:left;}
