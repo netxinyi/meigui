@@ -17,7 +17,7 @@ class Scase extends BaseModel
      *
      * @var string
      */
-    protected $table = 'cases';
+    protected $table = 'case';
 
 
     protected $primaryKey = 'case_id';

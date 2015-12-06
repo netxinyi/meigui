@@ -36,10 +36,11 @@
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>用户名</th>
-                        <th>E-Mail</th>
-                        <th>角色</th>
-                        <th>状态</th>
+                        <th>标题</th>
+                        <th>男主角</th>
+                        <th>女主角</th>
+                        <th>照片</th>
+                        <th>封面</th>
                         <th>创建时间</th>
                         <th>操作</th>
                     </tr>

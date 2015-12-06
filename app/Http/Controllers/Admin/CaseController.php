@@ -20,5 +20,17 @@ class CaseController extends Controller
 
     protected $model      = 'App\Model\Scase';
 
+    public function index(){
+        return $this->view('index');
+    }
+
+    public function create(){
+        return $this->view('create');
+    }
+
+    public function store(){
+        $form = $this->request()->all();
+        dd($form);
+    }
 
 }
