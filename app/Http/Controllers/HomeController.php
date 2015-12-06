@@ -121,4 +121,9 @@ class HomeController extends Controller
 
     }
 
+
+    public function postPhoto()
+    {
+
+    }
 }
