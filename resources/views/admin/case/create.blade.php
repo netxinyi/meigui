@@ -53,7 +53,7 @@
                     <label class="col-md-2 control-label">男主角</label>
 
                     <div class="col-md-8">
-                        <input type="text" class="form-control" placeholder="" name="male"
+                        <input type="text" class="form-control" placeholder="男主角id" name="male"
                                value="{{old('male_id')}}"/>
                         @if($errors->has('male_id'))
                             <ul class="parsley-errors-list filled">
@@ -68,7 +68,7 @@
                     <label class="col-md-2 control-label">女主角</label>
 
                     <div class="col-md-8">
-                        <input type="text" class="form-control" placeholder="" name="female"
+                        <input type="text" class="form-control" placeholder="女主角id" name="female"
                                value="{{old('female_id')}}"/>
                         @if($errors->has('female_id'))
                             <ul class="parsley-errors-list filled">

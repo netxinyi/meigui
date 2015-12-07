@@ -32,5 +32,4 @@ class CaseController extends Controller
         $form = $this->request()->all();
         dd($form);
     }
-
 }
