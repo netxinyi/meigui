@@ -244,7 +244,6 @@
     <!--[if (gte IE 8)&(lt IE 10)]>
     <script src="/assets/lib/jquery-file-upload/js/cors/jquery.xdr-transport.js"></script>
     <![endif]-->
-    <script src="/assets/js/form-multiple-upload.demo.min.js"></script>
     <script src="/assets/js/apps.min.js"></script>
     <!-- ================== END PAGE LEVEL JS ================== -->
     <script type="text/javascript" charset="utf-8" src="/assets/lib/umeditor/umeditor.config.js"></script>
@@ -253,6 +252,30 @@
     <script type="text/javascript">
         //实例化编辑器
         var um = UM.getEditor('html-editor');
+
+        $("#fileupload").fileupload({
+            autoUpload: false,
+            disableImageResize: /Android(?!.*Chrome)|Opera/.test(window.navigator.userAgent),
+            maxFileSize: 5e6,
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+        });
+        $("#fileupload").fileupload("option", "redirect", window.location.href.replace(/\/[^\/]*$/, "/cors/result.html?%s"));
+        if ($.support.cors) {
+            $.ajax({type: "HEAD"}).fail(function () {
+                $('<div class="alert alert-danger"/>').text("Upload server currently unavailable - " + new Date).appendTo("#fileupload")
+            })
+        }
+        $("#fileupload").addClass("fileupload-processing");
+
+        $.ajax({
+            url: $("#fileupload").fileupload("option", "url"),
+            dataType: "json",
+            context: $("#fileupload")[0]
+        }).always(function () {
+            $(this).removeClass("fileupload-processing")
+        }).done(function (e) {
+            $(this).fileupload("option", "done").call(this, $.Event("done"), {result: e})
+        })
     </script>
 @stop
 

@@ -44,7 +44,7 @@
     <script>
         $(document).ready(function () {
             App.init();
-            FormMultipleUpload.init();
+
         });
     </script>
 @stop

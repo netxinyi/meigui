@@ -14,22 +14,27 @@ class CaseController extends Controller
 {
 
 
-    use ResourceTrait;
-
     protected $viewPrefix = 'admin.case';
 
-    protected $model      = 'App\Model\Scase';
 
-    public function index(){
+    public function index()
+    {
         return $this->view('index');
     }
 
-    public function create(){
+    public function create()
+    {
         return $this->view('create');
     }
 
-    public function store(){
+    public function store()
+    {
         $form = $this->request()->all();
         dd($form);
+    }
+
+    public function postImages()
+    {
+
     }
 }
