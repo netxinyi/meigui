@@ -2,10 +2,10 @@
 
 @section('title')
     添加案例 - 后台管理中心
-@stop
+    @stop
 
-@section('content')
-    <!-- begin panel -->
+    @section('content')
+            <!-- begin panel -->
     <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
         <div class="panel-heading">
             <div class="panel-heading-btn">
@@ -30,7 +30,8 @@
                     <span class="close" data-dismiss="alert">×</span>
                 </div>
             @endif
-            <form id="fileupload" class="form-horizontal" action="{{route('admin.case.store')}}" method="post" enctype ="multipart/form-data">
+            <form id="fileupload" class="form-horizontal" action="{{route('admin.case.store')}}" method="post"
+                  enctype="multipart/form-data">
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
 
 
@@ -81,13 +82,14 @@
 
                 <div class="form-group">
                     <label class="col-md-2 control-label">照片</label>
+
                     <div class="row fileupload-buttonbar">
                         <div class="col-lg-7">
                             <!-- The fileinput-button span is used to style the file input field as button -->
                 <span class="btn btn-success fileinput-button">
                     <i class="glyphicon glyphicon-plus"></i>
                     <span>添加</span>
-                    <input type="file" name="files[]" multiple>
+                    <input type="file" name="image" multiple>
                 </span>
                             <button type="submit" class="btn btn-primary start">
                                 <i class="glyphicon glyphicon-upload"></i>
@@ -103,7 +105,8 @@
                         <!-- The global progress state -->
                         <div class="col-lg-5 fileupload-progress fade">
                             <!-- The global progress bar -->
-                            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                 aria-valuemax="100">
                                 <div class="progress-bar progress-bar-success" style="width:0%;"></div>
                             </div>
                             <!-- The extended global progress state -->
@@ -111,7 +114,9 @@
                         </div>
                     </div>
                     <!-- The table listing the files available for upload/download -->
-                    <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
+                    <table role="presentation" class="table table-striped">
+                        <tbody class="files"></tbody>
+                    </table>
                 </div>
 
 
@@ -137,7 +142,7 @@
     </div>
     <!-- end panel -->
 
-{{--文件上传相关start--}}
+    {{--文件上传相关start--}}
     <!-- The blueimp Gallery widget -->
     <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-filter=":even">
         <div class="slides"></div>
@@ -179,7 +184,10 @@
         </td>
     </tr>
 {% } %}
-</script>
+
+
+
+    </script>
     <!-- The template to display files available for download -->
     <script id="template-download" type="text/x-tmpl">
 {% for (var i=0, file; file=o.files[i]; i++) { %}
@@ -222,12 +230,15 @@
         </td>
     </tr>
 {% } %}
-</script>
-    {{--文件上传相关end--}}
-@stop
 
-@section('footer-last-js')
-    <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+
+
+    </script>
+    {{--文件上传相关end--}}
+    @stop
+
+    @section('footer-last-js')
+            <!-- ================== BEGIN PAGE LEVEL JS ================== -->
     <script src="/assets/lib/jquery-file-upload/js/vendor/jquery.ui.widget.js"></script>
     <script src="/assets/lib/jquery-file-upload/js/vendor/tmpl.min.js"></script>
     <script src="/assets/lib/jquery-file-upload/js/vendor/load-image.min.js"></script>
@@ -254,36 +265,26 @@
         var um = UM.getEditor('html-editor');
 
         $("#fileupload").fileupload({
+            url: '/admin/case/image',
             autoUpload: false,
             disableImageResize: /Android(?!.*Chrome)|Opera/.test(window.navigator.userAgent),
             maxFileSize: 5e6,
-            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+            done: function (e, o) {
+                var url = o.response().result.image.url;
+                $('#fileupload').append('<input type="hidden" name="images[]" value="' + url + '">');
+                return true;
+            }
         });
-        $("#fileupload").fileupload("option", "redirect", window.location.href.replace(/\/[^\/]*$/, "/cors/result.html?%s"));
-        if ($.support.cors) {
-            $.ajax({type: "HEAD"}).fail(function () {
-                $('<div class="alert alert-danger"/>').text("Upload server currently unavailable - " + new Date).appendTo("#fileupload")
-            })
-        }
-        $("#fileupload").addClass("fileupload-processing");
 
-        $.ajax({
-            url: $("#fileupload").fileupload("option", "url"),
-            dataType: "json",
-            context: $("#fileupload")[0]
-        }).always(function () {
-            $(this).removeClass("fileupload-processing")
-        }).done(function (e) {
-            $(this).fileupload("option", "done").call(this, $.Event("done"), {result: e})
-        })
     </script>
-@stop
+    @stop
 
-@section('last-css')
-    <!-- ================== BEGIN PAGE LEVEL CSS STYLE ================== -->
-    <link href="/assets/admin/css/blueimp-gallery.min.css" rel="stylesheet" />
-    <link href="/assets/admin/css/jquery.fileupload.css" rel="stylesheet" />
-    <link href="/assets/admin/css/jquery.fileupload-ui.css" rel="stylesheet" />
+    @section('last-css')
+            <!-- ================== BEGIN PAGE LEVEL CSS STYLE ================== -->
+    <link href="/assets/admin/css/blueimp-gallery.min.css" rel="stylesheet"/>
+    <link href="/assets/admin/css/jquery.fileupload.css" rel="stylesheet"/>
+    <link href="/assets/admin/css/jquery.fileupload-ui.css" rel="stylesheet"/>
     <!-- ================== END PAGE LEVEL CSS STYLE ================== -->
     <link href="/assets/lib/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
     <style>

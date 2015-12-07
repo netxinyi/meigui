@@ -33,8 +33,20 @@ class CaseController extends Controller
         dd($form);
     }
 
-    public function postImages()
+    public function postImage()
     {
+        $image = $this->request()->file('image');
 
+        $name = md5($image->getClientOriginalName() . rand(100, 99999)) . '.' . $image->getClientOriginalExtension();
+        $file = $image->move(public_path('/') . 'uploads/case', $name);
+
+        return array(
+            'image' => array(
+                'name' => $name,
+                'size' => $file->getSize(),
+                'type' => $file->getMimeType(),
+                'url' => url('/uploads/case/' . $name)
+            )
+        );
     }
 }
