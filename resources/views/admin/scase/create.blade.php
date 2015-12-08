@@ -30,7 +30,7 @@
                     <span class="close" data-dismiss="alert">×</span>
                 </div>
             @endif
-            <form id="fileupload" class="form-horizontal" action="{{route('admin.case.store')}}" method="post"
+            <form id="fileupload" class="form-horizontal" action="{{route('admin.scase.store')}}" method="post"
                   enctype="multipart/form-data">
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
 
@@ -271,7 +271,7 @@
         var um = UM.getEditor('html-editor');
 
         $("#fileupload").fileupload({
-            url: '/admin/case/image',
+            url: '/admin/scase/image',
             autoUpload: false,
             disableImageResize: /Android(?!.*Chrome)|Opera/.test(window.navigator.userAgent),
             maxFileSize: 5e6,

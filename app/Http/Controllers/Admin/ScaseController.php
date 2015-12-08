@@ -10,11 +10,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Model\Scase;
 
-class CaseController extends Controller
+class ScaseController extends Controller
 {
 
 
-    protected $viewPrefix = 'admin.case';
+    protected $viewPrefix = 'admin.scase';
 
 
     public function index()
@@ -48,7 +48,9 @@ class CaseController extends Controller
 		}
     }
 
-	//图片上传
+	/*
+	 * 图片上传
+	 * */
     public function postImage()
     {
         $image = $this->request()->file('image');
@@ -65,4 +67,9 @@ class CaseController extends Controller
             )
         );
     }
+
+	public function edit(Scase $scase){
+		return $this->view('edit')->with('case',$scase);
+	}
+
 }

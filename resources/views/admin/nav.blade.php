@@ -80,8 +80,8 @@
                     <span>成功案例</span>
                 </a>
                 <ul class="sub-menu">
-                    <li><a href="{{route('admin.case.index')}}">案例列表</a></li>
-                    <li><a href="{{route('admin.case.create')}}">添加案例</a></li>
+                    <li><a href="{{route('admin.scase.index')}}">案例列表</a></li>
+                    <li><a href="{{route('admin.scase.create')}}">添加案例</a></li>
                 </ul>
             </li>
             @if(Auth::check() && Auth::user()->admin_role == App\Enum\Admin::ROLE_SUPERADMIN)

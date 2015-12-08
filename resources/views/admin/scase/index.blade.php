@@ -54,7 +54,7 @@
                         <td><img width="100" height="100" src="{{$case->cover}}" alt=""/></td>
                         <td>{{$case->created_at}}</td>
                         <td>
-                            <a href=""
+                            <a href="{{route('admin.scase.edit',['case_id'=>$case->case_id])}}"
                                class="btn btn-sm btn-success  m-r-5">编辑</a>
                             <a href=""
                                class="btn btn-sm btn-danger" data-method="delete">删除</a>

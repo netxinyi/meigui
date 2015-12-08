@@ -110,9 +110,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
 
     #用户管理
     Route::resource('user', 'Admin\UserController');
-    Route::post('case/image', 'Admin\CaseController@postImage');
+    Route::post('scase/image', 'Admin\ScaseController@postImage');
     #成功案例
-    Route::resource('case', 'Admin\CaseController');
+    Route::resource('scase', 'Admin\ScaseController');
 
 });
 
