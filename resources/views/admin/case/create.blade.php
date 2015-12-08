@@ -54,7 +54,7 @@
                     <label class="col-md-2 control-label">男主角</label>
 
                     <div class="col-md-8">
-                        <input type="text" class="form-control" placeholder="男主角id" name="male"
+                        <input type="text" class="form-control" placeholder="男主角id" name="male_id"
                                value="{{old('male_id')}}"/>
                         @if($errors->has('male_id'))
                             <ul class="parsley-errors-list filled">
@@ -69,7 +69,7 @@
                     <label class="col-md-2 control-label">女主角</label>
 
                     <div class="col-md-8">
-                        <input type="text" class="form-control" placeholder="女主角id" name="female"
+                        <input type="text" class="form-control" placeholder="女主角id" name="female_id"
                                value="{{old('female_id')}}"/>
                         @if($errors->has('female_id'))
                             <ul class="parsley-errors-list filled">
@@ -101,6 +101,12 @@
                             </button>
                             <!-- The global file processing state -->
                             <span class="fileupload-process"></span>
+                            <span style="color:red">默认第一张为封面</span>
+                            @if($errors->has('photos'))
+                                <ul class="parsley-errors-list filled">
+                                    <li class="parsley-required">{{$errors->first('photos')}}</li>
+                                </ul>
+                            @endif
                         </div>
                         <!-- The global progress state -->
                         <div class="col-lg-5 fileupload-progress fade">
@@ -272,7 +278,7 @@
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
             done: function (e, o) {
                 var url = o.response().result.image.url;
-                $('#fileupload').append('<input type="hidden" name="images[]" value="' + url + '">');
+                $('#fileupload').append('<input type="hidden" name="photos[]" value="' + url + '">');
                 return true;
             },
             progressall: function (e, data) {

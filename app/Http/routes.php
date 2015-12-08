@@ -9,6 +9,7 @@ Route::model('column', 'App\Model\Column');
 Route::model('article', 'App\Model\Article');
 Route::model('guestbook', 'App\Model\GuestBook');
 Route::model('register', 'App\Model\Register');
+Route::model('scase', 'App\Model\Scase');
 /*
 |--------------------------------------------------------------------------
 | Application Routes

@@ -8,7 +8,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Admin\ResourceTrait;
+use App\Model\Scase;
 
 class CaseController extends Controller
 {
@@ -19,7 +19,8 @@ class CaseController extends Controller
 
     public function index()
     {
-        return $this->view('index');
+		$case = Scase::all();
+        return $this->view('index')->with('case',$case);
     }
 
     public function create()
@@ -27,12 +28,27 @@ class CaseController extends Controller
         return $this->view('create');
     }
 
-    public function store()
+    public function store(Scase $scase)
     {
+		$this->validate($this->request(),$rules = array(
+			'title'   => 'required|max:255',
+			'photos'   => 'required',
+		), $message = [
+			'title.required'  => '请填写标题',
+			'title.max'       => '标题太长',
+			'photos.required' =>'最少上传一张图片'
+		], $customAttributes = [
+
+		]);
         $form = $this->request()->all();
-        dd($form);
+		$form['cover'] = $form['photos']['0'];
+        $form['photos'] = implode('\n',$form['photos']);
+		if(Scase::create($form)){
+			return $this->success('添加成功', $scase);
+		}
     }
 
+	//图片上传
     public function postImage()
     {
         $image = $this->request()->file('image');
@@ -45,7 +61,7 @@ class CaseController extends Controller
                 'name' => $name,
                 'size' => $file->getSize(),
                 'type' => $file->getMimeType(),
-                'url' => url('/uploads/case/' . $name)
+                'url' => '/uploads/case/'.$name
             )
         );
     }
