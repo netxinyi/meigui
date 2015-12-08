@@ -172,13 +172,13 @@
             {% if (!i && !o.options.autoUpload) { %}
                 <button class="btn btn-primary start" disabled>
                     <i class="glyphicon glyphicon-upload"></i>
-                    <span>Start</span>
+                    <span>上传</span>
                 </button>
             {% } %}
             {% if (!i) { %}
                 <button class="btn btn-warning cancel">
                     <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span>Cancel</span>
+                    <span>取消</span>
                 </button>
             {% } %}
         </td>
@@ -274,6 +274,12 @@
                 var url = o.response().result.image.url;
                 $('#fileupload').append('<input type="hidden" name="images[]" value="' + url + '">');
                 return true;
+            },
+            progressall: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+            },
+            success:function () {
+               $('.progress').remove();
             }
         });
 
