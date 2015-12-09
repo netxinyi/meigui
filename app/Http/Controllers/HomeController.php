@@ -249,6 +249,7 @@ class HomeController extends Controller
     }
 
 
+
     public function postTouxiang(){
          //接收数据
        
@@ -256,6 +257,17 @@ class HomeController extends Controller
         user()->update($data);
 
         return $this->rest()->success('保存成功');
+
+    }
+
+     public function postGallery(){
+         //接收数据
+       
+         $data = $this->request()->only('image_url');
+         dd($data);
+        // user()->update($data);
+
+        // return $this->rest()->success('保存成功');
 
     }
 
