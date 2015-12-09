@@ -69,6 +69,8 @@
                 </a>
                 <ul class="sub-menu">
                     <li><a href="/admin/user?status={{\App\Enum\User::STATUS_CHECK}}">报名审核</a></li>
+                    <li><a href="/admin/user">照片审核</a></li>
+                    <li><a href="/admin/user">自我介绍审核</a></li>
                     <li><a href="{{route('admin.user.index')}}">会员列表</a></li>
                     <li><a href="{{route('admin.user.create')}}">添加会员</a></li>
                 </ul>

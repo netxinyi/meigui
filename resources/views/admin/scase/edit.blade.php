@@ -2,10 +2,10 @@
 
 @section('title')
     修改案例 - {{$case->title}}
-@stop
+    @stop
 
-@section('content')
-    <!-- begin panel -->
+    @section('content')
+            <!-- begin panel -->
     <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
         <div class="panel-heading">
             <div class="panel-heading-btn">
@@ -119,9 +119,25 @@
                             <div class="progress-extended">&nbsp;</div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="photos">
+                                @foreach($case['photos'] as $photo)
+                                    <div class="photo">
+                                        <input type="hidden" name="images[]" value="{{$photo}}">
+                                        <img src="{{$photo}}" width="110" height="110">
+                                        <i class="fa fa-times" title="删除"></i>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- The table listing the files available for upload/download -->
                     <table role="presentation" class="table table-striped">
-                        <tbody class="files"></tbody>
+                        <tbody class="files">
+
+                        </tbody>
                     </table>
                 </div>
 
@@ -193,6 +209,11 @@
 
 
 
+
+
+
+
+
     </script>
     <!-- The template to display files available for download -->
     <script id="template-download" type="text/x-tmpl">
@@ -239,12 +260,17 @@
 
 
 
+
+
+
+
+
     </script>
     {{--文件上传相关end--}}
-@stop
+    @stop
 
-@section('footer-last-js')
-    <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+    @section('footer-last-js')
+            <!-- ================== BEGIN PAGE LEVEL JS ================== -->
     <script src="/assets/lib/jquery-file-upload/js/vendor/jquery.ui.widget.js"></script>
     <script src="/assets/lib/jquery-file-upload/js/vendor/tmpl.min.js"></script>
     <script src="/assets/lib/jquery-file-upload/js/vendor/load-image.min.js"></script>
@@ -276,7 +302,7 @@
             disableImageResize: /Android(?!.*Chrome)|Opera/.test(window.navigator.userAgent),
             maxFileSize: 5e6,
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-            downloadTemplate:'template-download',
+            downloadTemplate: 'template-download',
             done: function (e, o) {
                 var url = o.response().result.image.url;
                 $('#fileupload').append('<input type="hidden" name="photos[]" value="' + url + '">');
@@ -285,26 +311,20 @@
             progressall: function (e, data) {
                 var progress = parseInt(data.loaded / data.total * 100, 10);
             },
-            success:function () {
+            success: function () {
                 $('.progress').remove();
             }
         });
-        $('#fileupload').fileupload('add', {files: [
-            {
-                "name": "picture1.jpg",
-                "size": 902604,
-                "url": "",
-                "thumbnailUrl": '',
-                "deleteUrl": "http:\/\/example.org\/files\/picture1.jpg",
-                "deleteType": "DELETE"
-            },
-        ]});
 
+
+        $('.photo .fa').click(function () {
+            $(this).parents('.photo').remove();
+        });
     </script>
-@stop
+    @stop
 
-@section('last-css')
-    <!-- ================== BEGIN PAGE LEVEL CSS STYLE ================== -->
+    @section('last-css')
+            <!-- ================== BEGIN PAGE LEVEL CSS STYLE ================== -->
     <link href="/assets/admin/css/blueimp-gallery.min.css" rel="stylesheet"/>
     <link href="/assets/admin/css/jquery.fileupload.css" rel="stylesheet"/>
     <link href="/assets/admin/css/jquery.fileupload-ui.css" rel="stylesheet"/>
@@ -314,6 +334,31 @@
         .edui-container, .edui-body-container {
             width: 90% !important;
             margin-left: 5%;
+        }
+
+        .photos {
+            width: 80%;
+            height: auto;
+            margin-left: 30px;
+        }
+
+        .photos:after {
+            display: table-cell;
+            clear: both;
+            float: none;
+            content: " ";
+        }
+
+        .photo {
+            float: left;
+            width: 20%;
+            padding: 10px;
+            position: relative;
+        }
+
+        .photo .fa {
+            position: absolute;
+            cursor: pointer;
         }
     </style>
 @stop
