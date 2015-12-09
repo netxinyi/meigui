@@ -69,7 +69,7 @@ class ScaseController extends Controller
     }
 
 	public function edit(Scase $scase){
-		$scase['photos'] = explode('\n',$scase['photos']);
+        $scase['photos'] = explode("\n", $scase['photos']);
 		return $this->view('edit')->with('case',$scase);
 	}
 
