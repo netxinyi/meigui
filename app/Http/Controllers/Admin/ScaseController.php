@@ -42,10 +42,11 @@ class ScaseController extends Controller
 		]);
         $form = $this->request()->all();
 		$form['cover'] = $form['photos']['0'];
-        $form['photos'] = implode('\n',$form['photos']);
+        $form['photos'] = implode("\n",$form['photos']);
 		if(Scase::create($form)){
 			return $this->success('添加成功', $scase);
 		}
+		return $this->error('添加失败，请稍后再试');
     }
 
 	/*
@@ -73,8 +74,30 @@ class ScaseController extends Controller
 		return $this->view('edit')->with('case',$scase);
 	}
 
-	public function getListimg(){
-		echo 'aaaaa';
+	public function update(Scase $scase){
+		$this->validate($this->request(),$rules = array(
+			'title'   => 'required|max:255',
+			'photos'   => 'required',
+		), $message = [
+			'title.required'  => '请填写标题',
+			'title.max'       => '标题太长',
+			'photos.required' =>'最少上传一张图片'
+		], $customAttributes = [
+
+		]);
+		$form = $this->request()->all();
+		$form['photos'] = implode("\n",$form['photos']);
+		if($scase->update($form)){
+			return $this->success('修改成功', $scase);
+		}
+			return $this->error('修改失败，请稍后再试');
+	}
+
+	public function destroy(Scase $scase){
+		if($scase->delete()){
+			return $this->success('删除成功', $scase);
+		}
+		return $this->error('删除失败，请稍后再试');
 	}
 
 }

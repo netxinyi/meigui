@@ -81,6 +81,19 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="col-md-2 control-label">发布类型</label>
+
+                    <div class="col-md-8">
+                        <select name="publish_type" class="form-control">
+                            @foreach(\App\Enum\Scase::$publishLang as $value=>$lable)
+                                <option value="{{$value}}" @if(old('publish_type') == $value)
+                                        selected @endif>{{$lable}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label class="col-md-2 control-label">照片</label>
 
                     <div class="row fileupload-buttonbar">

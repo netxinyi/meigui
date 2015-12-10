@@ -30,11 +30,9 @@
                     <span class="close" data-dismiss="alert">×</span>
                 </div>
             @endif
-            <form id="fileupload" class="form-horizontal" action="{{route('admin.scase.store')}}" method="post"
+            <form id="fileupload" class="form-horizontal" action="{{route('admin.scase.update',['case_id'=>$case->case_id])}}" method="post"
                   enctype="multipart/form-data">
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
-
-
                 <div class="form-group">
                     <label class="col-md-2 control-label">案例标题</label>
 
@@ -77,6 +75,19 @@
                             </ul>
                         @endif
 
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">发布类型</label>
+
+                    <div class="col-md-8">
+                        <select name="publish_type" class="form-control">
+                            @foreach(\App\Enum\Scase::$publishLang as $value=>$lable)
+                                <option value="{{$value}}" @if(old('publish_type',$case->publish_type) == $value)
+                                        selected @endif>{{$lable}}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
 
@@ -124,7 +135,7 @@
                             <div class="photos">
                                 @foreach($case['photos'] as $photo)
                                     <div class="photo">
-                                        <input type="hidden" name="images[]" value="{{$photo}}">
+                                        <input type="hidden" name="photos[]" value="{{$photo}}">
                                         <img src="{{$photo}}" width="110" height="110">
                                         <i class="fa fa-times" title="删除"></i>
                                     </div>
@@ -144,7 +155,7 @@
 
                 <div class="form-group">
                     <label for="title" style="margin-left: 5%">爱情故事</label>
-                    <textarea name="content" id="html-editor" style="height: 300px"></textarea>
+                    <textarea name="content" id="html-editor" style="height: 300px">{{$case->content}}</textarea>
                     @if($errors->has('content'))
                         <ul class="parsley-errors-list filled">
                             <li class="parsley-required">{{$errors->first('content')}}</li>
@@ -156,7 +167,7 @@
                     <label class="col-md-2"></label>
 
                     <div class="col-md-8">
-                        <button type="submit" class="btn btn-sm btn-success pull-right">&nbsp;提&nbsp;交&nbsp;</button>
+                        <button type="submit" name="_method" value="put" class="btn btn-sm btn-success pull-right">&nbsp;提&nbsp;交&nbsp;</button>
                     </div>
                 </div>
             </form>

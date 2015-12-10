@@ -56,7 +56,7 @@
                         <td>
                             <a href="{{route('admin.scase.edit',['case_id'=>$case->case_id])}}"
                                class="btn btn-sm btn-success  m-r-5">编辑</a>
-                            <a href=""
+                            <a href="{{route('admin.scase.destroy',['case_id'=>$case->case_id])}}"
                                class="btn btn-sm btn-danger" data-method="delete">删除</a>
                         </td>
                     </tr>

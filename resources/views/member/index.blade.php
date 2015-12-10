@@ -181,145 +181,15 @@
         <div class="content_member_yuanyang">
             <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2   am-avg-md-3 am-avg-lg-6 am-gallery-bordered"
                 data-am-gallery="{  }">
+                @foreach($case as $case)
                 <li>
                     <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_1.jpg" alt="白富美1号"/>
+                        <a href="/scase/{{$case->case_id}}" class="">
+                            <img src="{{$case->cover}}" alt="{{$case->title}}"/>
                         </a>
                     </div>
                 </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_2.jpg" alt="白富美1号"/>
-
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_3.jpg" alt="不要太担心 只因为我相信"/>
-
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_4.jpg" alt="终会走过这条遥远的道路"/>
-
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_5.jpg" alt="某天 也许会相遇 相遇在这个好地方"/>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_6.jpg" alt="不要太担心 只因为我相信"/>
-
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_7.jpg" alt="不要太担心 只因为我相信"/>
-
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_8.jpg" alt="不要太担心 只因为我相信"/>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_12.jpg" alt="不要太担心 只因为我相信"/>
-
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_10.jpg" alt="不要太担心 只因为我相信"/>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_11.jpg" alt="不要太担心 只因为我相信"/>
-
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_12.jpg" alt="不要太担心 只因为我相信"/>
-
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_13.jpg" alt="不要太担心 只因为我相信"/>
-
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_14.jpg" alt="不要太担心 只因为我相信"/>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_15.jpg" alt="不要太担心 只因为我相信"/>
-
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_16.jpg" alt="不要太担心 只因为我相信"/>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_17.jpg" alt="不要太担心 只因为我相信"/>
-
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_18.jpg" alt="不要太担心 只因为我相信"/>
-
-                        </a>
-                    </div>
-                </li>
-
+                @endforeach
             </ul>
         </div>
     </div>

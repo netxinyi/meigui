@@ -11,6 +11,8 @@ namespace App\Http\Controllers;
 use App\Enum\User as userEnum;
 use App\Model\User;
 use App\Model\UserRecommend;
+use App\Model\Scase;
+use App\Enum\Scase as scaseEnum;
 
 class MemberController extends Controller
 {
@@ -46,7 +48,9 @@ class MemberController extends Controller
             }
         }
 
-        return $this->view('index')->with('users', $users);
+		//筛选出鸳鸯谱的所有案例
+		$case = Scase::where('publish_type','=',scaseEnum::PUBLISH_YUANYANGPU)->get();
+        return $this->view('index')->with('users', $users)->with('case',$case);
     }
 
     public function getMale()
