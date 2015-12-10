@@ -175,7 +175,7 @@
             <div class="more_url_yuanyang"><a href="./jiehun.html">
                     <button class="am-btn am-btn-secondary am-btn-xs" id="title_btn">我要结婚啦</button>
                 </a>
-                <a href="./yuanyanglist.html"><img src="./images/gengduo.gif" alt=""></a>
+                <a href="/yylist"><img src="/assets/images/more2.gif" alt=""></a>
             </div>
         </div>
         <div class="content_member_yuanyang">
@@ -184,7 +184,7 @@
                 @foreach($case as $case)
                 <li>
                     <div class="am-gallery-item">
-                        <a href="/scase/{{$case->case_id}}" class="">
+                        <a href="/scase/yydetail/{{$case->case_id}}" class="">
                             <img src="{{$case->cover}}" alt="{{$case->title}}"/>
                         </a>
                     </div>

@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title')
+    鸳鸯谱--{{$case->title}}
+@stop
 @section('last-css')
    
     <link rel="stylesheet" href="/assets/css/gushi.css"/>
@@ -22,17 +25,16 @@
             <div class="lou">
                <div class="am-panel am-panel-secondary">
                   <header class="am-panel-hd">
-                    <h3 class="am-panel-title">鸳鸯谱标题</h3>
+                    <h3 class="am-panel-title">{{$case->title}}</h3>
                   </header>
                   <div class="am-panel-bd">
                       <div
                           class="am-slider am-slider-default"
                           data-am-flexslider="{controlNav: 'thumbnails', directionNav: false, slideshow: false}">
                           <ul class="am-slides">
-                            <li data-thumb="/template/images/pure-1.jpg"><img src="/template/images/pure-1.jpg" /></li>
-                                  <li data-thumb="/template/images/pure-2.jpg"><img src="/template/images/pure-2.jpg" /></li>
-                                  <li data-thumb="/template/images/pure-3.jpg"><img src="/template/images/pure-3.jpg" /></li>
-                                  <li data-thumb="/template/images/pure-4.jpg"><img src="/template/images/pure-4.jpg" /></li>
+                              @foreach($case->photos as $photo)
+                            <li data-thumb="{{$photo}}"><img src="{{$photo}}" /></li>
+                              @endforeach
                           </ul>
                         </div>
                   </div>
@@ -48,8 +50,8 @@
                   <div class="am-panel-bd">
                        <div>
                          <span>
-                           一切来得静悄悄，好象是彼此早有的约定，我们没有海枯石烂的誓言，但约定今生相守到老！2014年1月24日我们结婚了，告别苍白的昨天我们乘坐快乐列车向幸福出发。一切来得静悄悄，好象是彼此早有的约定，我们没有海枯石烂的誓言，但约定今生相守到老！2014年1月24日我们结婚了，告别苍白的昨天我们乘坐快乐列车向幸福出发。一切来得静悄悄，好象是彼此早有的约定，我们没有海枯石烂的誓言，但约定今生相守到老！2014年1月24日我们结婚了，告别苍白的昨天我们乘坐快乐列车向幸福出发。一切来得静悄悄，好象是彼此早有的约定，我们没有海枯石烂的誓言，但约定今生相守到老！2014年1月24日我们结婚了，告别苍白的昨天我们乘坐快乐列车向幸福出发。
-                         </span>
+                          {{$case->content}}
+                           </span>
                        </div>
                   </div>
                </div>
@@ -58,7 +60,7 @@
         </div>
         <div class="content_w_top_you">
           　<div class="jiaoyoutishi">
-              <img src="/template/images/yypu.jpg" alt="" width="256px;">
+              <img src="{{$case->cover}}" alt="" width="256px;">
           </div>
           <div class="jiaoyoutishi">
               <span>
