@@ -1,10 +1,15 @@
 @extends('layouts.master')
 @section('last-css')
-    <link rel="stylesheet" href="/assets/css/index.css">
-    <link rel="stylesheet" href="/assets/lib/amazeui/amazeui.min.css"/>
+   
     <link rel="stylesheet" href="/assets/css/gushi.css"/>
-    <link rel="stylesheet" href="/assets/css/detail.css"/>
+    <style>
+        .am-control-thumbs li {
+          width: 100%/2; /* n 为轮播图数量 */
+        }
+    </style>
+   
 @stop
+<script src="/assets/lib/jquery/jquery-1.9.1.min.js"></script>
 @section('body')
 
 
@@ -20,20 +25,16 @@
                     <h3 class="am-panel-title">鸳鸯谱标题</h3>
                   </header>
                   <div class="am-panel-bd">
-                       <div>
-                          <div  class="am-slider am-slider-default"  data-am-flexslider="{controlNav: 'thumbnails', directionNav: false, slideshow: false}" >
-                            <ul class="am-slides">
-                              <li data-thumb="/template/images/pure-1.jpg">
-                                <img src="/template/images/pure-1.jpg" /></li>
-                                 <li data-thumb="/template/images/pure-2.jpg">
-                                <img src="/template/images/pure-2.jpg" /></li>
-                                 <li data-thumb="/template/images/pure-3.jpg">
-                                <img src="/template/images/pure-3.jpg" /></li>
-                                <li data-thumb="/template/images/pure-4.jpg">
-                                <img src="/template/images/pure-4.jpg" /></li>
-                            </ul>
-                          </div>
-                       </div>
+                      <div
+                          class="am-slider am-slider-default"
+                          data-am-flexslider="{controlNav: 'thumbnails', directionNav: false, slideshow: false}">
+                          <ul class="am-slides">
+                            <li data-thumb="/template/images/pure-1.jpg"><img src="/template/images/pure-1.jpg" /></li>
+                                  <li data-thumb="/template/images/pure-2.jpg"><img src="/template/images/pure-2.jpg" /></li>
+                                  <li data-thumb="/template/images/pure-3.jpg"><img src="/template/images/pure-3.jpg" /></li>
+                                  <li data-thumb="/template/images/pure-4.jpg"><img src="/template/images/pure-4.jpg" /></li>
+                          </ul>
+                        </div>
                   </div>
                </div>
             </div>
@@ -76,16 +77,9 @@
 @stop
 
 @section('footer-last-js')
-<!--[if lt IE 9]>
 
-<script src="/assets/lib/jquery/jquery-1.11.3.min.js"></script>
-<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="/assets/js/amazeui.ie8polyfill.min.js"></script>
-<![endif]-->
 
-<!--[if (gte IE 9)|!(IE)]><!-->
-<script src="/assets/lib/jquery/jquery-1.9.1.min.js"></script>
-<!--<![endif]-->
+
 <script src="/assets/lib/amazeui/amazeui.min.js"></script>
 @stop
 
