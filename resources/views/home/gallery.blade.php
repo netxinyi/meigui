@@ -8,152 +8,88 @@
         <h3 class="am-panel-title">我的相册</h3> 
     </header>
     <form class="am-form" id="gallery-form" method="post" onsubmit="return false;" action="/home/gallery">
-    <button  class="am-btn am-btn-secondary  am-btn-sm" style="float:right" id="tijiaoxia">确认上传</button>
+    <button  class="am-btn am-btn-secondary  am-btn-sm" style="float:right;display:none" id="tijiaoxia">保存信息</button>
     <div class="am-panel-bd">
         <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2   am-avg-md-3 am-avg-lg-4 am-gallery-bordered"
             data-am-gallery="{  }">
-            <li>
-                <div class="am-gallery-item">
-                    <a href="#" class="">
-                        <img src="/assets/images/image_def.jpg" alt="" id="progreess1" />
 
-                        <div class="am-gallery-desc">
-                        </div>
-                    </a>
-                    <div>
-                        <div class="img_update_img_l">
-                            <input type="hidden" name="image_url[]" value="" id="url_1">
-                            <button type="button" class="am-btn am-btn-secondary home_btn am-btn-sm"   id="pickfiles1" onclick="ownup0('pickfiles1','progreess1','url_1')">选择</button>
-                            <button type="button" class="am-btn am-btn-danger home_btn am-btn-sm">删除</button>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="am-gallery-item">
-                    <a href="#" class="">
-                       <img src="/assets/images/image_def.jpg" alt="" id="progreess2" />
+            @if(!user()->gallery || user()->gallery->isEmpty())
+               <!-- 默认 -->
 
-                        <div class="am-gallery-desc">
-                        </div>
-                    </a>
+                    @for($x=1; $x<=5; $x++)
+                        <li>
+                            <div class="am-gallery-item">
+                                <a href="#" class="">
 
-                    <div>
-                        <div class="img_update_img_l">
-                               <input type="hidden" name="image_url[]" value="" id="url_2">
-                            <button type="button" class="am-btn am-btn-secondary home_btn am-btn-sm"   id="pickfiles2" onclick="ownup0('pickfiles2','progreess2','url_2')">选择</button>
-                            <button type="button" class="am-btn am-btn-danger home_btn am-btn-sm">删除</button>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="am-gallery-item">
-                    <a href="#" class="">
-                        <img src="/assets/images/image_def.jpg" alt="" id="progreess3" />
+                                   <img src="/assets/images/image_def.jpg" alt="" id="progreess{{$x}}" />
 
-                        <div class="am-gallery-desc">
-                        </div>
-                    </a>
+                                    <div class="am-gallery-desc">
+                                    </div>
+                                </a>
+                                <div>
+                                    <div class="img_update_img_l">
+                                        <input type="hidden" name="image_url[]" value="" id="url_{{$x}}">
+                                        <button type="button" class="am-btn am-btn-secondary home_btn am-btn-sm"   id="pickfiles{{$x}}" onclick="ownup0('pickfiles{{$x}}','progreess{{$x}}','url_{{$x}}')">选择</button>
+                                        <button type="button" class="am-btn am-btn-danger home_btn am-btn-sm">删除</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
 
-                    <div>
-                        <div class="img_update_img_l">
-                            <input type="hidden" name="image_url[]" value="" id="url_3">
-                            <button type="button" class="am-btn am-btn-secondary home_btn am-btn-sm"   id="pickfiles3" onclick="ownup0('pickfiles3','progreess3','url_3')">选择</button>
-                            <button type="button" class="am-btn am-btn-danger home_btn am-btn-sm">删除</button>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="am-gallery-item">
-                    <a href="#" class="">
-                        <img src="/assets/images/image_def.jpg" alt="" id="progreess4" />
+                    @endfor
+               
+            @else
+                <!-- 有相片 -->
+                @foreach(user()->gallery as  $image_url)
 
-                        <div class="am-gallery-desc">
-                        </div>
-                    </a>
+                    <li>
+                        <div class="am-gallery-item">
+                            <a href="#" class="">
+                                @if( empty($image_url->image_url))
+                                    <img src="/assets/images/image_def.jpg" alt="" id="progreess" />
+                                @else
+                                  <img src="/uploads/avatar/{{$image_url->image_url}}" alt="" id="progreess{{$image_url->photo_id}}" />
+                                @endif
 
-                    <div>
-                        <div class="img_update_img_l">
-                            <input type="hidden" name="image_url[]" value="" id="url_4">
-                            <button type="button" class="am-btn am-btn-secondary home_btn am-btn-sm"   id="pickfiles4" onclick="ownup0('pickfiles4','progreess4','url_4')">选择</button>
-                            <button type="button" class="am-btn am-btn-danger home_btn am-btn-sm">删除</button>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="am-gallery-item">
-                    <a href="#" class="">
-                        <img src="/assets/images/image_def.jpg" alt="" id="progreess5" />
+                                <div class="am-gallery-desc">
+                                </div>
+                            </a>
+                            <div>
+                                <input type="hidden" name="image_url[{{$image_url->photo_id}}]" value="{{$image_url->image_url}}" id="url_{{$image_url->photo_id}}">
+                                @if($image_url->status==0)
+                                        @if( empty($image_url->image_url))
+                                           <div class="img_update_img_l">
+                                                <button type="button" class="am-btn am-btn-secondary home_btn am-btn-sm"   id="pickfiles{{$image_url->photo_id}}" onclick="ownup0('pickfiles{{$image_url->photo_id}}','progreess{{$image_url->photo_id}}','url_{{$image_url->photo_id}}')">选择</button>
+                                                <button type="button" class="am-btn am-btn-danger home_btn am-btn-sm" onclick="del({{$image_url->photo_id}})">删除</button>
+                                            </div>
 
-                        <div class="am-gallery-desc">
-                        </div>
-                    </a>
+                                        @else
+                                          <!-- 审核中,前台隐藏图片 -->
+                                         <div class="img_update_img_l">
+                                            <button class="am-btn home_btn am-btn-sm " type="button" style="width:100%">相片审核中</button>
+                                        </div>
 
-                    <div>
-                        <div class="img_update_img_l">
-                            <input type="hidden" name="image_url[]" value="" id="url_3">
-                            <button type="button" class="am-btn am-btn-secondary home_btn am-btn-sm"   id="pickfiles5" onclick="ownup0('pickfiles5','progreess5','url_5')">选择</button>
-                            <button type="button" class="am-btn am-btn-danger home_btn am-btn-sm">删除</button>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="am-gallery-item">
-                    <a href="#" class="">
-                        <img src="/assets/images/image_def.jpg" alt="" id="progreess6" />
+                                        @endif
+                                
+                                @else
+                                <!-- 正常显示 -->
+                                <div class="img_update_img_l">
+                                    <button type="button" class="am-btn am-btn-secondary home_btn am-btn-sm"   id="pickfiles{{$image_url->photo_id}}" onclick="ownup0('pickfiles{{$image_url->photo_id}}','progreess{{$image_url->photo_id}}','url_{{$image_url->photo_id}}')">选择</button>
+                                    <button type="button" class="am-btn am-btn-danger home_btn am-btn-sm" onclick="del({{$image_url->photo_id}})">删除</button>
+                                </div>
 
-                        <div class="am-gallery-desc">
+                                @endif
+                            </div>
                         </div>
-                    </a>
+                    </li>
+                 @endforeach
+                  <!-- 有相片end -->
 
-                    <div>
-                        <div class="img_update_img_l">
-                            <input type="hidden" name="image_url[]" value="" id="url_3">
-                            <button type="button" class="am-btn am-btn-secondary home_btn am-btn-sm"   id="pickfiles6" onclick="ownup0('pickfiles6','progreess6','url_6')">选择</button>
-                            <button type="button" class="am-btn am-btn-danger home_btn am-btn-sm">删除</button>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="am-gallery-item">
-                    <a href="#" class="">
-                        <img src="/assets/images/image_def.jpg" alt="" id="progreess7" />
+            @endif
 
-                        <div class="am-gallery-desc">
-                        </div>
-                    </a>
 
-                    <div>
-                        <div class="img_update_img_l">
-                            <input type="hidden" name="image_url[]" value="" id="url_7">
-                            <button type="button" class="am-btn am-btn-secondary home_btn am-btn-sm"   id="pickfiles7" onclick="ownup0('pickfiles7','progreess7','url_7')">选择</button>
-                            <button type="button" class="am-btn am-btn-danger home_btn am-btn-sm">删除</button>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="am-gallery-item">
-                    <a href="#" class="">
-                        <img src="/assets/images/image_def.jpg" alt=""/>
-
-                        <div class="am-gallery-desc">
-                        </div>
-                    </a>
-
-                    <div>
-                        <div class="img_update_img_l">
-                            <button type="button" class="am-btn home_btn am-btn-sm">审核中</button>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            
+           
+            <input type="hidden" name="user_id" value="{{user()->user_id}}">
              <input type="hidden" name="_token" value="{{ csrf_token() }}">
         </ul>
     </div>
@@ -214,7 +150,7 @@
                  };*/
             },
             FilesAdded: function (up, files) {
-               alert(333333);
+              // alert(333333);
                 // plupload.each(files, function(file) {
                 //   document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
                 // });
@@ -226,8 +162,8 @@
           
                 var res = info.response;
                 var type = file.type;
-                alert(res);
-                alert(type);
+                // alert(res);
+                // alert(type);
                 // //判断上传几张图片
                 
                 var imsize = $('.file-btn').size();
@@ -237,6 +173,7 @@
                 } else {
                     $("#"+images).after('<img name="image" style="width: 128px; height: 128px;" class="file-btn" src="http://dev.meiguihuakai.com.cn/uploads/avatar/' + res + '" >');
                     $("#"+url).val(res);
+                     $("#tijiaoxia").click();
 
                 }
 
@@ -319,6 +256,7 @@
                 log.innerHTML += str + "\n";
         }
     uploader.init();
+
     }
  </script>
  <!-- 相片上传 -->
@@ -331,11 +269,23 @@
         $(function () {
              $('#gallery-form').success(function () {
                //$.redirect(null, 2);
-                // window.location.reload();
+                 window.location.reload();
+
              }).form();
 
         });
- </script>
 
+ </script>
+<script>
+    // 删除图片
+    function del(photo_id){
+        var num = "";
+        $("#url_"+photo_id).val(num);
+        $("#tijiaoxia").click();
+
+        
+
+    }
+</script>
 @stop
 

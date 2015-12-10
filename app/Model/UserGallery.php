@@ -10,19 +10,13 @@ namespace App\Model;
 
 class UserGallery extends BaseModel
 {
-    /**
-     * 表名
-     *
-     * @var string
-     */
-    protected $table = 'user_gallery';
-
-
-    /**
-     * 主键
-     * @var string
-     */
-    protected $primaryKey = 'user_id';
-
+    
+    protected $table = 'user_gallery'; //表名
+    protected $primaryKey = 'photo_id'; //主键
     public $timestamps = false;
+
+
+    
+
+
 }

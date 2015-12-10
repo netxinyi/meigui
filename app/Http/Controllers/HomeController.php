@@ -6,9 +6,12 @@
  */
 
 namespace App\Http\Controllers;
-
+use DB;
 use App\Model\User;
 use App\Http\Controllers\Session;
+use App\Model\UserGallery;
+
+
 
 class HomeController extends Controller
 {
@@ -262,12 +265,27 @@ class HomeController extends Controller
 
      public function postGallery(){
          //接收数据
-       
-         $data = $this->request()->only('image_url');
-         dd($data);
-        // user()->update($data);
+         $data = $this->request()->only('image_url','user_id');
+         $user_id = $data['user_id'];
 
-        // return $this->rest()->success('保存成功');
+         $num = DB::table('user_gallery')->where('user_id',$data['user_id'])->count();
+
+         // 判断是否有数据
+         if($num ==0){
+            // 如果没有，就插入数据
+            foreach ($data['image_url'] as $key => $value) {
+               DB::table('user_gallery')->insert(array('user_id' => $user_id, 'image_url' =>$value ));
+            }
+
+         }else{
+            //已经有数据，更新即可
+            foreach ($data['image_url'] as $key => $value) {
+                DB::table('user_gallery')->where('user_id',$user_id)->where('photo_id',$key)->update(array('image_url' =>$value));
+            }
+
+         }
+         
+          return $this->rest()->success('提交成功');
 
     }
 

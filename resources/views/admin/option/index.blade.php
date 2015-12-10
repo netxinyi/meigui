@@ -31,7 +31,7 @@
                     <span class="close" data-dismiss="alert">×</span>
                 </div>
             @endif
-            <form class="form-horizontal" action="{{url('admin/option')}}" method="post">
+            <form class="form-horizontal" action="/admin/option/updatebase" method="post">
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
 
                 <div class="form-group">
@@ -100,6 +100,48 @@
                         @if($errors->has('site_icp'))
                             <ul class="parsley-errors-list filled">
                                 <li class="parsley-required">{{$errors->first('site_icp')}}</li>
+                            </ul>
+                        @endif
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">统一服务电话</label>
+
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="请填写在线客服QQ" name="tel"
+                               value="{{old('site_icp',$options['tel'])}}"/>
+                        @if($errors->has('tel'))
+                            <ul class="parsley-errors-list filled">
+                                <li class="parsley-required">{{$errors->first('tel')}}</li>
+                            </ul>
+                        @endif
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">在线客服QQ一</label>
+
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="请填写在线客服QQ" name="qq1"
+                               value="{{old('site_icp',$options['qq1'])}}"/>
+                        @if($errors->has('qq1'))
+                            <ul class="parsley-errors-list filled">
+                                <li class="parsley-required">{{$errors->first('qq1')}}</li>
+                            </ul>
+                        @endif
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">在线客服QQ二</label>
+
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="请填写在线客服QQ" name="qq2"
+                               value="{{old('site_icp',$options['qq2'])}}"/>
+                        @if($errors->has('qq2'))
+                            <ul class="parsley-errors-list filled">
+                                <li class="parsley-required">{{$errors->first('qq2')}}</li>
                             </ul>
                         @endif
 
