@@ -34,7 +34,7 @@
                         </div>
                         <div>
                             <span>出生年月</span>
-                            <input type="text" class="w_input" name="birthday"><br>
+                            <input type="text" name="birthday" class="w_input" placeholder="选择日期" data-am-datepicker="{theme: 'danger'}" /><br>
                         </div>
                         <div>
                             <span>婚姻状况</span>
