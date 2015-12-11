@@ -47,6 +47,8 @@ Route::get('viplist_member', 'MemberController@getViplist');
 Route::get('member/{user}', 'MemberController@user');
 Route::get('yylist', 'ScaseController@getYylist');
 Route::get('scase/yydetail/{scase}','ScaseController@yydetail');
+Route::get('jjlist', 'ScaseController@getJjlist');
+Route::get('scase/jjdetail/{scase}','ScaseController@jjdetail');
 /*
 |--------------------------------------------------------------------------
 | 文章

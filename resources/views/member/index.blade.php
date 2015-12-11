@@ -172,7 +172,7 @@
             <div class="title_2_yuanyang">
                 爱情如此美妙
             </div>
-            <div class="more_url_yuanyang"><a href="./jiehun.html">
+            <div class="more_url_yuanyang"><a href="/jjlist">
                     <button class="am-btn am-btn-secondary am-btn-xs" id="title_btn">我要结婚啦</button>
                 </a>
                 <a href="/yylist"><img src="/assets/images/more2.gif" alt=""></a>

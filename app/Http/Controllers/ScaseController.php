@@ -29,4 +29,14 @@ class ScaseController extends Controller
 		$scase['photos'] = explode("\n",$scase['photos']);
 		return $this->view('yuanyang')->with('case',$scase);
 	}
+
+	public function getJjlist(){
+		$scase = Scase::where('publish_type','=',scaseEnum::PUBLISH_MARRY)->get();
+		return $this->view('jiehunlist')->with('case',$scase);
+	}
+
+	public function jjdetail(Scase $scase){
+		$scase['photos'] = explode("\n",$scase['photos']);
+		return $this->view('jiehun')->with('case',$scase);
+	}
 }
