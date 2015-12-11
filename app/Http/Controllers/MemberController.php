@@ -105,10 +105,10 @@ class MemberController extends Controller
     public function user(User $user)
     {
         $status = $user['status'];
-		if($status !== userEnum::STATUS_OK){
-			return \Redirect::back()->with('status', '该会员尚未通过审核');
-		}else{
+		if($status == (userEnum::STATUS_OK)){
 			return $this->view('vip')->with('user', $user);
+		}else{
+			return \Redirect::back()->with('status', '该会员尚未通过审核');
 		}
     }
 
