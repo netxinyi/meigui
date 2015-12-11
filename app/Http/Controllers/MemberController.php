@@ -104,7 +104,12 @@ class MemberController extends Controller
 
     public function user(User $user)
     {
-        return $this->view('vip')->with('user', $user);
+        $status = $user['status'];
+		if($status !== 2){
+			return redirect('/member')->with('status', '该会员尚未通过审核');
+		}else{
+			return $this->view('vip')->with('user', $user);
+		}
     }
 
 }
