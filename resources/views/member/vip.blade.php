@@ -15,18 +15,21 @@
                         <div class="am-slider am-slider-default"
                              data-am-flexslider="{controlNav: 'thumbnails', directionNav: false, slideshow: false}">
                             <ul class="am-slides">
-                                <li data-thumb="./images/detail/001.jpg">
-                                    <img src="./images/detail/001.jpg"/>
-                                </li>
-                                <li data-thumb="./images/detail/002.jpg">
-                                    <img src="./images/detail/002.jpg"/>
-                                </li>
-                                <li data-thumb="./images/detail/003.jpg">
-                                    <img src="./images/detail/003.jpg"/>
-                                </li>
-                                <li data-thumb="./images/detail/004.jpg">
-                                    <img src="./images/detail/004.jpg"/>
-                                </li>
+                                @if($user->gallery->isEmpty())
+                                    <li>
+                                        @if($user->sex == \App\Enum\User::SEX_FEMALE)
+                                            <img src="/assets/images/default-photo-female.jpg">
+                                        @elseif($user->sex == \App\Enum\User::SEX_MALE)
+                                            <img src="/assets/images/default-photo-male.jpg">
+                                        @endif
+                                    </li>
+                                @else
+                                    @foreach($user->gallery as $photo)
+                                        <li data-thumb="{{$photo}}">
+                                            <img src="{{$photo}}"/>
+                                        </li>
+                                    @endforeach
+                                @endif
                             </ul>
                         </div>
                     </div>
@@ -34,7 +37,8 @@
                         <div class="am-panel am-panel-default">
                             <!-- 基本信息 -->
                             <header class="am-panel-hd">
-                                <h3 class="am-panel-title">{{$user->user_name}}<span style="font-size:14px;margin-left:10px;color:#999">{{$user->user_id}}</span>
+                                <h3 class="am-panel-title">{{$user->user_name}}<span
+                                            style="font-size:14px;margin-left:10px;color:#999">{{$user->user_id}}</span>
                                 </h3>
                             </header>
                             <div class="am-panel-bd">
@@ -87,8 +91,10 @@
                         <div class="am-panel-bd">
                             <table class="am-table">
                                 <tr>
-                                    <td>年龄：<span class="msg_font_color">{{$user->object->age_start}}岁 至 {{$user->object->age_end}}岁</span></td>
-                                    <td>身高：<span class="msg_font_color">{{$user->object->height_start}}cm 至 {{$user->object->height_end}}cm</span></td>
+                                    <td>年龄：<span class="msg_font_color">{{$user->object->age_start}}
+                                            岁 至 {{$user->object->age_end}}岁</span></td>
+                                    <td>身高：<span class="msg_font_color">{{$user->object->height_start}}
+                                            cm 至 {{$user->object->height_end}}cm</span></td>
                                 </tr>
                                 <tr>
                                     <td>学历：<span class="msg_font_color">{{$user->object->education_lang}}</span></td>
@@ -117,7 +123,7 @@
                         </header>
                         <div class="am-panel-bd">
                             <div class="ziwojieshao">
-                              <span>{{$user->info->introduce}}</span>
+                                <span>{{$user->info->introduce}}</span>
                             </div>
                         </div>
                     </div>
