@@ -110,7 +110,7 @@
                                     <td>{{$user->age_lang}}</td>
                                     <td>{{$user->height_lang}}</td>
                                     <td>{{$user->children}}</td>
-                                    <td class="email-date">{{$user->level}}</td>
+                                    <td class="email-date">{{$user->level_lang}}</td>
                                     <td class="email-date">{{$user->created_at}}</td>
                                      <td class="email-date">{{$user->status}}</td>
                                     <td>
