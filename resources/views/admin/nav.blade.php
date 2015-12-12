@@ -1,4 +1,4 @@
-<!-- begin #sidebar -->
+begin #sidebar -->
 <div id="sidebar" class="sidebar">
     <!-- begin sidebar scrollbar -->
     <div data-scrollbar="true" data-height="100%">
@@ -23,7 +23,6 @@
                 </a>
                 <ul class="sub-menu">
                     <li><a href="{{url('/admin/option/base')}}">基本设置</a></li>
-                    <li><a href="{{url('/admin/option/recommend')}}">会员推荐</a></li>
                     <li><a href="{{url('/admin/option/flash')}}">轮播图片</a></li>
                     <li><a href="{{url('/admin/option/wechat')}}">微信设置</a></li>
                 </ul>
@@ -41,7 +40,7 @@
                     <li><a href="{{route('admin.column.create')}}">发布栏目</a></li>
                 </ul>
             </li>
-            <li class="has-sub">
+        <!--     <li class="has-sub">
                 <a href="javascript:;">
                     <b class="caret pull-right"></b>
                     <i class="fa fa-comment"></i>
@@ -60,7 +59,7 @@
                 <ul class="sub-menu">
                     <li><a href="{{route('admin.guestbook.index')}}">留言列表</a></li>
                 </ul>
-            </li>
+            </li> -->
             <li class="has-sub">
                 <a href="javascript:;">
                     <b class="caret pull-right"></b>
@@ -68,6 +67,7 @@
                     <span>会员管理</span>
                 </a>
                 <ul class="sub-menu">
+                     <li><a href="{{url('/admin/option/recommend')}}">会员推荐</a></li>
                     <li><a href="/admin/user?status={{\App\Enum\User::STATUS_CHECK}}">报名审核</a></li>
                     <li><a href="/admin/user">照片审核</a></li>
                     <li><a href="/admin/user">自我介绍审核</a></li>
@@ -105,4 +105,4 @@
     <!-- end sidebar scrollbar -->
 </div>
 <div class="sidebar-bg"></div>
-<!-- end #sidebar -->
+<!-- end #sidebar
