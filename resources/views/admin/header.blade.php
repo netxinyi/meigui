@@ -18,7 +18,7 @@
 
         <!-- begin header navigation right -->
         <ul class="nav navbar-nav navbar-right">
-            @if(Auth::check())
+            @if(admin())
                 <li class="dropdown navbar-user">
                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="{{admin()->avatar}}" alt=""/>

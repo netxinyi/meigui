@@ -38,8 +38,8 @@
                     <label class="col-md-2 control-label">App ID</label>
 
                     <div class="col-md-8">
-                        <input type="text" class="form-control" placeholder="微信App ID" name="app_id"
-                               value="{{old('app_id')}}"/>
+                        <input type="text" class="form-control" placeholder="微信App ID" name="wechat_app_id"
+                               value="{{option('wechat_app_id')}}"/>
                     </div>
                 </div>
 
@@ -47,24 +47,24 @@
                     <label class="col-md-2 control-label">App Secret</label>
 
                     <div class="col-md-8">
-                        <input type="text" class="form-control" placeholder="微信 App Secret" name="site_name"
-                               value=""/>
+                        <input type="text" class="form-control" placeholder="微信 App Secret" name="wechat_app_secret"
+                               value="{{option('wechat_app_secret')}}"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-2 control-label">Token</label>
 
                     <div class="col-md-8">
-                        <input type="text" class="form-control" placeholder="微信Token" name="site_name"
-                               value=""/>
+                        <input type="text" class="form-control" placeholder="微信Token" name="wechat_token"
+                               value="{{option('wechat_token')}}"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-2 control-label">Encoding Key</label>
 
                     <div class="col-md-8">
-                        <input type="text" class="form-control" placeholder="加密字符串,加密模式下需要" name="site_name"
-                               value=""/>
+                        <input type="text" class="form-control" placeholder="加密字符串,加密模式下需要" name="wechat_encode_key"
+                               value="{{option('wechat_encode_key')}}"/>
                     </div>
                 </div>
                 <div class="form-group">
