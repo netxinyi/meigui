@@ -2,7 +2,8 @@
 
 return [
 
-    'site_name' => '玫瑰花开',
+    //网站设置的缓存时间
+    'option_exp' => 10,
 
     /*
     |--------------------------------------------------------------------------
@@ -28,7 +29,7 @@ return [
     |
     */
 
-    'url' => 'http://www.meigui.com',
+    'url' => 'http://dev.meiguihuakai.com.cn',
 
     /*
     |--------------------------------------------------------------------------
@@ -144,8 +145,6 @@ return [
         \App\Providers\AppServiceProvider::class,
         #路由服务
         App\Providers\RouteServiceProvider::class,
-        #REST服务
-        App\Providers\RestServiceProvider::class,
         Overtrue\LaravelWechat\ServiceProvider::class
 
     ],

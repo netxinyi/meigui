@@ -48,7 +48,7 @@
 
 /*5展示数据信息*/
 #show_num {
-    width: 200px;
+    width: 180px;
     height: 100%;
     line-height: 100%;
     float: left;
@@ -78,13 +78,12 @@
 
 /*登录部分*/
 #login_new {
-    width: 300px;
+    width: 680px;
     height: 100%;
     line-height: 100%;
     margin: 0px;
     padding: 0px;
     float: right;
-    text-align: right;
 }
 
 #more_login {
@@ -105,11 +104,27 @@
     background-color: #f15481
 }
 
-#more_login span {
+#login_new_home {
+    width: 300px;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    float: right;
+    text-align: right;
+}
+
+#more_login_home button {
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #f15481
+}
+
+#more_login_home span {
     border-bottom: 1px solid #ededed;
     padding-bottom: 5px;
     padding-right: 10px;
 }
+
 
 /*导航*/
 #nav {

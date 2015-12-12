@@ -2,9 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Providers\Auth\AdminAuth;
 use Closure;
-use Illuminate\Auth\Guard as Auth;
-use App\Providers\Auth\AdminAuthUserProvider;
 use App\Enum\Admin as AdminEnum;
 
 class AuthAdmin
@@ -14,11 +13,10 @@ class AuthAdmin
     protected $auth;
 
 
-    public function __construct(Auth $auth, AdminAuthUserProvider $userProvider)
+    public function __construct(AdminAuth $auth)
     {
 
         $this->auth = $auth;
-        $this->auth->setProvider($userProvider);
     }
 
 

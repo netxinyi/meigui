@@ -1,6 +1,6 @@
 <?php
 
-Route::bind('admins', function ($admin_id){
+Route::bind('admins', function ($admin_id) {
 
     return App\Model\Admin::find($admin_id);
 });
@@ -8,6 +8,8 @@ Route::model('user', 'App\Model\User');
 Route::model('column', 'App\Model\Column');
 Route::model('article', 'App\Model\Article');
 Route::model('guestbook', 'App\Model\GuestBook');
+Route::model('register', 'App\Model\Register');
+Route::model('scase', 'App\Model\Scase');
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -25,7 +27,12 @@ Route::model('guestbook', 'App\Model\GuestBook');
 |--------------------------------------------------------------------------
 |
 */
-Route::controller('home', 'HomeController');
+
+Route::group(array('middleware' => 'auth'), function () {
+
+    Route::controller('home', 'HomeController');
+});
+
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +41,14 @@ Route::controller('home', 'HomeController');
 |
 */
 Route::get('member', 'MemberController@index');
+Route::get('male_member', 'MemberController@getMale');
+Route::get('female_member', 'MemberController@getFemale');
+Route::get('viplist_member', 'MemberController@getViplist');
 Route::get('member/{user}', 'MemberController@user');
+Route::get('yylist', 'ScaseController@getYylist');
+Route::get('scase/yydetail/{scase}','ScaseController@yydetail');
+Route::get('jjlist', 'ScaseController@getJjlist');
+Route::get('scase/jjdetail/{scase}','ScaseController@jjdetail');
 /*
 |--------------------------------------------------------------------------
 | 文章
@@ -52,7 +66,7 @@ Route::get('article/{article}', 'ArticleController@index');
 #Auth登录注册-密码找回-控制器路由
 Route::controllers([
 
-    'auth'     => 'Auth\AuthController',
+    'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController'
 ]);
 /*
@@ -72,11 +86,11 @@ Route::controller('weixin', 'WechatController');
 Route::controller('admin/auth', 'Admin\AuthController');
 
 #后台管理
-Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function (){
+Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
 
     Route::get('/', ['uses' => 'Admin\HomeController@index']);
     #Option管理-资源路由
-    Route::resource('option', 'Admin\OptionController', ['only' => ['index', 'store']]);
+    Route::controller('option', 'Admin\OptionController');
     #管理员管理
     Route::resource('admins', 'Admin\AdminController', ['middleware' => 'auth.admin.super']);
     #栏目管理
@@ -87,10 +101,22 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function (){
     Route::resource('comment', 'Admin\CommentController');
     #留言管理
     Route::resource('guestbook', 'Admin\GuestbookController');
+
+    #用户审核
+    Route::get('user/register', array('uses' => 'Admin\UserController@getRegister', 'as' => 'admin.user.check'));
+    Route::post('user/register', 'Admin\UserController@postRegister');
+
+    Route::get('user/{register}/add', array('uses' => 'Admin\UserController@getAdd', 'as' => 'admin.register.add'));
+    Route::post('user/{register}/add', array('uses' => 'Admin\UserController@postAdd'));
+
+    Route::get('user/{register}/checkout', array('uses' => 'Admin\UserController@destroyRegister', 'as' => 'admin.register.destroy'));
+
+
     #用户管理
     Route::resource('user', 'Admin\UserController');
+    Route::post('scase/image', 'Admin\ScaseController@postImage');
     #成功案例
-    Route::resource('case', 'Admin\CaseController');
+    Route::resource('scase', 'Admin\ScaseController');
 
 });
 

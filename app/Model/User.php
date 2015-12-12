@@ -13,13 +13,14 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Hash;
 use App\Enum\User as UserEnum;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends BaseModel implements AuthenticatableContract, CanResetPasswordContract
 {
 
 
     //支持Auth的Trait
-    use Authenticatable, CanResetPassword;
+    use Authenticatable, CanResetPassword, SoftDeletes;
 
     /**
      * 表名
@@ -36,29 +37,6 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
     protected $primaryKey = 'user_id';
 
     /**
-     * 批量赋值白名单
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'user_name',
-        'email',
-        'password',
-        'mobile',
-        'avatar',
-        'sex',
-        'birthday',
-        'marital_status',
-        'salary',
-        'height',
-        'education',
-        'age',
-        'province',
-        'city',
-        'area',
-    ];
-
-    /**
      * 隐藏项
      *
      * @var array
@@ -69,7 +47,7 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
      * 追加属性
      * @var array
      */
-    protected $append = ['sex_lang'];
+    protected $append = ['house_lang', 'sex_lang', 'level_lang', 'age_lang', 'height_lang', 'age', 'education_lang', 'salary_lang', 'marriage_lang'];
 
 
     /*
@@ -96,24 +74,16 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
 
     }
 
-
-    /**
-     * 生日调整器
-     *
-     * @param $birthday
-     */
-    public function setBirthdayAttribute($birthday)
-    {
-
-        $this->attributes['birthday'] = $birthday;
-
-    }
-
     /*
     |--------------------------------------------------------------------------
     | 访问器
     |--------------------------------------------------------------------------
     */
+
+    public function getUserNameAttribute()
+    {
+        return $this->attributes['user_name'] ?: "注册用户";
+    }
 
     /**
      * 头像-默认头像
@@ -122,11 +92,14 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
     public function getAvatarAttribute()
     {
 
-        if (!$this->attributes['avatar']) {
-            return asset('/assets/admin/img/default-avatar.jpg');
+        if (!$this->attributes['avatar'] || !\File::exists(public_path() . '/uploads/avatar/' . $this->attributes['avatar'])) {
+            if ($this->attributes['sex'] == UserEnum::SEX_FEMALE) {
+                return asset('/assets/images/default-avatar-female.jpg');
+            }
+            return asset('/assets/images/default-avatar-male.jpg');
         }
 
-        return $this->attributes['avatar'];
+        return asset('/uploads/avatar/' . $this->attributes['avatar']);
     }
 
 
@@ -137,7 +110,58 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
     public function getSexLangAttribute()
     {
 
-        return UserEnum::$sexForm[$this->attributes['sex']];
+        return UserEnum::$sexLang[$this->attributes['sex']];
+    }
+
+    /**
+     * 住房情况-文字
+     * @return mixed
+     */
+    public function getHouseLangAttribute()
+    {
+
+        return $this->getLang(UserEnum::$houseLang, 'house', '未填写');
+    }
+
+    public function getLevelLangAttribute()
+    {
+        return \App\Enum\User::$levelLang[$this->attributes['level']];
+    }
+
+    public function getAgeAttribute()
+    {
+        $birthday = strtotime($this->attributes['birthday']);
+        $diff = time() - $birthday;
+
+        return ceil($diff / 31536000);
+    }
+
+    public function getAgeLangAttribute()
+    {
+        return $this->getAgeAttribute() . '岁';
+    }
+
+    public function getHeightLangAttribute()
+    {
+
+        return is_null($this->attributes['height']) ? '未填写' : $this->attributes['height'] . 'cm';
+    }
+
+    public function getEducationLangAttribute()
+    {
+        return $this->getLang(UserEnum::$educationLang, 'education', '未填写');
+
+    }
+
+    public function getSalaryLangAttribute()
+    {
+        return $this->getLang(UserEnum::$salaryObjectLang, 'salary', '未填写');
+    }
+
+    public function getMarriageLangAttribute()
+    {
+
+        return $this->getLang(UserEnum::$marriageLang, 'marriage', '未填写');
     }
 
     /*
@@ -146,4 +170,59 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
     |--------------------------------------------------------------------------
     */
 
+    public function scopeMale($query)
+    {
+        return $query->where('sex', \App\Enum\User::SEX_MALE);
+    }
+
+    public function scopeFemale($query)
+    {
+        return $query->where('sex', \App\Enum\User::SEX_FEMALE);
+    }
+
+    public function scopeStatus($query, $status = \App\Enum\User::STATUS_OK)
+    {
+        return $query->where('status', $status);
+    }
+
+    public function scopeLevel($query, $level = \App\Enum\User::LEVEL_1)
+    {
+        return $query->where('level', $level);
+    }
+
+    /*
+   |--------------------------------------------------------------------------
+   | 关系映射
+   |--------------------------------------------------------------------------
+   */
+
+    public function info()
+    {
+        return $this->hasOne(UserInfo::class, 'user_id', 'user_id');
+    }
+
+    public function recommend()
+    {
+        return $this->hasMany(UserRecommend::class, 'user_id', 'user_id');
+    }
+
+    public function object()
+    {
+        return $this->hasOne(UserObject::class, 'user_id', 'user_id');
+    }
+
+    public function gallery()
+    {
+        return $this->hasMany(UserGallery::class, 'user_id', 'user_id');
+    }
+
+    public function bind()
+    {
+        return $this->hasMany(UserBind::class, 'user_id', 'user_id');
+    }
+
+    public function like()
+    {
+        return $this->hasMany(UserLike::class, 'user_id', 'user_id');
+    }
 }

@@ -10442,7 +10442,7 @@ tbody.am-collapse.am-in {
 }
 
 .am-datepicker-danger tr.am-datepicker-header {
-    background: #dd514c
+    background: #f15481
 }
 
 .am-datepicker-danger td.am-datepicker-day.am-disabled {
@@ -10454,7 +10454,7 @@ tbody.am-collapse.am-in {
 }
 
 .am-datepicker-danger td.am-active, .am-datepicker-danger td.am-active:hover {
-    color: #c10802
+    color: #f15481
 }
 
 .am-datepicker-danger td span.am-datepicker-old {
@@ -10462,7 +10462,7 @@ tbody.am-collapse.am-in {
 }
 
 .am-datepicker-danger td span.am-active {
-    color: #c10802
+    color: #f15481
 }
 
 .am-datepicker-danger .am-datepicker-caret {
@@ -10470,12 +10470,12 @@ tbody.am-collapse.am-in {
 }
 
 .am-datepicker-danger .am-datepicker-dow {
-    color: #a4241f
+    color: #f15481
 }
 
 .am-datepicker-danger .am-datepicker-next-icon:hover, .am-datepicker-danger .am-datepicker-prev-icon:hover, .am-datepicker-danger .am-datepicker-select:hover {
     background: rgba(237, 164, 162, .5);
-    color: #a4241f
+    color: #f15481
 }
 
 .am-datepicker-warning tr.am-datepicker-header {

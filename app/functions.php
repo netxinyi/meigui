@@ -91,11 +91,16 @@ if (!function_exists('触发一个事件')) {
  * 获取app配置参数
  */
 if (!function_exists('option')) {
-
     function option($key, $default = '')
     {
 
-        return config('app.' . $key, $default);
+        $options = Cache::get('options');
+        if (!array_get($options, $key)) {
+            Cache::put('options', \App\Model\Option::all()->lists('value', 'key'), config('app.option_exp', 10));
+            $options = Cache::get('options');
+        }
+
+        return array_get($options, $key, $default);
     }
 }
 
@@ -124,5 +129,46 @@ if (!function_exists('user')) {
     function user()
     {
         return Auth::user();
+    }
+}
+//获取当前登录用户
+if (!function_exists('admin')) {
+    function admin()
+    {
+        return app('\App\Providers\Auth\AdminAuth')->user();
+    }
+}
+/**
+ * 根据年龄算生日的年
+ * @param $age
+ * @return bool|string
+ */
+function ageToYear($age)
+{
+    $time = strtotime(-$age . 'year');
+
+    return date('Y-m-d', $time);
+}
+
+function urlAdd($key, $val)
+{
+    $paramters = Request::query();
+    if (is_null($val)) {
+        unset($paramters[$key]);
+    } else {
+        $paramters[$key] = $val;
+
+    }
+    return '?' . http_build_query($paramters);
+}
+
+function queryActive($key, $val, $active = 'active')
+{
+    $query = Request::query($key);
+    if (is_numeric($query)) {
+        $query = (int)$query;
+    }
+    if ($query === $val) {
+        return ' ' . $active;
     }
 }

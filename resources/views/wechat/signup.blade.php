@@ -37,7 +37,7 @@
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
   <fieldset>
       {{--会员id--}}
-      <input type="hidden" name="user_id" value="{{$_GET['user_id']}}">
+      <input type="hidden" name="user_id" value="">
       <div class="am-form-group">
       <label for="doc-ipt-email-1">真实姓名</label>
       <input type="text" name="realname" class="" id="doc-ipt-email-1" placeholder="输入真实姓名">

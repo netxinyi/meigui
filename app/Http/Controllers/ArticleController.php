@@ -9,6 +9,7 @@ namespace App\Http\Controllers;
 
 
 use App\Model\Article;
+use App\Model\Column;
 
 class ArticleController extends Controller
 {
@@ -16,6 +17,7 @@ class ArticleController extends Controller
 
     public function index(Article $article)
     {
-        return $this->view('index');
+		$lanmus = Column::with('articles')->get();
+		return $this->view('index')->with('lanmus',$lanmus)->with('art',$article);
     }
 }

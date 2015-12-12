@@ -13,147 +13,45 @@
                 爱情等你来
             </div>
             <div class="more_url">
-                <a href="./vipList.html">
-                    <img src="/images/more2.gif" alt="">
+                <a href="/male_member">
+                    <img src="/assets/images/more2.gif" alt="">
                 </a>
             </div>
         </div>
         <div class="content_member">
             <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2   am-avg-md-3 am-avg-lg-6 am-gallery-bordered"
                 data-am-gallery="{  }">
-                <li>
+                @foreach($users['male'] as $user)
+                    <li>
 
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_1.jpg" alt="白富美1号"/>
+                        <div class="am-gallery-item">
+                            <a href="/member/{{$user->user_id}}" class="">
+                                <img src="{{$user->avatar}}" alt="{{$user->user_name}}"/>
 
-                            <h3 class="am-gallery-title">Alan</h3>
+                                <h3 class="am-gallery-title">{{$user->user_name}}</h3>
 
-                            <div class="am-gallery-desc">28岁，北京，185cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_2.jpg" alt="白富美1号"/>
+                                <div class="am-gallery-desc">
+                                    {{$user->age_lang}}
+                                    @if($user->work_city)
+                                        ,{{$user->work_city}}
+                                    @endif
+                                    @if($user->height_lang)
+                                        ,{{$user->height_lang}}
+                                    @endif
+                                    @if($user->education_lang)
+                                        ,{{$user->education_lang}}
+                                    @endif
+                                    @if($user->salary_lang)
+                                        <br/>
+                                        月收入 {{$user->salary_lang}}
+                                    @endif
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                @endforeach
 
-                            <h3 class="am-gallery-title">起点</h3>
 
-                            <div class="am-gallery-desc">27岁，北京，180cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_3.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">大猫</h3>
-
-                            <div class="am-gallery-desc">28岁，北京，177cm，本科，5000～10000元</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_4.jpg" alt="终会走过这条遥远的道路"/>
-
-                            <h3 class="am-gallery-title">michael</h3>
-
-                            <div class="am-gallery-desc">28岁，北京，183cm，硕士，10000～20000元</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_5.jpg" alt="某天 也许会相遇 相遇在这个好地方"/>
-
-                            <h3 class="am-gallery-title">贺宁</h3>
-
-                            <div class="am-gallery-desc">26岁，北京，180cm，本科，5000～10000元</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_6.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">狰狞之诗</h3>
-
-                            <div class="am-gallery-desc">28岁，北京，184cm，本科，10000～20000元</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_7.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">Jason Z</h3>
-
-                            <div class="am-gallery-desc">28岁，北京，185cm，本科，10000～20000元</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_8.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">chirs</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，185cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_9.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">浴缸</h3>
-
-                            <div class="am-gallery-desc">26岁，北京，187cm，大专，10000～20000元</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_10.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">流年Triste</h3>
-
-                            <div class="am-gallery-desc">28岁，北京，185cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_11.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">MARS</h3>
-
-                            <div class="am-gallery-desc">28岁，北京，185cm，硕士，5000～10000元</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/1_12.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">鸟鸟先生</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
             </ul>
         </div>
     </div>
@@ -168,144 +66,41 @@
                 爱情等你来
             </div>
             <div class="more_url">
-                <a href="./vipList.html"> <img src="/images/more2.gif" alt=""></a>
+                <a href="/female_member"> <img src="/assets/images/more2.gif" alt=""></a>
             </div>
         </div>
         <div class="content_member">
             <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2   am-avg-md-3 am-avg-lg-6 am-gallery-bordered"
                 data-am-gallery="{  }">
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/0_1.jpg" alt="白富美1号"/>
+                @foreach($users['female'] as $user)
+                    <li>
 
-                            <h3 class="am-gallery-title">妮妮</h3>
+                        <div class="am-gallery-item">
+                            <a href="/member/{{$user->user_id}}" class="">
+                                <img src="{{$user->avatar}}" alt="{{$user->user_name}}"/>
 
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/0_2.jpg" alt="白富美1号"/>
+                                <h3 class="am-gallery-title">{{$user->user_name}}</h3>
 
-                            <h3 class="am-gallery-title">王诺诺</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/0_3.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">静静</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/0_4.jpg" alt="终会走过这条遥远的道路"/>
-
-                            <h3 class="am-gallery-title">何喵</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/0_5.jpg" alt="某天 也许会相遇 相遇在这个好地方"/>
-
-                            <h3 class="am-gallery-title">遇见</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/0_6.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">恬恬</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/0_7.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">琳琳</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/0_8.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">Judy Yang</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/0_9.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">小延延</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/0_10.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">红颜一笑</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/0_11.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">大朵</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./vip.html" class="">
-                            <img src="./images/user_img/0_12.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">鸟鸟先生</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-                    </div>
-                </li>
+                                <div class="am-gallery-desc">
+                                    {{$user->age_lang}}
+                                    @if($user->work_city)
+                                        ,{{$user->work_city}}
+                                    @endif
+                                    @if($user->height_lang)
+                                        ,{{$user->height_lang}}
+                                    @endif
+                                    @if($user->education_lang)
+                                        ,{{$user->education_lang}}
+                                    @endif
+                                    @if($user->salary_lang)
+                                        <br/>
+                                        月收入 {{$user->salary_lang}}
+                                    @endif
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                @endforeach
             </ul>
         </div>
     </div>
@@ -321,193 +116,48 @@
                 红娘一对一服务
             </div>
             <div class="more_url">
-                <a href="./vipList.html"><img src="./images/more2.gif" alt=""></a>
+                <a href="/viplist_member"><img src="/assets/images/more2.gif" alt=""></a>
             </div>
         </div>
         <div class="content_member_top">
             <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2   am-avg-md-3 am-avg-lg-5 am-gallery-bordered"
                 data-am-gallery="{  }">
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./svip.html" class="">
-                            <img src="./images/user_img/vip_1.jpg" alt="白富美1号"/>
+                @foreach($users['vip'] as $user)
+                    <li>
 
-                            <h3 class="am-gallery-title">妮妮</h3>
+                        <div class="am-gallery-item">
+                            <a href="/member/{{$user->user_id}}" class="">
+                                <img src="{{$user->avatar}}" alt="{{$user->user_name}}"/>
 
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
+                                <h3 class="am-gallery-title">{{$user->user_name}}</h3>
 
-                        <div class="member_baoming">
-                            <div class="member_baoming_num"><span>报名人数：888人</span></div>
-                            <div class="member_baoming_btn">
-                                <button class="am-btn am-btn-warning ">我要报名</button>
+                                <div class="am-gallery-desc">
+                                    {{$user->age_lang}}
+                                    @if($user->work_city)
+                                        ,{{$user->work_city}}
+                                    @endif
+                                    @if($user->height_lang)
+                                        ,{{$user->height_lang}}
+                                    @endif
+                                    @if($user->education_lang)
+                                        ,{{$user->education_lang}}
+                                    @endif
+                                    @if($user->salary_lang)
+                                        <br/>
+                                        月收入 {{$user->salary_lang}}
+                                    @endif
+                                </div>
+                            </a>
+
+                            <div class="member_baoming">
+                                <div class="member_baoming_num"><span>报名人数：{{$user->like->count()}}</span></div>
+                                <div class="member_baoming_btn">
+                                    <button class="am-btn am-btn-warning ">我要报名</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./svip.html" class="">
-                            <img src="./images/user_img/vip_2.jpg" alt="白富美1号"/>
-
-                            <h3 class="am-gallery-title">王诺诺</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-
-                        <div class="member_baoming">
-                            <div class="member_baoming_num"><span>报名人数：888人</span></div>
-                            <div class="member_baoming_btn">
-                                <button class="am-btn am-btn-warning ">我要报名</button>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./svip.html" class="">
-                            <img src="./images/user_img/vip_3.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">静静</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-
-                        <div class="member_baoming">
-                            <div class="member_baoming_num"><span>报名人数：888人</span></div>
-                            <div class="member_baoming_btn">
-                                <button class="am-btn am-btn-warning ">我要报名</button>
-                            </div>
-                        </div>
-                    </div>
-
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./svip.html" class="">
-                            <img src="./images/user_img/vip_4.jpg" alt="终会走过这条遥远的道路"/>
-
-                            <h3 class="am-gallery-title">何喵</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-
-                        <div class="member_baoming">
-                            <div class="member_baoming_num"><span>报名人数：888人</span></div>
-                            <div class="member_baoming_btn">
-                                <button class="am-btn am-btn-warning ">我要报名</button>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./svip.html" class="">
-                            <img src="./images/user_img/vip_5.jpg" alt="某天 也许会相遇 相遇在这个好地方"/>
-
-                            <h3 class="am-gallery-title">遇见</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-
-                        <div class="member_baoming">
-                            <div class="member_baoming_num"><span>报名人数：888人</span></div>
-                            <div class="member_baoming_btn">
-                                <button class="am-btn am-btn-warning ">我要报名</button>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./svip.html" class="">
-                            <img src="./images/user_img/vip_6.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">恬恬</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-
-                        <div class="member_baoming">
-                            <div class="member_baoming_num"><span>报名人数：888人</span></div>
-                            <div class="member_baoming_btn">
-                                <button class="am-btn am-btn-warning ">我要报名</button>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./svip.html" class="">
-                            <img src="./images/user_img/vip_7.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">琳琳</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-
-                        <div class="member_baoming">
-                            <div class="member_baoming_num"><span>报名人数：888人</span></div>
-                            <div class="member_baoming_btn">
-                                <button class="am-btn am-btn-warning ">我要报名</button>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./svip.html" class="">
-                            <img src="./images/user_img/vip_10.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">红颜一笑</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-
-                        <div class="member_baoming">
-                            <div class="member_baoming_num"><span>报名人数：888人</span></div>
-                            <div class="member_baoming_btn">
-                                <button class="am-btn am-btn-warning ">我要报名</button>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./svip.html" class="">
-                            <img src="./images/user_img/vip_11.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">大朵</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-
-                        <div class="member_baoming">
-                            <div class="member_baoming_num"><span>报名人数：888人</span></div>
-                            <div class="member_baoming_btn">
-                                <button class="am-btn am-btn-warning ">我要报名</button>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./svip.html" class="">
-                            <img src="./images/user_img/vip_12.jpg" alt="不要太担心 只因为我相信"/>
-
-                            <h3 class="am-gallery-title">鸟鸟先生</h3>
-
-                            <div class="am-gallery-desc">27岁，北京，184cm，本科，20000元以上</div>
-                        </a>
-
-                        <div class="member_baoming">
-                            <div class="member_baoming_num"><span>报名人数：888人</span></div>
-                            <div class="member_baoming_btn">
-                                <button class="am-btn am-btn-warning ">我要报名</button>
-                            </div>
-                        </div>
-                    </div>
-                </li>
+                    </li>
+                @endforeach
             </ul>
         </div>
     </div>
@@ -522,154 +172,24 @@
             <div class="title_2_yuanyang">
                 爱情如此美妙
             </div>
-            <div class="more_url_yuanyang"><a href="./jiehun.html">
+            <div class="more_url_yuanyang"><a href="/jjlist">
                     <button class="am-btn am-btn-secondary am-btn-xs" id="title_btn">我要结婚啦</button>
                 </a>
-                <a href="./yuanyanglist.html"><img src="./images/gengduo.gif" alt=""></a>
+                <a href="/yylist"><img src="/assets/images/more2.gif" alt=""></a>
             </div>
         </div>
         <div class="content_member_yuanyang">
             <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2   am-avg-md-3 am-avg-lg-6 am-gallery-bordered"
                 data-am-gallery="{  }">
+                @foreach($case as $case)
                 <li>
                     <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_1.jpg" alt="白富美1号"/>
+                        <a href="/scase/yydetail/{{$case->case_id}}" class="">
+                            <img src="{{$case->cover}}" alt="{{$case->title}}"/>
                         </a>
                     </div>
                 </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_2.jpg" alt="白富美1号"/>
-
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_3.jpg" alt="不要太担心 只因为我相信"/>
-
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_4.jpg" alt="终会走过这条遥远的道路"/>
-
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_5.jpg" alt="某天 也许会相遇 相遇在这个好地方"/>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_6.jpg" alt="不要太担心 只因为我相信"/>
-
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_7.jpg" alt="不要太担心 只因为我相信"/>
-
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_8.jpg" alt="不要太担心 只因为我相信"/>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_12.jpg" alt="不要太担心 只因为我相信"/>
-
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_10.jpg" alt="不要太担心 只因为我相信"/>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_11.jpg" alt="不要太担心 只因为我相信"/>
-
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_12.jpg" alt="不要太担心 只因为我相信"/>
-
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_13.jpg" alt="不要太担心 只因为我相信"/>
-
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_14.jpg" alt="不要太担心 只因为我相信"/>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_15.jpg" alt="不要太担心 只因为我相信"/>
-
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_16.jpg" alt="不要太担心 只因为我相信"/>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_17.jpg" alt="不要太担心 只因为我相信"/>
-
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div class="am-gallery-item">
-                        <a href="./yuanyang.html" class="">
-                            <img src="./images/user_img/y_18.jpg" alt="不要太担心 只因为我相信"/>
-
-                        </a>
-                    </div>
-                </li>
-
+                @endforeach
             </ul>
         </div>
     </div>
@@ -689,3 +209,8 @@
         }
     </script>
 @stop
+@if (session('status'))
+    <script>
+        alert("{{session('status')}}")
+    </script>
+@endif

@@ -42,7 +42,7 @@
                 <li><a href="/">首页</a></li>
                 <li><a href="/member">会员专区</a></li>
                 <li><a href="/search">高级搜索</a></li>
-                <li><a href="/about">关于我们</a></li>
+                <li><a href="{{Config::get('url')}}/article/1">关于我们</a></li>
             </ul>
         </div>
         @if(isLogin())

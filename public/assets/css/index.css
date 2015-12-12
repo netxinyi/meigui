@@ -377,6 +377,12 @@
     bottom: 0px;
 }
 
+
+.am-avg-lg-6 > li:nth-of-type(n){
+ clear:none !important;
+}
+
+.am-gallery-bordered .am-gallery-item img, .am-gallery-one .am-gallery-item img{height: 200px;}
 /*【2】会员专区--------------------------------------------*/
 
 /*栏目标题*/
@@ -643,3 +649,6 @@
 .home_btn {
     width: 48%;
 }
+
+.zeou_table_select{width: 200px !important;}
+.zeou_table_select_n_left{float:left;}

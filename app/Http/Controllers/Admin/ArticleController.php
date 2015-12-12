@@ -78,7 +78,7 @@ class ArticleController extends Controller
 
 
         $form             = $this->request()->all();
-        $form['admin_id'] = \Auth::user()->admin_id;
+        $form['admin_id'] = admin()->admin_id;
 
         if ($model = with(new $this->model)->create($form)) {
             return $this->success('添加成功', $model);

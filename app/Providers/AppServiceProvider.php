@@ -9,6 +9,8 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use App\Providers\Rest\RestService;
+use App\Providers\Rest\RestClient;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -53,6 +55,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton('rest', RestService::class);
+
+        $this->app->singleton('rest.client', RestClient::class);
     }
 }

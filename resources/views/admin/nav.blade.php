@@ -15,11 +15,18 @@
                     <span>首页</span>
                 </a>
             </li>
-            <li>
-                <a href="{{url('admin/option')}}">
+            <li class="has-sub">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
                     <i class="fa fa-cogs"></i>
                     <span>网站设置</span>
                 </a>
+                <ul class="sub-menu">
+                    <li><a href="{{url('/admin/option/base')}}">基本设置</a></li>
+                    <li><a href="{{url('/admin/option/recommend')}}">会员推荐</a></li>
+                    <li><a href="{{url('/admin/option/flash')}}">轮播图片</a></li>
+                    <li><a href="{{url('/admin/option/wechat')}}">微信设置</a></li>
+                </ul>
             </li>
             <li class="has-sub">
                 <a href="javascript:;">
@@ -61,6 +68,9 @@
                     <span>会员管理</span>
                 </a>
                 <ul class="sub-menu">
+                    <li><a href="/admin/user?status={{\App\Enum\User::STATUS_CHECK}}">报名审核</a></li>
+                    <li><a href="/admin/user">照片审核</a></li>
+                    <li><a href="/admin/user">自我介绍审核</a></li>
                     <li><a href="{{route('admin.user.index')}}">会员列表</a></li>
                     <li><a href="{{route('admin.user.create')}}">添加会员</a></li>
                 </ul>
@@ -72,11 +82,11 @@
                     <span>成功案例</span>
                 </a>
                 <ul class="sub-menu">
-                    <li><a href="{{route('admin.case.index')}}">案例列表</a></li>
-                    <li><a href="{{route('admin.case.create')}}">添加案例</a></li>
+                    <li><a href="{{route('admin.scase.index')}}">案例列表</a></li>
+                    <li><a href="{{route('admin.scase.create')}}">添加案例</a></li>
                 </ul>
             </li>
-            @if(Auth::check() && Auth::user()->admin_role == App\Enum\Admin::ROLE_SUPERADMIN)
+            @if(admin() && admin()->admin_role == App\Enum\Admin::ROLE_SUPERADMIN)
                 <li class="has-sub">
                     <a href="javascript:;">
                         <b class="caret pull-right"></b>
