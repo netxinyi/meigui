@@ -7,7 +7,7 @@
 
 namespace App\Http\Controllers;
 
-
+use DB;
 use App\Model\User;
 use App\Enum\User as UserEnum;
 use App\Model\UserInfo;
@@ -33,9 +33,13 @@ class IndexController extends Controller
             $users = array_merge($users, $recommend->user->all());
         }
 
+        // $lunbo_data =DB::table('options')->get();
+        // dd($lunbo_data);
+
+
         return $this->view('index')->with('users', $users);
     }
-
+// 
     public function getSearch()
     {
         $users = [];
