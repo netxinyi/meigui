@@ -47,7 +47,7 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
      * 追加属性
      * @var array
      */
-    protected $append = ['sex_lang', 'level_lang', 'age_lang', 'height_lang', 'age', 'education_lang', 'salary_lang', 'marriage_lang'];
+    protected $append = ['house_lang', 'sex_lang', 'level_lang', 'age_lang', 'height_lang', 'age', 'education_lang', 'salary_lang', 'marriage_lang'];
 
 
     /*
@@ -110,6 +110,16 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
         return UserEnum::$sexLang[$this->attributes['sex']];
     }
 
+    /**
+     * 住房情况-文字
+     * @return mixed
+     */
+    public function getHouseLangAttribute()
+    {
+
+        return $this->getLang(UserEnum::$houseLang, 'house', '未填写');
+    }
+
     public function getLevelLangAttribute()
     {
         return \App\Enum\User::$levelLang[$this->attributes['level']];
@@ -130,27 +140,25 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
 
     public function getHeightLangAttribute()
     {
-        return is_null($this->attributes['height']) ? '' : $this->attributes['height'] . 'cm';
+
+        return is_null($this->attributes['height']) ? '未填写' : $this->attributes['height'] . 'cm';
     }
 
     public function getEducationLangAttribute()
     {
-        if ($this->attributes['education']) {
-            return \App\Enum\User::$educationLang[$this->attributes['education']];
-        }
+        return $this->getLang(UserEnum::$educationLang, 'education', '未填写');
+
     }
 
     public function getSalaryLangAttribute()
     {
-        if ($this->attributes['salary']) {
-            return \App\Enum\User::$salaryLang[$this->attributes['salary']];
-        }
+        return $this->getLang(UserEnum::$salaryObjectLang, 'salary', '未填写');
     }
 
     public function getMarriageLangAttribute()
     {
 
-        return \App\Enum\User::$marriageLang[$this->attributes['marriage']];
+        return $this->getLang(UserEnum::$marriageLang, 'marriage', '未填写');
     }
 
     /*

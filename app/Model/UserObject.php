@@ -33,7 +33,7 @@ class UserObject extends BaseModel
      * 追加属性
      * @var array
      */
-    protected $append = ['sex_lang', 'age_lang', 'house_lang', 'height_lang', 'level_lang', 'education_lang', 'salary_lang', 'marriage_lang'];
+    protected $append = ['sex_lang', 'age_lang', 'house_lang', 'height_lang', 'level_lang', 'education_lang', 'salary_lang', 'marriage_lang', 'children_lang'];
 
     /*
     |--------------------------------------------------------------------------
@@ -41,14 +41,6 @@ class UserObject extends BaseModel
     |--------------------------------------------------------------------------
     */
 
-    protected function getLang($langArray, $attr, $default = '不限')
-    {
-        $value = array_get($this->attributes, $attr);
-
-
-        return $value ? array_get($langArray, $value, $default) : $default;
-
-    }
 
     public function getHouseLangAttribute()
     {
@@ -73,6 +65,11 @@ class UserObject extends BaseModel
     public function getMarriageLangAttribute()
     {
         return $this->getLang(UserEnum::$marriageLang, 'marriage');
+    }
+
+    public function getChildrenLangAttribute()
+    {
+        return $this->getLang(UserEnum::$childrenLang, 'children');
     }
 
     public function getSalaryLangAttribute()

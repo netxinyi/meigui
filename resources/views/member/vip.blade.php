@@ -55,12 +55,12 @@
                                         <td>婚姻状况：<span class="msg_font_color">{{$user->marriage_lang}}</span></td>
                                     </tr>
                                     <tr>
-                                        <td>住房：<span class="msg_font_color">独自租房</span></td>
+                                        <td>住房：<span class="msg_font_color">{{$user->house_lang}}</span></td>
                                         <td>月薪：<span class="msg_font_color">{{$user->salary_lang}}</span></td>
                                     </tr>
                                     <tr>
                                         <td>籍贯：<span class="msg_font_color">{{$user->info->origin_province}}</span></td>
-                                        <td>民族：<span class="msg_font_color">汉族</span></td>
+                                        <td>民族：<span class="msg_font_color">{{$user->info->stock}}</span></td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">
@@ -99,7 +99,9 @@
                                     <td>月薪：<span class="msg_font_color">{{$user->object->salary_lang}} </span></td>
                                 </tr>
                                 <tr>
-                                    <td>籍贯：<span class="msg_font_color">{{$user->object->origin_province}} </span></td>
+                                    <td>籍贯：<span
+                                                class="msg_font_color">{{$user->object->origin_province ?:"不限"}} </span>
+                                    </td>
                                     <td>有无孩子：<span class="msg_font_color">{{$user->object->children_lang}}</span></td>
                                 </tr>
                             </table>

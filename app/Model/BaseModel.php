@@ -29,4 +29,13 @@ abstract class BaseModel extends Model
     }
 
 
+    protected function getLang($langArray, $attr, $default = '不限')
+    {
+        $value = array_get($this->attributes, $attr);
+
+
+        return $value ? array_get($langArray, $value, $default) : $default;
+
+    }
+
 }
