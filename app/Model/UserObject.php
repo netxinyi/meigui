@@ -43,10 +43,11 @@ class UserObject extends BaseModel
 
     protected function getLang($langArray, $attr, $default = '不限')
     {
-        if (array_has($this->attributes[$attr])) {
-            return $langArray[$this->attributes[$attr]];
-        }
-        return $default;
+        $value = array_get($this->attributes, $attr);
+
+
+        return $value ? array_get($langArray, $value, $default) : $default;
+
     }
 
     public function getHouseLangAttribute()

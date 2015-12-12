@@ -20,7 +20,6 @@ class IndexController extends Controller
 
     public function getIndex()
     {
-
         $recommends = UserRecommend::with(array(
             'user' => function ($query) {
                 //只需要正常状态的会员
@@ -261,39 +260,59 @@ class IndexController extends Controller
 
     public function getSeedLike()
     {
-        $maleId = 166694;
-        $maleIdMax = 166794;
-        $femaleId = 166795;
-        $femaleMax = 166931;
-        for ($i = 0; $i <= 200; $i++) {
-            $male = rand($maleId, $maleIdMax);
-            $female = rand($femaleId, $femaleMax);
-            $x = rand(0, 1);
-            UserLike::create(array(
-                'user_id' => $x === 0 ? $female : $male,
-                'like_user_id' => $x !== 0 ? $female : $male
-            ));
+        $maleId = 166946;
+        $maleIdMax = 167046;
+        $femaleId = 167047;
+        $femaleMax = 167183;
+        try {
+            transaction();
+            for ($i = 0; $i <= 200; $i++) {
+                $male = rand($maleId, $maleIdMax);
+                $female = rand($femaleId, $femaleMax);
+                $x = rand(0, 1);
+                UserLike::create(array(
+                    'user_id' => $x === 0 ? $female : $male,
+                    'like_user_id' => $x !== 0 ? $female : $male
+                ));
+                echo '关联成功:男:' . $male . ',女:' . $female . '<br>';
+            }
+            commit();
+            return '关联完毕' . '<br>';
+        } catch (\Exception $e) {
+            rollback();
+            echo '关联回滚!' . '<br>';
+            return $e->getMessage();
         }
+
     }
 
-    public function getSeedAvatar()
+    public function getSeedMaleAvatar()
     {
         $FILE = new \Illuminate\Filesystem\Filesystem();
 
         $files = $FILE->files('/Users/vicens/www/meigui/public/uploads/avatar');
+        try {
 
-        $start = 166694;
-        foreach ($files as $path) {
-            $file = $FILE->name($path) . '.jpg';
+            transaction();
+            foreach ($files as $path) {
+                $file = $FILE->name($path) . '.jpg';
 
-            $user = User::where('sex', 1)->where('avatar', '=', null)->first();
-            if ($user && !$user->avatar) {
-                $user->update(array(
-                    'avatar' => $file
-                ));
+                $user = User::where('sex', UserEnum::SEX_MALE)->whereNull('avatar')->first();
+
+                if ($user && !$user->getOriginal('avatar')) {
+                    $user->update(array(
+                        'avatar' => $file
+                    ));
+                }
+
             }
-
+            commit();
+            return '添加成功';
+        } catch (\Exception $e) {
+            rollback();
+            return $e->getMessage();
         }
+
     }
 }
 

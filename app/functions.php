@@ -91,11 +91,23 @@ if (!function_exists('触发一个事件')) {
  * 获取app配置参数
  */
 if (!function_exists('option')) {
-
     function option($key, $default = '')
     {
+        if (!Cache::has('option_autoload') || !Cache::has('options')) {
+            $autoload = \App\Model\Option::autoload()->get()->lists('value', 'key');
 
-        return config('app.' . $key, $default);
+            Cache::put('options', $autoload, config('app.option_exp', 10));
+            Cache::put('option_autoload', true, config('app.option_exp', 10));
+        }
+
+        $options = Cache::get('options');
+
+        if (!array_get($options, $key)) {
+            $options[$key] = \App\Model\Option::key($key)->pluck('value');
+            Cache::put('options', $options, config('app.option_exp', 10));
+        }
+
+        return array_get($options, $key, $default);
     }
 }
 
