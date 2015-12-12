@@ -92,7 +92,7 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
     public function getAvatarAttribute()
     {
 
-        if (!$this->attributes['avatar']) {
+        if (!$this->attributes['avatar'] || !\File::exists(public_path() . '/uploads/avatar/' . $this->attributes['avatar'])) {
             if ($this->attributes['sex'] == UserEnum::SEX_FEMALE) {
                 return asset('/assets/images/default-avatar-female.jpg');
             }
