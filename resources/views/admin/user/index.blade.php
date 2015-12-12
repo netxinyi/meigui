@@ -4,22 +4,26 @@
     会员列表 - 后台管理中心
 @stop
 
+<style>
+    .form-group{text-align: center; }
+    .btn.btn-info{margin-top:18px;}
+    #content{padding: 0px;}
+</style>
 @section('content')
 
-    <div class="p-20">
+    <div class="p-20" style="padding:0px;">
         <!-- begin row -->
         <div class="row">
             <!-- begin col-2 -->
-            <div class="col-md-2">
+            <div class="col-md-12">
 
                 <div class="hidden-sm hidden-xs">
                     <form action="" method="get">
-                        <div class="form-group">
-                            <label>关键词</label>
-                            <input type="text" name="keyword" class="form-control input-sm input-white"
-                                   placeholder="昵称/姓名/手机号" value="{{Request::get('keyword')}}">
+                        <div class="form-group col-md-3">
+                              <label>查询</label>
+                            <input type="text" name="keyword" class="form-control input-sm input-white"  placeholder="查询昵称/姓名/手机号" value="{{Request::get('keyword')}}">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-md-1">
                             <label>性别</label>
                             <select class="form-control input-sm input-white" name="sex">
                                 <option value="-1">不限制</option>
@@ -28,7 +32,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-md-1">
                             <label>最小年龄</label>
                             <select class="form-control input-sm input-white" name="age_start">
                                 <option value="-1">不限制</option>
@@ -37,7 +41,7 @@
                                 @endfor
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-md-1">
                             <label>最大年龄</label>
                             <select class="form-control input-sm input-white" name="age_end">
                                 <option value="-1">不限制</option>
@@ -46,7 +50,7 @@
                                 @endfor
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-md-1">
                             <label>会员状态</label>
                             <select class="form-control input-sm input-white" name="status">
                                 <option value="-1">不限制</option>
@@ -55,7 +59,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-md-1">
                             <label>会员等级</label>
                             <select class="form-control input-sm input-white" name="level">
                                 <option value="-1">不限制</option>
@@ -64,15 +68,15 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-inverse btn-xs">提交</button>
+                        <div class="form-group col-md-1">
+                            <button type="submit" class="btn btn-info btn-small">提交</button>
                         </div>
                     </form>
                 </div>
             </div>
             <!-- end col-2 -->
             <!-- begin col-10 -->
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <form method="post">
                     <div class="email-content">
                         <table class="table table-email">
