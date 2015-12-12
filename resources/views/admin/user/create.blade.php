@@ -81,6 +81,29 @@
                                 @endforeach
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">账号状态</label>
+
+                            <div class="col-md-8">
+                                @foreach(\App\Enum\User::$statusLang as $value=>$lable)
+
+                                    <label class="radio-inline">
+                                        <input type="radio" name="status"
+                                               value="{{$value}}" @if($value == old('sex',\App\Enum\User::STATUS_CHECK))
+                                            checked @endif >
+                                        {{$lable}}
+                                    </label>
+                                @endforeach
+                                @if($errors->has('status'))
+                                    <ul class="parsley-errors-list filled">
+                                        <li class="parsley-required">{{$errors->first('status')}}</li>
+                                    </ul>
+                                @endif
+
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label class="col-md-2 control-label">密码</label>
 
@@ -110,7 +133,7 @@
 
                                     <label class="radio-inline">
                                         <input type="radio" name="marriage"
-                                               value="{{$value}}" @if($value == old('sex',\App\Enum\User::SEX_MALE))
+                                               value="{{$value}}" @if($value == old('sex',\App\Enum\User::MARRIAGE_UNMARRIED))
                                                checked @endif >
                                         {{$lable}}
                                     </label>
