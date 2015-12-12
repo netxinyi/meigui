@@ -50,7 +50,7 @@
                   <div class="am-panel-bd">
                        <div>
                          <span>
-                          {{$case->content}}
+                          <?php echo $case->content;?>
                            </span>
                        </div>
                   </div>
