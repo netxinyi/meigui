@@ -20,7 +20,9 @@
         var path = location.pathname;
         $('.nav_list li').find('a[href="' + path + '"]').addClass("nav_list_active").parent("li").siblings().find("a").removeClass("nav_list_active");
         //登录表单
-        $('#login-form').form();
+        $('#login-form').form().success(function () {
+            $.redirect(null, 1000);
+        });
         $(function () {
             var flag = 0;
             $('#rightArrow').on("click", function () {

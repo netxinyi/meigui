@@ -57,13 +57,18 @@ class AuthController extends Controller
         return $this->rest()->error("登录失败,账号或密码错误");
     }
 
+    public function getLogin()
+    {
+        return $this->redirect()->to('/');
+    }
+
     public function getRegister()
     {
-
+        return $this->redirect()->to('/');
     }
 
     public function postRegister()
-    {   
+    {
 
         $this->validate($this->request(), array(
             'realname' => 'required',
@@ -114,7 +119,6 @@ class AuthController extends Controller
         }
 
     }
-
 
 
 }

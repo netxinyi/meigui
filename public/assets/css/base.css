@@ -12,6 +12,11 @@
     border-radius: 4px;
 }
 
+.alert-success {
+    background-color: #5eb95e;
+    color: #fff;
+}
+
 .modal-alert {
     position: fixed;
     left: 0;
