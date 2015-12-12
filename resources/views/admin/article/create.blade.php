@@ -46,11 +46,6 @@
                             <option value="{{$column->column_id}}">{{$column->column_name}}</option>
                         @endforeach
                     </select>
-                    @if($errors->has('title'))
-                        <ul class="parsley-errors-list filled">
-                            <li class="parsley-required">{{$errors->first('title')}}</li>
-                        </ul>
-                    @endif
                 </div>
                 <div class="form-group">
                     <label for="title">文章内容</label>
