@@ -46,9 +46,9 @@ Route::get('female_member', 'MemberController@getFemale');
 Route::get('viplist_member', 'MemberController@getViplist');
 Route::get('member/{user}', 'MemberController@user');
 Route::get('yylist', 'ScaseController@getYylist');
-Route::get('scase/yydetail/{scase}','ScaseController@yydetail');
+Route::get('scase/yydetail/{scase}', 'ScaseController@yydetail');
 Route::get('jjlist', 'ScaseController@getJjlist');
-Route::get('scase/jjdetail/{scase}','ScaseController@jjdetail');
+Route::get('scase/jjdetail/{scase}', 'ScaseController@jjdetail');
 /*
 |--------------------------------------------------------------------------
 | 文章
@@ -117,6 +117,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
     Route::post('scase/image', 'Admin\ScaseController@postImage');
     #成功案例
     Route::resource('scase', 'Admin\ScaseController');
+    Route::controller('image', 'Admin\ImageCenterController');
 
 });
 

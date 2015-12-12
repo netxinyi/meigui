@@ -12,6 +12,7 @@ class VerifyCsrfToken extends BaseVerifier
      * @var array
      */
     protected $except = [
-        'weixin/api'
+        'weixin/api',
+        'admin/image/ueditor'    //图片中心
     ];
 }
