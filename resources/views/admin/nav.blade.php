@@ -86,7 +86,7 @@
                     <li><a href="{{route('admin.scase.create')}}">添加案例</a></li>
                 </ul>
             </li>
-            @if(Auth::check() && Auth::user()->admin_role == App\Enum\Admin::ROLE_SUPERADMIN)
+            @if(admin() && admin()->admin_role == App\Enum\Admin::ROLE_SUPERADMIN)
                 <li class="has-sub">
                     <a href="javascript:;">
                         <b class="caret pull-right"></b>

@@ -126,6 +126,13 @@ if (!function_exists('user')) {
         return Auth::user();
     }
 }
+//获取当前登录用户
+if (!function_exists('admin')) {
+    function admin()
+    {
+        return app('\App\Providers\Auth\AdminAuth')->user();
+    }
+}
 /**
  * 根据年龄算生日的年
  * @param $age

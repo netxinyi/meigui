@@ -166,7 +166,7 @@
                     <div data-scrollbar="true" data-height="225px">
                         <ul class="chats">
                             @foreach($chatMessages as $message)
-                                <li class=" @if($message->admin->admin_id == Auth::user()->admin_id) right @else left @endif">
+                                <li class=" @if($message->admin->admin_id == admin()->admin_id) right @else left @endif">
                                     <span class="date-time">{{$message->created_at}}</span>
                                     <a href="javascript:;" class="name">{{$message->admin->admin_name}}</a>
                                     <a href="javascript:;" class="image">

@@ -8,8 +8,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Auth\Guard as Auth;
-use App\Providers\Auth\AdminAuthUserProvider;
+use App\Providers\Auth\AdminAuth;
 use App\Enum\Admin as AdminEnum;
 
 
@@ -30,12 +29,10 @@ class AuthController extends Controller
     private $auth;
 
 
-    public function __construct(Auth $auth, AdminAuthUserProvider $userProvider)
+    public function __construct(AdminAuth $auth)
     {
 
         $this->auth = $auth;
-        $this->auth->setProvider($userProvider);
-
     }
 
 
@@ -73,6 +70,7 @@ class AuthController extends Controller
             return $this->redirect('/admin');
 
         }
+
 
         //TODO 抛出异常代码
         return $this->redirect()->back()->withErrors('账号或密码错误', 'error');
