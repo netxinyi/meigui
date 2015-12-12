@@ -85,31 +85,18 @@
                                 <th class="email-select">
                                     <a href="#" data-click="email-select-all">
                                         <i class="fa fa-square-o fa-fw"></i>
-
                                     </a>
                                 </th>
-                                <th>
-                                    昵称
-                                </th>
-                                <th>
-                                    性别
-                                </th>
-                                <th>
-                                    年龄
-                                </th>
-                                <th>
-                                    手机号
-                                </th>
-                                <th>
-                                    会员等级
-                                </th>
-
-                                <th>
-                                    注册时间
-                                </th>
-                                <th>
-                                    操作
-                                </th>
+                                <th>昵称</th>
+                                <th>手机号</th>
+                                <th>性别</th>
+                                <th>年龄</th>
+                                <th>身高</th>
+                                <th>有无孩子</th>
+                                <th>会员等级</th>
+                                <th>注册时间</th>
+                                <th>帐号状态</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -117,28 +104,18 @@
                                 <tr>
                                     <td class="email-select"><a href="#" data-click="email-select-single"><i
                                                     class="fa fa-square-o fa-fw"></i></a></td>
-                                    <td class="email-sender">
-                                        {{$user->user_name}}
-                                    </td>
-                                    <td>
-                                        {{$user->sex_lang}}
-                                    </td>
-                                    <td>
-                                        {{$user->age_lang}}
-                                    </td>
-                                    <td>
-                                        {{$user->mobile}}
-                                    </td>
-                                    <td>
-                                        {{$user->level_lang}}
-                                    </td>
-
+                                    <td class="email-sender">{{$user->user_name}}</td>
+                                    <td>{{$user->mobile}} </td>
+                                    <td>{{$user->sex_lang}}</td>
+                                    <td>{{$user->age_lang}}</td>
+                                    <td>{{$user->height_lang}}</td>
+                                    <td>{{$user->children}}</td>
+                                    <td class="email-date">{{$user->level}}</td>
                                     <td class="email-date">{{$user->created_at}}</td>
+                                     <td class="email-date">{{$user->status}}</td>
                                     <td>
-                                        <a class="btn btn-success btn-sm"
-                                           href="/admin/user/{{$user->user_id}}/edit">编辑</a>
-                                        <a class="btn btn-danger btn-sm" href="/admin/user/{{$user->user_id}}"
-                                           data-method="delete">删除</a>
+                                        <a class="btn btn-success btn-sm"   href="/admin/user/{{$user->user_id}}/edit">编辑</a>
+                                        <a class="btn btn-danger btn-sm" href="/admin/user/{{$user->user_id}}" data-method="delete">删除</a>
                                     </td>
                                 </tr>
                             @endforeach

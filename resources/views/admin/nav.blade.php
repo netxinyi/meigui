@@ -67,12 +67,12 @@ begin #sidebar -->
                     <span>会员管理</span>
                 </a>
                 <ul class="sub-menu">
-                     <li><a href="{{url('/admin/option/recommend')}}">会员推荐</a></li>
-                    <li><a href="/admin/user?status={{\App\Enum\User::STATUS_CHECK}}">报名审核</a></li>
-                    <li><a href="/admin/user">照片审核</a></li>
-                    <li><a href="/admin/user">自我介绍审核</a></li>
                     <li><a href="{{route('admin.user.index')}}">会员列表</a></li>
                     <li><a href="{{route('admin.user.create')}}">添加会员</a></li>
+                    <li><a href="/admin/user?status={{\App\Enum\User::STATUS_CHECK}}">报名信息审核</a></li>
+                    <li><a href="{{url('/admin/option/recommend')}}">会员展示推荐</a></li>
+                    <li><a href="/admin/user">会员照片审核</a></li>
+                    <li><a href="/admin/user">自我介绍审核</a></li>
                 </ul>
             </li>
             <li class="has-sub">
