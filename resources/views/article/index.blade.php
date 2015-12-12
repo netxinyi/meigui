@@ -56,7 +56,7 @@
                         </div>
                         <div class="am-article-bd">
                             <p class="am-article-lead">
-                                {{$art->content}}
+                                <?php echo $art->content;?>
                             </p>
                         </div>
                     </article>
