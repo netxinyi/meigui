@@ -3,8 +3,10 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Session\TokenMismatchException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Request;
 
 class Handler extends ExceptionHandler
 {
@@ -22,7 +24,7 @@ class Handler extends ExceptionHandler
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception  $e
+     * @param  \Exception $e
      * @return void
      */
     public function report(Exception $e)
@@ -33,12 +35,18 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $e
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Exception $e
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $e)
     {
+        if ($e instanceof TokenMismatchException) {
+            if (Request::ajax() || Request::wantsJson()) {
+                return app('rest')->error('页面已过期,请刷新后操作!');
+            }
+
+        }
         return parent::render($request, $e);
     }
 }
