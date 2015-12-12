@@ -34,7 +34,7 @@
                         </div>
                         <div>
                             <span>出生年月</span>
-                            <input type="text" name="birthday" class="w_input" placeholder="选择日期" data-am-datepicker="{theme: 'danger'}" /><br>
+                            <input id="datepicker" type="text" name="birthday" class="w_input" placeholder="选择日期"/><br>
                         </div>
                         <div>
                             <span>婚姻状况</span>
@@ -168,6 +168,7 @@
 
 
         $(function () {
+            var now = new Date() - 0;
             $('[data-change-sex]').click(function () {
                 var sex = $(this).data('change-sex');
                 $('#index-recommend').find('li').hide().parent().find('li[data-sex="' + sex + '"]').show();
@@ -178,7 +179,19 @@
                 $.redirect(null, 2);
             }).form();
             $('[data-change-sex="{{\App\Enum\User::SEX_FEMALE}}"]').click();
+
+            $('#datepicker').datepicker({
+                theme: "danger",
+                format: "yyyy-mm-dd",
+                viewMode: "years",
+                onRender: function (date, viewMode) {
+                    if (date >= now) {
+                        return 'am-disabled';
+                    }
+                }
+            });
         });
+
     </script>
 @stop
 @if (session('status'))
