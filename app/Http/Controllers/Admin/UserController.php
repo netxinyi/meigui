@@ -249,7 +249,22 @@ class UserController extends Controller
         $data = $this->request()->only('id','page');
         DB::table("user_recommend")->where('id',$data['id'])->update(array('page'=>$data['page']));
 
+
         return $this->success('操作成功');
+
+    }
+
+    // 会员推荐
+    public function setTuiUser(){
+        
+        $user_id = $this->request()->get('user_id');
+        $num = DB::table('user_recommend')->where('user_id',$user_id)->count();
+
+        if($num ==0){
+              $num = DB::table('user_recommend')->insert(array('user_id'=>$user_id));
+        }
+
+         return $this->success('操作成功');
 
     }
 

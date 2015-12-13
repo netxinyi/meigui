@@ -119,6 +119,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
     #会员展示推荐
     Route::get('user/recommend', array('uses' => 'Admin\UserController@getRecommend', 'as' => 'admin.user.recommend'));
     Route::post('user/setRecommendPage', array('uses' => 'Admin\UserController@setRecommendPage', 'as' => 'admin.user.setRecommendPage'));
+    Route::post('user/setTuiUser', array('uses' => 'Admin\UserController@setTuiUser', 'as' => 'admin.user.setTuiUser'));
 
     #会员相片审核
     Route::get('user/gallerylist', array('uses' => 'Admin\UserController@getGallerylist', 'as' => 'admin.user.gallerylist'));
