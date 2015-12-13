@@ -112,9 +112,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
 
 
     #用户管理
-    Route::get('user/introduce', array('uses' => 'Admin\UserController@getIntroduce', 'as' => 'admin.user.introduce'));
-    Route::post('user/setIntroduceStatus', array('uses' => 'Admin\UserController@setIntroduceStatus', 'as' => 'admin.user.setIntroduceStatus'));
-    #自我介绍
+        #自我介绍
+        Route::get('user/introduce', array('uses' => 'Admin\UserController@getIntroduce', 'as' => 'admin.user.introduce'));
+        Route::post('user/setIntroduceStatus', array('uses' => 'Admin\UserController@setIntroduceStatus', 'as' => 'admin.user.setIntroduceStatus'));
+    
+        #会员展示推荐
+        Route::get('user/recommend', array('uses' => 'Admin\UserController@getRecommend', 'as' => 'admin.user.recommend'));
     Route::resource('user', 'Admin\UserController');
     Route::post('scase/image', 'Admin\ScaseController@postImage');
 
