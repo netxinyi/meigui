@@ -21,95 +21,57 @@ class MemberController extends Controller
 
     public function index()
     {
-        $recommends = UserRecommend::with(array(
-            'user' => function ($query) {
-                //只需要正常状态的会员
-                return $query->status()->select('user_id', 'avatar', 'user_name', 'work_city', 'height', 'education', 'salary', 'birthday', 'level', 'sex');
-            },
-            'user.like' => function ($query) {
-                return $query->select('id');
-            }
-        ))->home()->orderBy('order')->get(array('user_id'))->all();
 
-        $users = array(
-            'male' => array(),
-            'female' => array(),
-            'vip' => array()
-        );
-        foreach ($recommends as $recommend) {
-            foreach ($recommend->user->all() as $user) {
-                if ($user->sex == userEnum::SEX_FEMALE) {
-                    $users['female'][] = $user;
-                } else if ($user->level == userEnum::LEVEL_1) {
-                    $users['male'][] = $user;
-                } else if ($user->level == userEnum::LEVEL_3) {
-                    $users['vip'][] = $user;
-                }
-            }
-        }
 
-		//筛选出鸳鸯谱的所有案例
-		$case = Scase::where('publish_type','=',scaseEnum::PUBLISH_YUANYANGPU)->get();
-        return $this->view('index')->with('users', $users)->with('case',$case);
+        $users['male'] = User::leftJoin('user_recommend', 'user_recommend.user_id', '=', 'users.user_id')
+            ->male()->level(\App\Enum\User::LEVEL_1)->limit(24)->orderBy('user_recommend.order')->get();
+
+
+        $users['female'] = User::leftJoin('user_recommend', 'user_recommend.user_id', '=', 'users.user_id')
+            ->female()->limit(24)->orderBy('user_recommend.order')->get();
+
+        $users['vip'] = User::leftJoin('user_recommend', 'user_recommend.user_id', '=', 'users.user_id')
+            ->male()->level(\App\Enum\User::LEVEL_3)->limit(24)->orderBy('user_recommend.order')->get();
+
+
+        //筛选出鸳鸯谱的所有案例
+        $case = Scase::where('publish_type', '=', scaseEnum::PUBLISH_YUANYANGPU)->get();
+        return $this->view('index')->with('users', $users)->with('case', $case);
     }
 
     public function getMale()
     {
-        $recommends = UserRecommend::with(array(
-            'user' => function ($query) {
-                //只需要正常状态的会员
-                return $query->status()->male()->level();
-            }
-        ))->home()->orderBy('order')->get()->all();
-        $users = array();
-        foreach ($recommends as $recommend) {
+        $users = User::leftJoin('user_recommend', 'user_recommend.user_id', '=', 'users.user_id')
+            ->male()->level(\App\Enum\User::LEVEL_1)->orderBy('user_recommend.order')->paginate(36);
 
-            $users = array_merge($users, $recommend->user->all());
-        }
+        $users->appends($this->request()->all());
         return $this->view('male')->with('users', $users);
     }
 
     public function getFemale()
     {
-        $recommends = UserRecommend::with(array(
-            'user' => function ($query) {
-                //只需要正常状态的会员
-                return $query->status()->female();
-            }
-        ))->home()->orderBy('order')->get()->all();
-        $users = array();
-        foreach ($recommends as $recommend) {
-
-            $users = array_merge($users, $recommend->user->all());
-        }
-
+        $users = User::leftJoin('user_recommend', 'user_recommend.user_id', '=', 'users.user_id')
+            ->female()->limit(24)->orderBy('user_recommend.order')->paginate(36);
+        $users->appends($this->request()->all());
         return $this->view('female')->with('users', $users);
     }
 
     public function getViplist()
     {
-        $recommends = UserRecommend::with(array(
-            'user' => function ($query) {
-                //只需要正常状态的会员
-                return $query->status()->male()->level(userEnum::LEVEL_3);
-            }
-        ))->home()->orderBy('order')->get()->all();
-        $users = array();
-        foreach ($recommends as $recommend) {
-
-            $users = array_merge($users, $recommend->user->all());
-        }
+        $users = User::leftJoin('user_recommend', 'user_recommend.user_id', '=', 'users.user_id')
+            ->male()->level(\App\Enum\User::LEVEL_3)->limit(24)->orderBy('user_recommend.order')->paginate(36);
+        $users->appends($this->request()->all());
         return $this->view('viplist')->with('users', $users);
     }
 
     public function user(User $user)
     {
         $status = $user['status'];
-		if($status == (userEnum::STATUS_OK)){
-			return $this->view('vip')->with('user', $user);
-		}else{
-			return \Redirect::back()->with('status', '该会员尚未通过审核');
-		}
+        if ($status == (userEnum::STATUS_OK)) {
+            return $this->view('vip')->with('user', $user);
+        } else {
+            return \Redirect::back()->with('status', '该会员尚未通过审核');
+        }
     }
 
 }

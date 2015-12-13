@@ -28,4 +28,18 @@ class ColumnController extends Controller
      */
     protected $model = Column::class;
 
+
+    public function destroy(Column $model)
+    {
+
+        if ($model->articles->count() > 0) {
+            return $this->error('栏目下有文章,无法直接删除,请先删除文章');
+        }
+        if ($model->delete()) {
+            return $this->success('删除成功');
+        }
+
+        return $this->error('删除失败');
+    }
+
 }

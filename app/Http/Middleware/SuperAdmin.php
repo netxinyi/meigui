@@ -26,19 +26,18 @@ class SuperAdmin
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \Closure                 $next
+     * @param  \Closure $next
      *
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
-
-        if ($this->auth->guest() || $this->auth->user()->admin_role === AdminEnum::ROLE_SUPERADMIN) {
+        if ($this->auth->guest() || admin()->admin_role != AdminEnum::ROLE_SUPERADMIN) {
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
 
-               abort(404);
+                abort(404);
             }
         }
 
