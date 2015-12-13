@@ -70,8 +70,8 @@ begin #sidebar -->
                     <li><a href="{{route('admin.user.index')}}">会员列表</a></li>
                     <li><a href="{{route('admin.user.create')}}">添加会员</a></li>
                     <li><a href="/admin/user?status={{\App\Enum\User::STATUS_CHECK}}">报名信息审核</a></li>
-                    <li><a href="{{url('/admin/option/recommend')}}">会员展示推荐</a></li>
-                    <li><a href="/admin/user">会员照片审核</a></li>
+                    <li><a href="/admin/user/recommend">会员展示推荐</a></li>
+                    <li><a href="/admin/user/gallerylist">会员相片审核</a></li>
                     <li><a href="/admin/user/introduce">自我介绍审核</a></li>
                 </ul>
             </li>

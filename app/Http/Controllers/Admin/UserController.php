@@ -12,6 +12,7 @@ use App\Model\Register;
 use App\Model\User;
 use App\Enum\User as UserEnum;
 use App\Model\UserInfo;
+use App\Model\UserRecommend;
 
 class UserController extends Controller
 {
@@ -208,7 +209,7 @@ class UserController extends Controller
 
         if($data['status']=="审核失败"){
              DB::table("user_info")->where('user_id',$data['user_id'])->update(array('introduce_status'=>$data['status']));
-             
+
         }else{
              $new_introduce =  DB::table("user_info")->where('user_id',$data['user_id'])->pluck('new_introduce');
              DB::table("user_info")->where('user_id',$data['user_id'])->update(array('introduce'=>$new_introduce,'introduce_status'=>$data['status']));
@@ -217,6 +218,28 @@ class UserController extends Controller
 
         return $this->success('操作成功');
 
+    }
+
+     //会员展示推荐
+    public function getRecommend()
+    {
+      
+        $users = UserRecommend::with('user')->get();
+
+        // $recommend_data = UserRecommend::all();
+
+        return $this->view('recommend')->with('users', $users);
+    }
+
+    //会员展示推荐
+    public function getGallerylist()
+    {
+      
+        $users = UserRecommend::with('user')->get();
+
+        // $recommend_data = UserRecommend::all();
+
+        return $this->view('gallery')->with('users', $users);
     }
 
     public function getRegister()
