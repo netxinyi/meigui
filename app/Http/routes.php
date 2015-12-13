@@ -118,6 +118,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
     
         #会员展示推荐
         Route::get('user/recommend', array('uses' => 'Admin\UserController@getRecommend', 'as' => 'admin.user.recommend'));
+        Route::post('user/setRecommendPage', array('uses' => 'Admin\UserController@setRecommendPage', 'as' => 'admin.user.setRecommendPage'));
     Route::resource('user', 'Admin\UserController');
     Route::post('scase/image', 'Admin\ScaseController@postImage');
 
