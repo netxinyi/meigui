@@ -77,9 +77,9 @@ class UserController extends Controller
     {
 
         //验证表单
-        $this->validate($this->request(), [
-
-            'mobile' => 'required|digits:11',
+        $this->validate($this->request(),$rules=array(
+            'mobile' => 'required|digits:11|unique:users',
+            'realname'=>'required',
             'birthday' => 'required|date',
             'sex' => 'required|in:' . array_keys_impload(UserEnum::$sexLang),
             'password' => 'min:5|max:20',
@@ -88,11 +88,25 @@ class UserController extends Controller
             'height' => 'numeric|digits:3|min:130|max:210',
             'education' => 'in:' . array_keys_impload(UserEnum::$educationLang),
             'salary' => 'in:' . array_keys_impload(UserEnum::$salaryLang)
+
+        ),$message=[
+            'mobile.required' =>'手机号不能为空',
+            'mobile.digits'  =>'手机号格式不正确',
+            'mobile.unique'  =>'手机号已经存在',
+            'birthday.required'=>'生日不能为空',
+            'realname.required'=>'真实姓名不能为空',
+            'sex.required'     =>'性别不能为空',
+            'password.min'     =>'密码最少5位',
+            'password.max'     =>'密码最多20位',
+            'password_confirm.same'=>'两次输入的密码不一致',
+            ], $customAttributes = [
+
         ]);
 
         $form = $this->request()->only([
             'user_name',
             'mobile',
+            'realname',
             'birthday',
             'marriage',
             'height',

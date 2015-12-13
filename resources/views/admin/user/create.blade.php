@@ -33,7 +33,7 @@
                 <form class="form-horizontal" action="{{route('admin.user.store')}}"
                   method="post">
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
-
+                    <input type="hidden" name="level" value="{{\App\Enum\User::LEVEL_1}}">
                     <fieldset>
                         <legend>基本信息</legend>
                         <div class="form-group">
@@ -53,10 +53,31 @@
                             <div class="col-md-8">
                                 <input type="text" class="form-control" placeholder="手机号" name="mobile"
                                        value="{{old('mobile')}}" required/>
+                                @if($errors->has('mobile'))
+                                    <ul class="parsley-errors-list filled">
+                                        <li class="parsley-required">{{$errors->first('mobile')}}</li>
+                                    </ul>
+                                @endif
 
 
                             </div>
                     </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">真实姓名</label>
+
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" placeholder="真实姓名" name="realname"
+                                       value="{{old('realname')}}" required/>
+                                @if($errors->has('realname'))
+                                    <ul class="parsley-errors-list filled">
+                                        <li class="parsley-required">{{$errors->first('realname')}}</li>
+                                    </ul>
+                                @endif
+
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label class="col-md-2 control-label">出生日期</label>
 
@@ -90,7 +111,7 @@
 
                                     <label class="radio-inline">
                                         <input type="radio" name="status"
-                                               value="{{$value}}" @if($value == old('sex',\App\Enum\User::STATUS_CHECK))
+                                               value="{{$value}}" @if($value == old('status',\App\Enum\User::STATUS_CHECK))
                                             checked @endif >
                                         {{$lable}}
                                     </label>
@@ -110,7 +131,11 @@
                             <div class="col-md-8">
                                 <input type="password" class="form-control" placeholder="5-20个字符" name="password"
                                        value=""/>
-
+                                @if($errors->has('password'))
+                                    <ul class="parsley-errors-list filled">
+                                        <li class="parsley-required">{{$errors->first('password')}}</li>
+                                    </ul>
+                                @endif
                             </div>
                     </div>
                         <div class="form-group">
@@ -119,6 +144,11 @@
                             <div class="col-md-8">
                                 <input type="password" class="form-control" placeholder="重复输入密码" name="password_confirm"
                                        value=""/>
+                                @if($errors->has('password_confirm'))
+                                    <ul class="parsley-errors-list filled">
+                                        <li class="parsley-required">{{$errors->first('password_confirm')}}</li>
+                                    </ul>
+                                @endif
 
                             </div>
                     </div>
@@ -133,7 +163,7 @@
 
                                     <label class="radio-inline">
                                         <input type="radio" name="marriage"
-                                               value="{{$value}}" @if($value == old('sex',\App\Enum\User::MARRIAGE_UNMARRIED))
+                                               value="{{$value}}" @if($value == old('marriage',\App\Enum\User::MARRIAGE_UNMARRIED))
                                                checked @endif >
                                         {{$lable}}
                                     </label>
@@ -190,13 +220,18 @@
                             <label class="col-md-2 control-label">所在地</label>
 
                             <div class="col-md-2">
-                                <select class="form-control default-select2" name="work_province">
+                                <select class="form-control default-select2" name="province">
 
                                 </select>
                             </div>
 
                             <div class="col-md-2">
-                                <select class="form-control" name="work_city">
+                                <select class="form-control" name="city">
+
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <select class="form-control" name="area">
 
                                 </select>
                             </div>
@@ -234,7 +269,7 @@
                 format: "yyyy-mm-dd"
 
             });
-            new PCAS("province", "city");
+            new PCAS("province", "city", "area");
 
 
         });
