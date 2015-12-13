@@ -92,7 +92,7 @@
 
                     $("#progreess").after('<img name="image" style="width: 31px; height: 33px;" class="file-btn" src="" >');
                 } else {
-                    $("#progreess").after('<img name="image" style="width: 128px; height: 128px;" class="file-btn" src="http://dev.meiguihuakai.com.cn/uploads/avatar/' + res + '" >');
+                    $("#progreess").after('<img name="image" style="width: 128px; height: 128px;" class="file-btn" src="/uploads/avatar/' + res + '" >');
                     $("#my_avatar").val(res);
 
                 }
