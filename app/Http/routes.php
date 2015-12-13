@@ -46,9 +46,9 @@ Route::get('female_member', 'MemberController@getFemale');
 Route::get('viplist_member', 'MemberController@getViplist');
 Route::get('member/{user}', 'MemberController@user');
 Route::get('yylist', 'ScaseController@getYylist');
-Route::get('scase/yydetail/{scase}','ScaseController@yydetail');
+Route::get('scase/yydetail/{scase}', 'ScaseController@yydetail');
 Route::get('jjlist', 'ScaseController@getJjlist');
-Route::get('scase/jjdetail/{scase}','ScaseController@jjdetail');
+Route::get('scase/jjdetail/{scase}', 'ScaseController@jjdetail');
 /*
 |--------------------------------------------------------------------------
 | 文章
@@ -91,8 +91,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
     Route::get('/', ['uses' => 'Admin\HomeController@index']);
     #Option管理-资源路由
     Route::controller('option', 'Admin\OptionController');
-    #管理员管理
-    Route::resource('admins', 'Admin\AdminController', ['middleware' => 'auth.admin.super']);
+
     #栏目管理
     Route::resource('column', 'Admin\ColumnController');
     #文章管理
@@ -113,10 +112,30 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
 
 
     #用户管理
+        #自我介绍
+        Route::get('user/introduce', array('uses' => 'Admin\UserController@getIntroduce', 'as' => 'admin.user.introduce'));
+        Route::post('user/setIntroduceStatus', array('uses' => 'Admin\UserController@setIntroduceStatus', 'as' => 'admin.user.setIntroduceStatus'));
+    
+        #会员展示推荐
+        Route::get('user/recommend', array('uses' => 'Admin\UserController@getRecommend', 'as' => 'admin.user.recommend'));
+        Route::post('user/setRecommendPage', array('uses' => 'Admin\UserController@setRecommendPage', 'as' => 'admin.user.setRecommendPage'));
+
+         #会员相片审核
+        Route::get('user/gallerylist', array('uses' => 'Admin\UserController@getGallerylist', 'as' => 'admin.user.gallerylist'));
+        Route::post('user/setGalleryStatus', array('uses' => 'Admin\UserController@setGalleryStatus', 'as' => 'admin.user.setGalleryStatus'));
+
     Route::resource('user', 'Admin\UserController');
     Route::post('scase/image', 'Admin\ScaseController@postImage');
+
+
     #成功案例
     Route::resource('scase', 'Admin\ScaseController');
+    Route::controller('image', 'Admin\ImageCenterController');
+
+    Route::group(array('middleware' => 'auth.admin.super'), function () {
+        #管理员管理
+        Route::resource('admins', 'Admin\AdminController', ['middleware' => 'auth.admin.super']);
+    });
 
 });
 

@@ -70,10 +70,17 @@ class ArticleController extends Controller
     public function store()
     {
 
-        $this->validate($this->request(), [
+        $this->validate($this->request(),$rules = array(
             'title'     => 'required|max:255',
             'content'   => 'required|min:10',
             'column_id' => 'required'
+        ), $message = [
+            'title.required'  => '请填写标题',
+            'title.max'       => '标题太长',
+            'column_id.required'  => '栏目不能为空',
+            'content.required' =>'文章内容不能为空'
+        ], $customAttributes = [
+
         ]);
 
 

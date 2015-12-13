@@ -67,15 +67,30 @@
         <div class="c_modle">
             <div data-am-widget="slider" class="am-slider am-slider-b1" data-am-slider='{&quot;controlNav&quot;:false}'>
                 <ul class="am-slides">
-                    <li>
-                        <img src="/assets/images/tu_1.jpg">
-                    </li>
-                    <li>
-                        <img src="/assets/images/tu_2.jpg">
-                    </li>
-                    <li>
-                        <img src="/assets/images/tu_3.jpg">
-                    </li>
+                    @if(option('lb_image1'))
+                        <li>
+                            <a href="{{option('lb_url1')}}" target="_blank">
+                                <img src="/uploads/images/{{option('lb_image1')}}" width="670" height="335">
+                            </a>
+
+                        </li>
+                    @endif
+                    @if(option('lb_image2'))
+                        <li>
+                            <a href="{{option('lb_url2')}}" target="_blank">
+                                <img src="/uploads/images/{{option('lb_image2')}}" width="670" height="335">
+                            </a>
+
+                        </li>
+                    @endif
+                    @if(option('lb_image3'))
+                        <li>
+                            <a href="{{option('lb_url3')}}" target="_blank">
+                                <img src="/uploads/images/{{option('lb_image3')}}" width="670" height="335">
+                            </a>
+
+                        </li>
+                    @endif
                 </ul>
             </div>
         </div>
@@ -142,7 +157,8 @@
     <!-- 展示女用户 -->
     <div class="wap_content2">
         <div class="content">
-            <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-3 am-avg-lg-6 am-gallery-bordered" data-am-gallery="{  }" id="index-recommend">
+            <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-3 am-avg-lg-6 am-gallery-bordered"
+                data-am-gallery="{  }" id="index-recommend">
                 @foreach($users as $user)
                     <li data-sex="{{$user->sex}}">
                         <div class="am-gallery-item">

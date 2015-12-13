@@ -32,7 +32,7 @@
 
                 <div class="form-group">
                     <label for="title">文章标题</label>
-                    <input type="text" class="form-control" id="title" placeholder="文章标题" name="title">
+                    <input type="text" class="form-control" id="title" placeholder="文章标题" name="title" value="{{old('title')}}">
                     @if($errors->has('title'))
                         <ul class="parsley-errors-list filled">
                             <li class="parsley-required">{{$errors->first('title')}}</li>
@@ -43,18 +43,13 @@
                     <label for="title">所属栏目</label>
                     <select name="column_id" class="form-control">
                         @foreach($columns as $column)
-                            <option value="{{$column->column_id}}">{{$column->column_name}}</option>
+                            <option value="{{$column->column_id}} @if(old('column_id')==$column->column_id)selected @endif">{{$column->column_name}}</option>
                         @endforeach
                     </select>
-                    @if($errors->has('title'))
-                        <ul class="parsley-errors-list filled">
-                            <li class="parsley-required">{{$errors->first('title')}}</li>
-                        </ul>
-                    @endif
                 </div>
                 <div class="form-group">
                     <label for="title">文章内容</label>
-                    <textarea name="content" id="html-editor" style="height: 300px"></textarea>
+                    <textarea name="content" id="html-editor" style="height: 300px">{{old('content')}}</textarea>
                     @if($errors->has('content'))
                         <ul class="parsley-errors-list filled">
                             <li class="parsley-required">{{$errors->first('content')}}</li>

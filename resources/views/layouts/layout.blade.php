@@ -7,8 +7,11 @@
     <meta content="战狼技术团队" name="author"/>
     @yield('meta')
     <title>
-        @yield('title','玫瑰花开')
+        @yield('title',option('site_name'))
     </title>
+    <meta name="description" content="@yield('description',option('site_description'))"/>
+    <meta name="keywords" content="@yield('keywords',option('site_keywords'))">
+
     <link rel="shortcut icon" href="/favicon.ico">
     @yield('first-css')
     @yield('global-css')

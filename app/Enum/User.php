@@ -170,9 +170,9 @@ class User
     ];
 
 
-    const RECOMMEND_INDEX = 1;
-    const RECOMMEND_HOME = 2;
-    const RECOMMEND_NO = 0;
+    const RECOMMEND_INDEX = '首页';
+    const RECOMMEND_HOME = '会员专区';
+    const RECOMMEND_NO = '不推荐';
 
     #相册状态
     const GALLERY_CHECK = '待审核';
