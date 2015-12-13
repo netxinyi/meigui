@@ -50,7 +50,9 @@
                             <div class="member_baoming">
                                 <div class="member_baoming_num"><span>报名人数：{{$user->like->count()}}</span></div>
                                 <div class="member_baoming_btn">
-                                    <button class="am-btn am-btn-warning ">我要报名</button>
+                                    <a href="/member/{{$user->user_id}}" class="">
+                                        <button class="am-btn am-btn-warning ">我要报名</button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
