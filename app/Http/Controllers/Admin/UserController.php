@@ -13,6 +13,7 @@ use App\Model\User;
 use App\Enum\User as UserEnum;
 use App\Model\UserInfo;
 use App\Model\UserRecommend;
+use App\Model\UserGallery;
 
 class UserController extends Controller
 {
@@ -226,8 +227,6 @@ class UserController extends Controller
       
         $users = UserRecommend::with('user')->get();
 
-        // $recommend_data = UserRecommend::all();
-
         return $this->view('recommend')->with('users', $users);
     }
 
@@ -244,11 +243,18 @@ class UserController extends Controller
     public function getGallerylist()
     {
       
-        $users = UserRecommend::with('user')->get();
-
-        // $recommend_data = UserRecommend::all();
+        $users = UserGallery::where('status','待审核')->where('image_url','!=','')->with('user')->get();
 
         return $this->view('gallery')->with('users', $users);
+    }
+
+    // 设置相片状态
+    public function setGalleryStatus(){
+        $data = $this->request()->only('photo_id','status');
+        DB::table("user_gallery")->where('photo_id',$data['photo_id'])->update(array('status'=>$data['status']));
+
+        return $this->success('操作成功');
+
     }
 
     public function getRegister()
