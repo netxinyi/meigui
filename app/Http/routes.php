@@ -91,8 +91,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
     Route::get('/', ['uses' => 'Admin\HomeController@index']);
     #Option管理-资源路由
     Route::controller('option', 'Admin\OptionController');
-    #管理员管理
-    Route::resource('admins', 'Admin\AdminController', ['middleware' => 'auth.admin.super']);
+
     #栏目管理
     Route::resource('column', 'Admin\ColumnController');
     #文章管理
@@ -118,13 +117,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
     #自我介绍
     Route::resource('user', 'Admin\UserController');
     Route::post('scase/image', 'Admin\ScaseController@postImage');
-  
+
 
     #成功案例
     Route::resource('scase', 'Admin\ScaseController');
     Route::controller('image', 'Admin\ImageCenterController');
 
-    
+    Route::group(array('middleware' => 'auth.admin.super'), function () {
+        #管理员管理
+        Route::resource('admins', 'Admin\AdminController', ['middleware' => 'auth.admin.super']);
+    });
 
 });
 

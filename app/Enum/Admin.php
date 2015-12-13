@@ -16,9 +16,9 @@ class Admin
     const STATUS_STOP   = 2;
 
 
-    const ROLE_SUPERADMIN = 1;
+    const ROLE_SUPERADMIN = 'super';
 
-    const ROLE_ADMIN = 2;
+    const ROLE_ADMIN = 'admin';
 
 
     public static $statusForm = [
