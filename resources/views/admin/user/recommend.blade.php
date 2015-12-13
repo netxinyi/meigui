@@ -109,12 +109,11 @@
          method:'post',
          data:{id:id,_token:token,page:str},
          success:function(data){
-                alert(55555);
-                // $("#btn_"+id).hide();
-                
+                window.location.reload();
          },
          error:function(){
-            alert(22222222222);
+             
+              window.location.reload();
          }
         });
 
