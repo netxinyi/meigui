@@ -25,8 +25,8 @@
                                     </li>
                                 @else
                                     @foreach($user->gallery as $photo)
-                                        <li data-thumb="{{$photo}}">
-                                            <img src="{{$photo}}"/>
+                                        <li data-thumb="{{$photo->image_url}}">
+                                            <img src="{{$photo->image_url}}"/>
                                         </li>
                                     @endforeach
                                 @endif
