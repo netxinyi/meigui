@@ -86,6 +86,7 @@ class ScaseController extends Controller
 
 		]);
 		$form = $this->request()->all();
+		$form['cover'] = $form['photos']['0'];
 		$form['photos'] = implode("\n",$form['photos']);
 		if($scase->update($form)){
 			return $this->success('修改成功', $scase);
