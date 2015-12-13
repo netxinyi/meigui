@@ -91,10 +91,8 @@
                         <div class="am-panel-bd">
                             <table class="am-table">
                                 <tr>
-                                    <td>年龄：<span class="msg_font_color">{{$user->object->age_start}}
-                                            岁 至 {{$user->object->age_end}}岁</span></td>
-                                    <td>身高：<span class="msg_font_color">{{$user->object->height_start}}
-                                            cm 至 {{$user->object->height_end}}cm</span></td>
+                                    <td>年龄：<span class="msg_font_color">{{$user->object->age_lang}}</span></td>
+                                    <td>身高：<span class="msg_font_color">{{$user->object->height_lang}}</span></td>
                                 </tr>
                                 <tr>
                                     <td>学历：<span class="msg_font_color">{{$user->object->education_lang}}</span></td>
