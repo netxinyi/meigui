@@ -20,25 +20,18 @@ class IndexController extends Controller
 
     public function getIndex()
     {
-        $recommends = UserRecommend::with(array(
+        $users = UserRecommend::with(array(
             'user' => function ($query) {
                 //只需要正常状态的会员
                 return $query->status();
             }
-        ))->index()->orderBy('order')->get()->all();
-        $users = array();
-        foreach ($recommends as $recommend) {
-
-            $users = array_merge($users, $recommend->user->all());
-        }
-
-        // $lunbo_data =DB::table('options')->get();
-        // dd($lunbo_data);
+        ))->index()->orderBy('order')->get();
 
 
         return $this->view('index')->with('users', $users);
     }
-// 
+
+//
     public function getSearch()
     {
         $users = [];

@@ -160,17 +160,19 @@
             <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-3 am-avg-lg-6 am-gallery-bordered"
                 data-am-gallery="{  }" id="index-recommend">
                 @foreach($users as $user)
-                    <li data-sex="{{$user->sex}}">
+                    @if($user->user)
+                        <li data-sex="{{$user->user->sex}}">
                         <div class="am-gallery-item">
                             <a href="/member/{{$user->user_id}}" class="">
-                                <img src="{{$user->avatar}}" alt="{{$user->user_name}}"/>
+                                <img src="{{$user->user->avatar}}" alt="{{$user->user->user_name}}"/>
 
-                                <h3 class="am-gallery-title">{{$user->user_name}}</h3>
+                                <h3 class="am-gallery-title">{{$user->user->user_name}}</h3>
 
-                                <div class="am-gallery-desc">{{$user->birthday}}</div>
+                                <div class="am-gallery-desc">{{$user->user->birthday}}</div>
                             </a>
                         </div>
                     </li>
+                    @endif
                 @endforeach
 
             </ul>
