@@ -130,7 +130,7 @@
             <!-- 右边部分 -->
             <div class="wap_vip_right">
                 <div class="jiaoyoutishi">
-                    <img src="./images/yuehuiba.jpg" alt="">
+                    <img src="/assets/images/yuehuiba.jpg" alt="">
                 </div>
                 <div class="jiaoyoutishi">
               <span>
