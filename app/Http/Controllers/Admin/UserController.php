@@ -231,7 +231,16 @@ class UserController extends Controller
         return $this->view('recommend')->with('users', $users);
     }
 
-    //会员展示推荐
+    // 设置推荐状态
+    public function setRecommendPage(){
+        $data = $this->request()->only('id','page');
+        DB::table("user_recommend")->where('id',$data['id'])->update(array('page'=>$data['page']));
+
+        return $this->success('操作成功');
+
+    }
+
+    //会员相片审核
     public function getGallerylist()
     {
       
