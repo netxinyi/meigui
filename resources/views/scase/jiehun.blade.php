@@ -9,6 +9,8 @@
         .am-control-thumbs li {
           width: 100%/2; /* n 为轮播图数量 */
         }
+        .am-slider-default .am-control-thumbs li{width: 20%;}
+        .am-slider-default .am-control-thumbs img{height: 100px;}
     </style>
    
 @stop
@@ -33,7 +35,7 @@
                           data-am-flexslider="{controlNav: 'thumbnails', directionNav: false, slideshow: false}">
                           <ul class="am-slides">
                               @foreach($case->photos as $photo)
-                            <li data-thumb="{{$photo}}"><img src="{{$photo}}" /></li>
+                            <li data-thumb="{{$photo}}"><img src="{{$photo}}" style="width:100%;height:500px;"/></li>
                               @endforeach
                           </ul>
                         </div>
