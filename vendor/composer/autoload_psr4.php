@@ -24,6 +24,7 @@ return array(
     'Symfony\\Component\\Console\\' => array($vendorDir . '/symfony/console'),
     'SuperClosure\\' => array($vendorDir . '/jeremeamia/SuperClosure/src'),
     'Stringy\\' => array($vendorDir . '/danielstjules/stringy/src'),
+    'SocialiteProviders\\Weixin\\' => array($vendorDir . '/socialiteproviders/weixin/src'),
     'SocialiteProviders\\WeixinWeb\\' => array($vendorDir . '/socialiteproviders/weixin-web/src'),
     'SocialiteProviders\\Manager\\' => array($vendorDir . '/socialiteproviders/manager/src'),
     'Psy\\' => array($vendorDir . '/psy/psysh/src/Psy'),

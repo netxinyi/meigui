@@ -3777,5 +3777,44 @@
             "weixin",
             "weixin-sdk"
         ]
+    },
+    {
+        "name": "socialiteproviders/weixin",
+        "version": "v1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/SocialiteProviders/Weixin.git",
+            "reference": "4ccf95bc7907fcc7324e1761c27e581c0e29bc2d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/SocialiteProviders/Weixin/zipball/4ccf95bc7907fcc7324e1761c27e581c0e29bc2d",
+            "reference": "4ccf95bc7907fcc7324e1761c27e581c0e29bc2d",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.5.0",
+            "socialiteproviders/manager": "~1.0"
+        },
+        "time": "2015-07-13 13:51:52",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "SocialiteProviders\\Weixin\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "xyxu",
+                "email": "techxu@gmail.com"
+            }
+        ],
+        "description": "Weixin OAuth2 Provider for Laravel Socialite"
     }
 ]

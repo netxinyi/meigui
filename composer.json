@@ -8,7 +8,8 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.1.*",
         "socialiteproviders/weixin-web": "^1.0",
-        "overtrue/wechat": "2.1.*"
+        "overtrue/wechat": "2.1.*",
+        "socialiteproviders/weixin": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -36,8 +36,13 @@ return [
     ],
 
     'weixinweb' => [
-        'client_id' => 'wxed1a5c825220c603',
-        'client_secret' => 'db8c0ecb15469c975074c06e42294e11',
-        'redirect' => 'http://www.meigui.com/auth/socialite/callback/weixinweb'
+        'client_id' => 'wx58ff9f9c7b2ce4d9',
+        'client_secret' => '9b741bb366f47b43bbba664a979cee3a',
+        'redirect' => 'http://dev.meiguihuakai.com/auth/socialite/callback/weixinweb'
+    ],
+    'weixin' => [
+        'client_id' => 'wx58ff9f9c7b2ce4d9',
+        'client_secret' => '9b741bb366f47b43bbba664a979cee3a',
+        'redirect' => 'http://dev.meiguihuakai.com/auth/socialite/callback/weixin'
     ]
 ];
