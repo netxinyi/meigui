@@ -44,7 +44,7 @@
                     <div class="menu_xuan">
                         来自：
                         <select name="work_province"> </select>
-                        <select name="work_city" style="display: none"></select>
+                        <select name="work_city"></select>
                     </div>
                     <div class="menu_xuan" id="menu_xuan_btn">
                         <button type="submit" class="am-btn am-btn-danger ">搜索</button>
