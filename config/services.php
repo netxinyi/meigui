@@ -24,15 +24,25 @@ return [
     ],
 
     'ses' => [
-        'key'    => env('SES_KEY'),
+        'key' => env('SES_KEY'),
         'secret' => env('SES_SECRET'),
         'region' => 'us-east-1',
     ],
 
     'stripe' => [
-        'model'  => App\User::class,
-        'key'    => env('STRIPE_KEY'),
+        'model' => App\User::class,
+        'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'weixinweb' => [
+        'client_id' => 'wx58ff9f9c7b2ce4d9',
+        'client_secret' => '9b741bb366f47b43bbba664a979cee3a',
+        'redirect' => 'http://dev.meiguihuakai.com/auth/socialite/callback/weixinweb'
+    ],
+    'weixin' => [
+        'client_id' => 'wx58ff9f9c7b2ce4d9',
+        'client_secret' => '9b741bb366f47b43bbba664a979cee3a',
+        'redirect' => 'http://dev.meiguihuakai.com/auth/socialite/callback/weixin'
+    ]
 ];

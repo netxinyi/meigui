@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d39b93d62100b3d07c0cdeba23ce69c8",
-    "content-hash": "e06b8ca3cd4ab94547faf7a56f008ca0",
+    "hash": "6a36d2a7bfd9d743312d5ec786de4543",
+    "content-hash": "33228e07afdd907e1334daeba134633c",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -1472,6 +1472,43 @@
             ],
             "description": "Easily add new or override built-in providers in Laravel Socialite.",
             "time": "2015-06-27 08:24:58"
+        },
+        {
+            "name": "socialiteproviders/weixin",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SocialiteProviders/Weixin.git",
+                "reference": "4ccf95bc7907fcc7324e1761c27e581c0e29bc2d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SocialiteProviders/Weixin/zipball/4ccf95bc7907fcc7324e1761c27e581c0e29bc2d",
+                "reference": "4ccf95bc7907fcc7324e1761c27e581c0e29bc2d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0",
+                "socialiteproviders/manager": "~1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SocialiteProviders\\Weixin\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "xyxu",
+                    "email": "techxu@gmail.com"
+                }
+            ],
+            "description": "Weixin OAuth2 Provider for Laravel Socialite",
+            "time": "2015-07-13 13:51:52"
         },
         {
             "name": "socialiteproviders/weixin-web",

@@ -25,7 +25,10 @@
                         <span>帐号</span><input type="text" placeholder="请输入手机号" name="mobile">
                         <span>密码</span><input type="password" name="password" placeholder="请输入密码">
                         <button class="am-btn am-btn-warning" type="submit" data-loading-text="登录">登录</button>
-                        <img src="/assets/images/wx_login.png" alt="用微信登录">
+                        <a href="/auth/socialite/weixinweb" title="用微信登录">
+                            <img src="/assets/images/wx_login.png" alt="用微信登录">
+
+                        </a>
 
                     </form>
                 </div>
