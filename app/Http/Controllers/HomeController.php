@@ -64,7 +64,7 @@ class HomeController extends Controller
         ));
 
         user()->update($data);
-        return $this->rest()->success('修改成功！');
+        return $this->success('修改成功！');
 
     }
 
@@ -89,7 +89,7 @@ class HomeController extends Controller
 
         user()->info()->update($info_data);
         user()->update($user_data);
-        return $this->rest()->success('修改成功！');
+        return $this->success('修改成功！');
 
     }
 
@@ -108,7 +108,7 @@ class HomeController extends Controller
         ));
 
         user()->info()->update($data);
-        return $this->rest()->success('修改成功！');
+        return $this->success('修改成功！');
 
     }
 
@@ -120,7 +120,7 @@ class HomeController extends Controller
         $data = $this->request()->only('age_start','age_end','marriage','house','origin_province','origin_city','education','children','salary_start','salary_end','height_start','height_end');
 
         user()->object()->update($data);
-        return $this->rest()->success('修改成功！');
+        return $this->success('修改成功！');
 
     }
 
@@ -259,7 +259,7 @@ class HomeController extends Controller
         $data = $this->request()->only('avatar');
         user()->update($data);
 
-        return $this->rest()->success('保存成功');
+        return $this->success('保存成功');
 
     }
 
@@ -285,7 +285,7 @@ class HomeController extends Controller
 
          }
          
-          return $this->rest()->success('提交成功');
+          return $this->success('提交成功');
 
     }
 
