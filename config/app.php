@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'url' => 'http://www.meiguihuakai.com',
+    'url' => 'http://www.meiguihuakai.com.cn',
 
     /*
     |--------------------------------------------------------------------------

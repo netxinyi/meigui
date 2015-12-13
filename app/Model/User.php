@@ -144,7 +144,10 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
     public function getHeightLangAttribute()
     {
 
-        return is_null($this->attributes['height']) ? '未填写' : $this->attributes['height'] . 'cm';
+        if (array_get($this->attributes, 'height')) {
+            return $this->attributes['height'] . 'cm';
+        }
+        return '未填写';
     }
 
     public function getEducationLangAttribute()
