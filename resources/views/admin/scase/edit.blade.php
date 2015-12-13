@@ -112,7 +112,7 @@
                             </button>
                             <!-- The global file processing state -->
                             <span class="fileupload-process"></span>
-                            <span style="color:red">默认第一张为封面</span>
+                            <span style="color:red">建议图片尺寸<span style="color:blue">2048*1280</span>,默认第一张为封面</span>
                             @if($errors->has('photos'))
                                 <ul class="parsley-errors-list filled">
                                     <li class="parsley-required">{{$errors->first('photos')}}</li>
