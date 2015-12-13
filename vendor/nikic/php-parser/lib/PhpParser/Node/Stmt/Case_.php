@@ -19,7 +19,7 @@ class Case_ extends Node\Stmt
      * @param array          $attributes Additional attributes
      */
     public function __construct($cond, array $stmts = array(), array $attributes = array()) {
-        parent::__construct($attributes);
+        parent::__construct(null, $attributes);
         $this->cond = $cond;
         $this->stmts = $stmts;
     }

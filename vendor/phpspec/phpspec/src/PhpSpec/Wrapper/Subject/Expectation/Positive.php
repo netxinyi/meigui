@@ -18,7 +18,7 @@ use PhpSpec\Matcher\MatcherInterface;
 class Positive implements ExpectationInterface
 {
     /**
-     * @var MatcherInterface
+     * @var \PhpSpec\Matcher\MatcherInterface
      */
     private $matcher;
 

@@ -24,9 +24,14 @@ use Closure;
  */
 class Menu
 {
+
+
     const API_CREATE = 'https://api.weixin.qq.com/cgi-bin/menu/create';
+
     const API_GET    = 'https://api.weixin.qq.com/cgi-bin/menu/get';
+
     const API_DELETE = 'https://api.weixin.qq.com/cgi-bin/menu/delete';
+
     const API_QUERY  = 'https://api.weixin.qq.com/cgi-bin/get_current_selfmenu_info';
 
     /**
@@ -36,6 +41,7 @@ class Menu
      */
     protected $http;
 
+
     /**
      * constructor
      *
@@ -44,8 +50,10 @@ class Menu
      */
     public function __construct($appId, $appSecret)
     {
+
         $this->http = new Http(new AccessToken($appId, $appSecret));
     }
+
 
     /**
      * 设置菜单
@@ -54,6 +62,7 @@ class Menu
      */
     public function set($menus)
     {
+
         if ($menus instanceof Closure) {
             $menus = $menus($this);
         }
@@ -69,6 +78,7 @@ class Menu
         return true;
     }
 
+
     /**
      * 获取菜单
      *
@@ -76,10 +86,12 @@ class Menu
      */
     public function get()
     {
+
         $menus = $this->http->get(self::API_GET);
 
-        return empty($menus['menu']['button']) ? array() : $menus['menu']['button'];
+        return empty( $menus['menu']['button'] ) ? array() : $menus['menu']['button'];
     }
+
 
     /**
      * 删除菜单
@@ -88,10 +100,12 @@ class Menu
      */
     public function delete()
     {
+
         $this->http->get(self::API_DELETE);
 
         return true;
     }
+
 
     /**
      * 获取菜单【查询接口，能获取到任意方式设置的菜单】
@@ -100,9 +114,12 @@ class Menu
      */
     public function current()
     {
+
         $menus = $this->http->get(self::API_QUERY);
-        return empty($menus) ? array() : $menus;
+
+        return empty( $menus ) ? array() : $menus;
     }
+
 
     /**
      * 转menu为数组
@@ -113,6 +130,7 @@ class Menu
      */
     protected function extractMenus(array $menus)
     {
+
         foreach ($menus as $key => $menu) {
             $menus[$key] = $menu->toArray();
 

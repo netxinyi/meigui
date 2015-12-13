@@ -15,6 +15,8 @@ namespace Symfony\Component\Console\Formatter;
  * Formatter style class for defining styles.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
+ *
+ * @api
  */
 class OutputFormatterStyle implements OutputFormatterStyleInterface
 {
@@ -27,7 +29,6 @@ class OutputFormatterStyle implements OutputFormatterStyleInterface
         'magenta' => array('set' => 35, 'unset' => 39),
         'cyan' => array('set' => 36, 'unset' => 39),
         'white' => array('set' => 37, 'unset' => 39),
-        'default' => array('set' => 39, 'unset' => 39),
     );
     private static $availableBackgroundColors = array(
         'black' => array('set' => 40, 'unset' => 49),
@@ -38,7 +39,6 @@ class OutputFormatterStyle implements OutputFormatterStyleInterface
         'magenta' => array('set' => 45, 'unset' => 49),
         'cyan' => array('set' => 46, 'unset' => 49),
         'white' => array('set' => 47, 'unset' => 49),
-        'default' => array('set' => 49, 'unset' => 49),
     );
     private static $availableOptions = array(
         'bold' => array('set' => 1, 'unset' => 22),
@@ -58,6 +58,8 @@ class OutputFormatterStyle implements OutputFormatterStyleInterface
      * @param string|null $foreground The style foreground color name
      * @param string|null $background The style background color name
      * @param array       $options    The style options
+     *
+     * @api
      */
     public function __construct($foreground = null, $background = null, array $options = array())
     {
@@ -78,6 +80,8 @@ class OutputFormatterStyle implements OutputFormatterStyleInterface
      * @param string|null $color The color name
      *
      * @throws \InvalidArgumentException When the color name isn't defined
+     *
+     * @api
      */
     public function setForeground($color = null)
     {
@@ -104,6 +108,8 @@ class OutputFormatterStyle implements OutputFormatterStyleInterface
      * @param string|null $color The color name
      *
      * @throws \InvalidArgumentException When the color name isn't defined
+     *
+     * @api
      */
     public function setBackground($color = null)
     {
@@ -130,6 +136,8 @@ class OutputFormatterStyle implements OutputFormatterStyleInterface
      * @param string $option The option name
      *
      * @throws \InvalidArgumentException When the option name isn't defined
+     *
+     * @api
      */
     public function setOption($option)
     {

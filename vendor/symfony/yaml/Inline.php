@@ -48,11 +48,11 @@ class Inline
 
         $value = trim($value);
 
-        if ('' === $value) {
+        if (0 == strlen($value)) {
             return '';
         }
 
-        if (2 /* MB_OVERLOAD_STRING */ & (int) ini_get('mbstring.func_overload')) {
+        if (function_exists('mb_internal_encoding') && ((int) ini_get('mbstring.func_overload')) & 2) {
             $mbEncoding = mb_internal_encoding();
             mb_internal_encoding('ASCII');
         }
@@ -204,8 +204,6 @@ class Inline
      * @return string A YAML string
      *
      * @throws ParseException When malformed inline YAML string is parsed
-     *
-     * @internal
      */
     public static function parseScalar($scalar, $delimiters = null, $stringDelimiters = array('"', "'"), &$i = 0, $evaluate = true, $references = array())
     {
@@ -226,19 +224,14 @@ class Inline
                 $i += strlen($output);
 
                 // remove comments
-                if (preg_match('/[ \t]+#/', $output, $match, PREG_OFFSET_CAPTURE)) {
-                    $output = substr($output, 0, $match[0][1]);
+                if (false !== $strpos = strpos($output, ' #')) {
+                    $output = rtrim(substr($output, 0, $strpos));
                 }
             } elseif (preg_match('/^(.+?)('.implode('|', $delimiters).')/', substr($scalar, $i), $match)) {
                 $output = $match[1];
                 $i += strlen($output);
             } else {
                 throw new ParseException(sprintf('Malformed inline YAML string (%s).', $scalar));
-            }
-
-            // a non-quoted string cannot start with @ or ` (reserved) nor with a scalar indicator (| or >)
-            if ($output && ('@' === $output[0] || '`' === $output[0] || '|' === $output[0] || '>' === $output[0])) {
-                throw new ParseException(sprintf('The reserved indicator "%s" cannot start a plain scalar; you need to quote the scalar.', $output[0]));
             }
 
             if ($evaluate) {

@@ -18,7 +18,7 @@ use Prophecy\Prophecy\ObjectProphecy;
 class Collaborator implements WrapperInterface
 {
     /**
-     * @var ObjectProphecy
+     * @var \Prophecy\Prophecy\ObjectProphecy
      */
     private $prophecy;
 

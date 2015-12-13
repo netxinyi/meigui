@@ -18,7 +18,7 @@ class Precedence extends Node\Stmt\TraitUseAdaptation
      * @param array       $attributes  Additional attributes
      */
     public function __construct(Node\Name $trait, $method, array $insteadof, array $attributes = array()) {
-        parent::__construct($attributes);
+        parent::__construct(null, $attributes);
         $this->trait = $trait;
         $this->method = $method;
         $this->insteadof = $insteadof;

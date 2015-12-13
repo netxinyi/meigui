@@ -14,12 +14,10 @@ namespace Symfony\Component\HttpFoundation\Tests;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\Cookie;
 
-/**
- * @group time-sensitive
- */
 class ResponseHeaderBagTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @covers Symfony\Component\HttpFoundation\ResponseHeaderBag::allPreserveCase
      * @dataProvider provideAllPreserveCase
      */
     public function testAllPreserveCase($headers, $expected)
@@ -120,7 +118,7 @@ class ResponseHeaderBagTest extends \PHPUnit_Framework_TestCase
 
         $bag->clearCookie('foo');
 
-        $this->assertRegExp('#^Set-Cookie: foo=deleted; expires='.gmdate('D, d-M-Y H:i:s T', time() - 31536001).'; path=/; httponly#m', $bag->__toString());
+        $this->assertContains('Set-Cookie: foo=deleted; expires='.gmdate('D, d-M-Y H:i:s T', time() - 31536001).'; path=/; httponly', explode("\r\n", $bag->__toString()));
     }
 
     public function testClearCookieSecureNotHttpOnly()
@@ -129,7 +127,7 @@ class ResponseHeaderBagTest extends \PHPUnit_Framework_TestCase
 
         $bag->clearCookie('foo', '/', null, true, false);
 
-        $this->assertRegExp('#^Set-Cookie: foo=deleted; expires='.gmdate('D, d-M-Y H:i:s T', time() - 31536001).'; path=/; secure#m', $bag->__toString());
+        $this->assertContains("Set-Cookie: foo=deleted; expires=".gmdate("D, d-M-Y H:i:s T", time() - 31536001)."; path=/; secure", explode("\r\n", $bag->__toString()));
     }
 
     public function testReplace()

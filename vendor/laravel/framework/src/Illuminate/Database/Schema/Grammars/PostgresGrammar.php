@@ -53,11 +53,7 @@ class PostgresGrammar extends Grammar
     {
         $columns = implode(', ', $this->getColumns($blueprint));
 
-        $sql = $blueprint->temporary ? 'create temporary' : 'create';
-
-        $sql .= ' table '.$this->wrapTable($blueprint)." ($columns)";
-
-        return $sql;
+        return 'create table '.$this->wrapTable($blueprint)." ($columns)";
     }
 
     /**
@@ -390,9 +386,7 @@ class PostgresGrammar extends Grammar
      */
     protected function typeEnum(Fluent $column)
     {
-        $allowed = array_map(function ($a) {
-            return "'".$a."'";
-        }, $column->allowed);
+        $allowed = array_map(function ($a) { return "'".$a."'"; }, $column->allowed);
 
         return "varchar(255) check (\"{$column->name}\" in (".implode(', ', $allowed).'))';
     }
@@ -482,10 +476,6 @@ class PostgresGrammar extends Grammar
      */
     protected function typeTimestamp(Fluent $column)
     {
-        if ($column->useCurrent) {
-            return 'timestamp(0) without time zone default CURRENT_TIMESTAMP(0)';
-        }
-
         return 'timestamp(0) without time zone';
     }
 
@@ -497,10 +487,6 @@ class PostgresGrammar extends Grammar
      */
     protected function typeTimestampTz(Fluent $column)
     {
-        if ($column->useCurrent) {
-            return 'timestamp(0) with time zone default CURRENT_TIMESTAMP(0)';
-        }
-
         return 'timestamp(0) with time zone';
     }
 
@@ -513,17 +499,6 @@ class PostgresGrammar extends Grammar
     protected function typeBinary(Fluent $column)
     {
         return 'bytea';
-    }
-
-    /**
-     * Create the column definition for a uuid type.
-     *
-     * @param  \Illuminate\Support\Fluent  $column
-     * @return string
-     */
-    protected function typeUuid(Fluent $column)
-    {
-        return 'uuid';
     }
 
     /**
@@ -547,7 +522,7 @@ class PostgresGrammar extends Grammar
      */
     protected function modifyDefault(Blueprint $blueprint, Fluent $column)
     {
-        if (! is_null($column->default)) {
+        if (!is_null($column->default)) {
             return ' default '.$this->getDefaultValue($column->default);
         }
     }

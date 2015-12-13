@@ -18,7 +18,6 @@ $a::b();
 ${'a'}::b();
 $a['b']::c();
 -----
-!!php5
 array(
     0: Expr_StaticCall(
         class: Name(

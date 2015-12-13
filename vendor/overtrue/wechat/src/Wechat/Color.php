@@ -21,6 +21,7 @@ namespace Overtrue\Wechat;
 class Color
 {
 
+
     /**
      * Http对象
      *
@@ -37,6 +38,7 @@ class Color
 
     const API_LIST = 'https://api.weixin.qq.com/card/getcolors';
 
+
     /**
      * constructor
      *
@@ -45,9 +47,11 @@ class Color
      */
     public function __construct($appId, $appSecret)
     {
+
         $this->http  = new Http(new AccessToken($appId, $appSecret));
         $this->cache = new Cache($appId);
     }
+
 
     /**
      * 获取颜色列表
@@ -56,6 +60,7 @@ class Color
      */
     public function lists()
     {
+
         $key = 'overtrue.wechat.colors';
 
         // for php 5.3
@@ -63,15 +68,13 @@ class Color
         $cache   = $this->cache;
         $apiList = self::API_LIST;
 
-        return $this->cache->get(
-            $key,
-            function ($key) use ($http, $cache, $apiList) {
-                $result = $http->get($apiList);
+        return $this->cache->get($key, function ($key) use ($http, $cache, $apiList){
 
-                $cache->set($key, $result['colors'], 86400);// 1 day
+            $result = $http->get($apiList);
 
-                return $result['colors'];
-            }
-        );
+            $cache->set($key, $result['colors'], 86400);// 1 day
+
+            return $result['colors'];
+        });
     }
 }

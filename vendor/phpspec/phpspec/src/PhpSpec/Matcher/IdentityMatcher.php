@@ -29,7 +29,7 @@ class IdentityMatcher extends BasicMatcher
         'beEqualTo'
     );
     /**
-     * @var PresenterInterface
+     * @var \PhpSpec\Formatter\Presenter\PresenterInterface
      */
     private $presenter;
 

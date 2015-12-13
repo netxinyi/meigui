@@ -38,12 +38,6 @@ class FilesystemContext implements Context, MatchersProviderInterface
         $this->filesystem->remove($this->workingDirectory);
         $this->filesystem->mkdir($this->workingDirectory);
         chdir($this->workingDirectory);
-
-        $this->filesystem->mkdir($this->workingDirectory . '/vendor');
-        $this->filesystem->copy(
-            __DIR__ . '/autoloader/autoload.php',
-            $this->workingDirectory . '/vendor/autoload.php'
-        );
     }
 
     /**
@@ -64,20 +58,13 @@ class FilesystemContext implements Context, MatchersProviderInterface
 
     /**
      * @Given the class file :file contains:
+     * @Given the spec file :file contains:
      * @Given the trait file :file contains:
      */
-    public function theClassOrTraitFileContains($file, PyStringNode $contents)
+    public function theClassOrTraitOrSpecFileContains($file, PyStringNode $contents)
     {
         $this->theFileContains($file, $contents);
         require_once($file);
-    }
-
-    /**
-     * @Given the spec file :file contains:
-     */
-    public function theSpecFileContains($file, PyStringNode $contents)
-    {
-        $this->theFileContains($file, $contents);
     }
 
     /**
@@ -105,22 +92,6 @@ class FilesystemContext implements Context, MatchersProviderInterface
     {
         expect($file)->toExist();
         expect($file)->toHaveContents($contents);
-    }
-
-    /**
-     * @Given the config file located in :folder contains:
-     */
-    public function theConfigFileInFolderContains($folder, PyStringNode $contents)
-    {
-        $this->theFileContains($folder.DIRECTORY_SEPARATOR.'phpspec.yml', $contents);
-    }
-
-    /**
-     * @Given I have not configured an autoloader
-     */
-    public function iHaveNotConfiguredAnAutoloader()
-    {
-        $this->filesystem->remove($this->workingDirectory . '/vendor/autoload.php');
     }
 
     /**

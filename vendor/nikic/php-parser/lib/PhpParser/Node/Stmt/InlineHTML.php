@@ -16,7 +16,7 @@ class InlineHTML extends Stmt
      * @param array  $attributes Additional attributes
      */
     public function __construct($value, array $attributes = array()) {
-        parent::__construct($attributes);
+        parent::__construct(null, $attributes);
         $this->value = $value;
     }
 

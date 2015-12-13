@@ -20,7 +20,7 @@ use PhpSpec\Exception\Example\FailureException;
 class ComparisonMatcher extends BasicMatcher
 {
     /**
-     * @var PresenterInterface
+     * @var \PhpSpec\Formatter\Presenter\PresenterInterface
      */
     private $presenter;
 

@@ -24,6 +24,7 @@ use Overtrue\Wechat\Url;
 class Js
 {
 
+
     /**
      * 应用ID
      *
@@ -54,6 +55,7 @@ class Js
 
     const API_TICKET = 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi';
 
+
     /**
      * constructor
      *
@@ -62,10 +64,12 @@ class Js
      */
     public function __construct($appId, $appSecret)
     {
+
         $this->appId     = $appId;
         $this->appSecret = $appSecret;
         $this->cache     = new Cache($appId);
     }
+
 
     /**
      * 获取JSSDK的配置数组
@@ -78,15 +82,17 @@ class Js
      */
     public function config(array $APIs, $debug = false, $beta = false, $json = true)
     {
+
         $signPackage = $this->getSignaturePackage();
-        $base = array(
-                 'debug' => $debug,
-                 'beta'  => $beta,
-                );
-        $config = array_merge($base, $signPackage, array('jsApiList' => $APIs));
+        $base        = array(
+            'debug' => $debug,
+            'beta'  => $beta,
+        );
+        $config      = array_merge($base, $signPackage, array('jsApiList' => $APIs));
 
         return $json ? JSON::encode($config) : $config;
     }
+
 
     /**
      * 获取数组形式的配置
@@ -99,8 +105,10 @@ class Js
      */
     public function getConfigArray(array $APIs, $debug = false, $beta = false)
     {
+
         return $this->config($APIs, $debug, $beta, false);
     }
+
 
     /**
      * 获取jsticket
@@ -109,7 +117,8 @@ class Js
      */
     public function getTicket()
     {
-        $key = 'overtrue.wechat.jsapi_ticket.'.$this->appId;
+
+        $key = 'overtrue.wechat.jsapi_ticket' . $this->appId;
 
         // for php 5.3
         $appId     = $this->appId;
@@ -117,19 +126,18 @@ class Js
         $cache     = $this->cache;
         $apiTicket = self::API_TICKET;
 
-        return $this->cache->get(
-            $key,
-            function ($key) use ($appId, $appSecret, $cache, $apiTicket) {
-                $http  = new Http(new AccessToken($appId, $appSecret));
+        return $this->cache->get($key, function ($key) use ($appId, $appSecret, $cache, $apiTicket){
 
-                $result = $http->get($apiTicket);
+            $http = new Http(new AccessToken($appId, $appSecret));
 
-                $cache->set($key, $result['ticket'], $result['expires_in']);
+            $result = $http->get($apiTicket);
 
-                return $result['ticket'];
-            }
-        );
+            $cache->set($key, $result['ticket'], $result['expires_in']);
+
+            return $result['ticket'];
+        });
     }
+
 
     /**
      * 签名
@@ -142,21 +150,23 @@ class Js
      */
     public function getSignaturePackage($url = null, $nonce = null, $timestamp = null)
     {
+
         $url       = $url ? $url : $this->getUrl();
         $nonce     = $nonce ? $nonce : $this->getNonce();
         $timestamp = $timestamp ? $timestamp : time();
         $ticket    = $this->getTicket();
 
         $sign = array(
-                 'appId'     => $this->appId,
-                 'nonceStr'  => $nonce,
-                 'timestamp' => $timestamp,
-                 'url'       => $url,
-                 'signature' => $this->getSignature($ticket, $nonce, $timestamp, $url),
-                );
+            'appId'     => $this->appId,
+            'nonceStr'  => $nonce,
+            'timestamp' => $timestamp,
+            'url'       => $url,
+            'signature' => $this->getSignature($ticket, $nonce, $timestamp, $url),
+        );
 
         return $sign;
     }
+
 
     /**
      * 生成签名
@@ -170,8 +180,10 @@ class Js
      */
     public function getSignature($ticket, $nonce, $timestamp, $url)
     {
+
         return sha1("jsapi_ticket={$ticket}&noncestr={$nonce}&timestamp={$timestamp}&url={$url}");
     }
+
 
     /**
      * 设置当前URL
@@ -182,10 +194,12 @@ class Js
      */
     public function setUrl($url)
     {
+
         $this->url = $url;
 
         return $this;
     }
+
 
     /**
      * 获取当前URL
@@ -194,12 +208,14 @@ class Js
      */
     public function getUrl()
     {
+
         if ($this->url) {
             return $this->url;
         }
 
         return Url::current();
     }
+
 
     /**
      * 获取随机字符串
@@ -208,6 +224,7 @@ class Js
      */
     public function getNonce()
     {
+
         return uniqid('rand_');
     }
 }

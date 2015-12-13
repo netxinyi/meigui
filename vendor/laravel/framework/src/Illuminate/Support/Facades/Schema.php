@@ -19,9 +19,9 @@ class Schema extends Facade
     }
 
     /**
-     * Get a schema builder instance for the default connection.
+     * Get the registered name of the component.
      *
-     * @return \Illuminate\Database\Schema\Builder
+     * @return string
      */
     protected static function getFacadeAccessor()
     {

@@ -2,7 +2,6 @@
 
 namespace spec\PhpSpec\Wrapper\Subject;
 
-use Phpspec\CodeAnalysis\AccessInspectorInterface;
 use PhpSpec\Exception\ExceptionFactory;
 use PhpSpec\Wrapper\Subject\WrappedObject;
 use PhpSpec\Wrapper\Wrapper;
@@ -17,20 +16,17 @@ use Prophecy\Argument;
 
 class CallerSpec extends ObjectBehavior
 {
-    function let(WrappedObject $wrappedObject, ExampleNode $example, Dispatcher $dispatcher,
-                 ExceptionFactory $exceptions, Wrapper $wrapper, AccessInspectorInterface $accessInspector)
+    function let(WrappedObject $wrappedObject, ExampleNode $example,
+                 Dispatcher $dispatcher, ExceptionFactory $exceptions, Wrapper $wrapper)
     {
         $this->beConstructedWith($wrappedObject, $example, $dispatcher,
-            $exceptions, $wrapper, $accessInspector);
+            $exceptions, $wrapper);
     }
 
-    function it_dispatches_method_call_events(Dispatcher $dispatcher, WrappedObject $wrappedObject,
-                                              AccessInspectorInterface $accessInspector)
+    function it_dispatches_method_call_events(Dispatcher $dispatcher, WrappedObject $wrappedObject)
     {
         $wrappedObject->isInstantiated()->willReturn(true);
         $wrappedObject->getInstance()->willReturn(new \ArrayObject());
-
-        $accessInspector->isMethodCallable(Argument::type('ArrayObject'), 'count')->willReturn(true);
 
         $dispatcher->dispatch(
             'beforeMethodCall',
@@ -45,15 +41,10 @@ class CallerSpec extends ObjectBehavior
         $this->call('count');
     }
 
-    function it_sets_a_property_on_the_wrapped_object(WrappedObject $wrappedObject,
-                                                      AccessInspectorInterface $accessInspector)
+    function it_sets_a_property_on_the_wrapped_object(WrappedObject $wrappedObject)
     {
         $obj = new \stdClass();
         $obj->id = 1;
-
-        $accessInspector->isPropertyWritable(
-            Argument::type('stdClass'), 'id'
-        )->willReturn('true');
 
         $wrappedObject->isInstantiated()->willReturn(true);
         $wrappedObject->getInstance()->willReturn($obj);
@@ -61,16 +52,11 @@ class CallerSpec extends ObjectBehavior
         $this->set('id', 2)->shouldReturn(2);
     }
 
-    function it_proxies_method_calls_to_wrapped_object(\ArrayObject $obj, WrappedObject $wrappedObject,
-                                                       AccessInspectorInterface $accessInspector)
+    function it_proxies_method_calls_to_wrapped_object(\ArrayObject $obj, WrappedObject $wrappedObject)
     {
         $obj->asort()->shouldBeCalled();
-
         $wrappedObject->isInstantiated()->willReturn(true);
         $wrappedObject->getInstance()->willReturn($obj);
-
-        $accessInspector->isMethodCallable(Argument::type('ArrayObject'), 'asort')->willReturn(true);
-
         $this->call('asort');
     }
 

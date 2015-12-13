@@ -18,7 +18,7 @@ use PhpSpec\Wrapper\Unwrapper;
 class UnwrapDecorator extends Decorator implements ExpectationInterface
 {
     /**
-     * @var Unwrapper
+     * @var \PhpSpec\Wrapper\Unwrapper
      */
     private $unwrapper;
 

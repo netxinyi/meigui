@@ -55,17 +55,11 @@ class Application extends SymfonyApplication implements ApplicationContract
      */
     public function call($command, array $parameters = [])
     {
-        $parameters = collect($parameters)->prepend($command);
+        $parameters['command'] = $command;
 
         $this->lastOutput = new BufferedOutput;
 
-        $this->setCatchExceptions(false);
-
-        $result = $this->run(new ArrayInput($parameters->toArray()), $this->lastOutput);
-
-        $this->setCatchExceptions(true);
-
-        return $result;
+        return $this->find($command)->run(new ArrayInput($parameters), $this->lastOutput);
     }
 
     /**

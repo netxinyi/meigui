@@ -26,7 +26,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class MethodReturnedNullListener implements EventSubscriberInterface
 {
     /**
-     * @var IO
+     * @var \PhpSpec\Console\IO
      */
     private $io;
 
@@ -40,11 +40,11 @@ class MethodReturnedNullListener implements EventSubscriberInterface
      */
     private $lastMethodCallEvent = null;
     /**
-     * @var ResourceManager
+     * @var \PhpSpec\Locator\ResourceManager
      */
     private $resources;
     /**
-     * @var GeneratorManager
+     * @var \PhpSpec\CodeGenerator\GeneratorManager
      */
     private $generator;
     /**

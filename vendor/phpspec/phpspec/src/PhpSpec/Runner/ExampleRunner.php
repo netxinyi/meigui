@@ -27,11 +27,11 @@ use Exception;
 class ExampleRunner
 {
     /**
-     * @var EventDispatcherInterface
+     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
      */
     private $dispatcher;
     /**
-     * @var PresenterInterface
+     * @var \PhpSpec\Formatter\Presenter\PresenterInterface
      */
     private $presenter;
     /**

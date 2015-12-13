@@ -17,7 +17,6 @@ $a->$b['c']();
 $a->b()['c'];
 $a->b(){'c'}; // invalid PHP: drop Support?
 -----
-!!php5
 array(
     0: Expr_PropertyFetch(
         var: Expr_Variable(

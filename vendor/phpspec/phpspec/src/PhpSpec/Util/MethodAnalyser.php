@@ -13,8 +13,6 @@
 
 namespace PhpSpec\Util;
 
-use PhpSpec\Loader\StreamWrapper;
-
 class MethodAnalyser
 {
     /**
@@ -73,7 +71,7 @@ class MethodAnalyser
         $reflectionClass = $this->getMethodOwner($reflectionMethod, $startLine, $endLine);
 
         $length = $endLine - $startLine;
-        $lines = file(StreamWrapper::wrapPath($reflectionClass->getFileName()));
+        $lines = file($reflectionClass->getFileName());
         $code = join(PHP_EOL, array_slice($lines, $startLine - 1, $length + 1));
 
         return preg_replace('/.*function[^{]+{/s', '', $code);

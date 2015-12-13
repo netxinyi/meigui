@@ -3,7 +3,6 @@
 namespace Illuminate\Encryption;
 
 use RuntimeException;
-use Illuminate\Support\Str;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Contracts\Encryption\EncryptException;
 use Illuminate\Contracts\Encryption\Encrypter as EncrypterContract;
@@ -23,8 +22,6 @@ class Encrypter extends BaseEncrypter implements EncrypterContract
      * @param  string  $key
      * @param  string  $cipher
      * @return void
-     *
-     * @throws \RuntimeException
      */
     public function __construct($key, $cipher = 'AES-128-CBC')
     {
@@ -49,7 +46,7 @@ class Encrypter extends BaseEncrypter implements EncrypterContract
     {
         $length = mb_strlen($key, '8bit');
 
-        return ($cipher === 'AES-128-CBC' && $length === 16) || ($cipher === 'AES-256-CBC' && $length === 32);
+        return ($cipher === 'AES-128-CBC' && ($length === 16)) || ($cipher === 'AES-256-CBC' && $length === 32);
     }
 
     /**
@@ -57,12 +54,10 @@ class Encrypter extends BaseEncrypter implements EncrypterContract
      *
      * @param  string  $value
      * @return string
-     *
-     * @throws \Illuminate\Contracts\Encryption\EncryptException
      */
     public function encrypt($value)
     {
-        $iv = Str::randomBytes($this->getIvSize());
+        $iv = openssl_random_pseudo_bytes($this->getIvSize());
 
         $value = openssl_encrypt(serialize($value), $this->cipher, $this->key, 0, $iv);
 
@@ -75,13 +70,7 @@ class Encrypter extends BaseEncrypter implements EncrypterContract
         // authenticity. Then, we'll JSON encode the data in a "payload" array.
         $mac = $this->hash($iv = base64_encode($iv), $value);
 
-        $json = json_encode(compact('iv', 'value', 'mac'));
-
-        if (! is_string($json)) {
-            throw new EncryptException('Could not encrypt the data.');
-        }
-
-        return base64_encode($json);
+        return base64_encode(json_encode(compact('iv', 'value', 'mac')));
     }
 
     /**
@@ -89,8 +78,6 @@ class Encrypter extends BaseEncrypter implements EncrypterContract
      *
      * @param  string  $payload
      * @return string
-     *
-     * @throws \Illuminate\Contracts\Encryption\DecryptException
      */
     public function decrypt($payload)
     {

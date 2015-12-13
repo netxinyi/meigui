@@ -118,10 +118,6 @@ class Router implements RegistrarContract
         $this->events = $events;
         $this->routes = new RouteCollection;
         $this->container = $container ?: new Container;
-
-        $this->bind('_missing', function ($v) {
-            return explode('/', $v);
-        });
     }
 
     /**
@@ -251,7 +247,7 @@ class Router implements RegistrarContract
         // First, we will check to see if a controller prefix has been registered in
         // the route group. If it has, we will need to prefix it before trying to
         // reflect into the class instance and pull out the method for routing.
-        if (! empty($this->groupStack)) {
+        if (!empty($this->groupStack)) {
             $prepended = $this->prependGroupUses($controller);
         }
 
@@ -364,7 +360,7 @@ class Router implements RegistrarContract
      */
     protected function updateGroupStack(array $attributes)
     {
-        if (! empty($this->groupStack)) {
+        if (!empty($this->groupStack)) {
             $attributes = $this->mergeGroup($attributes, end($this->groupStack));
         }
 
@@ -454,7 +450,7 @@ class Router implements RegistrarContract
      */
     public function getLastGroupPrefix()
     {
-        if (! empty($this->groupStack)) {
+        if (!empty($this->groupStack)) {
             $last = end($this->groupStack);
 
             return isset($last['prefix']) ? $last['prefix'] : '';
@@ -591,7 +587,7 @@ class Router implements RegistrarContract
         // Here we'll merge any group "uses" statement if necessary so that the action
         // has the proper clause for this property. Then we can simply set the name
         // of the controller on the action and return the action array for usage.
-        if (! empty($this->groupStack)) {
+        if (!empty($this->groupStack)) {
             $action['uses'] = $this->prependGroupUses($action['uses']);
         }
 
@@ -694,14 +690,14 @@ class Router implements RegistrarContract
      */
     protected function runRouteWithinStack(Route $route, Request $request)
     {
+        $middleware = $this->gatherRouteMiddlewares($route);
+
         $shouldSkipMiddleware = $this->container->bound('middleware.disable') &&
                                 $this->container->make('middleware.disable') === true;
 
-        $middleware = $shouldSkipMiddleware ? [] : $this->gatherRouteMiddlewares($route);
-
         return (new Pipeline($this->container))
                         ->send($request)
-                        ->through($middleware)
+                        ->through($shouldSkipMiddleware ? [] : $middleware)
                         ->then(function ($request) use ($route) {
                             return $this->prepareResponse(
                                 $request,
@@ -727,7 +723,7 @@ class Router implements RegistrarContract
     /**
      * Resolve the middleware name to a class name preserving passed parameters.
      *
-     * @param  string  $name
+     * @param $name
      * @return string
      */
     public function resolveMiddlewareClassName($name)
@@ -879,7 +875,7 @@ class Router implements RegistrarContract
      */
     protected function parseFilter($callback)
     {
-        if (is_string($callback) && ! Str::contains($callback, '@')) {
+        if (is_string($callback) && !Str::contains($callback, '@')) {
             return $callback.'@filter';
         }
 
@@ -898,7 +894,7 @@ class Router implements RegistrarContract
      */
     public function when($pattern, $name, $methods = null)
     {
-        if (! is_null($methods)) {
+        if (!is_null($methods)) {
             $methods = array_map('strtoupper', (array) $methods);
         }
 
@@ -917,7 +913,7 @@ class Router implements RegistrarContract
      */
     public function whenRegex($pattern, $name, $methods = null)
     {
-        if (! is_null($methods)) {
+        if (!is_null($methods)) {
             $methods = array_map('strtoupper', (array) $methods);
         }
 
@@ -932,7 +928,7 @@ class Router implements RegistrarContract
      * @param  \Closure|null  $callback
      * @return void
      *
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function model($key, $class, Closure $callback = null)
     {
@@ -1063,7 +1059,7 @@ class Router implements RegistrarContract
         foreach ($this->findPatternFilters($request) as $filter => $parameters) {
             $response = $this->callRouteFilter($filter, $parameters, $route, $request);
 
-            if (! is_null($response)) {
+            if (!is_null($response)) {
                 return $response;
             }
         }
@@ -1159,7 +1155,7 @@ class Router implements RegistrarContract
         foreach ($route->beforeFilters() as $filter => $parameters) {
             $response = $this->callRouteFilter($filter, $parameters, $route, $request);
 
-            if (! is_null($response)) {
+            if (!is_null($response)) {
                 return $response;
             }
         }
@@ -1210,7 +1206,7 @@ class Router implements RegistrarContract
     protected function cleanFilterParameters(array $parameters)
     {
         return array_filter($parameters, function ($p) {
-            return ! is_null($p) && $p !== '';
+            return !is_null($p) && $p !== '';
         });
     }
 
@@ -1225,7 +1221,7 @@ class Router implements RegistrarContract
     {
         if ($response instanceof PsrResponseInterface) {
             $response = (new HttpFoundationFactory)->createResponse($response);
-        } elseif (! $response instanceof SymfonyResponse) {
+        } elseif (!$response instanceof SymfonyResponse) {
             $response = new Response($response);
         }
 
@@ -1239,7 +1235,7 @@ class Router implements RegistrarContract
      */
     public function hasGroupStack()
     {
-        return ! empty($this->groupStack);
+        return !empty($this->groupStack);
     }
 
     /**
@@ -1340,7 +1336,7 @@ class Router implements RegistrarContract
      */
     public function currentRouteAction()
     {
-        if (! $this->current()) {
+        if (!$this->current()) {
             return;
         }
 

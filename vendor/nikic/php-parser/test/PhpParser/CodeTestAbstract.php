@@ -17,9 +17,7 @@ abstract class CodeTestAbstract extends \PHPUnit_Framework_TestCase
             // evaluate @@{expr}@@ expressions
             $fileContents = preg_replace_callback(
                 '/@@\{(.*?)\}@@/',
-                function($matches) {
-                    return eval('return ' . $matches[1] . ';');
-                },
+                array($this, 'evalCallback'),
                 $fileContents
             );
 
@@ -28,32 +26,28 @@ abstract class CodeTestAbstract extends \PHPUnit_Framework_TestCase
 
             // first part is the name
             $name = array_shift($parts) . ' (' . $fileName . ')';
-            $shortName = basename($fileName, '.test');
 
             // multiple sections possible with always two forming a pair
-            $chunks = array_chunk($parts, 2);
-            foreach ($chunks as $i => $chunk) {
-                $dataSetName = $shortName . (count($chunks) > 1 ? '#' . $i : '');
-                list($expected, $mode) = $this->extractMode(canonicalize($chunk[1]));
-                $tests[$dataSetName] = array($name, $chunk[0], $expected, $mode);
+            foreach (array_chunk($parts, 2) as $chunk) {
+                $tests[] = array($name, $chunk[0], $chunk[1]);
             }
         }
 
         return $tests;
     }
 
-    private function extractMode($expected) {
-        $firstNewLine = strpos($expected, "\n");
-        if (false === $firstNewLine) {
-            $firstNewLine = strlen($expected);
-        }
+    protected function evalCallback($matches) {
+        return eval('return ' . $matches[1] . ';');
+    }
 
-        $firstLine = substr($expected, 0, $firstNewLine);
-        if (0 !== strpos($firstLine, '!!')) {
-            return [$expected, null];
-        }
+    protected function canonicalize($str) {
+        // trim from both sides
+        $str = trim($str);
 
-        $expected = (string) substr($expected, $firstNewLine + 1);
-        return [$expected, substr($firstLine, 2)];
+        // normalize EOL to \n
+        $str = str_replace(array("\r\n", "\r"), "\n", $str);
+
+        // trim right side of all lines
+        return implode("\n", array_map('rtrim', explode("\n", $str)));
     }
 }

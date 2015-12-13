@@ -2,7 +2,6 @@
 
 namespace League\Flysystem\Plugin;
 
-use BadMethodCallException;
 use League\Flysystem\FilesystemInterface;
 use League\Flysystem\PluginInterface;
 use LogicException;
@@ -29,7 +28,7 @@ trait PluggableTrait
     }
 
     /**
-     * Find a specific plugin.
+     * Register a plugin.
      *
      * @param string $method
      *
@@ -65,28 +64,5 @@ trait PluggableTrait
         $callback = [$plugin, 'handle'];
 
         return call_user_func_array($callback, $arguments);
-    }
-
-    /**
-     * Plugins pass-through.
-     *
-     * @param string $method
-     * @param array  $arguments
-     *
-     * @throws BadMethodCallException
-     *
-     * @return mixed
-     */
-    public function __call($method, array $arguments)
-    {
-        try {
-            return $this->invokePlugin($method, $arguments, $this);
-        } catch (PluginNotFoundException $e) {
-            throw new BadMethodCallException(
-                'Call to undefined method '
-                .get_class($this)
-                .'::'.$method
-            );
-        }
     }
 }

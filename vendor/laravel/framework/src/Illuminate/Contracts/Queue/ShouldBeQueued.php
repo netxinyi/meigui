@@ -7,5 +7,4 @@ namespace Illuminate\Contracts\Queue;
  */
 interface ShouldBeQueued extends ShouldQueue
 {
-    //
 }

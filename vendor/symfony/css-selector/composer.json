@@ -22,11 +22,13 @@
     "require": {
         "php": ">=5.3.9"
     },
+    "require-dev": {
+        "symfony/phpunit-bridge": "~2.7"
+    },
     "autoload": {
-        "psr-4": { "Symfony\\Component\\CssSelector\\": "" },
-        "exclude-from-classmap": [
-            "/Tests/"
-        ]
+        "psr-4": {
+            "Symfony\\Component\\CssSelector\\": ""
+        }
     },
     "minimum-stability": "dev",
     "extra": {

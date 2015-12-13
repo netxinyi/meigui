@@ -2,11 +2,14 @@
 
 namespace Illuminate\Mail\Transport;
 
+use Swift_Transport;
 use Swift_Mime_Message;
+use Swift_Events_SendEvent;
 use GuzzleHttp\Post\PostFile;
+use Swift_Events_EventListener;
 use GuzzleHttp\ClientInterface;
 
-class MailgunTransport extends Transport
+class MailgunTransport extends Transport implements Swift_Transport
 {
     /**
      * Guzzle client instance.
@@ -54,25 +57,45 @@ class MailgunTransport extends Transport
     /**
      * {@inheritdoc}
      */
+    public function isStarted()
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function start()
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function stop()
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function send(Swift_Mime_Message $message, &$failedRecipients = null)
     {
         $this->beforeSendPerformed($message);
 
         $options = ['auth' => ['api', $this->key]];
 
-        $to = $this->getTo($message);
-
-        $message->setBcc([]);
-
         if (version_compare(ClientInterface::VERSION, '6') === 1) {
             $options['multipart'] = [
-                ['name' => 'to', 'contents' => $to],
-                ['name' => 'message', 'contents' => $message->toString(), 'filename' => 'message.mime'],
+                ['name' => 'to', 'contents' => $this->getTo($message)],
+                ['name' => 'message', 'contents' => (string) $message, 'filename' => 'message.mime'],
             ];
         } else {
             $options['body'] = [
-                'to' => $to,
-                'message' => new PostFile('message', $message->toString()),
+                'to' => $this->getTo($message),
+                'message' => new PostFile('message', (string) $message),
             ];
         }
 
@@ -114,7 +137,7 @@ class MailgunTransport extends Transport
      * Set the API key being used by the transport.
      *
      * @param  string  $key
-     * @return string
+     * @return void
      */
     public function setKey($key)
     {

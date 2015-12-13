@@ -38,12 +38,12 @@ class ExpectationEvent extends Event implements EventInterface
     const BROKEN  = 2;
 
     /**
-     * @var ExampleNode
+     * @var \PhpSpec\Loader\Node\ExampleNode
      */
     private $example;
 
     /**
-     * @var MatcherInterface
+     * @var \PhpSpec\Matcher\MatcherInterface
      */
     private $matcher;
 

@@ -146,11 +146,6 @@ class MigrationServiceProvider extends ServiceProvider
         });
     }
 
-    /**
-     * Register the "status" migration command.
-     *
-     * @return void
-     */
     protected function registerStatusCommand()
     {
         $this->app->singleton('command.migrate.status', function ($app) {

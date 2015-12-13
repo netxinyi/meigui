@@ -29,21 +29,12 @@ class CollaboratorNotFoundException extends FractureException
      * @param string $message
      * @param integer $code
      * @param Exception $previous
-     * @param ReflectionParameter|null $reflectionParameter
-     * @param string|null $className
+     * @param ReflectionParameter $reflectionParameter
      */
-    public function __construct(
-        $message,
-        $code = 0,
-        Exception $previous = null,
-        ReflectionParameter $reflectionParameter = null,
-        $className = null
-    ) {
+    public function __construct($message, $code = 0, Exception $previous = null, ReflectionParameter $reflectionParameter = null)
+    {
         if ($reflectionParameter) {
             $this->collaboratorName = $this->extractCollaboratorName($reflectionParameter);
-        }
-        if ($className) {
-            $this->collaboratorName = $className;
         }
 
         parent::__construct($message . ': ' . $this->collaboratorName, $code, $previous);

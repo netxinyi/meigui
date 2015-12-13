@@ -34,7 +34,7 @@ class ClassList
     protected $current;
 
     /**
-     * Create a new class list instance.
+     * Create a new class list.
      *
      * @return void
      */

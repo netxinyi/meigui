@@ -2,7 +2,6 @@
 
 namespace spec\PhpSpec\Wrapper;
 
-use Phpspec\CodeAnalysis\AccessInspectorInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -15,18 +14,10 @@ use PhpSpec\Wrapper\Subject\Expectation\ExpectationInterface;
 
 class SubjectSpec extends ObjectBehavior
 {
-    function let(Wrapper $wrapper, WrappedObject $wrappedObject, Caller $caller, SubjectWithArrayAccess $arrayAccess,
-                 ExpectationFactory $expectationFactory, AccessInspectorInterface $accessInspector)
+    function let(Wrapper $wrapper, WrappedObject $wrappedObject, Caller $caller,
+                 SubjectWithArrayAccess $arrayAccess, ExpectationFactory $expectationFactory)
     {
-        $this->beConstructedWith(
-            null,
-            $wrapper,
-            $wrappedObject,
-            $caller,
-            $arrayAccess,
-            $expectationFactory,
-            $accessInspector
-        );
+        $this->beConstructedWith(null, $wrapper, $wrappedObject, $caller, $arrayAccess, $expectationFactory);
     }
 
     function it_passes_the_created_subject_to_expectation(WrappedObject $wrappedObject,

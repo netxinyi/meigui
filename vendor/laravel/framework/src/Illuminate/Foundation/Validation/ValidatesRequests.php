@@ -4,20 +4,11 @@ namespace Illuminate\Foundation\Validation;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Routing\UrlGenerator;
-use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exception\HttpResponseException;
 
 trait ValidatesRequests
 {
-    /**
-     * The default error bag.
-     *
-     * @var string
-     */
-    protected $validatesRequestErrorBag;
-
     /**
      * Validate the given request with the given rules.
      *
@@ -36,25 +27,6 @@ trait ValidatesRequests
         if ($validator->fails()) {
             $this->throwValidationException($request, $validator);
         }
-    }
-
-    /**
-     * Validate the given request with the given rules.
-     *
-     * @param  string  $errorBag
-     * @param  \Illuminate\Http\Request  $request
-     * @param  array  $rules
-     * @param  array  $messages
-     * @param  array  $customAttributes
-     * @return void
-     *
-     * @throws \Illuminate\Http\Exception\HttpResponseException
-     */
-    public function validateWithBag($errorBag, Request $request, array $rules, array $messages = [], array $customAttributes = [])
-    {
-        $this->withErrorBag($errorBag, function () use ($request, $rules, $messages, $customAttributes) {
-            $this->validate($request, $rules, $messages, $customAttributes);
-        });
     }
 
     /**
@@ -109,7 +81,7 @@ trait ValidatesRequests
      */
     protected function getRedirectUrl()
     {
-        return app(UrlGenerator::class)->previous();
+        return app('Illuminate\Routing\UrlGenerator')->previous();
     }
 
     /**
@@ -119,23 +91,7 @@ trait ValidatesRequests
      */
     protected function getValidationFactory()
     {
-        return app(Factory::class);
-    }
-
-    /**
-     * Execute a Closure within with a given error bag set as the default bag.
-     *
-     * @param  string  $errorBag
-     * @param  callable  $callback
-     * @return void
-     */
-    protected function withErrorBag($errorBag, callable $callback)
-    {
-        $this->validatesRequestErrorBag = $errorBag;
-
-        call_user_func($callback);
-
-        $this->validatesRequestErrorBag = null;
+        return app('Illuminate\Contracts\Validation\Factory');
     }
 
     /**
@@ -145,6 +101,6 @@ trait ValidatesRequests
      */
     protected function errorBag()
     {
-        return $this->validatesRequestErrorBag ?: 'default';
+        return 'default';
     }
 }

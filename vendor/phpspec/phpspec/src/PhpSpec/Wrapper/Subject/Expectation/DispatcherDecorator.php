@@ -23,15 +23,15 @@ use Exception;
 class DispatcherDecorator extends Decorator implements ExpectationInterface
 {
     /**
-     * @var EventDispatcherInterface
+     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
      */
     private $dispatcher;
     /**
-     * @var MatcherInterface
+     * @var \PhpSpec\Matcher\MatcherInterface
      */
     private $matcher;
     /**
-     * @var ExampleNode
+     * @var \PhpSpec\Loader\Node\ExampleNode
      */
     private $example;
 

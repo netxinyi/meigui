@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of Psy Shell.
+ * This file is part of Psy Shell
  *
- * (c) 2012-2015 Justin Hileman
+ * (c) 2012-2014 Justin Hileman
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -99,7 +99,6 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             'pager'             => $pager,
             'loop'              => $loop,
             'requireSemicolons' => true,
-            'errorLoggingLevel' => E_ERROR | E_WARNING,
         ));
 
         $this->assertFalse($config->useReadline());
@@ -108,7 +107,6 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($pager, $config->getPager());
         $this->assertSame($loop, $config->getLoop());
         $this->assertTrue($config->requireSemicolons());
-        $this->assertEquals(E_ERROR | E_WARNING, $config->errorLoggingLevel());
     }
 
     public function testLoadConfigFile()
@@ -119,35 +117,38 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
 
         $this->assertStringStartsWith($runtimeDir, realpath($config->getTempFile('foo', 123)));
         $this->assertStringStartsWith($runtimeDir, realpath(dirname($config->getPipe('pipe', 123))));
+
+        // This will be deprecated, but we want to actually test the value.
+        $was = error_reporting(error_reporting() & ~E_USER_DEPRECATED);
+        $this->assertStringStartsWith($runtimeDir, realpath($config->getTempDir()));
+        error_reporting($was);
+
         $this->assertStringStartsWith($runtimeDir, realpath($config->getRuntimeDir()));
 
         $this->assertEquals(function_exists('readline'), $config->useReadline());
         $this->assertFalse($config->usePcntl());
-        $this->assertEquals(E_ALL & ~E_NOTICE, $config->errorLoggingLevel());
-    }
-
-    public function testLoadLocalConfigFile()
-    {
-        $oldPwd = getenv('PWD');
-        putenv('PWD=' . realpath(__DIR__ . '/../../fixtures/project/'));
-
-        $config = new Configuration();
-
-        // When no configuration file is specified local project config is merged
-        $this->assertFalse($config->useReadline());
-        $this->assertTrue($config->usePcntl());
-
-        $config = new Configuration(array('configFile' => __DIR__ . '/../../fixtures/config.php'));
-
-        // Defining a configuration file skips loading local project config
-        $this->assertTrue($config->useReadline());
-        $this->assertFalse($config->usePcntl());
-
-        putenv("PWD=$oldPwd");
     }
 
     /**
-     * @expectedException Psy\Exception\DeprecatedException
+     * @expectedException PHPUnit_Framework_Error_Deprecated
+     */
+    public function testSetTempDirIsDeprecated()
+    {
+        $config = new Configuration();
+        $config->setTempDir('fake');
+    }
+
+    /**
+     * @expectedException PHPUnit_Framework_Error_Deprecated
+     */
+    public function testGetTempDirIsDeprecated()
+    {
+        $config = new Configuration();
+        $config->getTempDir();
+    }
+
+    /**
+     * @expectedException PHPUnit_Framework_Error_Deprecated
      */
     public function testBaseDirConfigIsDeprecated()
     {

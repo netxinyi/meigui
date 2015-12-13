@@ -50,6 +50,7 @@ class PHPUnit_Framework_MockObject_Matcher_InvokedAtIndex implements PHPUnit_Fra
 
     /**
      * @param  PHPUnit_Framework_MockObject_Invocation $invocation
+     *
      * @return bool
      */
     public function matches(PHPUnit_Framework_MockObject_Invocation $invocation)

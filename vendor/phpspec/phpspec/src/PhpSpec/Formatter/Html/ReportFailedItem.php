@@ -20,11 +20,11 @@ use PhpSpec\Formatter\Template as TemplateInterface;
 class ReportFailedItem
 {
     /**
-     * @var TemplateInterface
+     * @var \PhpSpec\Formatter\Template
      */
     private $template;
     /**
-     * @var ExampleEvent
+     * @var \PhpSpec\Event\ExampleEvent
      */
     private $event;
     /**

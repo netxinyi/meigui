@@ -19,11 +19,11 @@ use PhpSpec\Process\ReRunner;
 class OptionalReRunner implements ReRunner
 {
     /**
-     * @var IO
+     * @var \PhpSpec\Console\IO
      */
     private $io;
     /**
-     * @var ReRunner
+     * @var \PhpSpec\Process\ReRunner
      */
     private $decoratedRerunner;
 

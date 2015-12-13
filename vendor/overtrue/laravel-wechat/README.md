@@ -1,76 +1,44 @@
 # laravel-wechat
 
-> 注意：此版本为 2.x 版本，不兼容 1.x，已经移除外观，与 [overtrue/wechat 2.x](https://github.com/overtrue/wechat) 同步
+> 注意：此版本为 2.x 版本，不兼容 1.x，已经移除外观，与 [overtrue/wechat 2.0](https://github.com/overtrue/wechat) 同步
 
 > 1.x 的配置文件里面的项目为驼峰，2.x 系列已经改为下划线，请参考: [src/config.php](https://github.com/overtrue/laravel-wechat/blob/master/src/config.php)
 
-微信 SDK for Laravel 5 / Lumen， 基于 [overtrue/wechat](https://github.com/overtrue/wechat)
+微信 SDK for Laravel 5， 基于 [overtrue/wechat](https://github.com/overtrue/wechat)
 
 本项目只适用于，只有一个固定的账号，如果是开发微信公众号管理系统就不要使用了，直接用 [overtrue/wechat](https://github.com/overtrue/wechat) 更方便些。
-
-> 交流QQ群：319502940
 
 ## 安装
 
 1. 安装包文件
-
   ```shell
-  composer require "overtrue/laravel-wechat:2.1.*"
+  composer require "overtrue/laravel-wechat:2.0.*"
   ```
 
-## 配置
-
-### Laravel 应用
-
-1. 注册 `ServiceProvider`:
+2. 添加 `ServiceProvider` 到您项目 `config/app.php` 中的 `providers` 部分:
 
   ```php
-  Overtrue\LaravelWechat\ServiceProvider::class,
+  'Overtrue\LaravelWechat\ServiceProvider',
   ```
 
-2. 创建配置文件：
+3. 创建配置文件：
 
   ```shell
-  php artisan vendor:publish
+  php artisan vendor:publish  --provider=Overtrue\\LaravelWechat\\ServiceProvider
   ```
+4. 请修改应用根目录下的 `config/wechat.php` 中对应的项即可；
 
-3. 请修改应用根目录下的 `config/wechat.php` 中对应的项即可；
-
-4. （可选）添加外观到 `config/app.php` 中的 `aliases` 部分:
+5. （可选）添加外观到 `config/app.php` 中的 `aliases` 部分:
 
   ```php
   'Wechat' => 'Overtrue\LaravelWechat\Facade',
   ```
 
-### Lumen 应用
-
-1. 在 `bootstrap/app.php` 中 82 行左右：
-
-  ```php
-  $app->register(Overtrue\LaravelWechat\ServiceProvider::class);
-  ```
-
-2. 在 ENV 中配置以下选项：
-
-```php
-WECHAT_USE_ALIAS=false
-WECHAT_APPID=xxx
-WECHAT_SECRET=xxx
-WECHAT_TOKEN=xxx
-WECHAT_ENCODING_KEY=xxx
-```
-3. 如果你习惯使用 `config/wechat.php` 来配置的话，请记得在 `bootstrap/app.php` 中19行以后添加：
-
-```php
-$app->configure('wechat');
-```
-
 ## 使用
 
 > 注意：
 
-> 1. Laravel 5 默认启用了 CSRF 中间件，因为微信的消息是 POST 过来，所以会触发 CRSF 检查导致无法正确响应消息，所以请去除默认的 CRSF 中间件，改成路由中间件。可以参考我的写法：[overtrue gist:Kernel.php](https://gist.github.com/overtrue/ff6cd3a4e869fbaf6c01#file-kernel-php-L31)
-> 5.1 里的 SCRF 已经带了可忽略部分url的功能，你可以参考：http://laravel.com/docs/master/routing#csrf-protection
+> 1. Laravel 5 默认启用了 CRSF 中间件，因为微信的消息是 POST 过来，所以会触发 CRSF 检查导致无法正确响应消息，所以请去除默认的 CRSF 中间件，改成路由中间件。可以参考我的写法：[overtrue gist:Kernel.php](https://gist.github.com/overtrue/ff6cd3a4e869fbaf6c01#file-kernel-php-L31)
 
 所有的Wechat对象都已经放到了容器中，直接从容器中取就好。
 

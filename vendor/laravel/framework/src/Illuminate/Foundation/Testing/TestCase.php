@@ -10,6 +10,13 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
     use ApplicationTrait, AssertionsTrait, CrawlerTrait;
 
     /**
+     * The Eloquent factory instance.
+     *
+     * @var \Illuminate\Database\Eloquent\Factory
+     */
+    protected $factory;
+
+    /**
      * The callbacks that should be run before the application is destroyed.
      *
      * @var array
@@ -32,8 +39,12 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        if (! $this->app) {
+        if (!$this->app) {
             $this->refreshApplication();
+        }
+
+        if (!$this->factory) {
+            $this->factory = $this->app->make('Illuminate\Database\Eloquent\Factory');
         }
     }
 
@@ -56,10 +67,6 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
             $this->app->flush();
 
             $this->app = null;
-        }
-
-        if (property_exists($this, 'serverVariables')) {
-            $this->serverVariables = [];
         }
     }
 

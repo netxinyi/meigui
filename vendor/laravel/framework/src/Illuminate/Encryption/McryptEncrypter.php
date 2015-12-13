@@ -3,9 +3,7 @@
 namespace Illuminate\Encryption;
 
 use Exception;
-use RuntimeException;
 use Illuminate\Contracts\Encryption\DecryptException;
-use Illuminate\Contracts\Encryption\EncryptException;
 use Illuminate\Contracts\Encryption\Encrypter as EncrypterContract;
 
 /**
@@ -31,10 +29,8 @@ class McryptEncrypter extends BaseEncrypter implements EncrypterContract
      * Create a new encrypter instance.
      *
      * @param  string  $key
-     * @param  string  $cipher
+     * @param  int     $cipher
      * @return void
-     *
-     * @throws \RuntimeException
      */
     public function __construct($key, $cipher = MCRYPT_RIJNDAEL_128)
     {
@@ -67,8 +63,6 @@ class McryptEncrypter extends BaseEncrypter implements EncrypterContract
      *
      * @param  string  $value
      * @return string
-     *
-     * @throws \Illuminate\Contracts\Encryption\EncryptException
      */
     public function encrypt($value)
     {
@@ -81,13 +75,7 @@ class McryptEncrypter extends BaseEncrypter implements EncrypterContract
         // authenticity. Then, we'll JSON encode the data in a "payload" array.
         $mac = $this->hash($iv = base64_encode($iv), $value);
 
-        $json = json_encode(compact('iv', 'value', 'mac'));
-
-        if (! is_string($json)) {
-            throw new EncryptException('Could not encrypt the data.');
-        }
-
-        return base64_encode($json);
+        return base64_encode(json_encode(compact('iv', 'value', 'mac')));
     }
 
     /**

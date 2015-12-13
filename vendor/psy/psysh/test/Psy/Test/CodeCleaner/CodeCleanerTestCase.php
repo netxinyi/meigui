@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of Psy Shell.
+ * This file is part of Psy Shell
  *
- * (c) 2012-2015 Justin Hileman
+ * (c) 2012-2014 Justin Hileman
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,12 +11,12 @@
 
 namespace Psy\Test\CodeCleaner;
 
-use PhpParser\NodeTraverser;
-use PhpParser\Parser;
-use PhpParser\PrettyPrinter\Standard as Printer;
+use PHPParser_Lexer as Lexer;
+use PHPParser_NodeTraverser as NodeTraverser;
+use PHPParser_Parser as Parser;
+use PHPParser_PrettyPrinter_Default as Printer;
 use Psy\CodeCleaner\CodeCleanerPass;
 use Psy\Exception\ParseErrorException;
-use Psy\ParserFactory;
 
 class CodeCleanerTestCase extends \PHPUnit_Framework_TestCase
 {
@@ -39,7 +39,7 @@ class CodeCleanerTestCase extends \PHPUnit_Framework_TestCase
         $code = $prefix . $code;
         try {
             return $this->getParser()->parse($code);
-        } catch (\PhpParser\Error $e) {
+        } catch (\PHPParser_Error $e) {
             if (!$this->parseErrorIsEOF($e)) {
                 throw ParseErrorException::fromParseError($e);
             }
@@ -47,7 +47,7 @@ class CodeCleanerTestCase extends \PHPUnit_Framework_TestCase
             try {
                 // Unexpected EOF, try again with an implicit semicolon
                 return $this->getParser()->parse($code . ';');
-            } catch (\PhpParser\Error $e) {
+            } catch (\PHPParser_Error $e) {
                 return false;
             }
         }
@@ -73,8 +73,7 @@ class CodeCleanerTestCase extends \PHPUnit_Framework_TestCase
     private function getParser()
     {
         if (!isset($this->parser)) {
-            $parserFactory = new ParserFactory();
-            $this->parser  = $parserFactory->createParser();
+            $this->parser = new Parser(new Lexer());
         }
 
         return $this->parser;
@@ -89,10 +88,10 @@ class CodeCleanerTestCase extends \PHPUnit_Framework_TestCase
         return $this->printer;
     }
 
-    private function parseErrorIsEOF(\PhpParser\Error $e)
+    private function parseErrorIsEOF(\PHPParser_Error $e)
     {
         $msg = $e->getRawMessage();
 
-        return ($msg === 'Unexpected token EOF') || (strpos($msg, 'Syntax error, unexpected EOF') !== false);
+        return ($msg === "Unexpected token EOF") || (strpos($msg, "Syntax error, unexpected EOF") !== false);
     }
 }

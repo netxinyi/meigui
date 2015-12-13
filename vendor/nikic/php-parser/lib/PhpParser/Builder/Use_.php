@@ -36,12 +36,8 @@ class Use_ extends BuilderAbstract {
         $this->alias = $alias;
         return $this;
     }
-    public function __call($name, $args) {
-        if (method_exists($this, $name . '_')) {
-            return call_user_func_array(array($this, $name . '_'), $args);
-        }
-
-        throw new \LogicException(sprintf('Method "%s" does not exist', $name));
+    public function __call($method, $args) {
+        return call_user_func_array(array($this, $method . '_'), $args);
     }
 
     /**

@@ -14,9 +14,12 @@
 namespace PhpSpec\Console;
 
 use PhpSpec\IO\IOInterface;
+use Symfony\Component\Console\Helper\DialogHelper;
+use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use PhpSpec\Config\OptionsConfig;
+use Symfony\Component\Console\Question\ConfirmationQuestion;
 
 /**
  * Class IO deals with input and output from command line interaction
@@ -28,12 +31,12 @@ class IO implements IOInterface
     const COL_MAX_WIDTH = 80;
 
     /**
-     * @var InputInterface
+     * @var \Symfony\Component\Console\Input\InputInterface
      */
     private $input;
 
     /**
-     * @var OutputInterface
+     * @var \Symfony\Component\Console\Output\OutputInterface
      */
     private $output;
 

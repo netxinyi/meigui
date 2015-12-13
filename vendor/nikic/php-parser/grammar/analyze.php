@@ -1,6 +1,6 @@
 <?php
 
-const GRAMMAR_FILE = './php5.y';
+const GRAMMAR_FILE = './zend_language_parser.phpy';
 
 const LIB = '(?(DEFINE)
     (?<singleQuotedString>\'[^\\\\\']*+(?:\\\\.[^\\\\\']*+)*+\')

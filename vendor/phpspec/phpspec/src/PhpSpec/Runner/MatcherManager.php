@@ -20,7 +20,7 @@ use PhpSpec\Formatter\Presenter\PresenterInterface;
 class MatcherManager
 {
     /**
-     * @var PresenterInterface
+     * @var \PhpSpec\Formatter\Presenter\PresenterInterface
      */
     private $presenter;
     /**

@@ -17,11 +17,17 @@ use Symfony\Component\HttpFoundation\Request;
 
 class RequestTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @covers Symfony\Component\HttpFoundation\Request::__construct
+     */
     public function testConstructor()
     {
         $this->testInitialize();
     }
 
+    /**
+     * @covers Symfony\Component\HttpFoundation\Request::initialize
+     */
     public function testInitialize()
     {
         $request = new Request();
@@ -88,6 +94,9 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('pl', $locale);
     }
 
+    /**
+     * @covers Symfony\Component\HttpFoundation\Request::create
+     */
     public function testCreate()
     {
         $request = Request::create('http://test.com/foo?bar=baz');
@@ -231,6 +240,9 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($request->isSecure());
     }
 
+    /**
+     * @covers Symfony\Component\HttpFoundation\Request::create
+     */
     public function testCreateCheckPrecedence()
     {
         // server is used by default
@@ -299,6 +311,8 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Symfony\Component\HttpFoundation\Request::getFormat
+     * @covers Symfony\Component\HttpFoundation\Request::setFormat
      * @dataProvider getFormatToMimeTypeMapProvider
      */
     public function testGetFormatFromMimeType($format, $mimeTypes)
@@ -313,6 +327,9 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * @covers Symfony\Component\HttpFoundation\Request::getFormat
+     */
     public function testGetFormatFromMimeTypeWithParameters()
     {
         $request = new Request();
@@ -320,6 +337,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Symfony\Component\HttpFoundation\Request::getMimeType
      * @dataProvider getFormatToMimeTypeMapProvider
      */
     public function testGetMimeTypeFromFormat($format, $mimeTypes)
@@ -344,6 +362,9 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @covers Symfony\Component\HttpFoundation\Request::getUri
+     */
     public function testGetUri()
     {
         $server = array();
@@ -459,6 +480,9 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('http://host:8080/ba%20se/index_dev.php/foo%20bar/in+fo?query=string', $request->getUri());
     }
 
+    /**
+     * @covers Symfony\Component\HttpFoundation\Request::getUriForPath
+     */
     public function testGetUriForPath()
     {
         $request = Request::create('http://test.com/foo?bar=baz');
@@ -586,11 +610,14 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @covers Symfony\Component\HttpFoundation\Request::getUserInfo
+     */
     public function testGetUserInfo()
     {
         $request = new Request();
 
-        $server = array('PHP_AUTH_USER' => 'fabien');
+        $server['PHP_AUTH_USER'] = 'fabien';
         $request->initialize(array(), array(), array(), array(), array(), $server);
         $this->assertEquals('fabien', $request->getUserInfo());
 
@@ -603,6 +630,9 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('0:0', $request->getUserInfo());
     }
 
+    /**
+     * @covers Symfony\Component\HttpFoundation\Request::getSchemeAndHttpHost
+     */
     public function testGetSchemeAndHttpHost()
     {
         $request = new Request();
@@ -627,6 +657,8 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Symfony\Component\HttpFoundation\Request::getQueryString
+     * @covers Symfony\Component\HttpFoundation\Request::normalizeQueryString
      * @dataProvider getQueryStringNormalizationData
      */
     public function testGetQueryString($query, $expectedQuery, $msg)
@@ -762,6 +794,10 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $request->getHost();
     }
 
+    /**
+     * @covers Symfony\Component\HttpFoundation\Request::setMethod
+     * @covers Symfony\Component\HttpFoundation\Request::getMethod
+     */
     public function testGetSetMethod()
     {
         $request = new Request();
@@ -933,26 +969,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(feof($retval));
     }
 
-    public function testGetContentReturnsResourceWhenContentSetInConstructor()
-    {
-        $req = new Request(array(), array(), array(), array(), array(), array(), 'MyContent');
-        $resource = $req->getContent(true);
-
-        $this->assertTrue(is_resource($resource));
-        $this->assertEquals('MyContent', stream_get_contents($resource));
-    }
-
-    public function testContentAsResource()
-    {
-        $resource = fopen('php://memory', 'r+');
-        fwrite($resource, 'My other content');
-        rewind($resource);
-
-        $req = new Request(array(), array(), array(), array(), array(), array(), $resource);
-        $this->assertEquals('My other content', stream_get_contents($req->getContent(true)));
-        $this->assertEquals('My other content', $req->getContent());
-    }
-
     /**
      * @expectedException \LogicException
      * @dataProvider getContentCantBeCalledTwiceWithResourcesProvider
@@ -969,11 +985,15 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     *
      * @dataProvider getContentCantBeCalledTwiceWithResourcesProvider
-     * @requires PHP 5.6
      */
     public function testGetContentCanBeCalledTwiceWithResources($first, $second)
     {
+        if (PHP_VERSION_ID < 50600) {
+            $this->markTestSkipped('PHP < 5.6 does not allow to open php://input several times.');
+        }
+
         $req = new Request();
         $a = $req->getContent($first);
         $b = $req->getContent($second);
@@ -994,6 +1014,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         return array(
             'Resource then fetch' => array(true, false),
             'Resource then resource' => array(true, true),
+            'Fetch then resource' => array(false, true),
         );
     }
 
@@ -1221,11 +1242,12 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($request->isXmlHttpRequest());
     }
 
-    /**
-     * @requires extension intl
-     */
     public function testIntlLocale()
     {
+        if (!extension_loaded('intl')) {
+            $this->markTestSkipped('The intl extension is needed to run this test.');
+        }
+
         $request = new Request();
 
         $request->setDefaultLocale('fr');

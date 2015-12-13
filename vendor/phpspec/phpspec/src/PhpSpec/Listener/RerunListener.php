@@ -14,7 +14,6 @@
 namespace PhpSpec\Listener;
 
 use PhpSpec\Event\SuiteEvent;
-use PhpSpec\Process\Prerequisites\SuitePrerequisitesInterface;
 use PhpSpec\Process\ReRunner;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -26,18 +25,11 @@ class RerunListener implements EventSubscriberInterface
     private $reRunner;
 
     /**
-     * @var SuitePrerequisitesInterface
-     */
-    private $suitePrerequisites;
-
-    /**
      * @param ReRunner $reRunner
-     * @param SuitePrerequisitesInterface $suitePrerequisites
      */
-    public function __construct(ReRunner $reRunner, SuitePrerequisitesInterface $suitePrerequisites)
+    public function __construct(ReRunner $reRunner)
     {
         $this->reRunner = $reRunner;
-        $this->suitePrerequisites = $suitePrerequisites;
     }
 
     /**
@@ -45,18 +37,7 @@ class RerunListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(
-            'beforeSuite' => array('beforeSuite', 1000),
-            'afterSuite' => array('afterSuite', -1000)
-        );
-    }
-
-    /**
-     * @param SuiteEvent $suiteEvent
-     */
-    public function beforeSuite(SuiteEvent $suiteEvent)
-    {
-        $this->suitePrerequisites->guardPrerequisites();
+        return array('afterSuite' => array('afterSuite', -1000));
     }
 
     /**

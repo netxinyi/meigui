@@ -21,6 +21,7 @@ namespace Overtrue\Wechat;
 class Url
 {
 
+
     /**
      * Http对象
      *
@@ -30,6 +31,7 @@ class Url
 
     const API_SHORT_URL = 'https://api.weixin.qq.com/cgi-bin/shorturl';
 
+
     /**
      * constructor
      *
@@ -38,8 +40,10 @@ class Url
      */
     public function __construct($appId, $appSecret)
     {
+
         $this->http = new Http(new AccessToken($appId, $appSecret));
     }
+
 
     /**
      * 转短链接
@@ -50,15 +54,17 @@ class Url
      */
     public function short($url)
     {
+
         $params = array(
-                   'action'   => 'long2short',
-                   'long_url' => $url,
-                  );
+            'action'   => 'long2short',
+            'long_url' => $url,
+        );
 
         $response = $this->http->jsonPost(self::API_SHORT_URL, $params);
 
         return $response['short_url'];
     }
+
 
     /**
      * 获取当前URL
@@ -67,15 +73,15 @@ class Url
      */
     public static function current()
     {
-        $protocol = (!empty($_SERVER['HTTPS'])
-                        && $_SERVER['HTTPS'] !== 'off'
-                        || $_SERVER['SERVER_PORT'] === 443) ? 'https://' : 'http://';
 
-        if(isset($_SERVER['HTTP_X_FORWARDED_HOST'])){
+        $protocol = ( !empty( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] === 443 ) ? 'https://' : 'http://';
+
+        if (isset( $_SERVER['HTTP_X_FORWARDED_HOST'] )) {
             $host = $_SERVER['HTTP_X_FORWARDED_HOST'];
-        }else{
+        } else {
             $host = $_SERVER['HTTP_HOST'];
         }
-        return $protocol.$host.$_SERVER['REQUEST_URI'];
+
+        return $protocol . $host . $_SERVER['REQUEST_URI'];
     }
 }

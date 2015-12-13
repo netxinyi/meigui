@@ -47,7 +47,7 @@ class ClassPreloader
     protected $traverser;
 
     /**
-     * Create a new class preloader instance.
+     * Create a new class preloader.
      *
      * @param \PhpParser\PrettyPrinter\Standard    $printer
      * @param \PhpParser\Parser                    $parser
@@ -66,18 +66,13 @@ class ClassPreloader
      * Prepare the output file and directory.
      *
      * @param string $output
-     * @param bool   $strict
      *
      * @throws \RuntimeException
      *
      * @return resource
      */
-    public function prepareOutput($output, $strict = false)
+    public function prepareOutput($output)
     {
-        if ($strict && version_compare(PHP_VERSION, '7') < 1) {
-            throw new RuntimeException('Strict mode requires PHP 7 or greater.');
-        }
-
         $dir = dirname($output);
 
         if (!is_dir($dir) && !mkdir($dir, 0777, true)) {
@@ -90,11 +85,7 @@ class ClassPreloader
             throw new RuntimeException("Unable to open $output for writing.");
         }
 
-        if ($strict) {
-            fwrite($handle, "<?php declare(strict_types=1);\n");
-        } else {
-            fwrite($handle, "<?php\n");
-        }
+        fwrite($handle, "<?php\n");
 
         return $handle;
     }
@@ -128,11 +119,8 @@ class ClassPreloader
         $stmts = $this->traverser->traverseFile($parsed, $file);
         $pretty = $this->printer->prettyPrint($stmts);
 
-        if (substr($pretty, 30) === '<?php declare(strict_types=1);' || substr($pretty, 30) === "<?php\ndeclare(strict_types=1);") {
-            $pretty = substr($pretty, 32);
-        } elseif (substr($pretty, 31) === "<?php\r\ndeclare(strict_types=1);") {
-            $pretty = substr($pretty, 33);
-        } elseif (substr($pretty, 5) === '<?php') {
+        // Remove the open PHP tag
+        if (substr($pretty, 5) === '<?php') {
             $pretty = substr($pretty, 7);
         }
 

@@ -20,6 +20,8 @@
  */
 class PHPUnit_Framework_MockObject_Matcher_ConsecutiveParameters extends PHPUnit_Framework_MockObject_Matcher_StatelessInvocation
 {
+
+
     /**
      * @var array
      */
@@ -29,6 +31,7 @@ class PHPUnit_Framework_MockObject_Matcher_ConsecutiveParameters extends PHPUnit
      * @var array
      */
     private $_invocations = array();
+
 
     /**
      * @param array $parameterGroups
@@ -55,8 +58,10 @@ class PHPUnit_Framework_MockObject_Matcher_ConsecutiveParameters extends PHPUnit
         return $text;
     }
 
+
     /**
      * @param  PHPUnit_Framework_MockObject_Invocation $invocation
+     *
      * @return bool
      */
     public function matches(PHPUnit_Framework_MockObject_Invocation $invocation)
@@ -75,11 +80,12 @@ class PHPUnit_Framework_MockObject_Matcher_ConsecutiveParameters extends PHPUnit
         }
     }
 
+
     /**
      * Verify a single invocation
      *
-     * @param  PHPUnit_Framework_MockObject_Invocation      $invocation
-     * @param  int                                          $callIndex
+     * @param  PHPUnit_Framework_MockObject_Invocation $invocation
+     * @param  int                                     $callIndex
      * @throws PHPUnit_Framework_ExpectationFailedException
      */
     private function verifyInvocation(PHPUnit_Framework_MockObject_Invocation $invocation, $callIndex)

@@ -21,6 +21,7 @@ namespace Overtrue\Wechat;
 class Cache
 {
 
+
     /**
      * 缓存文件前缀
      *
@@ -42,6 +43,7 @@ class Cache
      */
     protected static $cacheGetter;
 
+
     /**
      * 设置缓存文件前缀
      *
@@ -49,8 +51,10 @@ class Cache
      */
     public function __construct($prefix = '')
     {
+
         $this->prefix = $prefix;
     }
+
 
     /**
      * 默认的缓存写入器
@@ -61,19 +65,21 @@ class Cache
      */
     public function set($key, $value, $lifetime = 7200)
     {
+
         if (self::$cacheSetter) {
             return call_user_func_array(self::$cacheSetter, func_get_args());
         }
 
         $data = array(
-                 'data'       => $value,
-                 'expired_at' => time() + $lifetime - 500, //XXX: 微信API是世界上最烂的，没有之一
-                );
+            'data'       => $value,
+            'expired_at' => time() + $lifetime - 500, //XXX: 微信API是世界上最烂的，没有之一
+        );
 
         if (!file_put_contents($this->getCacheFile($key), serialize($data))) {
             throw new Exception('Access toekn 缓存失败');
         }
     }
+
 
     /**
      * 默认的缓存读取器
@@ -83,6 +89,7 @@ class Cache
      */
     public function get($key, $default = null)
     {
+
         $return = null;
 
         if (self::$cacheGetter) {
@@ -90,7 +97,7 @@ class Cache
         } else {
             $file = $this->getCacheFile($key);
 
-            if (file_exists($file) && ($data = unserialize(file_get_contents($file)))) {
+            if (file_exists($file) && ( $data = unserialize(file_get_contents($file)) )) {
                 $return = $data['expired_at'] > time() ? $data['data'] : null;
             }
         }
@@ -102,6 +109,7 @@ class Cache
         return $return;
     }
 
+
     /**
      * 删除缓存
      *
@@ -109,14 +117,16 @@ class Cache
      */
     public function forget($key)
     {
-        try {
+
+        try{
             unlink($this->getCacheFile($key));
-        } catch (Exception $e) {
+        } catch(Exception $e){
             return false;
         }
 
         return true;
     }
+
 
     /**
      * 设置缓存写入器
@@ -125,8 +135,10 @@ class Cache
      */
     public static function setter($handler)
     {
+
         is_callable($handler) && self::$cacheSetter = $handler;
     }
+
 
     /**
      * 设置缓存读取器
@@ -135,8 +147,10 @@ class Cache
      */
     public static function getter($handler)
     {
+
         is_callable($handler) && self::$cacheGetter = $handler;
     }
+
 
     /**
      * 获取缓存文件名
@@ -147,6 +161,7 @@ class Cache
      */
     protected function getCacheFile($key)
     {
-        return sys_get_temp_dir().DIRECTORY_SEPARATOR.md5($this->prefix.$key);
+
+        return sys_get_temp_dir() . DIRECTORY_SEPARATOR . md5($this->prefix . $key);
     }
 }

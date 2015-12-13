@@ -40,26 +40,24 @@ class SpecificationGeneratorSpec extends ObjectBehavior
     function it_generates_spec_class_from_resource_and_puts_it_into_appropriate_folder(
         $io, $tpl, $fs, ResourceInterface $resource
     ) {
-        $resource->getSpecName()->willReturn('AppSpec');
-        $resource->getSpecFilename()->willReturn('/project/spec/Acme/AppSpec.php');
+        $resource->getSpecName()->willReturn('App');
+        $resource->getSpecFilename()->willReturn('/project/spec/Acme/App.php');
         $resource->getSpecNamespace()->willReturn('spec\Acme');
         $resource->getSrcClassname()->willReturn('Acme\App');
-        $resource->getName()->willReturn('App');
 
         $values = array(
-            '%filepath%'  => '/project/spec/Acme/AppSpec.php',
-            '%name%'      => 'AppSpec',
+            '%filepath%'  => '/project/spec/Acme/App.php',
+            '%name%'      => 'App',
             '%namespace%' => 'spec\Acme',
-            '%subject%'   => 'Acme\App',
-            '%subject_class%'  => 'App'
+            '%subject%'   => 'Acme\App'
         );
 
         $tpl->render('specification', $values)->willReturn(null);
         $tpl->renderString(Argument::type('string'), $values)->willReturn('generated code');
 
-        $fs->pathExists('/project/spec/Acme/AppSpec.php')->willReturn(false);
+        $fs->pathExists('/project/spec/Acme/App.php')->willReturn(false);
         $fs->isDirectory('/project/spec/Acme')->willReturn(true);
-        $fs->putFileContents('/project/spec/Acme/AppSpec.php', 'generated code')->shouldBeCalled();
+        $fs->putFileContents('/project/spec/Acme/App.php', 'generated code')->shouldBeCalled();
 
         $this->generate($resource);
     }
@@ -67,42 +65,39 @@ class SpecificationGeneratorSpec extends ObjectBehavior
     function it_uses_template_provided_by_templating_system_if_there_is_one(
         $io, $tpl, $fs, ResourceInterface $resource
     ) {
-        $resource->getSpecName()->willReturn('AppSpec');
-        $resource->getSpecFilename()->willReturn('/project/spec/Acme/AppSpec.php');
+        $resource->getSpecName()->willReturn('App');
+        $resource->getSpecFilename()->willReturn('/project/spec/Acme/App.php');
         $resource->getSpecNamespace()->willReturn('spec\Acme');
         $resource->getSrcClassname()->willReturn('Acme\App');
-        $resource->getName()->willReturn('App');
 
         $values = array(
-            '%filepath%'  => '/project/spec/Acme/AppSpec.php',
-            '%name%'      => 'AppSpec',
+            '%filepath%'  => '/project/spec/Acme/App.php',
+            '%name%'      => 'App',
             '%namespace%' => 'spec\Acme',
-            '%subject%'   => 'Acme\App',
-            '%subject_class%'  => 'App'
+            '%subject%'   => 'Acme\App'
         );
 
         $tpl->render('specification', $values)->willReturn('template code');
         $tpl->renderString(Argument::type('string'), $values)->willReturn('generated code');
 
-        $fs->pathExists('/project/spec/Acme/AppSpec.php')->willReturn(false);
+        $fs->pathExists('/project/spec/Acme/App.php')->willReturn(false);
         $fs->isDirectory('/project/spec/Acme')->willReturn(true);
-        $fs->putFileContents('/project/spec/Acme/AppSpec.php', 'template code')->shouldBeCalled();
+        $fs->putFileContents('/project/spec/Acme/App.php', 'template code')->shouldBeCalled();
 
         $this->generate($resource);
     }
 
     function it_creates_folder_for_spec_if_needed($io, $tpl, $fs, ResourceInterface $resource)
     {
-        $resource->getSpecName()->willReturn('AppAppSpec');
-        $resource->getSpecFilename()->willReturn('/project/spec/Acme/AppSpec.php');
+        $resource->getSpecName()->willReturn('App');
+        $resource->getSpecFilename()->willReturn('/project/spec/Acme/App.php');
         $resource->getSpecNamespace()->willReturn('spec\Acme');
         $resource->getSrcClassname()->willReturn('Acme\App');
-        $resource->getName()->willReturn('App');
 
-        $fs->pathExists('/project/spec/Acme/AppSpec.php')->willReturn(false);
+        $fs->pathExists('/project/spec/Acme/App.php')->willReturn(false);
         $fs->isDirectory('/project/spec/Acme')->willReturn(false);
         $fs->makeDirectory('/project/spec/Acme')->shouldBeCalled();
-        $fs->putFileContents('/project/spec/Acme/AppSpec.php', Argument::any())->willReturn(null);
+        $fs->putFileContents('/project/spec/Acme/App.php', Argument::any())->willReturn(null);
 
         $this->generate($resource);
     }
@@ -110,12 +105,12 @@ class SpecificationGeneratorSpec extends ObjectBehavior
     function it_asks_confirmation_if_spec_already_exists(
         $io, $tpl, $fs, ResourceInterface $resource
     ) {
-        $resource->getSpecName()->willReturn('AppSpec');
-        $resource->getSpecFilename()->willReturn('/project/spec/Acme/AppSpec.php');
+        $resource->getSpecName()->willReturn('App');
+        $resource->getSpecFilename()->willReturn('/project/spec/Acme/App.php');
         $resource->getSpecNamespace()->willReturn('spec\Acme');
         $resource->getSrcClassname()->willReturn('Acme\App');
 
-        $fs->pathExists('/project/spec/Acme/AppSpec.php')->willReturn(true);
+        $fs->pathExists('/project/spec/Acme/App.php')->willReturn(true);
         $io->askConfirmation(Argument::type('string'), false)->willReturn(false);
 
         $fs->putFileContents(Argument::cetera())->shouldNotBeCalled();

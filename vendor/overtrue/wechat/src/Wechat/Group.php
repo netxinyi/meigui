@@ -20,12 +20,20 @@ namespace Overtrue\Wechat;
  */
 class Group
 {
+
+
     const API_GET                 = 'https://api.weixin.qq.com/cgi-bin/groups/get';
+
     const API_CREATE              = 'https://api.weixin.qq.com/cgi-bin/groups/create';
+
     const API_UPDATE              = 'https://api.weixin.qq.com/cgi-bin/groups/update';
+
     const API_DELETE              = 'https://api.weixin.qq.com/cgi-bin/groups/delete';
+
     const API_USER_GROUP_ID       = 'https://api.weixin.qq.com/cgi-bin/groups/getid';
+
     const API_MEMBER_UPDATE       = 'https://api.weixin.qq.com/cgi-bin/groups/members/update';
+
     const API_MEMBER_BATCH_UPDATE = 'https://api.weixin.qq.com/cgi-bin/groups/members/batchupdate';
 
     /**
@@ -35,6 +43,7 @@ class Group
      */
     protected $http;
 
+
     /**
      * constructor
      *
@@ -43,8 +52,10 @@ class Group
      */
     public function __construct($appId, $appSecret)
     {
+
         $this->http = new Http(new AccessToken($appId, $appSecret));
     }
+
 
     /**
      * 创建分组
@@ -55,14 +66,16 @@ class Group
      */
     public function create($name)
     {
+
         $params = array(
-                   'group' => array('name' => $name),
-                  );
+            'group' => array('name' => $name),
+        );
 
         $response = $this->http->jsonPost(self::API_CREATE, $params);
 
         return $response['group'];
     }
+
 
     /**
      * 获取所有分组
@@ -71,10 +84,12 @@ class Group
      */
     public function lists()
     {
+
         $response = $this->http->get(self::API_GET);
 
         return $response['groups'];
     }
+
 
     /**
      * 更新组名称
@@ -86,15 +101,17 @@ class Group
      */
     public function update($groupId, $name)
     {
+
         $params = array(
-                   'group' => array(
-                               'id'   => $groupId,
-                               'name' => $name,
-                              ),
-                  );
+            'group' => array(
+                'id'   => $groupId,
+                'name' => $name,
+            ),
+        );
 
         return $this->http->jsonPost(self::API_UPDATE, $params);
     }
+
 
     /**
      * 删除分组
@@ -105,14 +122,16 @@ class Group
      */
     public function delete($groupId)
     {
+
         $params = array(
-                   'group' => array(
-                               'id'   => $groupId,
-                              ),
-                  );
+            'group' => array(
+                'id' => $groupId,
+            ),
+        );
 
         return $this->http->jsonPost(self::API_DELETE, $params);
     }
+
 
     /**
      * 获取用户所在分组
@@ -123,12 +142,14 @@ class Group
      */
     public function userGroup($openId)
     {
+
         $params = array('openid' => $openId);
 
         $response = $this->http->jsonPost(self::API_USER_GROUP_ID, $params);
 
         return $response['groupid'];
     }
+
 
     /**
      * 移动单个用户
@@ -140,15 +161,17 @@ class Group
      */
     public function moveUser($openId, $groupId)
     {
+
         $params = array(
-                   'openid'     => $openId,
-                   'to_groupid' => $groupId,
-                  );
+            'openid'     => $openId,
+            'to_groupid' => $groupId,
+        );
 
         $this->http->jsonPost(self::API_MEMBER_UPDATE, $params);
 
         return true;
     }
+
 
     /**
      * 批量移动用户
@@ -160,10 +183,11 @@ class Group
      */
     public function moveUsers(array $openIds, $groupId)
     {
+
         $params = array(
-                   'openid_list' => $openIds,
-                   'to_groupid'  => $groupId,
-                  );
+            'openid_list' => $openIds,
+            'to_groupid'  => $groupId,
+        );
 
         $this->http->jsonPost(self::API_MEMBER_BATCH_UPDATE, $params);
 

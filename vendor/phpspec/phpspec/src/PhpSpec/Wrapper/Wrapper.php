@@ -13,7 +13,6 @@
 
 namespace PhpSpec\Wrapper;
 
-use PhpSpec\CodeAnalysis\AccessInspectorInterface;
 use PhpSpec\Exception\ExceptionFactory;
 use PhpSpec\Runner\MatcherManager;
 use PhpSpec\Formatter\Presenter\PresenterInterface;
@@ -27,45 +26,38 @@ use PhpSpec\Wrapper\Subject\ExpectationFactory;
 class Wrapper
 {
     /**
-     * @var MatcherManager
+     * @var \PhpSpec\Runner\MatcherManager
      */
     private $matchers;
     /**
-     * @var PresenterInterface
+     * @var \PhpSpec\Formatter\Presenter\PresenterInterface
      */
     private $presenter;
     /**
-     * @var EventDispatcherInterface
+     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
      */
     private $dispatcher;
     /**
-     * @var ExampleNode
+     * @var \PhpSpec\Loader\Node\ExampleNode
      */
     private $example;
-    /**
-     * @var AccessInspectorInterface
-     */
-    private $accessInspector;
 
     /**
-     * @param MatcherManager $matchers
-     * @param PresenterInterface $presenter
+     * @param MatcherManager           $matchers
+     * @param PresenterInterface       $presenter
      * @param EventDispatcherInterface $dispatcher
-     * @param ExampleNode $example
-     * @param AccessInspectorInterface $accessInspector
+     * @param ExampleNode              $example
      */
     public function __construct(
         MatcherManager $matchers,
         PresenterInterface $presenter,
         EventDispatcherInterface $dispatcher,
-        ExampleNode $example,
-        AccessInspectorInterface $accessInspector = null
+        ExampleNode $example
     ) {
         $this->matchers = $matchers;
         $this->presenter = $presenter;
         $this->dispatcher = $dispatcher;
         $this->example = $example;
-        $this->accessInspector = $accessInspector;
     }
 
     /**
@@ -75,9 +67,10 @@ class Wrapper
      */
     public function wrap($value = null)
     {
-        $wrappedObject = new WrappedObject($value, $this->presenter);
-        $caller = $this->createCaller($wrappedObject);
-        $arrayAccess = new SubjectWithArrayAccess($caller, $this->presenter, $this->dispatcher);
+        $exceptionFactory   = new ExceptionFactory($this->presenter);
+        $wrappedObject      = new WrappedObject($value, $this->presenter);
+        $caller             = new Caller($wrappedObject, $this->example, $this->dispatcher, $exceptionFactory, $this);
+        $arrayAccess        = new SubjectWithArrayAccess($caller, $this->presenter, $this->dispatcher);
         $expectationFactory = new ExpectationFactory($this->example, $this->dispatcher, $this->matchers);
 
         return new Subject(
@@ -87,25 +80,6 @@ class Wrapper
             $caller,
             $arrayAccess,
             $expectationFactory
-        );
-    }
-
-    /**
-     * @param WrappedObject $wrappedObject
-     *
-     * @return Caller
-     */
-    private function createCaller(WrappedObject $wrappedObject)
-    {
-        $exceptionFactory = new ExceptionFactory($this->presenter);
-
-        return new Caller(
-            $wrappedObject,
-            $this->example,
-            $this->dispatcher,
-            $exceptionFactory,
-            $this,
-            $this->accessInspector
         );
     }
 }

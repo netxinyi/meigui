@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of Psy Shell.
+ * This file is part of Psy Shell
  *
- * (c) 2012-2015 Justin Hileman
+ * (c) 2012-2014 Justin Hileman
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,7 +11,6 @@
 
 namespace Psy\Output;
 
-use Symfony\Component\Console\Formatter\OutputFormatterInterface;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
@@ -29,7 +28,7 @@ class ShellOutput extends ConsoleOutput
      * Construct a ShellOutput instance.
      *
      * @param mixed                    $verbosity (default: self::VERBOSITY_NORMAL)
-     * @param bool                     $decorated (default: null)
+     * @param boolean                  $decorated (default: null)
      * @param OutputFormatterInterface $formatter (default: null)
      * @param null|string|OutputPager  $pager     (default: null)
      */
@@ -110,8 +109,8 @@ class ShellOutput extends ConsoleOutput
      * @throws \InvalidArgumentException When unknown output type is given
      *
      * @param string|array $messages The message as an array of lines or a single string
-     * @param bool         $newline  Whether to add a newline or not
-     * @param int          $type     The type of output
+     * @param Boolean      $newline  Whether to add a newline or not
+     * @param integer      $type     The type of output
      */
     public function write($messages, $newline = false, $type = 0)
     {
@@ -145,8 +144,8 @@ class ShellOutput extends ConsoleOutput
      *
      * Handles paged output, or writes directly to the output stream.
      *
-     * @param string $message A message to write to the output
-     * @param bool   $newline Whether to add a newline or not
+     * @param string  $message A message to write to the output
+     * @param Boolean $newline Whether to add a newline or not
      */
     public function doWrite($message, $newline)
     {
@@ -189,7 +188,6 @@ class ShellOutput extends ConsoleOutput
         $formatter->setStyle('const',     new OutputFormatterStyle('cyan'));
         $formatter->setStyle('class',     new OutputFormatterStyle('blue', null, array('underscore')));
         $formatter->setStyle('function',  new OutputFormatterStyle(null));
-        $formatter->setStyle('default',   new OutputFormatterStyle(null));
 
         // Types
         $formatter->setStyle('number',   new OutputFormatterStyle('magenta'));

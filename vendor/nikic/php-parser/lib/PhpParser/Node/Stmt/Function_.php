@@ -3,9 +3,8 @@
 namespace PhpParser\Node\Stmt;
 
 use PhpParser\Node;
-use PhpParser\Node\FunctionLike;
 
-class Function_ extends Node\Stmt implements FunctionLike
+class Function_ extends Node\Stmt
 {
     /** @var bool Whether function returns by reference */
     public $byRef;
@@ -13,7 +12,7 @@ class Function_ extends Node\Stmt implements FunctionLike
     public $name;
     /** @var Node\Param[] Parameters */
     public $params;
-    /** @var null|string|Node\Name Return type */
+    /** @var null|string|Node\Name[] Return type */
     public $returnType;
     /** @var Node[] Statements */
     public $stmts;
@@ -30,7 +29,7 @@ class Function_ extends Node\Stmt implements FunctionLike
      * @param array  $attributes Additional attributes
      */
     public function __construct($name, array $subNodes = array(), array $attributes = array()) {
-        parent::__construct($attributes);
+        parent::__construct(null, $attributes);
         $this->byRef = isset($subNodes['byRef']) ? $subNodes['byRef'] : false;
         $this->name = $name;
         $this->params = isset($subNodes['params']) ? $subNodes['params'] : array();
@@ -40,21 +39,5 @@ class Function_ extends Node\Stmt implements FunctionLike
 
     public function getSubNodeNames() {
         return array('byRef', 'name', 'params', 'returnType', 'stmts');
-    }
-
-    public function returnsByRef() {
-        return $this->byRef;
-    }
-
-    public function getParams() {
-        return $this->params;
-    }
-
-    public function getReturnType() {
-        return $this->returnType;
-    }
-
-    public function getStmts() {
-        return $this->stmts;
     }
 }

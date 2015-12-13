@@ -16,7 +16,7 @@ class Variable extends Expr
      * @param array                      $attributes Additional attributes
      */
     public function __construct($name, array $attributes = array()) {
-        parent::__construct($attributes);
+        parent::__construct(null, $attributes);
         $this->name = $name;
     }
 

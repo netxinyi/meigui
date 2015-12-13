@@ -16,7 +16,7 @@ class ClassConst extends Node\Stmt
      * @param array         $attributes Additional attributes
      */
     public function __construct(array $consts, array $attributes = array()) {
-        parent::__construct($attributes);
+        parent::__construct(null, $attributes);
         $this->consts = $consts;
     }
 

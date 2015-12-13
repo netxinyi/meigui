@@ -10,16 +10,14 @@ trait ConfirmableTrait
      * Confirm before proceeding with the action.
      *
      * @param  string    $warning
-     * @param  \Closure|bool|null  $callback
+     * @param  \Closure|null  $callback
      * @return bool
      */
-    public function confirmToProceed($warning = 'Application In Production!', $callback = null)
+    public function confirmToProceed($warning = 'Application In Production!', Closure $callback = null)
     {
-        $callback = is_null($callback) ? $this->getDefaultConfirmCallback() : $callback;
+        $shouldConfirm = $callback ?: $this->getDefaultConfirmCallback();
 
-        $shouldConfirm = $callback instanceof Closure ? call_user_func($callback) : $callback;
-
-        if ($shouldConfirm) {
+        if (call_user_func($shouldConfirm)) {
             if ($this->option('force')) {
                 return true;
             }
@@ -31,7 +29,7 @@ trait ConfirmableTrait
 
             $confirmed = $this->confirm('Do you really wish to run this command? [y/N]');
 
-            if (! $confirmed) {
+            if (!$confirmed) {
                 $this->comment('Command Cancelled!');
 
                 return false;
@@ -48,8 +46,6 @@ trait ConfirmableTrait
      */
     protected function getDefaultConfirmCallback()
     {
-        return function () {
-            return $this->getLaravel()->environment() == 'production';
-        };
+        return function () { return $this->getLaravel()->environment() == 'production'; };
     }
 }

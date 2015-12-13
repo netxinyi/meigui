@@ -495,6 +495,8 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
      */
     public function testLegacyAsText()
     {
+        $this->iniSet('error_reporting', -1 & ~E_USER_DEPRECATED);
+
         $application = new Application();
         $application->add(new \FooCommand());
         $this->ensureStaticCommandHelp($application);
@@ -507,6 +509,8 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
      */
     public function testLegacyAsXml()
     {
+        $this->iniSet('error_reporting', -1 & ~E_USER_DEPRECATED);
+
         $application = new Application();
         $application->add(new \FooCommand());
         $this->ensureStaticCommandHelp($application);
@@ -551,9 +555,6 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $this->assertStringEqualsFile(self::$fixturesPath.'/application_renderexception4.txt', $tester->getDisplay(true), '->renderException() wraps messages when they are bigger than the terminal');
     }
 
-    /**
-     * @requires extension mbstring
-     */
     public function testRenderExceptionWithDoubleWidthCharacters()
     {
         $application = $this->getMock('Symfony\Component\Console\Application', array('getTerminalWidth'));
@@ -678,7 +679,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Issue #9285.
+     * Issue #9285
      *
      * If the "verbose" option is just before an argument in ArgvInput,
      * an argument value should not be treated as verbosity value.
@@ -883,7 +884,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 
         $tester = new ApplicationTester($application);
         $tester->run(array('command' => 'foo'));
-        $this->assertEquals('before.foo.after.'.PHP_EOL, $tester->getDisplay());
+        $this->assertEquals('before.foo.after.', $tester->getDisplay());
     }
 
     /**
@@ -919,7 +920,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 
         $tester = new ApplicationTester($application);
         $tester->run(array('command' => 'foo'));
-        $this->assertContains('before.foo.caught.after.', $tester->getDisplay());
+        $this->assertContains('before.foo.after.caught.', $tester->getDisplay());
     }
 
     public function testRunWithDispatcherSkippingCommand()
@@ -964,14 +965,14 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
             }
         });
         $dispatcher->addListener('console.terminate', function (ConsoleTerminateEvent $event) use ($skipCommand) {
-            $event->getOutput()->writeln('after.');
+            $event->getOutput()->write('after.');
 
             if (!$skipCommand) {
                 $event->setExitCode(113);
             }
         });
         $dispatcher->addListener('console.exception', function (ConsoleExceptionEvent $event) {
-            $event->getOutput()->write('caught.');
+            $event->getOutput()->writeln('caught.');
 
             $event->setException(new \LogicException('caught.', $event->getExitCode(), $event->getException()));
         });
@@ -1001,11 +1002,12 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('interact called'.PHP_EOL.'called'.PHP_EOL, $tester->getDisplay(), 'Application runs the default set command if different from \'list\' command');
     }
 
-    /**
-     * @requires function posix_isatty
-     */
     public function testCanCheckIfTerminalIsInteractive()
     {
+        if (!function_exists('posix_isatty')) {
+            $this->markTestSkipped('posix_isatty function is required');
+        }
+
         $application = new CustomDefaultCommandApplication();
         $application->setAutoExit(false);
 

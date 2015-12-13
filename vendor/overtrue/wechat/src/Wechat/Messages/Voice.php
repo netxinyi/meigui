@@ -25,6 +25,7 @@ use Overtrue\Wechat\Media;
 class Voice extends BaseMessage
 {
 
+
     /**
      * 属性
      *
@@ -39,19 +40,35 @@ class Voice extends BaseMessage
      */
     protected $media;
 
+
+    /**
+     * constructor
+     *
+     * @param string $appId
+     * @param string $appSecret
+     */
+    public function __construct($appId, $appSecret)
+    {
+
+        $this->media = new Media($appId, $appSecret);
+    }
+
+
     /**
      * 设置语音
      *
-     * @param string $mediaId
+     * @param string $path
      *
      * @return Voice
      */
-    public function media($mediaid)
+    public function media($path)
     {
-        $this->setAttribute('media_id', $mediaid);
+
+        $this->setAttribute('media_id', $this->media->voice($path));
 
         return $this;
     }
+
 
     /**
      * 生成主动消息数组
@@ -60,12 +77,14 @@ class Voice extends BaseMessage
      */
     public function toStaff()
     {
+
         return array(
-                'voice' => array(
-                            'media_id' => $this->media_id,
-                           ),
-               );
+            'voice' => array(
+                'media_id' => $this->media_id,
+            ),
+        );
     }
+
 
     /**
      * 生成回复消息数组
@@ -74,10 +93,11 @@ class Voice extends BaseMessage
      */
     public function toReply()
     {
+
         return array(
-                'Voice' => array(
-                            'MediaId' => $this->media_id,
-                           ),
-               );
+            'Voice' => array(
+                'MediaId' => $this->media_id,
+            ),
+        );
     }
 }

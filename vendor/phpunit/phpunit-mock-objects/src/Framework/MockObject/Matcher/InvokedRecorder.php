@@ -58,6 +58,7 @@ abstract class PHPUnit_Framework_MockObject_Matcher_InvokedRecorder implements P
 
     /**
      * @param  PHPUnit_Framework_MockObject_Invocation $invocation
+     *
      * @return bool
      */
     public function matches(PHPUnit_Framework_MockObject_Invocation $invocation)

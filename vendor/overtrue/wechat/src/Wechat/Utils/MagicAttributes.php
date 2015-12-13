@@ -23,6 +23,7 @@ use InvalidArgumentException;
 abstract class MagicAttributes
 {
 
+
     /**
      * 允许设置的属性名称
      *
@@ -37,6 +38,7 @@ abstract class MagicAttributes
      */
     protected static $snakeCache = array();
 
+
     /**
      * 设置属性
      *
@@ -45,8 +47,10 @@ abstract class MagicAttributes
      */
     public function setAttribute($attribute, $value)
     {
+
         return $this->with($attribute, $value);
     }
+
 
     /**
      * 设置属性
@@ -58,6 +62,7 @@ abstract class MagicAttributes
      */
     public function with($attribute, $value)
     {
+
         $attribute = $this->snake($attribute);
 
         if (!$this->validate($attribute, $value)) {
@@ -69,6 +74,7 @@ abstract class MagicAttributes
         return $this;
     }
 
+
     /**
      * 生成数组
      *
@@ -76,8 +82,10 @@ abstract class MagicAttributes
      */
     public function toArray()
     {
+
         return $this->attributes;
     }
+
 
     /**
      * 验证
@@ -89,8 +97,10 @@ abstract class MagicAttributes
      */
     protected function validate($attribute, $value)
     {
+
         return true;
     }
+
 
     /**
      * 调用不存在的方法
@@ -102,12 +112,14 @@ abstract class MagicAttributes
      */
     public function __call($method, $args)
     {
+
         if (stripos($method, 'with') === 0) {
             $method = substr($method, 4);
         }
 
         return $this->with($method, array_shift($args));
     }
+
 
     /**
      * 魔术读取
@@ -116,8 +128,10 @@ abstract class MagicAttributes
      */
     public function __get($property)
     {
-        return !isset($this->attributes[$property]) ? null : $this->attributes[$property];
+
+        return !isset( $this->attributes[$property] ) ? null : $this->attributes[$property];
     }
+
 
     /**
      * 魔术写入
@@ -127,8 +141,10 @@ abstract class MagicAttributes
      */
     public function __set($property, $value)
     {
+
         return $this->with($property, $value);
     }
+
 
     /**
      * 转换为下划线模式字符串
@@ -140,14 +156,15 @@ abstract class MagicAttributes
      */
     protected function snake($value, $delimiter = '_')
     {
-        $key = $value.$delimiter;
 
-        if (isset(static::$snakeCache[$key])) {
+        $key = $value . $delimiter;
+
+        if (isset( static::$snakeCache[$key] )) {
             return static::$snakeCache[$key];
         }
 
         if (!ctype_lower($value)) {
-            $value = strtolower(preg_replace('/(.)(?=[A-Z])/', '$1'.$delimiter, $value));
+            $value = strtolower(preg_replace('/(.)(?=[A-Z])/', '$1' . $delimiter, $value));
         }
 
         return static::$snakeCache[$key] = $value;

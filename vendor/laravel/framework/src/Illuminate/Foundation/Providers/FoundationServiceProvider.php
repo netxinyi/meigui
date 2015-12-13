@@ -12,6 +12,6 @@ class FoundationServiceProvider extends AggregateServiceProvider
      * @var array
      */
     protected $providers = [
-        FormRequestServiceProvider::class,
+        'Illuminate\Foundation\Providers\FormRequestServiceProvider',
     ];
 }

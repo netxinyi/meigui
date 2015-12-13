@@ -161,8 +161,7 @@ class ChoiceQuestion extends Question
                 if (false === $result) {
                     throw new \InvalidArgumentException(sprintf($errorMessage, $value));
                 }
-
-                $multiselectChoices[] = (string) $result;
+                array_push($multiselectChoices, (string) $result);
             }
 
             if ($multiselect) {

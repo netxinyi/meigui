@@ -399,7 +399,7 @@ class DialogHelper extends InputAwareHelper
     /**
      * Returns the helper's input stream.
      *
-     * @return resource|null The input stream or null if the default STDIN is used
+     * @return string
      */
     public function getInputStream()
     {
@@ -466,18 +466,18 @@ class DialogHelper extends InputAwareHelper
      */
     private function validateAttempts($interviewer, OutputInterface $output, $validator, $attempts)
     {
-        $e = null;
+        $error = null;
         while (false === $attempts || $attempts--) {
-            if (null !== $e) {
-                $output->writeln($this->getHelperSet()->get('formatter')->formatBlock($e->getMessage(), 'error'));
+            if (null !== $error) {
+                $output->writeln($this->getHelperSet()->get('formatter')->formatBlock($error->getMessage(), 'error'));
             }
 
             try {
                 return call_user_func($validator, $interviewer());
-            } catch (\Exception $e) {
+            } catch (\Exception $error) {
             }
         }
 
-        throw $e;
+        throw $error;
     }
 }

@@ -24,7 +24,7 @@ class ObjectStateMatcher implements MatcherInterface
      */
     private static $regex = '/(be|have)(.+)/';
     /**
-     * @var PresenterInterface
+     * @var \PhpSpec\Formatter\Presenter\PresenterInterface
      */
     private $presenter;
 

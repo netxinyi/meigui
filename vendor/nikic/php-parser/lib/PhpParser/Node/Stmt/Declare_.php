@@ -18,7 +18,7 @@ class Declare_ extends Node\Stmt
      * @param array            $attributes Additional attributes
      */
     public function __construct(array $declares, array $stmts, array $attributes = array()) {
-        parent::__construct($attributes);
+        parent::__construct(null, $attributes);
         $this->declares = $declares;
         $this->stmts = $stmts;
     }

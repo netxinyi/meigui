@@ -33,11 +33,7 @@ class SortableIteratorTest extends RealIteratorTestCase
         if (!is_callable($mode)) {
             switch ($mode) {
                 case SortableIterator::SORT_BY_ACCESSED_TIME :
-                    if ('\\' === DIRECTORY_SEPARATOR) {
-                        touch(self::toAbsolute('.git'));
-                    } else {
-                        file_get_contents(self::toAbsolute('.git'));
-                    }
+                    file_get_contents(self::toAbsolute('.git'));
                     sleep(1);
                     file_get_contents(self::toAbsolute('.bar'));
                     break;
@@ -62,9 +58,6 @@ class SortableIteratorTest extends RealIteratorTestCase
             || $mode === SortableIterator::SORT_BY_CHANGED_TIME
             || $mode === SortableIterator::SORT_BY_MODIFIED_TIME
         ) {
-            if ('\\' === DIRECTORY_SEPARATOR && SortableIterator::SORT_BY_MODIFIED_TIME !== $mode) {
-                $this->markTestSkipped('Sorting by atime or ctime is not supported on Windows');
-            }
             $this->assertOrderedIteratorForGroups($expected, $iterator);
         } else {
             $this->assertOrderedIterator($expected, $iterator);
@@ -85,7 +78,6 @@ class SortableIteratorTest extends RealIteratorTestCase
             'test.php',
             'test.py',
             'toto',
-            'toto/.git',
         );
 
         $sortByType = array(
@@ -93,7 +85,6 @@ class SortableIteratorTest extends RealIteratorTestCase
             '.git',
             'foo',
             'toto',
-            'toto/.git',
             '.bar',
             '.foo/.bar',
             '.foo/bar',
@@ -115,7 +106,6 @@ class SortableIteratorTest extends RealIteratorTestCase
             'test.php',
             'test.py',
             'toto',
-            'toto/.git',
         );
 
         $sortByAccessedTime = array(
@@ -130,7 +120,6 @@ class SortableIteratorTest extends RealIteratorTestCase
                 'test.py',
                 'foo',
                 'toto',
-                'toto/.git',
                 'foo bar',
             ),
             // This file was accessed after sleeping for 1 sec
@@ -147,7 +136,6 @@ class SortableIteratorTest extends RealIteratorTestCase
                 'foo',
                 'foo/bar.tmp',
                 'toto',
-                'toto/.git',
                 'foo bar',
             ),
             array('test.php'),
@@ -164,7 +152,6 @@ class SortableIteratorTest extends RealIteratorTestCase
                 'foo',
                 'foo/bar.tmp',
                 'toto',
-                'toto/.git',
                 'foo bar',
             ),
             array('test.php'),

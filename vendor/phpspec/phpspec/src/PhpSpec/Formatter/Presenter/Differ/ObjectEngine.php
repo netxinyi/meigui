@@ -18,7 +18,7 @@ use SebastianBergmann\Exporter\Exporter;
 class ObjectEngine implements EngineInterface
 {
     /**
-     * @var Exporter
+     * @var \SebastianBergmann\Exporter\Exporter
      */
     private $exporter;
     /**

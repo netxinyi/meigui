@@ -26,13 +26,10 @@ use Countable;
 /**
  * 工具类，实现一些便捷访问接口如：数组式访问
  */
-class Bag implements
-    ArrayAccess,
-    Countable,
-    IteratorAggregate,
-    Serializable
+class Bag implements ArrayAccess, Countable, IteratorAggregate, Serializable
     // , JsonSerializable
 {
+
 
     /**
      * Data
@@ -41,6 +38,7 @@ class Bag implements
      */
     protected $data = array();
 
+
     /**
      * set data
      *
@@ -48,8 +46,10 @@ class Bag implements
      */
     public function __construct($data = array())
     {
-        $this->data = (array) $data;
+
+        $this->data = (array)$data;
     }
+
 
     /**
      * Return all items
@@ -58,8 +58,10 @@ class Bag implements
      */
     public function all()
     {
+
         return $this->data;
     }
+
 
     /**
      * Merge data
@@ -70,12 +72,14 @@ class Bag implements
      */
     public function merge($data)
     {
+
         foreach ($data as $key => $value) {
             $this->set($key, $value);
         }
 
         return $this->all();
     }
+
 
     /**
      * To determine whether the specified element exists.
@@ -86,8 +90,10 @@ class Bag implements
      */
     public function has($key)
     {
-        return Arr::get($this->data, $key) !== null;
+
+        return Arr::get($this->data, $key) != null;
     }
+
 
     /**
      * Retrieve the first item.
@@ -96,8 +102,10 @@ class Bag implements
      */
     public function first()
     {
+
         return reset($this->data);
     }
+
 
     /**
      * Retrieve the last item.
@@ -106,12 +114,14 @@ class Bag implements
      */
     public function last()
     {
+
         $end = end($this->data);
 
         reset($this->data);
 
         return $end;
     }
+
 
     /**
      * add the item value.
@@ -121,8 +131,10 @@ class Bag implements
      */
     public function add($key, $value)
     {
+
         Arr::set($this->data, $key, $value);
     }
+
 
     /**
      * Set the item value.
@@ -132,8 +144,10 @@ class Bag implements
      */
     public function set($key, $value)
     {
+
         Arr::set($this->data, $key, $value);
     }
+
 
     /**
      * Retrieve item from Bag.
@@ -145,8 +159,10 @@ class Bag implements
      */
     public function get($key, $default = null)
     {
+
         return Arr::get($this->data, $key, $default);
     }
+
 
     /**
      * Remove item form Bag
@@ -155,8 +171,10 @@ class Bag implements
      */
     public function forget($key)
     {
-        Arr::forget($this->data, $key);
+
+        return Arr::forget($this->data, $key);
     }
+
 
     /**
      * 返回数组
@@ -165,8 +183,10 @@ class Bag implements
      */
     public function toArray()
     {
+
         return $this->all();
     }
+
 
     /**
      * 返回json
@@ -175,8 +195,10 @@ class Bag implements
      */
     public function toJson()
     {
+
         return JSON::encode($this->all());
     }
+
 
     /**
      * 返回string
@@ -185,6 +207,7 @@ class Bag implements
      */
     public function __toString()
     {
+
         return $this->toJson();
     }
 
@@ -201,32 +224,40 @@ class Bag implements
      */
     public function serialize()
     {
+
         return serialize($this->data);
     }
+
 
     /**
      * @see Serializable::unserialize()
      */
     public function unserialize($data)
     {
+
         return $this->data = unserialize($data);
     }
+
 
     /**
      * @see ArrayIterator::getIterator()
      */
     public function getIterator()
     {
+
         return new ArrayIterator($this->data);
     }
+
 
     /**
      * @see Countable::count()
      */
     public function count($mode = COUNT_NORMAL)
     {
+
         return count($this->data, $mode);
     }
+
 
     /**
      * Get a data by key
@@ -237,8 +268,10 @@ class Bag implements
      */
     public function __get($key)
     {
+
         return $this->get($key);
     }
+
 
     /**
      * Assigns a value to the specified data
@@ -248,8 +281,10 @@ class Bag implements
      */
     public function __set($key, $value)
     {
+
         $this->set($key, $value);
     }
+
 
     /**
      * Whether or not an data exists by key
@@ -260,8 +295,10 @@ class Bag implements
      */
     public function __isset($key)
     {
+
         return $this->has($key);
     }
+
 
     /**
      * Unsets an data by key
@@ -270,8 +307,10 @@ class Bag implements
      */
     public function __unset($key)
     {
+
         $this->forget($key);
     }
+
 
     /**
      * var_export
@@ -280,8 +319,10 @@ class Bag implements
      */
     public function __set_state()
     {
+
         return $this->all();
     }
+
 
     /**
      * Assigns a value to the specified offset
@@ -291,8 +332,10 @@ class Bag implements
      */
     public function offsetSet($offset, $value)
     {
+
         $this->set($offset, $value);
     }
+
 
     /**
      * Whether or not an offset exists
@@ -303,8 +346,10 @@ class Bag implements
      */
     public function offsetExists($offset)
     {
+
         return $this->has($offset);
     }
+
 
     /**
      * Unsets an offset
@@ -315,10 +360,12 @@ class Bag implements
      */
     public function offsetUnset($offset)
     {
+
         if ($this->offsetExists($offset)) {
             $this->forget($offset);
         }
     }
+
 
     /**
      * Returns the value at specified offset
@@ -329,6 +376,7 @@ class Bag implements
      */
     public function offsetGet($offset)
     {
+
         return $this->offsetExists($offset) ? $this->get($offset) : null;
     }
 }

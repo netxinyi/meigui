@@ -20,7 +20,7 @@ use ArrayAccess;
 class ArrayKeyMatcher extends BasicMatcher
 {
     /**
-     * @var PresenterInterface
+     * @var \PhpSpec\Formatter\Presenter\PresenterInterface
      */
     private $presenter;
 

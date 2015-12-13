@@ -23,6 +23,7 @@ use Overtrue\Wechat\Messages\BaseMessage;
 class Staff
 {
 
+
     /**
      * 消息
      *
@@ -45,11 +46,17 @@ class Staff
     protected $headers = array('content-type:application/json');
 
     const API_GET           = 'https://api.weixin.qq.com/cgi-bin/customservice/getkflist';
+
     const API_ONLINE        = 'https://api.weixin.qq.com/cgi-bin/customservice/getonlinekflist';
+
     const API_DELETE        = 'https://api.weixin.qq.com/customservice/kfaccount/del';
+
     const API_UPDATE        = 'https://api.weixin.qq.com/customservice/kfaccount/update';
+
     const API_CREATE        = 'https://api.weixin.qq.com/customservice/kfaccount/add';
+
     const API_MESSAGE_SEND  = 'https://api.weixin.qq.com/cgi-bin/message/custom/send';
+
     const API_AVATAR_UPLOAD = 'http://api.weixin.qq.com/customservice/kfaccount/uploadheadimg';
 
     /**
@@ -59,6 +66,7 @@ class Staff
      */
     protected $http;
 
+
     /**
      * constructor
      *
@@ -67,8 +75,10 @@ class Staff
      */
     public function __construct($appId, $appSecret)
     {
+
         $this->http = new Http(new AccessToken($appId, $appSecret));
     }
+
 
     /**
      * 获取所有的客服
@@ -77,10 +87,12 @@ class Staff
      */
     public function lists()
     {
+
         $response = $this->http->get(self::API_GET);
 
         return $response['kf_list'];
     }
+
 
     /**
      * 获取所有在线的
@@ -89,10 +101,12 @@ class Staff
      */
     public function onlines()
     {
+
         $response = $this->http->get(self::API_ONLINE);
 
         return $response['kf_online_list'];
     }
+
 
     /**
      * 添加客服账号
@@ -105,14 +119,16 @@ class Staff
      */
     public function create($email, $nickname, $password)
     {
+
         $params = array(
-                   'kf_account' => $email,
-                   'nickname'   => $nickname,
-                   'password'   => $password,
-                  );
+            'kf_account' => $email,
+            'nickname'   => $nickname,
+            'password'   => $password,
+        );
 
         return $this->http->jsonPost(self::API_CREATE, $params);
     }
+
 
     /**
      * 修改客服账号
@@ -125,26 +141,38 @@ class Staff
      */
     public function update($email, $nickname, $password)
     {
+
         $params = array(
-                   'kf_account' => $email,
-                   'nickname'   => $nickname,
-                   'password'   => $password,
-                  );
+            'kf_account' => $email,
+            'nickname'   => $nickname,
+            'password'   => $password,
+        );
 
         return $this->http->jsonPost(self::API_UPDATE, $params);
     }
+
 
     /**
      * 删除客服账号
      *
      * @param string $email
+     * @param string $nickname
+     * @param string $password
      *
      * @return bool
      */
-    public function delete($email)
+    public function delete($email, $nickname, $password)
     {
-        return $this->http->get(self::API_DELETE, array('kf_account' => $email));
+
+        $params = array(
+            'kf_account' => $email,
+            'nickname'   => $nickname,
+            'password'   => $password,
+        );
+
+        return $this->http->jsonPost(self::API_DELETE . "?kf_account={$email}", $params);
     }
+
 
     /**
      * 上传头像
@@ -156,14 +184,16 @@ class Staff
      */
     public function avatar($email, $path)
     {
+
         $options = array(
-                    'files' => array('media' => $path),
-                   );
+            'files' => array('media' => $path),
+        );
 
         $url = self::API_AVATAR_UPLOAD . "?kf_account={$email}";
 
         return $this->http->post($url, array(), $options);
     }
+
 
     /**
      * 准备消息
@@ -174,6 +204,7 @@ class Staff
      */
     public function send($message)
     {
+
         is_string($message) && $message = Message::make('text')->with('content', $message);
 
         if (!$message instanceof BaseMessage) {
@@ -185,6 +216,7 @@ class Staff
         return $this;
     }
 
+
     /**
      * 指定客服
      *
@@ -194,7 +226,8 @@ class Staff
      */
     public function by($account)
     {
-        if (empty($this->message)) {
+
+        if (empty( $this->message )) {
             throw new Exception('未设置要发送的消息');
         }
 
@@ -202,6 +235,7 @@ class Staff
 
         return $this;
     }
+
 
     /**
      * 发送消息
@@ -212,7 +246,8 @@ class Staff
      */
     public function to($openId)
     {
-        if (empty($this->message)) {
+
+        if (empty( $this->message )) {
             throw new Exception('未设置要发送的消息');
         }
 

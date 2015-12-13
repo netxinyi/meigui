@@ -20,6 +20,8 @@ namespace Overtrue\Wechat;
  */
 class Image
 {
+
+
     const API_UPLOAD = 'https://file.api.weixin.qq.com/cgi-bin/media/uploadimg';
 
     /**
@@ -29,6 +31,7 @@ class Image
      */
     protected $http;
 
+
     /**
      * constructor
      *
@@ -37,8 +40,10 @@ class Image
      */
     public function __construct($appId, $appSecret)
     {
+
         $this->http = new Http(new AccessToken($appId, $appSecret));
     }
+
 
     /**
      * 上传媒体文件
@@ -49,13 +54,14 @@ class Image
      */
     public function upload($path)
     {
+
         if (!file_exists($path) || !is_readable($path)) {
             throw new Exception("文件不存在或不可读 '$path'");
         }
 
         $options = array(
-                    'files' => array('media' => $path),
-                   );
+            'files' => array('media' => $path),
+        );
 
         $contents = $this->http->post(self::API_UPLOAD, array(), $options);
 

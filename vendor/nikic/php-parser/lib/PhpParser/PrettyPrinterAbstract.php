@@ -76,21 +76,9 @@ abstract class PrettyPrinterAbstract
 
     protected $noIndentToken;
     protected $canUseSemicolonNamespaces;
-    protected $options;
 
-    /**
-     * Creates a pretty printer instance using the given options.
-     *
-     * Supported options:
-     *  * bool $shortArraySyntax = false: Whether to use [] instead of array()
-     *
-     * @param array $options Dictionary of formatting options
-     */
-    public function __construct(array $options = []) {
+    public function __construct() {
         $this->noIndentToken = '_NO_INDENT_' . mt_rand();
-
-        $defaultOptions = ['shortArraySyntax' => false];
-        $this->options = $options + $defaultOptions;
     }
 
     /**

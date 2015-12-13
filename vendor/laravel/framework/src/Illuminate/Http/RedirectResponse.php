@@ -32,8 +32,8 @@ class RedirectResponse extends BaseRedirectResponse
     /**
      * Flash a piece of data to the session.
      *
-     * @param  string|array  $key
-     * @param  mixed  $value
+     * @param  string $key
+     * @param  mixed $value
      * @return \Illuminate\Http\RedirectResponse
      */
     public function with($key, $value = null)
@@ -77,7 +77,7 @@ class RedirectResponse extends BaseRedirectResponse
                 $value = array_filter($value, $callback);
             }
 
-            return ! $value instanceof UploadedFile;
+            return !$value instanceof UploadedFile;
         }));
 
         return $this;
@@ -141,7 +141,7 @@ class RedirectResponse extends BaseRedirectResponse
     /**
      * Get the request instance.
      *
-     * @return \Illuminate\Http\Request|null
+     * @return \Illuminate\Http\Request
      */
     public function getRequest()
     {
@@ -162,7 +162,7 @@ class RedirectResponse extends BaseRedirectResponse
     /**
      * Get the session store implementation.
      *
-     * @return \Illuminate\Session\Store|null
+     * @return \Illuminate\Session\Store
      */
     public function getSession()
     {
@@ -185,7 +185,7 @@ class RedirectResponse extends BaseRedirectResponse
      *
      * @param  string  $method
      * @param  array  $parameters
-     * @return $this
+     * @return void
      *
      * @throws \BadMethodCallException
      */

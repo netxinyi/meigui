@@ -79,17 +79,6 @@ class NamedConstructorNotFoundListener implements EventSubscriberInterface
                     'arguments' => $arguments
                 ));
                 $event->markAsWorthRerunning();
-
-                if (!method_exists($classname, '__construct')) {
-                    $message = sprintf('Do you want me to make the constructor of %s private for you?', $classname);
-
-                    if ($this->io->askConfirmation($message)) {
-                        $this->generator->generate($resource, 'private-constructor', array(
-                            'name' => $method,
-                            'arguments' => $arguments
-                        ));
-                    }
-                }
             }
         }
     }

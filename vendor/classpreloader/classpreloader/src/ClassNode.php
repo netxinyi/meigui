@@ -41,7 +41,7 @@ class ClassNode
     public $value;
 
     /**
-     * Create a new class node instance.
+     * Create a new class node.
      *
      * @param mixed                          $value
      * @param \ClassPreloader\ClassNode|null $prev

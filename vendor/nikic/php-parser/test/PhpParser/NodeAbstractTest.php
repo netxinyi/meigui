@@ -7,7 +7,7 @@ class DummyNode extends NodeAbstract {
     public $subNode2;
 
     public function __construct($subNode1, $subNode2, $attributes) {
-        parent::__construct($attributes);
+        parent::__construct(null, $attributes);
         $this->subNode1 = $subNode1;
         $this->subNode2 = $subNode2;
     }
@@ -33,11 +33,25 @@ class NodeAbstractTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        $node = new DummyNode('value1', 'value2', $attributes);
-        $node->notSubNode = 'value3';
+        $node1 = $this->getMockForAbstractClass(
+            'PhpParser\NodeAbstract',
+            array(
+                array(
+                    'subNode1' => 'value1',
+                    'subNode2' => 'value2',
+                ),
+                $attributes
+            ),
+            'PhpParser_Node_Dummy'
+        );
+        $node1->notSubNode = 'value3';
+
+        $node2 = new DummyNode('value1', 'value2', $attributes);
+        $node2->notSubNode = 'value3';
 
         return array(
-            array($attributes, $node),
+            array($attributes, $node1),
+            array($attributes, $node2),
         );
     }
 

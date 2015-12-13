@@ -2,7 +2,6 @@
 
 namespace Illuminate\Database\Schema\Grammars;
 
-use RuntimeException;
 use Doctrine\DBAL\Types\Type;
 use Illuminate\Support\Fluent;
 use Doctrine\DBAL\Schema\Table;
@@ -98,11 +97,11 @@ abstract class Grammar extends BaseGrammar
         // Once we have the basic foreign key creation statement constructed we can
         // build out the syntax for what should happen on an update or delete of
         // the affected columns, which will get something like "cascade", etc.
-        if (! is_null($command->onDelete)) {
+        if (!is_null($command->onDelete)) {
             $sql .= " on delete {$command->onDelete}";
         }
 
-        if (! is_null($command->onUpdate)) {
+        if (!is_null($command->onUpdate)) {
             $sql .= " on update {$command->onUpdate}";
         }
 
@@ -280,13 +279,6 @@ abstract class Grammar extends BaseGrammar
      */
     public function compileChange(Blueprint $blueprint, Fluent $command, Connection $connection)
     {
-        if (! $connection->isDoctrineAvailable()) {
-            throw new RuntimeException(sprintf(
-                'Changing columns for table "%s" requires Doctrine DBAL; install "doctrine/dbal".',
-                $blueprint->getTable()
-            ));
-        }
-
         $schema = $connection->getDoctrineSchemaManager();
 
         $tableDiff = $this->getChangedDiff($blueprint, $schema);
@@ -327,10 +319,10 @@ abstract class Grammar extends BaseGrammar
             $column = $this->getDoctrineColumnForChange($table, $fluent);
 
             // Here we will spin through each fluent column definition and map it to the proper
-            // Doctrine column definitions - which is necessary because Laravel and Doctrine
+            // Doctrine column definitions, which is necessasry because Laravel and Doctrine
             // use some different terminology for various column attributes on the tables.
             foreach ($fluent->getAttributes() as $key => $value) {
-                if (! is_null($option = $this->mapFluentOptionToDoctrine($key))) {
+                if (!is_null($option = $this->mapFluentOptionToDoctrine($key))) {
                     if (method_exists($column, $method = 'set'.ucfirst($option))) {
                         $column->{$method}($this->mapFluentValueToDoctrine($option, $value));
                     }
@@ -422,7 +414,7 @@ abstract class Grammar extends BaseGrammar
      * Get the matching Doctrine option for a given Fluent attribute name.
      *
      * @param  string  $attribute
-     * @return string|null
+     * @return string
      */
     protected function mapFluentOptionToDoctrine($attribute)
     {
@@ -454,6 +446,6 @@ abstract class Grammar extends BaseGrammar
      */
     protected function mapFluentValueToDoctrine($option, $value)
     {
-        return $option == 'notnull' ? ! $value : $value;
+        return $option == 'notnull' ? !$value : $value;
     }
 }

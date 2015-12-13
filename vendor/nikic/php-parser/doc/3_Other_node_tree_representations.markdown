@@ -17,6 +17,7 @@ Furthermore it is possible to dump nodes into a human readable format using the 
 `PhpParser\NodeDumper`. This can be used for debugging.
 
 ```php
+<?php
 $code = <<<'CODE'
 <?php
 
@@ -27,7 +28,7 @@ function printLine($msg) {
 printLine('Hello World!!!');
 CODE;
 
-$parser = (new PhpParser\ParserFactory)->create(PhpParser\ParserFactory::PREFER_PHP7);
+$parser = new PhpParser\Parser(new PhpParser\Lexer);
 $nodeDumper = new PhpParser\NodeDumper;
 
 try {
@@ -105,7 +106,7 @@ function printLine($msg) {
 printLine('Hello World!!!');
 CODE;
 
-$parser = (new PhpParser\ParserFactory)->create(PhpParser\ParserFactory::PREFER_PHP7);
+$parser = new PhpParser\Parser(new PhpParser\Lexer);
 $serializer = new PhpParser\Serializer\XML;
 
 try {

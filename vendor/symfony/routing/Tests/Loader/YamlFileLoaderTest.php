@@ -51,15 +51,7 @@ class YamlFileLoaderTest extends \PHPUnit_Framework_TestCase
 
     public function getPathsToInvalidFiles()
     {
-        return array(
-            array('nonvalid.yml'),
-            array('nonvalid2.yml'),
-            array('incomplete.yml'),
-            array('nonvalidkeys.yml'),
-            array('nonesense_resource_plus_path.yml'),
-            array('nonesense_type_without_resource.yml'),
-            array('bad_format.yml'),
-        );
+        return array(array('nonvalid.yml'), array('nonvalid2.yml'), array('incomplete.yml'), array('nonvalidkeys.yml'), array('nonesense_resource_plus_path.yml'), array('nonesense_type_without_resource.yml'));
     }
 
     public function testLoadSpecialRouteName()
@@ -94,6 +86,8 @@ class YamlFileLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLegacyRouteDefinitionLoading()
     {
+        $this->iniSet('error_reporting', -1 & ~E_USER_DEPRECATED);
+
         $loader = new YamlFileLoader(new FileLocator(array(__DIR__.'/../Fixtures')));
         $routeCollection = $loader->load('legacy_validpattern.yml');
         $route = $routeCollection->get('blog_show_legacy');

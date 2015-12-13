@@ -54,9 +54,7 @@ class SQLiteGrammar extends Grammar
     {
         $columns = implode(', ', $this->getColumns($blueprint));
 
-        $sql = $blueprint->temporary ? 'create temporary' : 'create';
-
-        $sql .= ' table '.$this->wrapTable($blueprint)." ($columns";
+        $sql = 'create table '.$this->wrapTable($blueprint)." ($columns";
 
         // SQLite forces primary keys to be added when the table is initially created
         // so we will need to check for a primary key commands and add the columns
@@ -86,11 +84,11 @@ class SQLiteGrammar extends Grammar
         foreach ($foreigns as $foreign) {
             $sql .= $this->getForeignKey($foreign);
 
-            if (! is_null($foreign->onDelete)) {
+            if (!is_null($foreign->onDelete)) {
                 $sql .= " on delete {$foreign->onDelete}";
             }
 
-            if (! is_null($foreign->onUpdate)) {
+            if (!is_null($foreign->onUpdate)) {
                 $sql .= " on update {$foreign->onUpdate}";
             }
         }
@@ -128,7 +126,7 @@ class SQLiteGrammar extends Grammar
     {
         $primary = $this->getCommandByName($blueprint, 'primary');
 
-        if (! is_null($primary)) {
+        if (!is_null($primary)) {
             $columns = $this->columnize($primary->columns);
 
             return ", primary key ({$columns})";
@@ -539,10 +537,6 @@ class SQLiteGrammar extends Grammar
      */
     protected function typeTimestamp(Fluent $column)
     {
-        if ($column->useCurrent) {
-            return 'datetime default CURRENT_TIMESTAMP';
-        }
-
         return 'datetime';
     }
 
@@ -554,10 +548,6 @@ class SQLiteGrammar extends Grammar
      */
     protected function typeTimestampTz(Fluent $column)
     {
-        if ($column->useCurrent) {
-            return 'datetime default CURRENT_TIMESTAMP';
-        }
-
         return 'datetime';
     }
 
@@ -570,17 +560,6 @@ class SQLiteGrammar extends Grammar
     protected function typeBinary(Fluent $column)
     {
         return 'blob';
-    }
-
-    /**
-     * Create the column definition for a uuid type.
-     *
-     * @param  \Illuminate\Support\Fluent  $column
-     * @return string
-     */
-    protected function typeUuid(Fluent $column)
-    {
-        return 'varchar';
     }
 
     /**
@@ -604,7 +583,7 @@ class SQLiteGrammar extends Grammar
      */
     protected function modifyDefault(Blueprint $blueprint, Fluent $column)
     {
-        if (! is_null($column->default)) {
+        if (!is_null($column->default)) {
             return ' default '.$this->getDefaultValue($column->default);
         }
     }

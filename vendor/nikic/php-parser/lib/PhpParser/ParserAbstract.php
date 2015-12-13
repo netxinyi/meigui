@@ -6,9 +6,7 @@ namespace PhpParser;
  * This parser is based on a skeleton written by Moriyoshi Koizumi, which in
  * turn is based on work by Masato Bito.
  */
-use PhpParser\Node\Name;
-
-abstract class ParserAbstract implements Parser
+abstract class ParserAbstract
 {
     const SYMBOL_NONE = -1;
 
@@ -462,21 +460,5 @@ abstract class ParserAbstract implements Parser
             }
         }
         return $style;
-    }
-
-    protected function handleScalarTypes(Name $name) {
-        $scalarTypes = [
-            'bool'   => true,
-            'int'    => true,
-            'float'  => true,
-            'string' => true,
-        ];
-
-        if (!$name->isUnqualified()) {
-            return $name;
-        }
-
-        $lowerName = strtolower($name->toString());
-        return isset($scalarTypes[$lowerName]) ? $lowerName : $name;
     }
 }

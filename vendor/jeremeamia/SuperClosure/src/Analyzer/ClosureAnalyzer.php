@@ -55,13 +55,7 @@ abstract class ClosureAnalyzer
 
     private function isClosureStatic(\Closure $closure)
     {
-        $closure = @$closure->bindTo(new \stdClass);
-
-        if ($closure === null) {
-            return true;
-        }
-
-        $rebound = new \ReflectionFunction($closure);
+        $rebound = new \ReflectionFunction(@$closure->bindTo(new \stdClass));
 
         return $rebound->getClosureThis() === null;
     }

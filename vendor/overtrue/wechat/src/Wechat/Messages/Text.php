@@ -23,12 +23,14 @@ namespace Overtrue\Wechat\Messages;
 class Text extends BaseMessage
 {
 
+
     /**
      * 属性
      *
      * @var array
      */
     protected $properties = array('content');
+
 
     /**
      * 生成主动消息数组
@@ -37,12 +39,14 @@ class Text extends BaseMessage
      */
     public function toStaff()
     {
+
         return array(
-                'text' => array(
-                           'content' => $this->content,
-                          ),
-               );
+            'text' => array(
+                'content' => $this->content,
+            ),
+        );
     }
+
 
     /**
      * 生成回复消息数组
@@ -51,8 +55,9 @@ class Text extends BaseMessage
      */
     public function toReply()
     {
+
         return array(
-                'Content' => $this->content,
-               );
+            'Content' => $this->content,
+        );
     }
 }

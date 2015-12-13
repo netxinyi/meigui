@@ -21,6 +21,7 @@ namespace Overtrue\Wechat;
 class AccessToken
 {
 
+
     /**
      * 应用ID
      *
@@ -43,6 +44,13 @@ class AccessToken
     protected $cache;
 
     /**
+     * token
+     *
+     * @var string
+     */
+    protected $token;
+
+    /**
      * 缓存前缀
      *
      * @var string
@@ -52,6 +60,7 @@ class AccessToken
     // API
     const API_TOKEN_GET = 'https://api.weixin.qq.com/cgi-bin/token';
 
+
     /**
      * constructor
      *
@@ -60,11 +69,12 @@ class AccessToken
      */
     public function __construct($appId, $appSecret)
     {
+
         $this->appId     = $appId;
         $this->appSecret = $appSecret;
-        $this->cacheKey = $this->cacheKey.'.'.$appId;
         $this->cache     = new Cache($appId);
     }
+
 
     /**
      * 缓存 setter
@@ -73,51 +83,45 @@ class AccessToken
      */
     public function setCache($cache)
     {
+
         $this->cache = $cache;
     }
+
 
     /**
      * 获取Token
      *
-     * @param bool $forceRefresh
-     *
      * @return string
      */
-    public function getToken($forceRefresh = false)
+    public function getToken()
     {
-        $cacheKey = $this->cacheKey;
 
-        $cached = $this->cache->get($cacheKey);
-
-        if ($forceRefresh || !$cached) {
-            $token = $this->getTokenFromServer();
-
-            $this->cache->set($cacheKey, $token['access_token'], $token['expires_in'] - 800);
-
-            return $token['access_token'];
+        if ($this->token) {
+            return $this->token;
         }
 
-        return $cached;
-    }
+        // for php 5.3
+        $appId       = $this->appId;
+        $appSecret   = $this->appSecret;
+        $cache       = $this->cache;
+        $cacheKey    = $this->cacheKey;
+        $apiTokenGet = self::API_TOKEN_GET;
 
-    /**
-     * Get the access token from WeChat server.
-     *
-     * @param string $cacheKey
-     *
-     * @return array|bool
-     */
-    protected function getTokenFromServer()
-    {
-        $http = new Http();
-        $params = array(
-            'appid'      => $this->appId,
-            'secret'     => $this->appSecret,
-            'grant_type' => 'client_credential',
-        );
+        return $this->token = $this->cache->get($cacheKey,
+            function ($cacheKey) use ($appId, $appSecret, $cache, $apiTokenGet){
 
-        $token = $http->get(self::API_TOKEN_GET, $params);
+                $params = array(
+                    'appid'      => $appId,
+                    'secret'     => $appSecret,
+                    'grant_type' => 'client_credential',
+                );
+                $http   = new Http();
 
-        return $token;
+                $token = $http->get($apiTokenGet, $params);
+
+                $cache->set($cacheKey, $token['access_token'], $token['expires_in']);
+
+                return $token['access_token'];
+            });
     }
 }

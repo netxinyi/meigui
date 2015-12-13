@@ -74,6 +74,7 @@ abstract class Handler
         return $this;
     }
     
+
     /**
      * Retrieve the Filesystem object.
      *
@@ -81,6 +82,7 @@ abstract class Handler
      */
     public function getFilesystem()
     {
+
         return $this->filesystem;
     }
 
@@ -108,6 +110,7 @@ abstract class Handler
         return $this->path;
     }
 
+
     /**
      * Plugins pass-through.
      *
@@ -118,17 +121,14 @@ abstract class Handler
      */
     public function __call($method, array $arguments)
     {
+
         array_unshift($arguments, $this->path);
         $callback = [$this->filesystem, $method];
 
-        try {
+        try{
             return call_user_func_array($callback, $arguments);
-        } catch (BadMethodCallException $e) {
-            throw new BadMethodCallException(
-                'Call to undefined method '
-                .get_called_class()
-                .'::'.$method
-            );
+        } catch(BadMethodCallException $e){
+            throw new BadMethodCallException('Call to undefined method ' . get_called_class() . '::' . $method);
         }
     }
 }

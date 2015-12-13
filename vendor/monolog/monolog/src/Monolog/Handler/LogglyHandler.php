@@ -92,7 +92,11 @@ class LogglyHandler extends AbstractProcessingHandler
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-        Curl\Util::execute($ch);
+        if (curl_exec($ch) === false) {
+            throw new \RuntimeException(sprintf('Curl error (code %s): %s', curl_errno($ch), curl_error($ch)));
+        }
+
+        curl_close($ch);
     }
 
     protected function getDefaultFormatter()

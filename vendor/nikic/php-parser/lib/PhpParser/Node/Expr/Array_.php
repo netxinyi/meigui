@@ -16,7 +16,7 @@ class Array_ extends Expr
      * @param array       $attributes Additional attributes
      */
     public function __construct(array $items = array(), array $attributes = array()) {
-        parent::__construct($attributes);
+        parent::__construct(null, $attributes);
         $this->items = $items;
     }
 

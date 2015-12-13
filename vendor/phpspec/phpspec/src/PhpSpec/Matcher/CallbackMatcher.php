@@ -27,7 +27,7 @@ class CallbackMatcher extends BasicMatcher
      */
     private $callback;
     /**
-     * @var PresenterInterface
+     * @var \PhpSpec\Formatter\Presenter\PresenterInterface
      */
     private $presenter;
 

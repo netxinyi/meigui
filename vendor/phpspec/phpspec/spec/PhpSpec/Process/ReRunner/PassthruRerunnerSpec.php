@@ -14,15 +14,14 @@
 namespace spec\PhpSpec\Process\ReRunner;
 
 use PhpSpec\ObjectBehavior;
-use PhpSpec\Process\Context\ExecutionContextInterface;
 use Prophecy\Argument;
 use Symfony\Component\Process\PhpExecutableFinder;
 
 class PassthruRerunnerSpec extends ObjectBehavior
 {
-    function let(PhpExecutableFinder $executableFinder, ExecutionContextInterface $executionContext)
+    function let(PhpExecutableFinder $executableFinder)
     {
-        $this->beConstructedThrough('withExecutionContext', array($executableFinder, $executionContext));
+        $this->beConstructedWith($executableFinder);
     }
 
     function it_is_a_rerunner()

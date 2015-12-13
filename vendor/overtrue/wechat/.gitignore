@@ -6,6 +6,3 @@ index.php
 getcode.php
 showlink.php
 *.jpg
-test/Config/Config.yml
-test/Cert/
-.idea/

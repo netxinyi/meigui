@@ -6,20 +6,20 @@ use PhpSpec\Console\Prompter as PrompterInterface;
 
 class Prompter implements PrompterInterface
 {
-    private $answers = array();
+    private $answer;
     private $hasBeenAsked = false;
     private $question;
 
     public function setAnswer($answer)
     {
-        $this->answers[] = $answer;
+        $this->answer = $answer;
     }
 
     public function askConfirmation($question, $default = true)
     {
         $this->hasBeenAsked = true;
         $this->question = $question;
-        return (bool)array_shift($this->answers);
+        return (bool)$this->answer;
     }
 
     public function hasBeenAsked($question = null)

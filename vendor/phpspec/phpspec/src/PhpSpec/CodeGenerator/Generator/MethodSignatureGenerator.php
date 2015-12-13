@@ -24,17 +24,17 @@ use PhpSpec\Locator\ResourceInterface;
 class MethodSignatureGenerator implements GeneratorInterface
 {
     /**
-     * @var IO
+     * @var \PhpSpec\Console\IO
      */
     private $io;
 
     /**
-     * @var TemplateRenderer
+     * @var \PhpSpec\CodeGenerator\TemplateRenderer
      */
     private $templates;
 
     /**
-     * @var Filesystem
+     * @var \PhpSpec\Util\Filesystem
      */
     private $filesystem;
 

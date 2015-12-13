@@ -21,7 +21,7 @@ use PhpSpec\Wrapper\Subject\WrappedObject;
 abstract class DuringCall
 {
     /**
-     * @var MatcherInterface
+     * @var \PhpSpec\Matcher\MatcherInterface
      */
     private $matcher;
     /**
@@ -73,29 +73,13 @@ abstract class DuringCall
     {
         if ($method === '__construct') {
             $this->subject->beAnInstanceOf($this->wrappedObject->getClassname(), $arguments);
-
-            return $this->duringInstantiation();
+            $instantiator = new Instantiator();
+            $object = $instantiator->instantiate($this->wrappedObject->getClassname());
+        } else {
+            $object = $this->wrappedObject->instantiate();
         }
-
-        $object = $this->wrappedObject->instantiate();
 
         return $this->runDuring($object, $method, $arguments);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function duringInstantiation()
-    {
-        if ($factoryMethod = $this->wrappedObject->getFactoryMethod()) {
-            $method = is_array($factoryMethod) ? $factoryMethod[1] : $factoryMethod;
-        } else {
-            $method = '__construct';
-        }
-        $instantiator = new Instantiator();
-        $object = $instantiator->instantiate($this->wrappedObject->getClassname());
-
-        return $this->runDuring($object, $method, $this->wrappedObject->getArguments());
     }
 
     /**

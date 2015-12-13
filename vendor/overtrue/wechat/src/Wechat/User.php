@@ -23,6 +23,7 @@ use Overtrue\Wechat\Utils\Bag;
 class User
 {
 
+
     /**
      * Http对象
      *
@@ -31,10 +32,15 @@ class User
     protected $http;
 
     const API_GET       = 'https://api.weixin.qq.com/cgi-bin/user/info';
+
     const API_BATCH_GET = 'https://api.weixin.qq.com/cgi-bin/user/info/batchget';
+
     const API_LIST      = 'https://api.weixin.qq.com/cgi-bin/user/get';
+
     const API_GROUP     = 'https://api.weixin.qq.com/cgi-bin/groups/getid';
+
     const API_REMARK    = 'https://api.weixin.qq.com/cgi-bin/user/info/updateremark';
+
 
     /**
      * constructor
@@ -44,8 +50,10 @@ class User
      */
     public function __construct($appId, $appSecret)
     {
+
         $this->http = new Http(new AccessToken($appId, $appSecret));
     }
+
 
     /**
      * 读取用户信息
@@ -57,17 +65,19 @@ class User
      */
     public function get($openId = null, $lang = 'zh_CN')
     {
-        if (empty($openId)) {
+
+        if (empty( $openId )) {
             return $this->lists();
         }
 
         $params = array(
-                   'openid' => $openId,
-                   'lang'   => $lang,
-                  );
+            'openid' => $openId,
+            'lang'   => $lang,
+        );
 
         return new Bag($this->http->get(self::API_GET, $params));
     }
+
 
     /**
      * Batch get users.
@@ -79,19 +89,22 @@ class User
      */
     public function batchGet(array $openIds, $lang = 'zh_CN')
     {
+
         $params = array();
 
-        $params['user_list'] = array_map(function($openId) use ($lang) {
+        $params['user_list'] = array_map(function ($openId) use ($lang){
+
             return array(
-                    'openid' => $openId,
-                    'lang' => $lang,
-                    );
+                'openid' => $openId,
+                'lang'   => $lang,
+            );
         }, $openIds);
 
         $response = $this->http->jsonPost(self::API_BATCH_GET, $params);
 
         return new Bag($response['user_info_list']);
     }
+
 
     /**
      * 获取用户列表
@@ -102,10 +115,12 @@ class User
      */
     public function lists($nextOpenId = null)
     {
+
         $params = array('next_openid' => $nextOpenId);
 
         return new Bag($this->http->get(self::API_LIST, $params));
     }
+
 
     /**
      * 修改用户备注
@@ -117,13 +132,15 @@ class User
      */
     public function remark($openId, $remark)
     {
+
         $params = array(
-                   'openid' => $openId,
-                   'remark' => $remark,
-                  );
+            'openid' => $openId,
+            'remark' => $remark,
+        );
 
         return $this->http->jsonPost(self::API_REMARK, $params);
     }
+
 
     /**
      * 获取用户所在分组
@@ -134,8 +151,10 @@ class User
      */
     public function group($openId)
     {
+
         return $this->getGroup($openId);
     }
+
 
     /**
      * 获取用户所在的组
@@ -146,6 +165,7 @@ class User
      */
     public function getGroup($openId)
     {
+
         $params = array('openid' => $openId);
 
         $response = $this->http->jsonPost(self::API_GROUP, $params);

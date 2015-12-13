@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of Psy Shell.
+ * This file is part of Psy Shell
  *
- * (c) 2012-2015 Justin Hileman
+ * (c) 2012-2014 Justin Hileman
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -16,8 +16,8 @@ use Psy\Exception\ErrorException;
 use Psy\Exception\Exception as PsyException;
 use Psy\Exception\ThrowUpException;
 use Psy\Output\ShellOutput;
+use Psy\Presenter\PresenterManagerAware;
 use Psy\TabCompletion\Matcher;
-use Psy\VarDumper\PresenterAware;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command as BaseCommand;
 use Symfony\Component\Console\Formatter\OutputFormatter;
@@ -41,7 +41,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class Shell extends Application
 {
-    const VERSION = 'v0.6.1';
+    const VERSION = 'v0.4.4';
 
     const PROMPT      = '>>> ';
     const BUFF_PROMPT = '... ';
@@ -158,7 +158,7 @@ class Shell extends Application
     /**
      * Adds a command object.
      *
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @param BaseCommand $command A Symfony Console Command object
      *
@@ -171,8 +171,8 @@ class Shell extends Application
                 $ret->setContext($this->context);
             }
 
-            if ($ret instanceof PresenterAware) {
-                $ret->setPresenter($this->config->getPresenter());
+            if ($ret instanceof PresenterManagerAware) {
+                $ret->setPresenterManager($this->config->getPresenterManager());
             }
         }
 
@@ -267,7 +267,7 @@ class Shell extends Application
      * @param InputInterface  $input  An Input instance
      * @param OutputInterface $output An Output instance
      *
-     * @return int 0 if everything went fine, or an error code
+     * @return integer 0 if everything went fine, or an error code
      */
     public function run(InputInterface $input = null, OutputInterface $output = null)
     {
@@ -279,11 +279,7 @@ class Shell extends Application
             $output = $this->config->getOutput();
         }
 
-        try {
-            return parent::run($input, $output);
-        } catch (\Exception $e) {
-            $this->writeException($e);
-        }
+        return parent::run($input, $output);
     }
 
     /**
@@ -294,7 +290,7 @@ class Shell extends Application
      * @param InputInterface  $input  An Input instance
      * @param OutputInterface $output An Output instance
      *
-     * @return int 0 if everything went fine, or an error code
+     * @return integer 0 if everything went fine, or an error code
      */
     public function doRun(InputInterface $input, OutputInterface $output)
     {
@@ -303,7 +299,7 @@ class Shell extends Application
         $this->resetCodeBuffer();
 
         $this->setAutoExit(false);
-        $this->setCatchExceptions(false);
+        $this->setCatchExceptions(true);
 
         $this->readline->readHistory();
 
@@ -316,6 +312,8 @@ class Shell extends Application
         try {
             $this->loop->run($this);
         } catch (ThrowUpException $e) {
+            $this->setCatchExceptions(false);
+
             throw $e->getPrevious();
         }
     }
@@ -646,6 +644,18 @@ class Shell extends Application
     }
 
     /**
+     * Write a caught Exception to stdout.
+     *
+     * @see self::renderException
+     *
+     * @param \Exception $e
+     */
+    public function writeException(\Exception $e)
+    {
+        $this->renderException($e, $this->output);
+    }
+
+    /**
      * Renders a caught Exception.
      *
      * Exceptions are formatted according to severity. ErrorExceptions which were
@@ -656,7 +666,7 @@ class Shell extends Application
      * @param \Exception      $e      An exception instance
      * @param OutputInterface $output An OutputInterface instance
      */
-    public function writeException(\Exception $e)
+    public function renderException($e, $output)
     {
         $this->context->setLastException($e);
 
@@ -666,7 +676,7 @@ class Shell extends Application
         }
 
         $severity = ($e instanceof \ErrorException) ? $this->getSeverity($e) : 'error';
-        $this->output->writeln(sprintf('<%s>%s</%s>', $severity, OutputFormatter::escape($message), $severity));
+        $output->writeln(sprintf('<%s>%s</%s>', $severity, OutputFormatter::escape($message), $severity));
 
         $this->resetCodeBuffer();
     }
@@ -714,13 +724,8 @@ class Shell extends Application
      * threshold. This should probably only be used in the inner execution loop
      * of the shell, as most of the time a thrown exception is much more useful.
      *
-     * If the error type matches the `errorLoggingLevel` config, it will be
-     * logged as well, regardless of the `error_reporting` level.
-     *
      * @see \Psy\Exception\ErrorException::throwException
      * @see \Psy\Shell::writeException
-     *
-     * @throws \Psy\Exception\ErrorException depending on the current error_reporting level.
      *
      * @param int    $errno   Error type
      * @param string $errstr  Message
@@ -731,7 +736,7 @@ class Shell extends Application
     {
         if ($errno & error_reporting()) {
             ErrorException::throwException($errno, $errstr, $errfile, $errline);
-        } elseif ($errno & $this->config->errorLoggingLevel()) {
+        } else {
             // log it and continue...
             $this->writeException(new ErrorException($errstr, 0, $errno, $errfile, $errline));
         }
@@ -740,7 +745,7 @@ class Shell extends Application
     /**
      * Format a value for display.
      *
-     * @see Presenter::present
+     * @see PresenterManager::present
      *
      * @param mixed $val
      *
@@ -748,7 +753,7 @@ class Shell extends Application
      */
     protected function presentValue($val)
     {
-        return $this->config->getPresenter()->present($val);
+        return $this->config->getPresenterManager()->present($val);
     }
 
     /**
@@ -823,7 +828,7 @@ class Shell extends Application
      */
     protected function getHeader()
     {
-        return sprintf('<aside>%s by Justin Hileman</aside>', $this->getVersion());
+        return sprintf("<aside>%s by Justin Hileman</aside>", $this->getVersion());
     }
 
     /**
@@ -833,7 +838,7 @@ class Shell extends Application
      */
     public function getVersion()
     {
-        return sprintf('Psy Shell %s (PHP %s — %s)', self::VERSION, phpversion(), php_sapi_name());
+        return sprintf("Psy Shell %s (PHP %s — %s)", self::VERSION, phpversion(), php_sapi_name());
     }
 
     /**

@@ -4,8 +4,6 @@ namespace Illuminate\Foundation;
 
 use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Process\ProcessUtils;
-use Symfony\Component\Process\PhpExecutableFinder;
 
 class Composer
 {
@@ -68,17 +66,11 @@ class Composer
      */
     protected function findComposer()
     {
-        if (! $this->files->exists($this->workingPath.'/composer.phar')) {
-            return 'composer';
+        if ($this->files->exists($this->workingPath.'/composer.phar')) {
+            return '"'.PHP_BINARY.'" composer.phar';
         }
 
-        $binary = ProcessUtils::escapeArgument((new PhpExecutableFinder)->find(false));
-
-        if (defined('HHVM_VERSION')) {
-            $binary .= ' --php';
-        }
-
-        return "{$binary} composer.phar";
+        return 'composer';
     }
 
     /**

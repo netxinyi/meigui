@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of Psy Shell.
+ * This file is part of Psy Shell
  *
- * (c) 2012-2015 Justin Hileman
+ * (c) 2012-2014 Justin Hileman
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,8 +12,8 @@
 namespace Psy\Command\ListCommand;
 
 use Psy\Formatter\SignatureFormatter;
+use Psy\Presenter\PresenterManager;
 use Psy\Util\Mirror;
-use Psy\VarDumper\Presenter;
 use Symfony\Component\Console\Input\InputInterface;
 
 /**
@@ -30,7 +30,7 @@ abstract class Enumerator
     const IS_CLASS     = 'class';
     const IS_FUNCTION  = 'function';
 
-    private $presenter;
+    private $presenterManager;
 
     private $filter       = false;
     private $invertFilter = false;
@@ -39,11 +39,11 @@ abstract class Enumerator
     /**
      * Enumerator constructor.
      *
-     * @param Presenter $presenter
+     * @param PresenterManager $presenterManager
      */
-    public function __construct(Presenter $presenter)
+    public function __construct(PresenterManager $presenterManager)
     {
-        $this->presenter = $presenter;
+        $this->presenterManager = $presenterManager;
     }
 
     /**
@@ -87,7 +87,7 @@ abstract class Enumerator
 
     protected function presentRef($value)
     {
-        return $this->presenter->presentRef($value);
+        return $this->presenterManager->presentRef($value);
     }
 
     protected function showItem($name)
@@ -121,7 +121,7 @@ abstract class Enumerator
      *
      * @param string $pattern
      *
-     * @return bool
+     * @return boolean
      */
     private function validateRegex($pattern)
     {

@@ -21,7 +21,7 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 class SuiteRunner
 {
     /**
-     * @var EventDispatcher
+     * @var \Symfony\Component\EventDispatcher\EventDispatcher
      */
     private $dispatcher;
     /**

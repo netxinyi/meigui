@@ -11,8 +11,9 @@
 
 namespace Predis\Connection;
 
-use Predis\Command\CommandInterface;
+use InvalidArgumentException;
 use Predis\CommunicationException;
+use Predis\Command\CommandInterface;
 use Predis\Protocol\ProtocolException;
 
 /**
@@ -51,20 +52,20 @@ abstract class AbstractConnection implements NodeConnectionInterface
      *
      * @param ParametersInterface $parameters Initialization parameters for the connection.
      *
-     * @throws \InvalidArgumentException
-     *
      * @return ParametersInterface
+     *
+     * @throws \InvalidArgumentException
      */
     protected function assertParameters(ParametersInterface $parameters)
     {
-        switch ($parameters->scheme) {
-            case 'tcp':
-            case 'redis':
-            case 'unix':
-                break;
+        $scheme = $parameters->scheme;
 
-            default:
-                throw new \InvalidArgumentException("Invalid scheme: '$parameters->scheme'.");
+        if ($scheme !== 'tcp' && $scheme !== 'unix') {
+            throw new InvalidArgumentException("Invalid scheme: '$scheme'.");
+        }
+
+        if ($scheme === 'unix' && !isset($parameters->path)) {
+            throw new InvalidArgumentException('Missing UNIX domain socket path.');
         }
 
         return $parameters;
@@ -134,29 +135,6 @@ abstract class AbstractConnection implements NodeConnectionInterface
     }
 
     /**
-     * Helper method that returns an exception message augmented with useful
-     * details from the connection parameters.
-     *
-     * @param string $message Error message.
-     *
-     * @return string
-     */
-    private function createExceptionMessage($message)
-    {
-        $parameters = $this->parameters;
-
-        if ($parameters->scheme === 'unix') {
-            return "$message [$parameters->scheme:$parameters->path]";
-        }
-
-        if (filter_var($parameters->host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
-            return "$message [$parameters->scheme://[$parameters->host]:$parameters->port]";
-        }
-
-        return "$message [$parameters->scheme://$parameters->host:$parameters->port]";
-    }
-
-    /**
      * Helper method to handle connection errors.
      *
      * @param string $message Error message.
@@ -165,7 +143,9 @@ abstract class AbstractConnection implements NodeConnectionInterface
     protected function onConnectionError($message, $code = null)
     {
         CommunicationException::handle(
-            new ConnectionException($this, static::createExceptionMessage($message), $code)
+            new ConnectionException(
+                $this, "$message [{$this->parameters->scheme}://{$this->getIdentifier()}]", $code
+            )
         );
     }
 
@@ -177,7 +157,9 @@ abstract class AbstractConnection implements NodeConnectionInterface
     protected function onProtocolError($message)
     {
         CommunicationException::handle(
-            new ProtocolException($this, static::createExceptionMessage($message))
+            new ProtocolException(
+                $this, "$message [{$this->parameters->scheme}://{$this->getIdentifier()}]"
+            )
         );
     }
 

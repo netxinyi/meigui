@@ -20,7 +20,7 @@ use Symfony\Component\Config\Resource\FileResource;
  *
  * @author singles
  */
-class JsonFileLoader extends ArrayLoader
+class JsonFileLoader extends ArrayLoader implements LoaderInterface
 {
     /**
      * {@inheritdoc}

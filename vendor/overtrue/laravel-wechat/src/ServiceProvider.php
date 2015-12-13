@@ -8,6 +8,8 @@ use Overtrue\Wechat\Alias;
 
 class ServiceProvider extends LaravelServiceProvider
 {
+
+
     /**
      * 延迟加载
      *
@@ -55,12 +57,12 @@ class ServiceProvider extends LaravelServiceProvider
      */
     public function boot()
     {
-        if (function_exists('config_path')) {
-            $this->publishes([
-                __DIR__ . '/config.php' => config_path('wechat.php'),
-            ], 'config');
-        }
+
+        $this->publishes([
+            __DIR__ . '/config.php' => config_path('wechat.php'),
+        ], 'config');
     }
+
 
     /**
      * Register the provider.
@@ -69,24 +71,24 @@ class ServiceProvider extends LaravelServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(
-            __DIR__.'/config.php', 'wechat'
-        );
 
-        if (config('wechat.use_alias')) {
+        if (config('wechat.alias')) {
             Alias::register();
         }
 
-        $this->app->singleton(['Overtrue\\Wechat\\Server' => 'wechat.server'], function($app){
+        $this->app->singleton(['Overtrue\\Wechat\\Server' => 'wechat.server'], function ($app){
+
             return new WechatServer(config('wechat.app_id'), config('wechat.token'), config('wechat.encoding_key'));
         });
 
         foreach ($this->services as $alias => $service) {
-            $this->app->singleton([$service => $alias], function($app) use ($service){
+            $this->app->singleton([$service => $alias], function ($app) use ($service){
+
                 return new $service(config('wechat.app_id'), config('wechat.secret'));
             });
         }
     }
+
 
     /**
      * 提供的服务
@@ -95,6 +97,7 @@ class ServiceProvider extends LaravelServiceProvider
      */
     public function provides()
     {
+
         return array_merge(array_keys($this->services), array_values($this->services), $this->providesAppends);
     }
 }

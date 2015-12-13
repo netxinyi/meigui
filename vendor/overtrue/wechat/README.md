@@ -4,11 +4,9 @@
 
 可能是目前最优雅的微信公众平台 SDK 了。[Laravel 5 拓展包: overtrue/laravel-wechat](https://github.com/overtrue/laravel-wechat)
 
-> 3.0 开发中，目前大部分模块已经完成，希望您能帮忙测试为谢！[3.0](https://github.com/overtrue/wechat/tree/3.0)
-
 SDK QQ群：`319502940`
 
-微信开发者交流群：`9179779` （这不是微信群，是名称叫“微信开发者交流群” 的QQ群，微信上聊技术？你逗我？）
+微信开发者交流群：`9179779`
 
 [![Build Status](https://travis-ci.org/overtrue/wechat.svg?branch=master)](https://travis-ci.org/overtrue/wechat)
 [![Latest Stable Version](https://poser.pugx.org/overtrue/wechat/v/stable.svg)](https://packagist.org/packages/overtrue/wechat)
@@ -34,12 +32,12 @@ SDK QQ群：`319502940`
 1. 使用 [composer](https://getcomposer.org/)
 
   ```shell
-  composer require "overtrue/wechat:2.1.*"
+  composer require "overtrue/wechat:2.0.*"
   ```
 
 2. 手动安装
 
-  下载 [2.1版zip包](https://github.com/overtrue/wechat/archive/2.1.zip)  或者下载指定版本：https://github.com/overtrue/wechat/releases 。
+  下载 [2.0版zip包](https://github.com/overtrue/wechat/archive/2.0.zip)  或者下载指定版本：https://github.com/overtrue/wechat/releases 。
 
   然后引入根目录的autoload.php即可：
 
@@ -50,8 +48,6 @@ SDK QQ群：`319502940`
 
   ...
   ```
-
-3. 确认你没装 laravel-debugbar!!!!
 
 ## 使用
 
@@ -88,23 +84,21 @@ echo $server->serve();
 - [x] [监听事件](https://github.com/overtrue/wechat/wiki/监听微信事件)
 - [x] [基本消息类型](https://github.com/overtrue/wechat/wiki/消息的使用)
 - [x] [图文消息](https://github.com/overtrue/wechat/wiki/消息的使用)
-- [x] [模板消息](https://github.com/overtrue/wechat/wiki/模板消息)
+- [x] [模板消息](https://github.com/overtrue/wechat/wiki/模板消息)  
 - [ ] <del>群发消息（微信限制太多，基本算不能用）</del>
 - [x] [用户与用户组](https://github.com/overtrue/wechat/wiki/用户与用户组管理)
 - [x] [客服与消息发送](https://github.com/overtrue/wechat/wiki/客服管理与发送消息)
 - [x] [多客服与消息转发](https://github.com/overtrue/wechat/wiki/多客服与消息转发)
 - [x] [网页授权](https://github.com/overtrue/wechat/wiki/网页授权)
 - [x] [自定义菜单](https://github.com/overtrue/wechat/wiki/自定义菜单)
-- [x] [素材管理](https://github.com/overtrue/wechat/wiki/素材管理)
-- [x] [门店管理](https://github.com/overtrue/wechat/wiki/门店管理)
-- [x] [卡券管理](https://github.com/overtrue/wechat/wiki/卡券)
-- [x] [JSSDK](https://github.com/overtrue/wechat/wiki/JSSDK)
-- [x] [语义理解](https://github.com/overtrue/wechat/wiki/语义理解服务)
-- [x] [数据统计](https://github.com/overtrue/wechat/wiki/数据统计查询服务)
-- [x] [二维码](https://github.com/overtrue/wechat/wiki/二维码)
-- [x] [短链接](https://github.com/overtrue/wechat/wiki/短链接)
-- [x] [微信支付](https://github.com/overtrue/wechat/wiki/微信支付)
-- [ ] [微信小店]()
+- [x] [素材管理](https://github.com/overtrue/wechat/wiki/素材管理) 
+- [x] [门店管理](https://github.com/overtrue/wechat/wiki/门店管理) 
+- [x] [卡券管理](https://github.com/overtrue/wechat/wiki/卡券)  
+- [x] [JSSDK](https://github.com/overtrue/wechat/wiki/JSSDK)  
+- [x] [语义理解](https://github.com/overtrue/wechat/wiki/语义理解服务)  
+- [x] [数据统计](https://github.com/overtrue/wechat/wiki/数据统计查询服务)  
+- [x] [二维码](https://github.com/overtrue/wechat/wiki/二维码)  
+- [x] [短链接](https://github.com/overtrue/wechat/wiki/短链接)  
 
 ## 贡献代码
 

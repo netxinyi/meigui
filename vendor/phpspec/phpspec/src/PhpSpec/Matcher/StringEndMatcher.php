@@ -19,7 +19,7 @@ use PhpSpec\Exception\Example\FailureException;
 class StringEndMatcher extends BasicMatcher
 {
     /**
-     * @var PresenterInterface
+     * @var \PhpSpec\Formatter\Presenter\PresenterInterface
      */
     private $presenter;
 

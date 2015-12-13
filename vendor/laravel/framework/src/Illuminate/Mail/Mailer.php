@@ -83,6 +83,13 @@ class Mailer implements MailerContract, MailQueueContract
     protected $failedRecipients = [];
 
     /**
+     * Array of parsed views containing html and text view name.
+     *
+     * @var array
+     */
+    protected $parsedViews = [];
+
+    /**
      * Create a new Mailer instance.
      *
      * @param  \Illuminate\Contracts\View\Factory  $views
@@ -152,7 +159,7 @@ class Mailer implements MailerContract, MailQueueContract
      * @param  string|array  $view
      * @param  array  $data
      * @param  \Closure|string  $callback
-     * @return void
+     * @return mixed
      */
     public function send($view, array $data, $callback)
     {
@@ -206,25 +213,9 @@ class Mailer implements MailerContract, MailQueueContract
      * @param  \Closure|string  $callback
      * @return mixed
      */
-    public function onQueue($queue, $view, array $data, $callback)
-    {
-        return $this->queue($view, $data, $callback, $queue);
-    }
-
-    /**
-     * Queue a new e-mail message for sending on the given queue.
-     *
-     * This method didn't match rest of framework's "onQueue" phrasing. Added "onQueue".
-     *
-     * @param  string  $queue
-     * @param  string|array  $view
-     * @param  array  $data
-     * @param  \Closure|string  $callback
-     * @return mixed
-     */
     public function queueOn($queue, $view, array $data, $callback)
     {
-        return $this->onQueue($queue, $view, $data, $callback);
+        return $this->queue($view, $data, $callback, $queue);
     }
 
     /**
@@ -267,7 +258,7 @@ class Mailer implements MailerContract, MailQueueContract
      */
     protected function buildQueueCallable($callback)
     {
-        if (! $callback instanceof Closure) {
+        if (!$callback instanceof Closure) {
             return $callback;
         }
 
@@ -332,15 +323,11 @@ class Mailer implements MailerContract, MailQueueContract
         }
 
         if (isset($plain)) {
-            $method = isset($view) ? 'addPart' : 'setBody';
-
-            $message->$method($this->getView($plain, $data), 'text/plain');
+            $message->addPart($this->getView($plain, $data), 'text/plain');
         }
 
         if (isset($raw)) {
-            $method = (isset($view) || isset($plain)) ? 'addPart' : 'setBody';
-
-            $message->$method($raw, 'text/plain');
+            $message->addPart($raw, 'text/plain');
         }
     }
 
@@ -391,7 +378,7 @@ class Mailer implements MailerContract, MailQueueContract
             $this->events->fire('mailer.sending', [$message]);
         }
 
-        if (! $this->pretending) {
+        if (!$this->pretending) {
             return $this->swift->send($message, $this->failedRecipients);
         } elseif (isset($this->logger)) {
             $this->logMessage($message);
@@ -445,7 +432,7 @@ class Mailer implements MailerContract, MailQueueContract
         // If a global from address has been specified we will set it on every message
         // instances so the developer does not have to repeat themselves every time
         // they create a new message. We will just go ahead and push the address.
-        if (! empty($this->from['address'])) {
+        if (!empty($this->from['address'])) {
             $message->from($this->from['address'], $this->from['name']);
         }
 

@@ -3,7 +3,6 @@
 namespace spec\PhpSpec\CodeGenerator\Generator;
 
 use PhpSpec\ObjectBehavior;
-use PhpSpec\Process\Context\ExecutionContextInterface;
 use Prophecy\Argument;
 
 use PhpSpec\Console\IO;
@@ -13,9 +12,9 @@ use PhpSpec\Locator\ResourceInterface;
 
 class ClassGeneratorSpec extends ObjectBehavior
 {
-    function let(IO $io, TemplateRenderer $tpl, Filesystem $fs, ExecutionContextInterface $executionContext)
+    function let(IO $io, TemplateRenderer $tpl, Filesystem $fs)
     {
-        $this->beConstructedWith($io, $tpl, $fs, $executionContext);
+        $this->beConstructedWith($io, $tpl, $fs);
     }
 
     function it_is_a_generator()
@@ -117,17 +116,5 @@ class ClassGeneratorSpec extends ObjectBehavior
         $fs->putFileContents(Argument::cetera())->shouldNotBeCalled();
 
         $this->generate($resource);
-    }
-
-    function it_records_that_class_was_created_in_executioncontext(ResourceInterface $resource, ExecutionContextInterface $executionContext)
-    {
-        $resource->getName()->willReturn('App');
-        $resource->getSrcFilename()->willReturn('/project/src/Acme/App.php');
-        $resource->getSrcNamespace()->willReturn('Acme');
-        $resource->getSrcClassname()->willReturn('Acme\App');
-
-        $this->generate($resource);
-
-        $executionContext->addGeneratedType('Acme\App')->shouldHaveBeenCalled();
     }
 }

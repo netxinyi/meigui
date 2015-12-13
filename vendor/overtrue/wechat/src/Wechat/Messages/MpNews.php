@@ -23,12 +23,14 @@ namespace Overtrue\Wechat\Messages;
 class MpNews extends BaseMessage
 {
 
+
     /**
      * 属性
      *
      * @var array
      */
     protected $properties = array('media_id');
+
 
     /**
      * 设置Media_id
@@ -39,10 +41,12 @@ class MpNews extends BaseMessage
      */
     public function media($mediaId)
     {
+
         $this->setAttribute('media_id', $mediaId);
 
         return $this;
     }
+
 
     /**
      * 生成主动消息数组
@@ -51,12 +55,14 @@ class MpNews extends BaseMessage
      */
     public function toStaff()
     {
+
         return array(
-                'mpnews' => array(
-                            'media_id' => $this->media_id,
-                           ),
-               );
+            'mpnews' => array(
+                'media_id' => $this->media_id,
+            ),
+        );
     }
+
 
     /**
      * 生成回复消息数组
@@ -65,7 +71,8 @@ class MpNews extends BaseMessage
      */
     public function toReply()
     {
-        throw new \Exception(__CLASS__.'未实现此方法：toReply()');
+
+        throw new \Exception(__CLASS__ . '未实现此方法：toReply()');
         /*return array(
                 'Image' => array(
                             'MediaId' => $this->media_id,

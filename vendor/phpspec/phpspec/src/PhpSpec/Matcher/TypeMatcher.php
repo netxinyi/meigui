@@ -28,7 +28,7 @@ class TypeMatcher extends BasicMatcher
         'implement'
     );
     /**
-     * @var PresenterInterface
+     * @var \PhpSpec\Formatter\Presenter\PresenterInterface
      */
     private $presenter;
 

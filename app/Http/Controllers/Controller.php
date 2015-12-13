@@ -33,14 +33,13 @@ abstract class Controller extends BaseController
     public function view($view = null, array $data = array(), array $mergeData = array())
     {
 
-        if (!is_null($this->viewPrefix)) {
+        if (!is_null($view)) {
             //添加view目录前缀
             $view = str_finish($this->viewPrefix, '.') . $view;
         }
 
         return view($view, $data, $mergeData);
     }
-
 
     /**
      * 响应失败消息
@@ -129,18 +128,17 @@ abstract class Controller extends BaseController
      * Create the response for when a request fails validation.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  array                    $errors
-     *
+     * @param  array $errors
      * @return \Illuminate\Http\Response
      */
     protected function buildFailedValidationResponse(\Illuminate\Http\Request $request, array $errors)
     {
-
         if ($request->ajax() || $request->wantsJson()) {
             return $this->error(head($errors), 422);
         }
 
-        return $this->redirect($this->getRedirectUrl())->withInput($request->input())->withErrors($errors,
-            $this->errorBag());
+        return $this->redirect($this->getRedirectUrl())
+            ->withInput($request->input())
+            ->withErrors($errors, $this->errorBag());
     }
 }

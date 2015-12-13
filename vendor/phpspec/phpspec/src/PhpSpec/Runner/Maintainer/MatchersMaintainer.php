@@ -19,15 +19,19 @@ use PhpSpec\SpecificationInterface;
 use PhpSpec\Runner\MatcherManager;
 use PhpSpec\Runner\CollaboratorManager;
 use PhpSpec\Formatter\Presenter\PresenterInterface;
+use PhpSpec\Wrapper\Unwrapper;
 use PhpSpec\Matcher;
 
 class MatchersMaintainer implements MaintainerInterface
 {
     /**
-     * @var PresenterInterface
+     * @var \PhpSpec\Formatter\Presenter\PresenterInterface
      */
     private $presenter;
-
+    /**
+     * @var \PhpSpec\Wrapper\Unwrapper
+     */
+    private $unwrapper;
     /**
      * @var MatcherInterface[]
      */

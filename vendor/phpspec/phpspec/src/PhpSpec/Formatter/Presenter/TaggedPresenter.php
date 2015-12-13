@@ -13,9 +13,6 @@
 
 namespace PhpSpec\Formatter\Presenter;
 
-/**
- * @deprecated Use PhpSpec\Formatter\Presenter\TaggingPresenter instead
- */
 class TaggedPresenter extends StringPresenter
 {
     public function presentString($string)

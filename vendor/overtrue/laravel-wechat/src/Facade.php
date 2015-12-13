@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Facade as LaravelFacade;
 
 class Facade extends LaravelFacade
 {
+
+
     /**
      * 默认为 Server
      *
@@ -12,8 +14,10 @@ class Facade extends LaravelFacade
      */
     static public function getFacadeAccessor()
     {
+
         return "wechat.server";
     }
+
 
     /**
      * 获取微信 SDK 服务
@@ -25,6 +29,7 @@ class Facade extends LaravelFacade
      */
     static public function __callStatic($name, $args)
     {
+
         return self::resolveFacadeInstance("wechat.{$name}");
     }
 }

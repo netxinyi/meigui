@@ -11,6 +11,7 @@
 
 namespace Predis\Session;
 
+use SessionHandlerInterface;
 use Predis\ClientInterface;
 
 /**
@@ -23,7 +24,7 @@ use Predis\ClientInterface;
  *
  * @author Daniele Alessandri <suppakilla@gmail.com>
  */
-class Handler implements \SessionHandlerInterface
+class Handler implements SessionHandlerInterface
 {
     protected $client;
     protected $ttl;
@@ -48,7 +49,7 @@ class Handler implements \SessionHandlerInterface
      */
     public function register()
     {
-        if (PHP_VERSION_ID >= 50400) {
+        if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
             session_set_save_handler($this, true);
         } else {
             session_set_save_handler(
