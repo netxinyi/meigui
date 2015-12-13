@@ -48,8 +48,14 @@
                     @foreach($users as $user)
                         <tr>
                             <td>{{$user->user_id}}</td>
-                            <td>{{$user->avatar}}</td>
-                            <td>{{$user->avatar}}</td>
+                            <td>
+
+                                <a href="/admin/user/{{$user->user_id}}/edit">
+                                    <img src="{{$user->user->avatar}}" height="100">
+                                    {{$user->user->user_name}}
+                                </a>
+
+                            <td>{{$user->user->level_lang}}</td>
                             <td class="text-center">
                                 <button class="btn btn-sm btn-success  m-r-5"   onclick="shenhe({{$user->user_id}},'首页')">网站首页展示</button>
                                 <button class="btn btn-sm btn-success  m-r-5"   onclick="shenhe({{$user->user_id}},'会员专区')">会员专区展示</button>
