@@ -51,6 +51,7 @@
                     </li>
                 @endforeach
             </ul>
+            <?php echo str_replace('pagination', 'am-pagination am-pagination-right', $users->render());?>
         </div>
     </div>
 
