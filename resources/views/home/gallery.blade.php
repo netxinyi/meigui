@@ -171,7 +171,7 @@
 
                     $("#progreess").after('<img name="image" style="width: 31px; height: 33px;" class="file-btn" src="" >');
                 } else {
-                    $("#"+images).after('<img name="image" style="width: 128px; height: 128px;" class="file-btn" src="http://dev.meiguihuakai.com.cn/uploads/avatar/' + res + '" >');
+                    $("#"+images).after('<img name="image" style="width: 128px; height: 128px;" class="file-btn" src="/uploads/avatar/' + res + '" >');
                     $("#"+url).val(res);
                      $("#tijiaoxia").click();
 
