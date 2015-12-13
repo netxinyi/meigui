@@ -23,14 +23,18 @@ class MemberController extends Controller
     {
 
 
-        $users['male'] = User::leftJoin('user_recommend', 'user_recommend.user_id', '=', 'users.user_id')
+        \DB::enableQueryLog();
+        $users['male'] = User::rightJoin('user_recommend', 'user_recommend.user_id', '=', 'users.user_id')
+            ->where('user_recommend.page',\App\Enum\User::RECOMMEND_HOME)
             ->male()->level(\App\Enum\User::LEVEL_1)->limit(24)->orderBy('user_recommend.order')->get();
 
 
         $users['female'] = User::leftJoin('user_recommend', 'user_recommend.user_id', '=', 'users.user_id')
+            ->where('user_recommend.page',\App\Enum\User::RECOMMEND_HOME)
             ->female()->limit(24)->orderBy('user_recommend.order')->get();
 
         $users['vip'] = User::leftJoin('user_recommend', 'user_recommend.user_id', '=', 'users.user_id')
+            ->where('user_recommend.page',\App\Enum\User::RECOMMEND_HOME)
             ->male()->level(\App\Enum\User::LEVEL_3)->limit(24)->orderBy('user_recommend.order')->get();
 
 
@@ -42,6 +46,7 @@ class MemberController extends Controller
     public function getMale()
     {
         $users = User::leftJoin('user_recommend', 'user_recommend.user_id', '=', 'users.user_id')
+            ->where('user_recommend.page',\App\Enum\User::RECOMMEND_HOME)
             ->male()->level(\App\Enum\User::LEVEL_1)->orderBy('user_recommend.order')->paginate(36);
 
         $users->appends($this->request()->all());
@@ -51,6 +56,7 @@ class MemberController extends Controller
     public function getFemale()
     {
         $users = User::leftJoin('user_recommend', 'user_recommend.user_id', '=', 'users.user_id')
+            ->where('user_recommend.page',\App\Enum\User::RECOMMEND_HOME)
             ->female()->limit(24)->orderBy('user_recommend.order')->paginate(36);
         $users->appends($this->request()->all());
         return $this->view('female')->with('users', $users);
@@ -59,6 +65,7 @@ class MemberController extends Controller
     public function getViplist()
     {
         $users = User::leftJoin('user_recommend', 'user_recommend.user_id', '=', 'users.user_id')
+            ->where('user_recommend.page',\App\Enum\User::RECOMMEND_HOME)
             ->male()->level(\App\Enum\User::LEVEL_3)->limit(24)->orderBy('user_recommend.order')->paginate(36);
         $users->appends($this->request()->all());
         return $this->view('viplist')->with('users', $users);
