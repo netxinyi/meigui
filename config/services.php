@@ -38,7 +38,7 @@ return [
     'weixinweb' => [
         'client_id' => 'wx58ff9f9c7b2ce4d9',
         'client_secret' => '9b741bb366f47b43bbba664a979cee3a',
-        'redirect' => 'http://dev.meiguihuakai.com/auth/socialite/callback/weixinweb'
+        'redirect' => 'http://dev.meiguihuakai.com'
     ],
     'weixin' => [
         'client_id' => 'wx58ff9f9c7b2ce4d9',
