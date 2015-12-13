@@ -23,14 +23,12 @@ namespace Overtrue\Wechat\Messages;
 class Image extends BaseMessage
 {
 
-
     /**
      * 属性
      *
      * @var array
      */
     protected $properties = array('media_id');
-
 
     /**
      * 设置音乐消息封面图
@@ -41,12 +39,10 @@ class Image extends BaseMessage
      */
     public function media($mediaId)
     {
-
         $this->setAttribute('media_id', $mediaId);
 
         return $this;
     }
-
 
     /**
      * 生成主动消息数组
@@ -55,14 +51,12 @@ class Image extends BaseMessage
      */
     public function toStaff()
     {
-
         return array(
-            'image' => array(
-                'media_id' => $this->media_id,
-            ),
-        );
+                'image' => array(
+                            'media_id' => $this->media_id,
+                           ),
+               );
     }
-
 
     /**
      * 生成回复消息数组
@@ -71,11 +65,10 @@ class Image extends BaseMessage
      */
     public function toReply()
     {
-
         return array(
-            'Image' => array(
-                'MediaId' => $this->media_id,
-            ),
-        );
+                'Image' => array(
+                            'MediaId' => $this->media_id,
+                           ),
+               );
     }
 }

@@ -33,7 +33,6 @@ interface PHPUnit_Framework_MockObject_Invokable extends PHPUnit_Framework_MockO
      *
      * @param  PHPUnit_Framework_MockObject_Invocation $invocation
      *                                                             The invocation object passed from mock object.
-     *
      * @return bool
      */
     public function matches(PHPUnit_Framework_MockObject_Invocation $invocation);

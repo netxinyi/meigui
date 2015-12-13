@@ -23,7 +23,6 @@ use Overtrue\Wechat\Utils\XML;
 class Crypt
 {
 
-
     /**
      * 应用ID
      *
@@ -53,26 +52,21 @@ class Crypt
     protected $blockSize;
 
     const ERROR_INVALID_SIGNATURE = -40001; // 校验签名失败
-
     const ERROR_PARSE_XML         = -40002; // 解析xml失败
-
     const ERROR_CALC_SIGNATURE    = -40003; // 计算签名失败
-
     const ERROR_INVALID_AESKEY    = -40004; // 不合法的AESKey
-
     const ERROR_INVALID_APPID     = -40005; // 校验AppID失败
-
     const ERROR_ENCRYPT_AES       = -40006; // AES加密失败
-
     const ERROR_DECRYPT_AES       = -40007; // AES解密失败
-
     const ERROR_INVALID_XML       = -40008; // 公众平台发送的xml不合法
-
     const ERROR_BASE64_ENCODE     = -40009; // Base64编码失败
-
     const ERROR_BASE64_DECODE     = -40010; // Base64解码失败
-
     const ERROR_XML_BUILD         = -40011; // 公众帐号生成回包xml失败
+
+
+
+
+
 
 
     /**
@@ -84,7 +78,6 @@ class Crypt
      */
     public function __construct($appId, $token, $encodingAESKey)
     {
-
         if (!extension_loaded('mcrypt')) {
             throw new Exception('Mcrypt 拓展未安装或未启用');
         }
@@ -95,10 +88,9 @@ class Crypt
 
         $this->appId     = $appId;
         $this->token     = $token;
-        $this->AESKey    = base64_decode($encodingAESKey . '=', true);
+        $this->AESKey    = base64_decode($encodingAESKey.'=', true);
         $this->blockSize = 32;// mcrypt_get_block_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC);
     }
-
 
     /**
      * 将公众平台回复用户的消息加密打包.
@@ -117,7 +109,6 @@ class Crypt
      */
     public function encryptMsg($xml, $nonce = null, $timestamp = null)
     {
-
         $encrypt = $this->encrypt($xml, $this->appId);
 
         !is_null($nonce) || $nonce = substr($this->appId, 0, 10);
@@ -127,16 +118,15 @@ class Crypt
         $signature = $this->getSHA1($this->token, $timestamp, $nonce, $encrypt);
 
         $response = array(
-            'Encrypt'      => $encrypt,
-            'MsgSignature' => $signature,
-            'TimeStamp'    => $timestamp,
-            'Nonce'        => $nonce,
-        );
+                     'Encrypt'      => $encrypt,
+                     'MsgSignature' => $signature,
+                     'TimeStamp'    => $timestamp,
+                     'Nonce'        => $nonce,
+                    );
 
         //生成响应xml
         return XML::build($response);
     }
-
 
     /**
      * 检验消息的真实性，并且获取解密后的明文.
@@ -155,15 +145,14 @@ class Crypt
      */
     public function decryptMsg($msgSignature, $nonce, $timestamp, $postXML)
     {
-
         //提取密文
         $array = XML::parse($postXML);
 
-        if (empty( $array )) {
+        if (empty($array)) {
             throw new Exception('Invalid xml.', self::ERROR_PARSE_XML);
         }
 
-        $encrypted = $array['Encrypt'];
+        $encrypted  = $array['Encrypt'];
 
         //验证安全签名
         $signature = $this->getSHA1($this->token, $timestamp, $nonce, $encrypted);
@@ -175,7 +164,6 @@ class Crypt
         return XML::parse($this->decrypt($encrypted, $this->appId));
     }
 
-
     /**
      * 对明文进行加密
      *
@@ -186,11 +174,10 @@ class Crypt
      */
     private function encrypt($text, $appId)
     {
-
-        try{
+        try {
             //获得16位随机字符串，填充到明文之前
             $random = $this->getRandomStr();
-            $text   = $random . pack('N', strlen($text)) . $text . $appId;
+            $text   = $random.pack('N', strlen($text)).$text.$appId;
 
             // 网络字节序
             // $size   = mcrypt_get_block_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC);
@@ -198,7 +185,7 @@ class Crypt
             $iv     = substr($this->AESKey, 0, 16);
 
             //使用自定义的填充方式对明文进行补位填充
-            $text = $this->encode($text);
+            $text   = $this->encode($text);
 
             mcrypt_generic_init($module, $this->AESKey, $iv);
 
@@ -209,11 +196,10 @@ class Crypt
 
             //使用BASE64对加密后的字符串进行编码
             return base64_encode($encrypted);
-        } catch(Exception $e){
+        } catch (Exception $e) {
             throw new Exception($e->getMessage(), self::ERROR_ENCRYPT_AES);
         }
     }
-
 
     /**
      * 对密文进行解密
@@ -225,8 +211,7 @@ class Crypt
      */
     private function decrypt($encrypted, $appId)
     {
-
-        try{
+        try {
             //使用BASE64对需要解密的字符串进行解码
             $ciphertext = base64_decode($encrypted, true);
             $module     = mcrypt_module_open(MCRYPT_RIJNDAEL_128, '', MCRYPT_MODE_CBC, '');
@@ -238,11 +223,11 @@ class Crypt
             $decrypted = mdecrypt_generic($module, $ciphertext);
             mcrypt_generic_deinit($module);
             mcrypt_module_close($module);
-        } catch(Exception $e){
+        } catch (Exception $e) {
             throw new Exception($e->getMessage(), self::ERROR_DECRYPT_AES);
         }
 
-        try{
+        try {
             //去除补位字符
             $result = $this->decode($decrypted);
 
@@ -256,7 +241,7 @@ class Crypt
             $xmlLen    = $listLen[1];
             $xml       = substr($content, 4, $xmlLen);
             $fromAppId = trim(substr($content, $xmlLen + 4));
-        } catch(Exception $e){
+        } catch (Exception $e) {
             throw new Exception($e->getMessage(), self::ERROR_INVALID_XML);
         }
 
@@ -267,7 +252,6 @@ class Crypt
         return $xml;
     }
 
-
     /**
      * 随机生成16位字符串
      *
@@ -275,10 +259,8 @@ class Crypt
      */
     private function getRandomStr()
     {
-
         return substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz'), 0, 16);
     }
-
 
     /**
      * 生成SHA1签名
@@ -287,17 +269,15 @@ class Crypt
      */
     public function getSHA1()
     {
-
-        try{
+        try {
             $array = func_get_args();
             sort($array, SORT_STRING);
 
             return sha1(implode($array));
-        } catch(Exception $e){
+        } catch (Exception $e) {
             throw new Exception($e->getMessage(), self::ERROR_CALC_SIGNATURE);
         }
     }
-
 
     /**
      * 对需要加密的明文进行填充补位
@@ -308,9 +288,8 @@ class Crypt
      */
     public function encode($text)
     {
-
         //计算需要填充的位数
-        $padAmount = $this->blockSize - ( strlen($text) % $this->blockSize );
+        $padAmount = $this->blockSize - (strlen($text) % $this->blockSize);
 
         $padAmount = $padAmount !== 0 ? $padAmount : $this->blockSize;
 
@@ -323,9 +302,8 @@ class Crypt
             $tmp .= $padChr;
         }
 
-        return $text . $tmp;
+        return $text.$tmp;
     }
-
 
     /**
      * 对解密后的明文进行补位删除
@@ -336,13 +314,12 @@ class Crypt
      */
     public function decode($decrypted)
     {
-
         $pad = ord(substr($decrypted, -1));
 
         if ($pad < 1 || $pad > $this->blockSize) {
             $pad = 0;
         }
 
-        return substr($decrypted, 0, ( strlen($decrypted) - $pad ));
+        return substr($decrypted, 0, (strlen($decrypted) - $pad));
     }
 }

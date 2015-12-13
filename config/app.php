@@ -2,9 +2,6 @@
 
 return [
 
-    //网站设置的缓存时间
-    'option_exp' => 10,
-
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
@@ -29,7 +26,7 @@ return [
     |
     */
 
-    'url' => 'http://dev.meiguihuakai.com.cn',
+    'url' => 'http://localhost',
 
     /*
     |--------------------------------------------------------------------------
@@ -42,7 +39,7 @@ return [
     |
     */
 
-    'timezone' => 'PRC',
+    'timezone' => 'UTC',
 
     /*
     |--------------------------------------------------------------------------
@@ -55,7 +52,7 @@ return [
     |
     */
 
-    'locale' => 'zh-cn',
+    'locale' => 'zh',
 
     /*
     |--------------------------------------------------------------------------
@@ -68,7 +65,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'zh',
 
     /*
     |--------------------------------------------------------------------------
@@ -81,13 +78,13 @@ return [
     |
     */
 
-    'key' => env('APP_KEY', md5('netxinyi-20150630')),
+    'key' => env('APP_KEY', 'SomeRandomString'),
 
     'cipher' => 'AES-256-CBC',
 
     /*
     |--------------------------------------------------------------------------
-    | 日志配置
+    | Logging Configuration
     |--------------------------------------------------------------------------
     |
     | Here you may configure the log settings for your application. Out of
@@ -98,21 +95,23 @@ return [
     |
     */
 
-    'log' => 'single',
+    'log' => env('APP_LOG', 'single'),
 
     /*
     |--------------------------------------------------------------------------
-    | 自动加载的服务提供者
+    | Autoloaded Service Providers
     |--------------------------------------------------------------------------
     |
-    | 这些服务将在App创建之前加载，并将服务注册到App
+    | The service providers listed here will be automatically loaded on the
+    | request to your application. Feel free to add your own services to
+    | this array to grant expanded functionality to your applications.
     |
     */
 
     'providers' => [
 
         /*
-         * Laravel框架的服务提供者
+         * Laravel Framework Service Providers...
          */
         Illuminate\Foundation\Providers\ArtisanServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
@@ -139,13 +138,13 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
-         * 应用的服务提供者
+         * Application Service Providers...
          */
-        #App启动服务
-        \App\Providers\AppServiceProvider::class,
-        #路由服务
+        App\Providers\AppServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+        App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Overtrue\LaravelWechat\ServiceProvider::class
+
 
     ],
 
@@ -162,38 +161,38 @@ return [
 
     'aliases' => [
 
-        'App' => Illuminate\Support\Facades\App::class,
-        'Artisan' => Illuminate\Support\Facades\Artisan::class,
-        'Auth' => Illuminate\Support\Facades\Auth::class,
-        'Blade' => Illuminate\Support\Facades\Blade::class,
-        'Bus' => Illuminate\Support\Facades\Bus::class,
-        'Cache' => Illuminate\Support\Facades\Cache::class,
-        'Config' => Illuminate\Support\Facades\Config::class,
-        'Cookie' => Illuminate\Support\Facades\Cookie::class,
-        'Crypt' => Illuminate\Support\Facades\Crypt::class,
-        'DB' => Illuminate\Support\Facades\DB::class,
-        'Eloquent' => Illuminate\Database\Eloquent\Model::class,
-        'Event' => Illuminate\Support\Facades\Event::class,
-        'File' => Illuminate\Support\Facades\File::class,
-        'Hash' => Illuminate\Support\Facades\Hash::class,
-        'Input' => Illuminate\Support\Facades\Input::class,
-        'Inspiring' => Illuminate\Foundation\Inspiring::class,
-        'Lang' => Illuminate\Support\Facades\Lang::class,
-        'Log' => Illuminate\Support\Facades\Log::class,
-        'Mail' => Illuminate\Support\Facades\Mail::class,
-        'Password' => Illuminate\Support\Facades\Password::class,
-        'Queue' => Illuminate\Support\Facades\Queue::class,
-        'Redirect' => Illuminate\Support\Facades\Redirect::class,
-        'Redis' => Illuminate\Support\Facades\Redis::class,
-        'Request' => Illuminate\Support\Facades\Request::class,
-        'Response' => Illuminate\Support\Facades\Response::class,
-        'Route' => Illuminate\Support\Facades\Route::class,
-        'Schema' => Illuminate\Support\Facades\Schema::class,
-        'Session' => Illuminate\Support\Facades\Session::class,
-        'Storage' => Illuminate\Support\Facades\Storage::class,
-        'URL' => Illuminate\Support\Facades\URL::class,
+        'App'       => Illuminate\Support\Facades\App::class,
+        'Artisan'   => Illuminate\Support\Facades\Artisan::class,
+        'Auth'      => Illuminate\Support\Facades\Auth::class,
+        'Blade'     => Illuminate\Support\Facades\Blade::class,
+        'Bus'       => Illuminate\Support\Facades\Bus::class,
+        'Cache'     => Illuminate\Support\Facades\Cache::class,
+        'Config'    => Illuminate\Support\Facades\Config::class,
+        'Cookie'    => Illuminate\Support\Facades\Cookie::class,
+        'Crypt'     => Illuminate\Support\Facades\Crypt::class,
+        'DB'        => Illuminate\Support\Facades\DB::class,
+        'Eloquent'  => Illuminate\Database\Eloquent\Model::class,
+        'Event'     => Illuminate\Support\Facades\Event::class,
+        'File'      => Illuminate\Support\Facades\File::class,
+        'Gate'      => Illuminate\Support\Facades\Gate::class,
+        'Hash'      => Illuminate\Support\Facades\Hash::class,
+        'Input'     => Illuminate\Support\Facades\Input::class,
+        'Lang'      => Illuminate\Support\Facades\Lang::class,
+        'Log'       => Illuminate\Support\Facades\Log::class,
+        'Mail'      => Illuminate\Support\Facades\Mail::class,
+        'Password'  => Illuminate\Support\Facades\Password::class,
+        'Queue'     => Illuminate\Support\Facades\Queue::class,
+        'Redirect'  => Illuminate\Support\Facades\Redirect::class,
+        'Redis'     => Illuminate\Support\Facades\Redis::class,
+        'Request'   => Illuminate\Support\Facades\Request::class,
+        'Response'  => Illuminate\Support\Facades\Response::class,
+        'Route'     => Illuminate\Support\Facades\Route::class,
+        'Schema'    => Illuminate\Support\Facades\Schema::class,
+        'Session'   => Illuminate\Support\Facades\Session::class,
+        'Storage'   => Illuminate\Support\Facades\Storage::class,
+        'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
-        'View' => Illuminate\Support\Facades\View::class,
+        'View'      => Illuminate\Support\Facades\View::class,
 
     ],
 

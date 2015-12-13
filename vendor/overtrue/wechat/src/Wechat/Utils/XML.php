@@ -21,7 +21,6 @@ namespace Overtrue\Wechat\Utils;
 class XML
 {
 
-
     /**
      * XML 转换为数组
      *
@@ -31,7 +30,6 @@ class XML
      */
     public static function parse($xml)
     {
-
         $data = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
 
         if (is_object($data) && get_class($data) === 'SimpleXMLElement') {
@@ -40,7 +38,6 @@ class XML
 
         return $data;
     }
-
 
     /**
      * XML编码
@@ -59,8 +56,8 @@ class XML
         $item = 'item',
         $attr = '',
         $id = 'id'
-    ){
-
+    )
+    {
         if (is_array($attr)) {
             $_attr = array();
 
@@ -72,14 +69,13 @@ class XML
         }
 
         $attr = trim($attr);
-        $attr = empty( $attr ) ? '' : " {$attr}";
+        $attr = empty($attr) ? '' : " {$attr}";
         $xml  = "<{$root}{$attr}>";
-        $xml .= self::data2Xml($data, $item, $id);
-        $xml .= "</{$root}>";
+        $xml  .= self::data2Xml($data, $item, $id);
+        $xml  .= "</{$root}>";
 
         return $xml;
     }
-
 
     /**
      * 生成<![CDATA[%s]]>
@@ -90,10 +86,8 @@ class XML
      */
     public static function cdata($string)
     {
-
         return sprintf('<![CDATA[%s]]>', $string);
     }
-
 
     /**
      * 把对象转换成数组
@@ -104,9 +98,8 @@ class XML
      */
     private static function arrarval($data)
     {
-
         if (is_object($data) && get_class($data) === 'SimpleXMLElement') {
-            $data = (array)$data;
+            $data = (array) $data;
         }
 
         if (is_array($data)) {
@@ -117,7 +110,6 @@ class XML
 
         return $data;
     }
-
 
     /**
      * 转换数组为xml
@@ -130,19 +122,18 @@ class XML
      */
     private static function data2Xml($data, $item = 'item', $id = 'id')
     {
-
         $xml = $attr = '';
 
         foreach ($data as $key => $val) {
             if (is_numeric($key)) {
                 $id && $attr = " {$id}=\"{$key}\"";
-                $key = $item;
+                $key  = $item;
             }
 
             $xml .= "<{$key}{$attr}>";
 
-            if (( is_array($val) || is_object($val) )) {
-                $xml .= self::data2Xml((array)$val, $item, $id);
+            if ((is_array($val) || is_object($val))) {
+                $xml .= self::data2Xml((array) $val, $item, $id);
             } else {
                 $xml .= is_numeric($val) ? $val : self::cdata($val);
             }

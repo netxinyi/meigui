@@ -23,30 +23,20 @@ use Overtrue\Wechat\Utils\File;
 /**
  * 媒体素材
  *
- * @method string image( $path )
- * @method string voice( $path )
- * @method string thumb( $path )
+ * @method string image($path)
+ * @method string voice($path)
+ * @method string thumb($path)
  */
 class Media
 {
-
-
     const API_TEMPORARY_UPLOAD    = 'http://file.api.weixin.qq.com/cgi-bin/media/upload';
-
     const API_FOREVER_UPLOAD      = 'https://api.weixin.qq.com/cgi-bin/material/add_material';
-
     const API_TEMPORARY_GET       = 'https://api.weixin.qq.com/cgi-bin/media/get';
-
     const API_FOREVER_GET         = 'https://api.weixin.qq.com/cgi-bin/material/get_material';
-
     const API_FOREVER_NEWS_UPLOAD = 'https://api.weixin.qq.com/cgi-bin/material/add_news';
-
     const API_FOREVER_NEWS_UPDATE = 'https://api.weixin.qq.com/cgi-bin/material/update_news';
-
     const API_FOREVER_DELETE      = 'https://api.weixin.qq.com/cgi-bin/material/del_material';
-
     const API_FOREVER_COUNT       = 'https://api.weixin.qq.com/cgi-bin/material/get_materialcount';
-
     const API_FOREVER_LIST        = 'https://api.weixin.qq.com/cgi-bin/material/batchget_material';
 
     /**
@@ -55,12 +45,12 @@ class Media
      * @var array
      */
     protected $allowTypes = array(
-        'image',
-        'voice',
-        'video',
-        'thumb',
-        'news',
-    );
+                             'image',
+                             'voice',
+                             'video',
+                             'thumb',
+                             'news',
+                            );
 
     /**
      * Http对象
@@ -76,7 +66,6 @@ class Media
      */
     protected $forever = false;
 
-
     /**
      * constructor
      *
@@ -85,10 +74,8 @@ class Media
      */
     public function __construct($appId, $appSecret)
     {
-
         $this->http = new Http(new AccessToken($appId, $appSecret));
     }
-
 
     /**
      * 是否为永久素材
@@ -97,12 +84,10 @@ class Media
      */
     public function forever()
     {
-
         $this->forever = true;
 
         return $this;
     }
-
 
     /**
      * 上传媒体文件
@@ -115,7 +100,6 @@ class Media
      */
     protected function upload($type, $path, $params = array())
     {
-
         if (!file_exists($path) || !is_readable($path)) {
             throw new Exception("文件不存在或不可读 '$path'");
         }
@@ -127,15 +111,15 @@ class Media
         $queries = array('type' => $type);
 
         $options = array(
-            'files' => array('media' => $path),
-        );
+                    'files' => array('media' => $path),
+                   );
 
         $url = $this->getUrl($type, $queries);
 
         $response = $this->http->post($url, $params, $options);
 
         $this->forever = false;
-        
+
         if ($type == 'image') {
             return $response;
         }
@@ -144,7 +128,6 @@ class Media
 
         return array_pop($response);
     }
-
 
     /**
      * 上传视频
@@ -159,17 +142,17 @@ class Media
      */
     public function video($path, $title, $description)
     {
-
         $params = array(
-            'description' => JSON::encode(array(
-                    'title'        => $title,
-                    'introduction' => $description,
-                )),
-        );
+                   'description' => JSON::encode(
+                       array(
+                        'title'        => $title,
+                        'introduction' => $description,
+                       )
+                   ),
+                  );
 
         return $this->upload('video', $path, $params);
     }
-
 
     /**
      * 新增图文素材
@@ -180,14 +163,12 @@ class Media
      */
     public function news(array $articles)
     {
-
         $params = array('articles' => $articles);
 
         $response = $this->http->jsonPost(self::API_FOREVER_NEWS_UPLOAD, $params);
 
         return $response['media_id'];
     }
-
 
     /**
      * 修改图文消息
@@ -200,16 +181,14 @@ class Media
      */
     public function updateNews($mediaId, $article, $index = 0)
     {
-
         $params = array(
-            'media_id' => $mediaId,
-            'index'    => $index,
-            'articles' => isset( $article['title'] ) ? $article : ( isset( $article[$index] ) ? $article[$index] : array() ),
-        );
+                   'media_id' => $mediaId,
+                   'index'    => $index,
+                   'articles' => isset($article['title']) ? $article : (isset($article[$index]) ? $article[$index] : array()),
+                  );
 
         return $this->http->jsonPost(self::API_FOREVER_NEWS_UPDATE, $params);
     }
-
 
     /**
      * 删除永久素材
@@ -220,10 +199,8 @@ class Media
      */
     public function delete($mediaId)
     {
-
         return $this->http->jsonPost(self::API_FOREVER_DELETE, array('media_id' => $mediaId));
     }
-
 
     /**
      * 图片素材总数
@@ -234,7 +211,6 @@ class Media
      */
     public function stats($type = null)
     {
-
         $response = $this->http->get(self::API_FOREVER_COUNT);
 
         $response['voice'] = $response['voice_count'];
@@ -246,7 +222,6 @@ class Media
 
         return $type ? $response->get($type) : $response;
     }
-
 
     /**
      * 获取永久素材列表
@@ -273,16 +248,14 @@ class Media
      */
     public function lists($type, $offset = 0, $count = 20)
     {
-
         $params = array(
-            'type'   => $type,
-            'offset' => intval($offset),
-            'count'  => min(20, $count),
-        );
+                   'type'   => $type,
+                   'offset' => intval($offset),
+                   'count'  => min(20, $count),
+                  );
 
         return $this->http->jsonPost(self::API_FOREVER_LIST, $params);
     }
-
 
     /**
      * 下载媒体文件
@@ -294,7 +267,6 @@ class Media
      */
     public function download($mediaId, $filename = '')
     {
-
         $params = array('media_id' => $mediaId);
 
         $method = $this->forever ? 'jsonPost' : 'get';
@@ -307,15 +279,13 @@ class Media
         if (!is_array($contents)) {
             $ext = File::getStreamExt($contents);
 
-            file_put_contents($filename . '.' . $ext, $contents);
+            file_put_contents($filename.$ext, $contents);
 
-            return $filename . '.' . $ext;
+            return $filename.$ext;
         } else {
-
             return $contents;
         }
     }
-
 
     /**
      * 魔术调用
@@ -331,15 +301,13 @@ class Media
      */
     public function __call($method, $args)
     {
-
         $args = array(
-            $method,
-            array_shift($args),
-        );
+                 $method,
+                 array_shift($args),
+                );
 
         return call_user_func_array(array(__CLASS__, 'upload'), $args);
     }
-
 
     /**
      * 获取API
@@ -351,13 +319,12 @@ class Media
      */
     protected function getUrl($type, $queries = array())
     {
-
         if ($type === 'news') {
             $api = self::API_FOREVER_NEWS_UPLOAD;
         } else {
             $api = $this->forever ? self::API_FOREVER_UPLOAD : self::API_TEMPORARY_UPLOAD;
         }
 
-        return $api . '?' . http_build_query($queries);
+        return $api.'?'.http_build_query($queries);
     }
 }

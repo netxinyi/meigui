@@ -26,7 +26,6 @@ use Closure;
 class MenuItem extends MagicAttributes
 {
 
-
     /**
      * 实例化菜单
      *
@@ -36,13 +35,12 @@ class MenuItem extends MagicAttributes
      */
     public function __construct($name, $type = null, $property = null)
     {
-
         $this->with('name', $name);
 
         $type !== null && $this->with('type', $type);
 
         if ($property !== null) {
-            switch ($type) {
+            switch($type){
                 case 'view':
                     $key = 'url';
                     break;
@@ -58,7 +56,6 @@ class MenuItem extends MagicAttributes
         }
     }
 
-
     /**
      * 设置子菜单
      *
@@ -68,7 +65,6 @@ class MenuItem extends MagicAttributes
      */
     public function buttons($buttons)
     {
-
         if ($buttons instanceof Closure) {
             $buttons = $buttons($this);
         }
@@ -82,7 +78,6 @@ class MenuItem extends MagicAttributes
         return $this;
     }
 
-
     /**
      * 添加子菜单
      *
@@ -90,7 +85,6 @@ class MenuItem extends MagicAttributes
      */
     public function button(MenuItem $button)
     {
-
         $subButtons = $this->sub_button;
 
         $subButtons[] = $button;
