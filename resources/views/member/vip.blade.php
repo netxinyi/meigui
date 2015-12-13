@@ -25,9 +25,11 @@
                                     </li>
                                 @else
                                     @foreach($user->gallery as $photo)
-                                        <li data-thumb="{{$photo->image_url}}">
-                                            <img src="{{$photo->image_url}}"/>
-                                        </li>
+                                        @if($photo->image_url)
+                                            <li data-thumb="/uploads/images/{{$photo}}">
+                                                <img src="/uploads/images/{{$photo}}"/>
+                                            </li>
+                                        @endif
                                     @endforeach
                                 @endif
                             </ul>
