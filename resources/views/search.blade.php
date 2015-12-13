@@ -107,7 +107,7 @@
     <script type="text/javascript" src="/assets/lib/pcas/pcas.js"></script>
     <script type="text/javascript">
         $(function () {
-            new PCAS('work_province', 'work_city', "{{Request::get('word_province')}}", "{{Request::get('work_coty')}}", "不限制", 0);
+            new PCAS('work_province', 'work_city', "{{Request::get('work_province')}}", "{{Request::get('work_city')}}");
 
         });
     </script>

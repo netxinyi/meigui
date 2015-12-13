@@ -69,8 +69,11 @@ function PCAS() {
 PCAS.SetP = function (PCA) {
 
     for (var i in PROVINCES) {
-
-        PCA.SelP.options.add(new Option(i, i));
+        var   option = new Option(i, i);
+        PCA.SelP.options.add(option);
+        if (PCA.DefP == i){
+            option.selected = true
+        }
     }
 
     PCAS.SetC(PCA)
@@ -82,11 +85,11 @@ PCAS.SetC = function (PCA) {
 
     PCA.SelC.innerHTML = '';
     for (i = 0; i <= citys.length; i++) {
-
-        PCA.SelC.options.add(new Option(citys[i], citys[i]));
+        var option = new Option(citys[i], citys[i]);
+        PCA.SelC.options.add(option);
 
         if (PCA.DefC == citys[i]){
-            PCA.SelC[i - 1].selected = true
+            option.selected = true;
         }
     }
 
