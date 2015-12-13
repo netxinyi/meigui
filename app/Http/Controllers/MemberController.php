@@ -68,7 +68,8 @@ class MemberController extends Controller
     {
         $status = $user['status'];
         if ($status == (userEnum::STATUS_OK)) {
-            return $this->view('vip')->with('user', $user);
+            $tpl = $user->level == \App\Enum\User::LEVEL_1 ? 'vip' : 'svip';
+            return $this->view($tpl)->with('user', $user);
         } else {
             return \Redirect::back()->with('status', '该会员尚未通过审核');
         }

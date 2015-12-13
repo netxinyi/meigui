@@ -63,7 +63,7 @@
                 @foreach($users as $user)
                     <li>
                         <div class="am-gallery-item ">
-                            <a href="/user/{{$user->user_id}}" class="">
+                            <a href="/member/{{$user->user_id}}" class="">
 
                                 <img src="{{$user->avatar}}" alt="{{$user->user_name}}"/>
 
