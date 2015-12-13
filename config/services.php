@@ -24,15 +24,20 @@ return [
     ],
 
     'ses' => [
-        'key'    => env('SES_KEY'),
+        'key' => env('SES_KEY'),
         'secret' => env('SES_SECRET'),
         'region' => 'us-east-1',
     ],
 
     'stripe' => [
-        'model'  => App\User::class,
-        'key'    => env('STRIPE_KEY'),
+        'model' => App\User::class,
+        'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'weixinweb' => [
+        'client_id' => 'wxed1a5c825220c603',
+        'client_secret' => 'db8c0ecb15469c975074c06e42294e11',
+        'redirect' => 'http://www.meigui.com/auth/socialite/callback/weixinweb'
+    ]
 ];

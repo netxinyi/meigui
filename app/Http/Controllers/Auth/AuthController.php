@@ -7,6 +7,7 @@ use App\Model\User;
 use App\Http\Controllers\Controller;
 use App\Model\UserInfo;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
@@ -25,6 +26,41 @@ class AuthController extends Controller
     {
 
         $this->middleware('guest', ['except' => 'getLogout']);
+    }
+
+    public function getSocialite()
+    {
+
+        $type = $this->request()->segment(3);
+
+        return Socialite::with($type)->redirect();
+    }
+    public function getCallback()
+    {
+
+        $type = $this->request()->segment(3);
+
+        $info = Socialite::driver($type)->user();
+
+        //已经在本站注册
+        if ($bind = UserBind::openId($info->getId())->first()) {
+
+            $user = User::find($bind->user_id);
+            //更新accessToken和过期时间
+            $bind->update(array(
+                'access_token' => $info->token
+            ));
+            //登录成功,跳转到登录前页面
+            Auth::login($user);
+            return $this->redirect()->intended('/');
+        } else {
+
+            //还没有在本站注册,跳转到账号绑定页面
+            $info->from = $type;
+            Session::put('social-info', $info);
+            return $this->redirect('/socialite/bind');
+        }
+
     }
 
     public function postLogin()
