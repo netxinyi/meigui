@@ -156,7 +156,7 @@
                     $("#images").after('<img name="image" style="width: 31px; height: 33px;" class="file-btn" src="" >');
                 } else {
                     $("#"+images).hide();
-                    $("#"+images).after('<img name="image" style=" height: 200px;" class="file-btn" src="http://dev.meiguihuakai.com.cn/uploads/images/' + res + '" >');
+                    $("#"+images).after('<img name="image" style=" height: 200px;" class="file-btn" src="/uploads/images/' + res + '" >');
                     $("#"+url).val(res);
                   
                      
