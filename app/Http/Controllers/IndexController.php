@@ -34,7 +34,35 @@ class IndexController extends Controller
 //
     public function getSearch()
     {
-        $users = [];
+        $builder = User::orderBy('updated_at');
+
+        $pageSize = $this->request()->get('pageSize', 36);
+        $sex = $this->request()->get('sex', UserEnum::SEX_FEMALE);
+        $ageStart = $this->request()->get('age_start');
+        $ageEnd = $this->request()->get('age_end');
+        $wordkProvince = $this->request()->get('work_province');
+
+        if ($sex) {
+            $builder->where('sex', $sex);
+        }
+
+        if ($ageStart) {
+            $birStart = ageToYear($ageStart);
+            $builder->where('birthday', '<=', $birStart);
+        }
+        if ($ageEnd) {
+            $birEnd = ageToYear($ageEnd);
+            $builder->where('birthday', '>=', $birEnd);
+        }
+
+        if ($wordkProvince) {
+            $builder->where('work_province', 'like', $wordkProvince);
+        }
+
+        $users = $builder->paginate($pageSize);
+
+        $users->appends($this->request()->all());
+
         return $this->view('search')->with('users', $users);
     }
 

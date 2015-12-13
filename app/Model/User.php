@@ -155,7 +155,7 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
 
     public function getSalaryLangAttribute()
     {
-        return $this->getLang(UserEnum::$salaryObjectLang, 'salary', '未填写');
+        return $this->getLang(UserEnum::$salaryLang, 'salary', '未填写');
     }
 
     public function getMarriageLangAttribute()
