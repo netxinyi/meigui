@@ -39,7 +39,7 @@
                     <thead>
                     <tr>
                         <th>用户ID</th>
-                        <th>手机号码</th>
+                        <th>用户昵称</th>
                         <th>待审核相片</th>
                         <th>操作</th>
                     </tr>
@@ -48,11 +48,15 @@
                     @foreach($users as $user)
                         <tr>
                             <td>{{$user->user_id}}</td>
-                            <td>{{$user->avatar}}</td>
-                            <td>{{$user->avatar}}</td>
+                            <td>{{$user->user->user_name}}</td>
+                            <td>
+                                 <a href="/uploads/avatar/{{$user->image_url}}"  target="_blank">
+                                    <img src="/uploads/avatar/{{$user->image_url}}" height="100">
+                                </a>
+                            </td>
                             <td class="text-center">
-                                <button class="btn btn-sm btn-info  m-r-5"   onclick="shenhe({{$user->user_id}},'首页')">审核通过</button>
-                                <button class="btn btn-sm btn-danger  m-r-5"   onclick="shenhe({{$user->user_id}},'会员专区')">审核不通过</button>
+                                <button class="btn btn-sm btn-info  m-r-5"   onclick="shenhe({{$user->photo_id}},'正常')">审核通过</button>
+                                <button class="btn btn-sm btn-danger  m-r-5"   onclick="shenhe({{$user->photo_id}},'审核失败')">审核不通过</button>
                             </td>
                         </tr>
                     @endforeach
@@ -85,18 +89,21 @@
     <script>
 
     // 审核
-    function shenhe(user_id,str){
+    function shenhe(photo_id,str){
         var token = $("input[name='_token']").val();
        
         $.rest({
-         url:'/admin/user/setIntroduceStatus',
+         url:'/admin/user/setGalleryStatus',
          method:'post',
-         data:{user_id:user_id,_token:token,status:str}
+         data:{photo_id:photo_id,_token:token,status:str},
+         success:function(data){
+               window.location.reload();
+         },
+         error:function(){
+             
+              window.location.reload();
+         }
         });
-
-
-        $.alert("操作成功","success");
-
 
     }
     </script>
