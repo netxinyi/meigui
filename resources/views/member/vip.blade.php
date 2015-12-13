@@ -62,10 +62,8 @@
                                         <td>住房：<span class="msg_font_color">{{$user->house_lang}}</span></td>
                                         <td>月薪：<span class="msg_font_color">{{$user->salary_lang}}</span></td>
                                     </tr>
-                                    <tr>
-                                        <td>籍贯：<span class="msg_font_color">{{$user->info->origin_province}}</span></td>
-                                        <td>民族：<span class="msg_font_color">{{$user->info->stock}}</span></td>
-                                    </tr>
+                                    <td>籍贯：<span class="msg_font_color">{{$user->info->origin}}</span></td>
+                                    <td>民族：<span class="msg_font_color">{{$user->info->stock}}</span></td>
                                     <tr>
                                         <td colspan="2">
                                             <button type="button" class="am-btn am-btn-danger dy_btn_color"

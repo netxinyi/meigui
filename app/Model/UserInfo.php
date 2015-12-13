@@ -26,4 +26,20 @@ class UserInfo extends BaseModel
 
     public $timestamps = false;
 
+    protected $appends = ['origin'];
+
+    public function getStockAttribute()
+    {
+        return array_get($this->attributes, 'stroke', '未填写');
+
+    }
+
+    public function getOriginAttribute()
+    {
+        $pro = array_get($this->attributes, 'origin_province', '');
+        $city = array_get($this->attributes, 'origin_city', '');
+
+        return !$pro && !$city ? '未填写' : $pro . ' ' . $city;
+    }
+
 }

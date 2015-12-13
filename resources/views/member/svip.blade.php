@@ -62,7 +62,7 @@
                                         <td>月薪：<span class="msg_font_color">{{$user->salary_lang}}</span></td>
                                     </tr>
                                     <tr>
-                                        <td>籍贯：<span class="msg_font_color">{{$user->info->origin_province}}</span></td>
+                                        <td>籍贯：<span class="msg_font_color">{{$user->info->origin}}</span></td>
                                         <td>民族：<span class="msg_font_color">{{$user->info->stock}}</span></td>
                                     </tr>
                                     <tr>
