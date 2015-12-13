@@ -29,7 +29,7 @@ class MemberController extends Controller
             'user.like' => function ($query) {
                 return $query->select('id');
             }
-        ))->home()->orderBy('order')->get(array('user_id'))->all();
+        ))->home()->orderBy('order')->get(array('user_id'));
 
         $users = array(
             'male' => array(),
@@ -37,7 +37,8 @@ class MemberController extends Controller
             'vip' => array()
         );
         foreach ($recommends as $recommend) {
-            foreach ($recommend->user->all() as $user) {
+            $user = $recommend->user;
+            if ($user) {
                 if ($user->sex == userEnum::SEX_FEMALE) {
                     $users['female'][] = $user;
                 } else if ($user->level == userEnum::LEVEL_1) {
@@ -46,6 +47,7 @@ class MemberController extends Controller
                     $users['vip'][] = $user;
                 }
             }
+
         }
 
 		//筛选出鸳鸯谱的所有案例
