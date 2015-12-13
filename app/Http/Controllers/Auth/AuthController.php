@@ -112,7 +112,7 @@ class AuthController extends Controller
             'sex' => 'required:in:' . array_keys_impload(\App\Enum\User::$sexLang),
             'birthday' => 'required|date',
             'marriage' => 'required|in:' . array_keys_impload(\App\Enum\User::$marriageLang),
-            'like' => 'exist|users,user_id'
+            'like' => 'exists:users,user_id'
         ), array(
             'realname.required' => '请填写真实姓名',
             'mobile.required' => '请填写手机号',

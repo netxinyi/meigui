@@ -225,4 +225,9 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
     {
         return $this->hasMany(UserLike::class, 'user_id', 'user_id');
     }
+
+    public function likeMe()
+    {
+        return $this->hasMany(UserLike::class, 'like_user_id', 'user_id');
+    }
 }

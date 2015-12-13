@@ -36,7 +36,8 @@
                         <div class="am-panel am-panel-warning">
                             <!-- 基本信息 -->
                             <header class="am-panel-hd">
-                                <h3 class="am-panel-title">{{$user->user_name}}<span style="font-size:14px;margin-left:10px;color:#999">ID:{{$user->user_id}}</span>
+                                <h3 class="am-panel-title">{{$user->user_name}}<span
+                                            style="font-size:14px;margin-left:10px;color:#999">ID:{{$user->user_id}}</span>
                                 </h3>
                             </header>
                             <div class="am-panel-bd">
@@ -122,7 +123,7 @@
                         <div class="am-panel-bd">
                             <div class="ziwojieshao">
                                 <span>{{$user->info->introduce}}</span>
-                    </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -134,38 +135,49 @@
                 <div class="jiaoyoutishi_svip">
                     <div class="am-panel am-panel-warning">
                         <header class="am-panel-hd">
-                            <h3 class="am-panel-title">我要报名(已报名{{$user->like->count()}}人)</h3>
+                            <h3 class="am-panel-title">我要报名(已报名{{$user->likeMe->count()}}人)</h3>
                         </header>
                         <div class="am-panel-bd">
-                            <form action="">
+                            <form action="/auth/register" id="register-form" method="post">
+                                <input type="hidden" name="_token" value="{{csrf_token()}}">
+                                <input type="hidden" name="like" value="{{$user->user_id}}">
                                 <table>
                                     <tr>
                                         <td>真实姓名:</td>
-                                        <td><input type="text"></td>
+                                        <td><input type="text" name="realname" required></td>
                                     </tr>
                                     <tr>
                                         <td>手机号码:</td>
-                                        <td><input type="text"></td>
+                                        <td><input type="text" name="mobile" required></td>
                                     </tr>
                                     <tr>
                                         <td>性别:</td>
-                                        <td><input type="text"></td>
+                                        <td>
+                                            <input type="radio" name="sex" id="male" value="{{\App\Enum\User::SEX_MALE}}" checked>
+                                            <label for="male">男</label>
+                                            <input type="radio" name="sex" id="female" value="{{\App\Enum\User::SEX_FEMALE}}">
+                                            <label for="female">女</label>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>出生年月:</td>
-                                        <td><input type="text"></td>
+                                        <td><input type="text" name="birthday" required></td>
                                     </tr>
                                     <tr>
                                         <td>婚姻状况:</td>
-                                        <td><input type="radio" name="status" id="status_1" checked><label
-                                                    for="status_1">未婚</label><input type="radio" name="status"
-                                                                                    id="status_2"><label for="status_2">离婚</label><input
-                                                    type="radio" name="status" id="status_3"><label
-                                                    for="status_3">丧偶</label></td>
+                                        <td>
+
+                                            <input type="radio" name="marriage" id="status_1" checked value="{{\App\Enum\User::MARRIAGE_UNMARRIED}}">
+                                            <label for="status_1">未婚</label>
+                                            <input type="radio" name="marriage" id="status_2" value="{{\App\Enum\User::MARRIAGE_DIVORCED}}">
+                                            <label for="status_2">离婚</label>
+                                            <input type="radio" name="marriage" id="status_3" value="{{\App\Enum\User::MARRIAGE_WIDOWED}}">
+                                            <label for="status_3">丧偶</label>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td colspan="2" style="text-align:center">
-                                            <button type="button"
+                                            <button type="submit"
                                                     class="am-btn am-btn-danger dy_btn_color am-btn-block">马上报名
                                             </button>
                                         </td>
@@ -186,17 +198,39 @@
             <!-- 右边部分 end-->
         </div>
     </div>
-
-
-
     <div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-1">
         <div class="am-modal-dialog">
             <div class="am-modal-hd">查看联系方式
                 <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
             </div>
             <div class="am-modal-bd">
-                温馨提示：请拨打010-1234567 或者联系在线客服QQ：568888888获取心仪对象的联系方式。
+                温馨提示：请拨打{{option('tel')}} 或者联系在线客服QQ：{{option('qq1')}}获取心仪对象的联系方式。
             </div>
         </div>
     </div>
+@stop
+
+
+@section('footer-last-js')
+
+    <script type="text/javascript">
+        $(function(){
+            $('#register-form').success(function () {
+                $.redirect(null, 2);
+            }).form();
+
+            var now = new Date();
+
+            $('[name="birthday"]').datepicker({
+                theme: "danger",
+                format: "yyyy-mm-dd",
+                viewMode: "years",
+                onRender: function (date, viewMode) {
+                    if (date >= now) {
+                        return 'am-disabled';
+                    }
+                }
+            });
+        });
+    </script>
 @stop

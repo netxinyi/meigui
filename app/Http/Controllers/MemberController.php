@@ -22,11 +22,10 @@ class MemberController extends Controller
     public function index()
     {
 
-
-        \DB::enableQueryLog();
-        $users['male'] = User::rightJoin('user_recommend', 'user_recommend.user_id', '=', 'users.user_id')
+        $users['male'] = User::leftJoin('user_recommend', 'user_recommend.user_id', '=', 'users.user_id')
             ->where('user_recommend.page',\App\Enum\User::RECOMMEND_HOME)
-            ->male()->level(\App\Enum\User::LEVEL_1)->limit(24)->orderBy('user_recommend.order')->get();
+            ->whereIn('level',array(\App\Enum\User::LEVEL_1,\App\Enum\User::LEVEL_2))
+            ->male()->limit(24)->orderBy('user_recommend.order')->get();
 
 
         $users['female'] = User::leftJoin('user_recommend', 'user_recommend.user_id', '=', 'users.user_id')
@@ -47,7 +46,8 @@ class MemberController extends Controller
     {
         $users = User::leftJoin('user_recommend', 'user_recommend.user_id', '=', 'users.user_id')
             ->where('user_recommend.page',\App\Enum\User::RECOMMEND_HOME)
-            ->male()->level(\App\Enum\User::LEVEL_1)->orderBy('user_recommend.order')->paginate(36);
+            ->whereIn('level',array(\App\Enum\User::LEVEL_1,\App\Enum\User::LEVEL_2))
+            ->male()->orderBy('user_recommend.order')->paginate(36);
 
         $users->appends($this->request()->all());
         return $this->view('male')->with('users', $users);
