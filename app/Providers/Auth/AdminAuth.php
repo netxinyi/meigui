@@ -25,11 +25,13 @@ class AdminAuth extends Guard
      */
     public function __construct(AdminAuthUserProvider $provider,
                                 SessionInterface $session,
-                                Request $request = null)
+                                Request $request = null,
+                                \Illuminate\Contracts\Cookie\QueueingFactory $cookie)
     {
         $this->session = $session;
         $this->request = $request;
         $this->provider = $provider;
+        $this->cookie = $cookie;
     }
 
     /**

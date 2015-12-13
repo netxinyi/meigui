@@ -71,9 +71,8 @@ class AuthController extends Controller
 
         }
 
-
         //TODO 抛出异常代码
-        return $this->redirect()->back()->withErrors('账号或密码错误', 'error');
+        return $this->redirect()->back()->withErrors('账号或密码错误');
     }
 
 
