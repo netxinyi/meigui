@@ -60,12 +60,12 @@
                             <td>{{$user->user->level_lang}}</td>
                             <td class="text-center">
                                 @if($user->page=="不推荐")
-                                   <button class="btn btn-sm btn-success  m-r-5"   onclick="shenhe({{$user->id}},'首页')">网站首页展示</button>
-                                   <button class="btn btn-sm btn-success  m-r-5"   onclick="shenhe({{$user->id}},'会员专区')">会员专区展示</button> 
+                                   <button class="btn btn-sm btn-success  m-r-5"   onclick="shenhe({{$user->id}},'首页')" id="btn_{{$user->id}}">网站首页展示</button>
+                                   <button class="btn btn-sm btn-success  m-r-5"   onclick="shenhe({{$user->id}},'会员专区')" id="btn_{{$user->id}}">会员专区展示</button> 
                                     
                                 @else
                                    在{{$user->page}}展示中，点击
-                                   <button class="btn btn-sm btn-info  m-r-5"   onclick="shenhe({{$user->id}},'不推荐')">取消推荐</button>
+                                   <button class="btn btn-sm btn-info  m-r-5"   onclick="shenhe({{$user->id}},'不推荐')" id="btn_{{$user->id}}">取消推荐</button>
                                 @endif
                                 
                                
@@ -107,10 +107,16 @@
         $.rest({
          url:'/admin/user/setRecommendPage',
          method:'post',
-         data:{id:id,_token:token,page:str}
+         data:{id:id,_token:token,page:str},
+         success:function(data){
+                alert(55555);
+                // $("#btn_"+id).hide();
+                
+         },
+         error:function(){
+            alert(22222222222);
+         }
         });
-
-       $.alert("操作成功","success");
 
     }
     </script>
