@@ -27,19 +27,17 @@ namespace Overtrue\Wechat\Messages;
 class Video extends BaseMessage
 {
 
-
     /**
      * 属性
      *
      * @var array
      */
     protected $properties = array(
-        'title',
-        'description',
-        'media_id',
-        'thumb_media_id',
-    );
-
+                             'title',
+                             'description',
+                             'media_id',
+                             'thumb_media_id',
+                            );
 
     /**
      * 设置视频消息
@@ -50,12 +48,10 @@ class Video extends BaseMessage
      */
     public function media($mediaId)
     {
-
         $this->setAttribute('media_id', $mediaId);
 
         return $this;
     }
-
 
     /**
      * 设置视频封面
@@ -66,12 +62,10 @@ class Video extends BaseMessage
      */
     public function thumb($mediaId)
     {
-
         $this->setAttribute('thumb_media_id', $mediaId);
 
         return $this;
     }
-
 
     /**
      * 生成主动消息数组
@@ -80,17 +74,15 @@ class Video extends BaseMessage
      */
     public function toStaff()
     {
-
         return array(
-            'video' => array(
-                'title'          => $this->title,
-                'media_id'       => $this->media_id,
-                'description'    => $this->description,
-                'thumb_media_id' => $this->thumb_media_id,
-            ),
-        );
+                'video' => array(
+                            'title'          => $this->title,
+                            'media_id'       => $this->media_id,
+                            'description'    => $this->description,
+                            'thumb_media_id' => $this->thumb_media_id,
+                           ),
+               );
     }
-
 
     /**
      * 生成回复消息数组
@@ -99,14 +91,13 @@ class Video extends BaseMessage
      */
     public function toReply()
     {
-
         $response = array(
-            'Video' => array(
-                'MediaId'     => $this->media_id,
-                'Title'       => $this->title,
-                'Description' => $this->description,
-            ),
-        );
+                     'Video' => array(
+                                 'MediaId'     => $this->media_id,
+                                 'Title'       => $this->title,
+                                 'Description' => $this->description,
+                                ),
+                    );
 
         return $response;
     }

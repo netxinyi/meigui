@@ -27,20 +27,18 @@ namespace Overtrue\Wechat\Messages;
 class Music extends BaseMessage
 {
 
-
     /**
      * 属性
      *
      * @var array
      */
     protected $properties = array(
-        'url',
-        'hq_url',
-        'title',
-        'description',
-        'thumb_media_id',
-    );
-
+                             'url',
+                             'hq_url',
+                             'title',
+                             'description',
+                             'thumb_media_id',
+                            );
 
     /**
      * 设置音乐消息封面图
@@ -51,12 +49,10 @@ class Music extends BaseMessage
      */
     public function thumb($mediaId)
     {
-
         $this->setAttribute('thumb_media_id', $mediaId);
 
         return $this;
     }
-
 
     /**
      * 生成主动消息数组
@@ -65,18 +61,16 @@ class Music extends BaseMessage
      */
     public function toStaff()
     {
-
         return array(
-            'music' => array(
-                'title'          => $this->title,
-                'description'    => $this->description,
-                'musicurl'       => $this->url,
-                'hqmusicurl'     => $this->hq_url,
-                'thumb_media_id' => $this->thumb_media_id,
-            ),
-        );
+                'music' => array(
+                            'title'          => $this->title,
+                            'description'    => $this->description,
+                            'musicurl'       => $this->url,
+                            'hqmusicurl'     => $this->hq_url,
+                            'thumb_media_id' => $this->thumb_media_id,
+                           ),
+               );
     }
-
 
     /**
      * 生成回复消息数组
@@ -85,16 +79,15 @@ class Music extends BaseMessage
      */
     public function toReply()
     {
-
         $response = array(
-            'Music' => array(
-                'Title'        => $this->title,
-                'Description'  => $this->description,
-                'MusicUrl'     => $this->url,
-                'HQMusicUrl'   => $this->hq_url,
-                'ThumbMediaId' => $this->thumb_media_id,
-            ),
-        );
+                     'Music' => array(
+                                 'Title'        => $this->title,
+                                 'Description'  => $this->description,
+                                 'MusicUrl'     => $this->url,
+                                 'HQMusicUrl'   => $this->hq_url,
+                                 'ThumbMediaId' => $this->thumb_media_id,
+                                ),
+                    );
 
         return $response;
     }

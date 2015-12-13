@@ -21,12 +21,12 @@ class PHPUnit_Framework_MockObject_Invocation_Static implements PHPUnit_Framewor
      * @var array
      */
     protected static $uncloneableExtensions = array(
-        'mysqli'  => true,
-        'SQLite'  => true,
-        'sqlite3' => true,
-        'tidy'    => true,
+      'mysqli'    => true,
+      'SQLite'    => true,
+      'sqlite3'   => true,
+      'tidy'      => true,
       'xmlwriter' => true,
-        'xsl'     => true
+      'xsl'       => true
     );
 
     /**
@@ -87,9 +87,11 @@ class PHPUnit_Framework_MockObject_Invocation_Static implements PHPUnit_Framewor
     {
         $exporter = new Exporter;
 
-        return sprintf('%s::%s(%s)',
+        return sprintf(
+            '%s::%s(%s)',
             $this->className,
-            $this->methodName, implode(
+            $this->methodName,
+            implode(
                 ', ',
                 array_map(
                     array($exporter, 'shortenedExport'),

@@ -23,16 +23,14 @@ namespace Overtrue\Wechat\Messages;
 class Link extends BaseMessage
 {
 
-
     /**
      * 属性
      *
      * @var array
      */
     protected $properties = array(
-        'title',
-        'description',
-        'url',
-    );
-
+                             'title',
+                             'description',
+                             'url',
+                            );
 }

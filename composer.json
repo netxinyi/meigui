@@ -12,7 +12,8 @@
     "laravel/framework": "5.1.*",
     "predis/predis": "~1.0",
     "curl/curl": "^1.2",
-    "overtrue/laravel-wechat": "2.1.*"
+    "overtrue/laravel-wechat": "2.1.*",
+    "socialiteproviders/weixin-web": "~1.0"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",

@@ -21,7 +21,6 @@ namespace Overtrue\Wechat;
 class Stats
 {
 
-
     /**
      * Http对象
      *
@@ -30,56 +29,39 @@ class Stats
     protected $http;
 
     // 获取用户增减数据
-    const  API_USER_SUMMARY = 'https://api.weixin.qq.com/datacube/getusersummary';
-
+    const  API_USER_SUMMARY                   = 'https://api.weixin.qq.com/datacube/getusersummary';
     // 获取累计用户数据
-    const  API_USER_CUMULATE = 'https://api.weixin.qq.com/datacube/getusercumulate';
-
+    const  API_USER_CUMULATE                  = 'https://api.weixin.qq.com/datacube/getusercumulate';
     // 获取图文群发每日数据
-    const  API_ARTICLE_SUMMARY = 'https://api.weixin.qq.com/datacube/getarticlesummary';
-
+    const  API_ARTICLE_SUMMARY                = 'https://api.weixin.qq.com/datacube/getarticlesummary';
     // 获取图文群发总数据
-    const  API_ARTICLE_TOTAL = 'https://api.weixin.qq.com/datacube/getarticletotal';
-
+    const  API_ARTICLE_TOTAL                  = 'https://api.weixin.qq.com/datacube/getarticletotal';
     // 获取图文统计数据
-    const  API_USER_READ_SUMMARY = 'https://api.weixin.qq.com/datacube/getuserread';
-
+    const  API_USER_READ_SUMMARY              = 'https://api.weixin.qq.com/datacube/getuserread';
     // 获取图文统计分时数据
-    const  API_USER_READ_HOURLY = 'https://api.weixin.qq.com/datacube/getuserreadhour';
-
+    const  API_USER_READ_HOURLY               = 'https://api.weixin.qq.com/datacube/getuserreadhour';
     // 获取图文分享转发数据
-    const  API_USER_SHARE_SUMMARY = 'https://api.weixin.qq.com/datacube/getusershare';
-
+    const  API_USER_SHARE_SUMMARY             = 'https://api.weixin.qq.com/datacube/getusershare';
     // 获取图文分享转发分时数据
-    const  API_USER_SHARE_HOURLY = 'https://api.weixin.qq.com/datacube/getusersharehour';
-
+    const  API_USER_SHARE_HOURLY              = 'https://api.weixin.qq.com/datacube/getusersharehour';
     // 获取消息发送概况数据
-    const  API_UPSTREAM_MESSSAGE_SUMMARY = 'https://api.weixin.qq.com/datacube/getupstreammsg';
-
+    const  API_UPSTREAM_MESSSAGE_SUMMARY      = 'https://api.weixin.qq.com/datacube/getupstreammsg';
     // 获取消息分送分时数据
-    const  API_UPSTREAM_MESSSAGE_HOURLY = 'https://api.weixin.qq.com/datacube/getupstreammsghour';
-
+    const  API_UPSTREAM_MESSSAGE_HOURLY       = 'https://api.weixin.qq.com/datacube/getupstreammsghour';
     // 获取消息发送周数据
-    const  API_UPSTREAM_MESSSAGE_WEEKLY = 'https://api.weixin.qq.com/datacube/getupstreammsgweek';
-
+    const  API_UPSTREAM_MESSSAGE_WEEKLY       = 'https://api.weixin.qq.com/datacube/getupstreammsgweek';
     // 获取消息发送月数据
-    const  API_UPSTREAM_MESSSAGE_MONTHLY = 'https://api.weixin.qq.com/datacube/getupstreammsgmonth';
-
+    const  API_UPSTREAM_MESSSAGE_MONTHLY      = 'https://api.weixin.qq.com/datacube/getupstreammsgmonth';
     // 获取消息发送分布数据
     const  API_UPSTREAM_MESSSAGE_DIST_SUMMARY = 'https://api.weixin.qq.com/datacube/getupstreammsgdist';
-
     // 获取消息发送分布周数据
-    const  API_UPSTREAM_MESSSAGE_DIST_WEEKLY = 'https://api.weixin.qq.com/datacube/getupstreammsgdistweek';
-
+    const  API_UPSTREAM_MESSSAGE_DIST_WEEKLY  = 'https://api.weixin.qq.com/datacube/getupstreammsgdistweek';
     // 获取消息发送分布月数据
     const  API_UPSTREAM_MESSSAGE_DIST_MONTHLY = 'https://api.weixin.qq.com/datacube/getupstreammsgdistmonth?';
-
     // 获取接口分析数据
-    const  API_INTERFACE_SUMMARY = 'https://api.weixin.qq.com/datacube/getinterfacesummary';
-
+    const  API_INTERFACE_SUMMARY              = 'https://api.weixin.qq.com/datacube/getinterfacesummary';
     // 获取接口分析分时数据
-    const  API_INTERFACE_SUMMARY_HOURLY = 'https://api.weixin.qq.com/datacube/getinterfacesummaryhour';
-
+    const  API_INTERFACE_SUMMARY_HOURLY       = 'https://api.weixin.qq.com/datacube/getinterfacesummaryhour';
 
     /**
      * constructor
@@ -89,10 +71,8 @@ class Stats
      */
     public function __construct($appId, $appSecret)
     {
-
         $this->http = new Http(new AccessToken($appId, $appSecret));
     }
-
 
     /**
      * 获取用户增减数据
@@ -104,10 +84,8 @@ class Stats
      */
     public function userSummary($from, $to)
     {
-
         return $this->query(self::API_USER_SUMMARY, $from, $to);
     }
-
 
     /**
      * 获取累计用户数据
@@ -119,10 +97,8 @@ class Stats
      */
     public function userCumulate($from, $to)
     {
-
         return $this->query(self::API_USER_CUMULATE, $from, $to);
     }
-
 
     /**
      * 获取图文群发每日数据
@@ -134,10 +110,8 @@ class Stats
      */
     public function articleSummary($from, $to)
     {
-
         return $this->query(self::API_ARTICLE_SUMMARY, $from, $to);
     }
-
 
     /**
      * 获取图文群发总数据
@@ -149,10 +123,8 @@ class Stats
      */
     public function articleTotal($from, $to)
     {
-
         return $this->query(self::API_ARTICLE_TOTAL, $from, $to);
     }
-
 
     /**
      * 获取图文统计数据
@@ -164,10 +136,8 @@ class Stats
      */
     public function userReadSummary($from, $to)
     {
-
         return $this->query(self::API_USER_READ_SUMMARY, $from, $to);
     }
-
 
     /**
      * 获取图文统计分时数据
@@ -179,10 +149,8 @@ class Stats
      */
     public function userReadHourly($from, $to)
     {
-
         return $this->query(self::API_USER_READ_HOURLY, $from, $to);
     }
-
 
     /**
      * 获取图文分享转发数据
@@ -194,10 +162,8 @@ class Stats
      */
     public function userShareSummary($from, $to)
     {
-
         return $this->query(self::API_USER_SHARE_SUMMARY, $from, $to);
     }
-
 
     /**
      * 获取图文分享转发分时数据
@@ -209,10 +175,8 @@ class Stats
      */
     public function userShareHourly($from, $to)
     {
-
         return $this->query(self::API_USER_SHARE_HOURLY, $from, $to);
     }
-
 
     /**
      * 获取消息发送概况数据
@@ -224,10 +188,8 @@ class Stats
      */
     public function upstreamMesssageSummary($from, $to)
     {
-
         return $this->query(self::API_UPSTREAM_MSG_SUMMARY, $from, $to);
     }
-
 
     /**
      * 获取消息分送分时数据
@@ -239,10 +201,8 @@ class Stats
      */
     public function upstreamMesssageHourly($from, $to)
     {
-
         return $this->query(self::API_UPSTREAM_MSG_HOURLY, $from, $to);
     }
-
 
     /**
      * 获取消息发送周数据
@@ -254,10 +214,8 @@ class Stats
      */
     public function upstreamMesssageWeekly($from, $to)
     {
-
         return $this->query(self::API_UPSTREAM_MSG_WEEKLY, $from, $to);
     }
-
 
     /**
      * 获取消息发送月数据
@@ -269,10 +227,8 @@ class Stats
      */
     public function upstreamMesssageMonthly($from, $to)
     {
-
         return $this->query(self::API_UPSTREAM_MSG_MONTHLY, $from, $to);
     }
-
 
     /**
      * 获取消息发送分布数据
@@ -284,10 +240,8 @@ class Stats
      */
     public function upstreamMesssageDistSummary($from, $to)
     {
-
         return $this->query(self::API_UPSTREAM_MSG_DIST_SUMMARY, $from, $to);
     }
-
 
     /**
      * 获取消息发送分布周数据
@@ -299,10 +253,8 @@ class Stats
      */
     public function upstreamMesssageDistWeekly($from, $to)
     {
-
         return $this->query(self::API_UPSTREAM_MSG_DIST_WEEKLY, $from, $to);
     }
-
 
     /**
      * 获取消息发送分布月数据
@@ -314,10 +266,8 @@ class Stats
      */
     public function upstreamMesssageDistMonthly($from, $to)
     {
-
         return $this->query(self::API_UPSTREAM_MSG_DIST_MONTHLY, $from, $to);
     }
-
 
     /**
      * 获取接口分析数据
@@ -329,10 +279,8 @@ class Stats
      */
     public function interfaceSummary($from, $to)
     {
-
         return $this->query(self::API_INTERFACE_SUMMARY, $from, $to);
     }
-
 
     /**
      * 获取接口分析分时数据
@@ -344,10 +292,8 @@ class Stats
      */
     public function interfaceSummaryHourly($from, $to)
     {
-
         return $this->query(self::API_INTERFACE_SUMMARY_HOURLY, $from, $to);
     }
-
 
     /**
      * 查询数据
@@ -360,11 +306,10 @@ class Stats
      */
     protected function query($api, $from, $to)
     {
-
         $params = array(
-            'begin_date' => $from,
-            'end_date'   => $to,
-        );
+                   'begin_date' => $from,
+                   'end_date'   => $to,
+                  );
 
         $result = $this->http->jsonPost($api, $params);
 
