@@ -36,7 +36,7 @@
                 </section>
                 <div id="erweima">
                     <div><span>扫描二维码关注玫瑰花开网微信服务号</span></div>
-                    <div><img src="./images/wx_ma.jpg" alt=""></div>
+                    <div><img src="/assets/images/wx_ma.jpg" alt=""></div>
                     <div><span>微信号：玫瑰花开网</span></div>
 
 

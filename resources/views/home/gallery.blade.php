@@ -56,27 +56,33 @@
                             </a>
                             <div>
                                 <input type="hidden" name="image_url[{{$image_url->photo_id}}]" value="{{$image_url->image_url}}" id="url_{{$image_url->photo_id}}">
-                                @if($image_url->status==0)
-                                        @if( empty($image_url->image_url))
-                                           <div class="img_update_img_l">
-                                                <button type="button" class="am-btn am-btn-secondary home_btn am-btn-sm"   id="pickfiles{{$image_url->photo_id}}" onclick="ownup0('pickfiles{{$image_url->photo_id}}','progreess{{$image_url->photo_id}}','url_{{$image_url->photo_id}}')">选择</button>
-                                                <button type="button" class="am-btn am-btn-danger home_btn am-btn-sm" onclick="del({{$image_url->photo_id}})">删除</button>
-                                            </div>
-
-                                        @else
-                                          <!-- 审核中,前台隐藏图片 -->
-                                         <div class="img_update_img_l">
-                                            <button class="am-btn home_btn am-btn-sm " type="button" style="width:100%">相片审核中</button>
+                                @if($image_url->status=='待审核')
+                                    @if( empty($image_url->image_url))
+                                       <div class="img_update_img_l">
+                                            <button type="button" class="am-btn am-btn-secondary home_btn am-btn-sm"   id="pickfiles{{$image_url->photo_id}}" onclick="ownup0('pickfiles{{$image_url->photo_id}}','progreess{{$image_url->photo_id}}','url_{{$image_url->photo_id}}')">选择</button>
+                                            <button type="button" class="am-btn am-btn-danger home_btn am-btn-sm" onclick="del({{$image_url->photo_id}})">删除</button>
                                         </div>
 
-                                        @endif
+                                    @else
+                                      <!-- 审核中,前台隐藏图片 -->
+                                     <div class="img_update_img_l">
+                                        <button class="am-btn home_btn am-btn-sm " type="button" style="width:100%">相片审核中</button>
+                                    </div>
+
+                                    @endif
                                 
+                                @elseif($image_url->status=='审核失败')
+                                    <div class="img_update_img_l">
+                                            <button type="button" class="am-btn am-btn-secondary home_btn am-btn-sm"   id="pickfiles{{$image_url->photo_id}}" onclick="ownup0('pickfiles{{$image_url->photo_id}}','progreess{{$image_url->photo_id}}','url_{{$image_url->photo_id}}')">选择</button>
+                                            <button type="button" class="am-btn am-btn-danger home_btn am-btn-sm">审核失败</button>
+                                   </div>
+
                                 @else
-                                <!-- 正常显示 -->
-                                <div class="img_update_img_l">
-                                    <button type="button" class="am-btn am-btn-secondary home_btn am-btn-sm"   id="pickfiles{{$image_url->photo_id}}" onclick="ownup0('pickfiles{{$image_url->photo_id}}','progreess{{$image_url->photo_id}}','url_{{$image_url->photo_id}}')">选择</button>
-                                    <button type="button" class="am-btn am-btn-danger home_btn am-btn-sm" onclick="del({{$image_url->photo_id}})">删除</button>
-                                </div>
+                                    <!-- 正常显示 -->
+                                    <div class="img_update_img_l">
+                                        <button type="button" class="am-btn am-btn-secondary home_btn am-btn-sm"   id="pickfiles{{$image_url->photo_id}}" onclick="ownup0('pickfiles{{$image_url->photo_id}}','progreess{{$image_url->photo_id}}','url_{{$image_url->photo_id}}')">选择</button>
+                                        <button type="button" class="am-btn am-btn-danger home_btn am-btn-sm" onclick="del({{$image_url->photo_id}})">删除</button>
+                                    </div>
 
                                 @endif
                             </div>
