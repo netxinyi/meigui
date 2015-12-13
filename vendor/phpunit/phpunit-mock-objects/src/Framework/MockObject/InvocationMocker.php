@@ -52,8 +52,7 @@ class PHPUnit_Framework_MockObject_InvocationMocker implements PHPUnit_Framework
     }
 
     /**
-     * @param  mixed $id
-     *
+     * @param  mixed     $id
      * @return bool|null
      */
     public function lookupId($id)
@@ -132,7 +131,6 @@ class PHPUnit_Framework_MockObject_InvocationMocker implements PHPUnit_Framework
 
     /**
      * @param  PHPUnit_Framework_MockObject_Invocation $invocation
-     *
      * @return bool
      */
     public function matches(PHPUnit_Framework_MockObject_Invocation $invocation)
@@ -145,7 +143,6 @@ class PHPUnit_Framework_MockObject_InvocationMocker implements PHPUnit_Framework
 
         return true;
     }
-
 
     /**
      * @return bool

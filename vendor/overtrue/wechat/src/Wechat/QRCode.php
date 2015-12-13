@@ -23,7 +23,6 @@ use Overtrue\Wechat\Utils\Bag;
 class QRCode
 {
 
-
     /**
      * 应用ID
      *
@@ -38,20 +37,14 @@ class QRCode
      */
     protected $appSecret;
 
-    const DAY                  = 86400;
-
-    const SCENE_QE_CARD        = 'QR_CARD';             // 卡券
-
+    const DAY = 86400;
+    const SCENE_QR_CARD        = 'QR_CARD';             // 卡券
     const SCENE_QR_TEMPORARY   = 'QR_SCENE';            // 临时
-
     const SCENE_QR_FOREVER     = 'QR_LIMIT_SCENE';      // 永久
-
     const SCENE_QR_FOREVER_STR = 'QR_LIMIT_STR_SCENE';  // 永久的字符串参数值
 
-    const API_CREATE           = 'https://api.weixin.qq.com/cgi-bin/qrcode/create';
-
-    const API_SHOW             = 'https://mp.weixin.qq.com/cgi-bin/showqrcode';
-
+    const API_CREATE = 'https://api.weixin.qq.com/cgi-bin/qrcode/create';
+    const API_SHOW   = 'https://mp.weixin.qq.com/cgi-bin/showqrcode';
 
     /**
      * constructor
@@ -61,11 +54,9 @@ class QRCode
      */
     public function __construct($appId, $appSecret)
     {
-
         $this->appId     = $appId;
         $this->appSecret = $appSecret;
     }
-
 
     /**
      * 永久二维码
@@ -76,13 +67,12 @@ class QRCode
      */
     public function forever($sceneValue)
     {
-
         // 永久二维码时最大值为100000（目前参数只支持1--100000）
         if (is_int($sceneValue) && $sceneValue > 0 && $sceneValue < 100000) {
-            $type     = self::SCENE_QR_FOREVER;
+            $type = self::SCENE_QR_FOREVER;
             $sceneKey = 'scene_id';
         } else {
-            $type     = self::SCENE_QR_FOREVER_STR;
+            $type = self::SCENE_QR_FOREVER_STR;
             $sceneKey = 'scene_str';
         }
 
@@ -90,7 +80,6 @@ class QRCode
 
         return $this->create($type, $scene, false);
     }
-
 
     /**
      * 临时二维码
@@ -102,18 +91,18 @@ class QRCode
      */
     public function temporary($sceneId, $expireSeconds = null)
     {
-
         // 临时二维码时为32位非0整型
-        $scene = array('scene_id' => intval($sceneId));
+        $scene = array('scene_id' => $sceneId);
 
         return $this->create(self::SCENE_QR_TEMPORARY, $scene, true, $expireSeconds);
     }
-
 
     /**
      * 创建卡券二维码
      *
      * @param array $card
+     * @param bool $temporary
+     * @param bool $expireSeconds
      *
      * {
      *    "card_id": "pFS7Fjg8kV1IdDz01r4SQwMkuCKc",
@@ -125,12 +114,23 @@ class QRCode
      *
      * @return Bag
      */
-    public function card($card)
+    public function card($card, $temporary = true, $expireSeconds = null)
     {
+        $expireSeconds !== null || $expireSeconds = 7 * self::DAY;
 
-        return $this->create(self::SCENE_QE_CARD, array('card' => $card));
+        $http = new Http(new AccessToken($this->appId, $this->appSecret));
+
+        $params = array(
+            'action_name' => self::SCENE_QR_CARD,
+            'action_info' => array('card' => $card),
+        );
+
+        if ($temporary) {
+            $params['expire_seconds'] = min($expireSeconds, 7 * self::DAY);
+        }
+
+        return new Bag($http->jsonPost(self::API_CREATE, $params));
     }
-
 
     /**
      * 获取二维码
@@ -141,10 +141,8 @@ class QRCode
      */
     public function show($ticket)
     {
-
-        return self::API_SHOW . "?ticket={$ticket}";
+        return sprintf('%s?ticket=%s', self::API_SHOW, urlencode($ticket));
     }
-
 
     /**
      * 保存二维码
@@ -156,10 +154,8 @@ class QRCode
      */
     public function download($ticket, $filename)
     {
-
         return file_put_contents($filename, file_get_contents($this->show($ticket)));
     }
-
 
     /**
      * 创建二维码
@@ -173,15 +169,14 @@ class QRCode
      */
     protected function create($actionName, $actionInfo, $temporary = true, $expireSeconds = null)
     {
-
         $expireSeconds !== null || $expireSeconds = 7 * self::DAY;
 
         $http = new Http(new AccessToken($this->appId, $this->appSecret));
 
         $params = array(
-            'action_name' => $actionName,
-            'action_info' => array('scene' => $actionInfo),
-        );
+                    'action_name' => $actionName,
+                    'action_info' => array('scene' => $actionInfo),
+                  );
 
         if ($temporary) {
             $params['expire_seconds'] = min($expireSeconds, 7 * self::DAY);

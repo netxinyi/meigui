@@ -19,16 +19,15 @@ use Overtrue\Wechat\Utils\Http as HttpClient;
 use Overtrue\Wechat\Utils\JSON;
 
 /**
- * @method mixed jsonPost( $url, $params = array(), $options = array() )
+ * @method mixed jsonPost($url, $params = array(), $options = array())
  */
 class Http extends HttpClient
 {
 
-
     /**
      * token
      *
-     * @var string
+     * @var AccessToken
      */
     protected $token;
 
@@ -46,31 +45,26 @@ class Http extends HttpClient
      */
     protected $cache;
 
-
     /**
      * constructor
      *
      * @param AccessToken $token
      */
-    public function __construct($token = null)
+    public function __construct(AccessToken $token = null)
     {
-
-        $this->token = $token instanceof AccessToken ? $token->getToken() : $token;
+        $this->token = $token;
         parent::__construct();
     }
-
 
     /**
      * 设置请求access_token
      *
-     * @param string $token
+     * @param AccessToken $token
      */
-    public function setToken($token)
+    public function setToken(AccessToken $token)
     {
-
         $this->token = $token;
     }
-
 
     /**
      * 发起一个HTTP/HTTPS的请求
@@ -79,14 +73,14 @@ class Http extends HttpClient
      * @param string $method  请求类型   GET | POST
      * @param array  $params  接口参数
      * @param array  $options 其它选项
+     * @param int    $retry   重试次数
      *
      * @return array | boolean
      */
-    public function request($url, $method = self::GET, $params = array(), $options = array())
+    public function request($url, $method = self::GET, $params = array(), $options = array(), $retry = 1)
     {
-
         if ($this->token) {
-            $url .= ( stripos($url, '?') ? '&' : '?' ) . 'access_token=' . $this->token;
+            $url .= (stripos($url, '?') ? '&' : '?').'access_token='. $this->token->getToken();
         }
 
         $method = strtoupper($method);
@@ -99,7 +93,7 @@ class Http extends HttpClient
 
         $this->json = false;
 
-        if (empty( $response['data'] )) {
+        if (empty($response['data'])) {
             throw new Exception('服务器无响应');
         }
 
@@ -107,20 +101,27 @@ class Http extends HttpClient
             return $response['data'];
         }
 
-        $contents = json_decode(substr(str_replace(['\"', '\\\\'], ['"', ''], json_encode($response['data'])), 1, -1),
-            true);
+        $contents = json_decode($response['data'], true);
 
         // while the response is an invalid JSON structure, returned the source data
         if (JSON_ERROR_NONE !== json_last_error()) {
             return $response['data'];
         }
 
-        if (isset( $contents['errcode'] ) && 0 !== $contents['errcode']) {
-            if (empty( $contents['errmsg'] )) {
+        if (isset($contents['errcode']) && 0 !== $contents['errcode']) {
+            if (empty($contents['errmsg'])) {
                 $contents['errmsg'] = 'Unknown';
             }
 
-            throw new Exception("[{$contents['errcode']}] " . $contents['errmsg'], $contents['errcode']);
+            // access token 超时重试处理
+            if ($this->token && in_array($contents['errcode'], array('40001', '42001')) && $retry > 0) {
+                // force refresh
+                $this->token->getToken(true);
+
+                return $this->request($url, $method, $params, $options, --$retry);
+            }
+
+            throw new Exception("[{$contents['errcode']}] ".$contents['errmsg'], $contents['errcode']);
         }
 
         if ($contents === array('errcode' => '0', 'errmsg' => 'ok')) {
@@ -129,7 +130,6 @@ class Http extends HttpClient
 
         return $contents;
     }
-
 
     /**
      * 魔术调用
@@ -141,9 +141,8 @@ class Http extends HttpClient
      */
     public function __call($method, $args)
     {
-
         if (stripos($method, 'json') === 0) {
-            $method     = strtolower(substr($method, 4));
+            $method = strtolower(substr($method, 4));
             $this->json = true;
         }
 

@@ -23,7 +23,6 @@ use Overtrue\Wechat\Utils\Bag;
 class Semantic
 {
 
-
     /**
      * Http对象
      *
@@ -40,7 +39,6 @@ class Semantic
 
     const API_SEARCH = 'https://api.weixin.qq.com/semantic/semproxy/search';
 
-
     /**
      * constructor
      *
@@ -49,11 +47,9 @@ class Semantic
      */
     public function __construct($appId, $appSecret)
     {
-
         $this->appId = $appId;
-        $this->http  = new Http(new AccessToken($appId, $appSecret));
+        $this->http = new Http(new AccessToken($appId, $appSecret));
     }
-
 
     /**
      * 语义理解
@@ -66,13 +62,12 @@ class Semantic
      */
     public function query($keyword, $categories, array $other = array())
     {
-
         $params = array(
-            'query'    => $keyword,
-            'category' => implode(',', (array)$categories),
-            'appid'    => $this->appId,
-        );
+                   'query'    => $keyword,
+                   'category' => implode(',', (array) $categories),
+                   'appid'    => $this->appId,
+                  );
 
-        return new Bag($this->http->jsonPost(self::API_CREATE, array_merge($params, $other)));
+        return new Bag($this->http->jsonPost(self::API_SEARCH, array_merge($params, $other)));
     }
 }

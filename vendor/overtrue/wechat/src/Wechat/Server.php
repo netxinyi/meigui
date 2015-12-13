@@ -25,7 +25,6 @@ use Overtrue\Wechat\Utils\XML;
 class Server
 {
 
-
     /**
      * 应用ID
      *
@@ -74,11 +73,10 @@ class Server
      * @var array
      */
     protected $events = array(
-        'received',
-        'served',
-        'responseCreated',
-    );
-
+                         'received',
+                         'served',
+                         'responseCreated',
+                        );
 
     /**
      * constructor
@@ -89,13 +87,11 @@ class Server
      */
     public function __construct($appId, $token, $encodingAESKey = null)
     {
-
         $this->listeners      = new Bag();
         $this->appId          = $appId;
         $this->token          = $token;
         $this->encodingAESKey = $encodingAESKey;
     }
-
 
     /**
      * 监听
@@ -108,7 +104,6 @@ class Server
      */
     public function on($target, $type, $callback = null)
     {
-
         if (is_null($callback)) {
             $callback = $type;
             $type     = '*';
@@ -129,7 +124,6 @@ class Server
         return $this;
     }
 
-
     /**
      * 监听事件
      *
@@ -140,10 +134,8 @@ class Server
      */
     public function event($type, $callback = null)
     {
-
         return $this->on('event', $type, $callback);
     }
-
 
     /**
      * 监听消息
@@ -155,10 +147,8 @@ class Server
      */
     public function message($type, $callback = null)
     {
-
         return $this->on('message', $type, $callback);
     }
-
 
     /**
      * handle服务端并返回字符串内容
@@ -167,27 +157,26 @@ class Server
      */
     public function serve()
     {
-
         $this->prepareInput();
 
         $input = array(
-            $this->token,
-            $this->input->get('timestamp'),
-            $this->input->get('nonce'),
-        );
+                  $this->token,
+                  $this->input->get('timestamp'),
+                  $this->input->get('nonce'),
+                 );
 
-        if ($this->input->has('signature') && $this->signature($input) !== $this->input->get('signature')
+        if ($this->input->get('signature')
+            && $this->signature($input) !== $this->input->get('signature')
         ) {
             throw new Exception('Bad Request', 400);
         }
 
-        if ($this->input->has('echostr')) {
+        if ($this->input->get('echostr')) {
             return strip_tags($this->input['echostr']);
         }
 
         return $this->response($this->handleRequest());
     }
-
 
     /**
      * 初始化POST请求数据
@@ -196,19 +185,18 @@ class Server
      */
     protected function prepareInput()
     {
-
         if ($this->input instanceof Bag) {
             return;
         }
 
         if (version_compare(PHP_VERSION, '5.6.0', '<')) {
-            if (!empty( $GLOBALS['HTTP_RAW_POST_DATA'] )) {
+            if (!empty($GLOBALS['HTTP_RAW_POST_DATA'])) {
                 $xmlInput = $GLOBALS['HTTP_RAW_POST_DATA'];
             } else {
                 $xmlInput = file_get_contents('php://input');
             }
 
-            if (empty( $_REQUEST['echostr'] ) && empty( $xmlInput ) && !empty( $_REQUEST['signature'] )) {
+            if (empty($_REQUEST['echostr']) && empty($xmlInput) && !empty($_REQUEST['signature'])) {
                 throw new Exception("没有读取到消息 XML，请在 php.ini 中打开 always_populate_raw_post_data=On", 500);
             }
         } else {
@@ -217,17 +205,21 @@ class Server
 
         $input = XML::parse($xmlInput);
 
-        if (!empty( $_REQUEST['encrypt_type'] ) && $_REQUEST['encrypt_type'] === 'aes'
+        if (!empty($_REQUEST['encrypt_type'])
+            && $_REQUEST['encrypt_type'] === 'aes'
         ) {
             $this->security = true;
 
-            $input = $this->getCrypt()->decryptMsg($_REQUEST['msg_signature'], $_REQUEST['nonce'],
-                $_REQUEST['timestamp'], $xmlInput);
+            $input = $this->getCrypt()->decryptMsg(
+                $_REQUEST['msg_signature'],
+                $_REQUEST['nonce'],
+                $_REQUEST['timestamp'],
+                $xmlInput
+            );
         }
 
-        $this->input = new Bag(array_merge($_REQUEST, (array)$input));
+        $this->input = new Bag(array_merge($_REQUEST, (array) $input));
     }
-
 
     /**
      * 获取输入
@@ -236,10 +228,8 @@ class Server
      */
     public function setInput(array $input)
     {
-
         $this->input = new Bag($input);
     }
-
 
     /**
      * 获取Crypt服务
@@ -248,11 +238,10 @@ class Server
      */
     protected function getCrypt()
     {
-
         static $crypt;
 
         if (!$crypt) {
-            if (empty( $this->encodingAESKey ) || empty( $this->token )) {
+            if (empty($this->encodingAESKey) || empty($this->token)) {
                 throw new Exception("加密模式下 'encodingAESKey' 与 'token' 都不能为空！");
             }
 
@@ -261,7 +250,6 @@ class Server
 
         return $crypt;
     }
-
 
     /**
      * 生成回复内容
@@ -272,10 +260,13 @@ class Server
      */
     protected function response($response)
     {
+        if (empty($response)) {
+            return "";
+        }
 
         is_string($response) && $response = Message::make('text')->with('content', $response);
 
-        $return = null;
+        $return = "";
 
         if ($response instanceof BaseMessage) {
             $response->from($this->input->get('ToUserName'))->to($this->input->get('FromUserName'));
@@ -285,8 +276,11 @@ class Server
             $return = $response->buildForReply();
 
             if ($this->security) {
-                $return = $this->getCrypt()->encryptMsg($return, $this->input->get('nonce'),
-                    $this->input->get('timestamp'));
+                $return = $this->getCrypt()->encryptMsg(
+                    $return,
+                    $this->input->get('nonce'),
+                    $this->input->get('timestamp')
+                );
             }
         }
 
@@ -295,7 +289,6 @@ class Server
         return $return;
     }
 
-
     /**
      * 处理微信的请求
      *
@@ -303,18 +296,16 @@ class Server
      */
     protected function handleRequest()
     {
-
         $this->call('received', array($this->input));
 
-        if ($this->input->has('MsgType') && $this->input->get('MsgType') === 'event') {
+        if ($this->input->get('MsgType') && $this->input->get('MsgType') === 'event') {
             return $this->handleEvent($this->input);
-        } elseif ($this->input->has('MsgId')) {
+        } elseif ($this->input->get('MsgId')) {
             return $this->handleMessage($this->input);
         }
 
         return false;
     }
-
 
     /**
      * 处理消息
@@ -325,14 +316,12 @@ class Server
      */
     protected function handleMessage($message)
     {
-
         if (!is_null($response = $this->call('message.*', array($message)))) {
             return $response;
         }
 
         return $this->call("message.{$message['MsgType']}", array($message));
     }
-
 
     /**
      * 处理事件
@@ -343,7 +332,6 @@ class Server
      */
     protected function handleEvent($event)
     {
-
         if (!is_null($response = $this->call('event.*', array($event)))) {
             return $response;
         }
@@ -353,7 +341,6 @@ class Server
         return $this->call("event.{$event['Event']}", array($event));
     }
 
-
     /**
      * 检查微信签名有效性
      *
@@ -361,12 +348,10 @@ class Server
      */
     protected function signature($input)
     {
-
         sort($input, SORT_STRING);
 
         return sha1(implode($input));
     }
-
 
     /**
      * 调用监听器
@@ -379,8 +364,7 @@ class Server
      */
     protected function call($key, $args, $default = null)
     {
-
-        $handlers = (array)$this->listeners[$key];
+        $handlers = (array) $this->listeners[$key];
 
         foreach ($handlers as $handler) {
             if (!is_callable($handler)) {
@@ -389,14 +373,13 @@ class Server
 
             $res = call_user_func_array($handler, $args);
 
-            if (!empty( $res )) {
+            if (!empty($res)) {
                 return $res;
             }
         }
 
         return $default;
     }
-
 
     /**
      * 魔术调用
@@ -408,7 +391,6 @@ class Server
      */
     public function __call($method, $args)
     {
-
         if (in_array($method, $this->events, true)) {
             $callback = array_shift($args);
 
@@ -418,7 +400,6 @@ class Server
         }
     }
 
-
     /**
      * 直接返回以字符串形式输出时
      *
@@ -426,7 +407,6 @@ class Server
      */
     public function __toString()
     {
-
-        return '' . $this->serve();
+        return ''.$this->serve();
     }
 }
