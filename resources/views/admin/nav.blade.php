@@ -1,4 +1,4 @@
-begin #sidebar -->
+<!-- begin #sidebar -->
 <div id="sidebar" class="sidebar">
     <!-- begin sidebar scrollbar -->
     <div data-scrollbar="true" data-height="100%">
