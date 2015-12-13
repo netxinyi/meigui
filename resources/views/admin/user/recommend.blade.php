@@ -40,6 +40,7 @@
                     <tr>
                         <th>用户ID</th>
                         <th>用户头像</th>
+                        <th>性别</th>
                         <th>会员级别</th>
                         <th>操作</th>
                     </tr>
@@ -55,15 +56,16 @@
                                     {{$user->user->user_name}}
                                 </a>
 
+                            <td> {{$user->user->sex}}</td>
                             <td>{{$user->user->level_lang}}</td>
                             <td class="text-center">
                                 @if($user->page=="不推荐")
-                                   <button class="btn btn-sm btn-success  m-r-5"   onclick="shenhe({{$user->user_id}},'首页')">网站首页展示</button>
-                                   <button class="btn btn-sm btn-success  m-r-5"   onclick="shenhe({{$user->user_id}},'会员专区')">会员专区展示</button> 
+                                   <button class="btn btn-sm btn-success  m-r-5"   onclick="shenhe({{$user->id}},'首页')">网站首页展示</button>
+                                   <button class="btn btn-sm btn-success  m-r-5"   onclick="shenhe({{$user->id}},'会员专区')">会员专区展示</button> 
                                     
                                 @else
                                    在{{$user->page}}展示中，点击
-                                   <button class="btn btn-sm btn-info  m-r-5"   onclick="shenhe({{$user->user_id}},'会员专区')">取消推荐</button>
+                                   <button class="btn btn-sm btn-info  m-r-5"   onclick="shenhe({{$user->id}},'不推荐')">取消推荐</button>
                                 @endif
                                 
                                
@@ -99,18 +101,16 @@
     <script>
 
     // 审核
-    function shenhe(user_id,str){
+    function shenhe(id,str){
         var token = $("input[name='_token']").val();
        
         $.rest({
-         url:'/admin/user/setIntroduceStatus',
+         url:'/admin/user/setRecommendPage',
          method:'post',
-         data:{user_id:user_id,_token:token,status:str}
+         data:{id:id,_token:token,page:str}
         });
 
-
-        $.alert("操作成功","success");
-
+       $.alert("操作成功","success");
 
     }
     </script>
