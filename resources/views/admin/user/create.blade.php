@@ -190,18 +190,13 @@
                             <label class="col-md-2 control-label">所在地</label>
 
                             <div class="col-md-2">
-                                <select class="form-control default-select2" name="province">
+                                <select class="form-control default-select2" name="work_province">
 
                                 </select>
                             </div>
 
                             <div class="col-md-2">
-                                <select class="form-control" name="city">
-
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <select class="form-control" name="area">
+                                <select class="form-control" name="work_city">
 
                                 </select>
                             </div>
@@ -239,7 +234,7 @@
                 format: "yyyy-mm-dd"
 
             });
-            new PCAS("province", "city", "area");
+            new PCAS("province", "city");
 
 
         });
