@@ -58,12 +58,11 @@
                             <td>{{$user->user->level_lang}}</td>
                             <td class="text-center">
                                 @if($user->page=="不推荐")
-                                不推荐
-                                   <button class="btn btn-sm btn-success  m-r-5"   onclick="shenhe({{$user->user_id}},'首页')">网站首页展示{{$user->page}}</button>
+                                   <button class="btn btn-sm btn-success  m-r-5"   onclick="shenhe({{$user->user_id}},'首页')">网站首页展示</button>
                                    <button class="btn btn-sm btn-success  m-r-5"   onclick="shenhe({{$user->user_id}},'会员专区')">会员专区展示</button> 
                                     
                                 @else
-                                有推荐
+                                   在{{$user->page}}展示中
                                    <button class="btn btn-sm btn-info  m-r-5"   onclick="shenhe({{$user->user_id}},'会员专区')">取消推荐</button>
                                 @endif
                                 

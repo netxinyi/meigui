@@ -1,153 +1,98 @@
 @extends('admin.master')
 
+@section('title')
+    会员管理 - 后台管理中心
+@stop
+
 @section('content')
-
-        <!-- begin panel -->
-<div class="panel panel-inverse" data-sortable-id="form-stuff-1">
-    <div class="panel-heading">
-        <div class="panel-heading-btn">
-            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i
-                        class="fa fa-expand"></i></a>
-
-            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i
-                        class="fa fa-minus"></i></a>
+    <!-- begin panel -->
+    <div class="panel panel-inverse">
+        <div class="panel-heading">
+            <div class="panel-heading-btn">
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i
+                            class="fa fa-expand"></i></a>
+            </div>
+            <h4 class="panel-title">会员展示推荐</h4>
         </div>
-        <h4 class="panel-title">添加设置</h4>
+        @if($errors->has('success'))
+            <div class="alert alert-success fade in">
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">×</span>
+                </button>
+                {{$errors->first('success')}}
+            </div>
+        @endif
+        @if($errors->has('error'))
+            <div class="alert alert-danger fade in">
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">×</span>
+                </button>
+                {{$errors->first('error')}}
+            </div>
+        @endif
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table id="data-table" class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>用户名</th>
+                        <th>审核状态</th>
+                        <th>新的自我介绍</th>
+                        <th>状态</th>
+                        <th>创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($UserInfo as $UserInfo)
+                        <tr>
+                            <td>{{$UserInfo->user_id}}</td>
+                            <td>{{$UserInfo['status']}}</td>
+                            <td>{{$UserInfo['new_introduce']}}</td>
+                            
+                            <td>{{$UserInfo['stock']}}</td>
+                            <td>{{$UserInfo['origin_province']}}</td>
+                            <td>{{$UserInfo['origin_city']}}</td>
+                            <td>{{$UserInfo['introduce']}}</td>
+                         
+                            <td>{{$UserInfo['card']}}</td>
+                            <td>{{$UserInfo['email']}}</td>
+                            <td class="text-center">
+                                <a href="{{route('admin.admins.edit',['user_id'=>$UserInfo['user_id']])}}"
+                                   class="btn btn-sm btn-success  m-r-5">编辑</a>
+                                <a href="{{route('admin.admins.destroy',['user_id'=>$UserInfo['user_id']])}}"
+                                   class="btn btn-sm btn-danger" data-method="delete">删除</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    <div class="panel-body">
-        <form class="form-horizontal" action="{{url('admin/option')}}" method="post">
-            <input type="hidden" name="_token" value="{{csrf_token()}}">
+    <!-- end panel -->
 
-            <div class="form-group">
-                <label class="col-md-2 control-label">标题</label>
-
-                <div class="col-md-8">
-                    <input type="text" class="form-control" placeholder="设置项标题" name="title"
-                           value="{{old('title')}}"/>
-                    @if($errors->has('title'))
-                        <ul class="parsley-errors-list filled">
-                            <li class="parsley-required">{{$errors->first('title')}}</li>
-                        </ul>
-                    @endif
-
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-2 control-label">编码</label>
-
-                <div class="col-md-8">
-                    <input type="text" class="form-control" placeholder="设置项编码" name="code"
-                           value="{{old('code')}}"/>
-                    @if($errors->has('title'))
-                        <ul class="parsley-errors-list filled">
-                            <li class="parsley-required">{{$errors->first('title')}}</li>
-                        </ul>
-                    @endif
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-2 control-label">默认值</label>
-
-                <div class="col-md-8">
-                    <input type="text" class="form-control" placeholder="默认值" name="value"
-                           value="{{old('value')}}"/>
-                    @if($errors->has('title'))
-                        <ul class="parsley-errors-list filled">
-                            <li class="parsley-required">{{$errors->first('title')}}</li>
-                        </ul>
-                    @endif
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-2 control-label">描述</label>
-
-                <div class="col-md-8">
-                        <textarea class="form-control" placeholder="设置项描述" rows="5"
-                                  name="desc">{{old('desc')}}</textarea>
-                    @if($errors->has('desc'))
-                        <ul class="parsley-errors-list filled">
-                            <li class="parsley-required">{{$errors->first('desc')}}</li>
-                        </ul>
-                    @endif
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-md-2 control-label">录入方式</label>
-
-                <div class="col-md-8">
-                    <select name="type" class="form-control">
-
-                        @foreach(App\Enum\Option::$inputTypesForm as $value=>$lable)
-                            <option value="{{$value}}" @if(old('type') == $value)
-                            selected @endif>{{$lable}}</option>
-
-                        @endforeach
-                    </select>
-                    @if($errors->has('type'))
-                        <ul class="parsley-errors-list filled">
-                            <li class="parsley-required">{{$errors->first('type')}}</li>
-                        </ul>
-                    @endif
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-2 control-label">可选值</label>
-
-                <div class="col-md-8">
-                        <textarea class="form-control" placeholder="可选值列表，一行一个" rows="5"
-                                  name="values">{{old('values')}}</textarea>
-                    @if($errors->has('values'))
-                        <ul class="parsley-errors-list filled">
-                            <li class="parsley-required">{{$errors->first('values')}}</li>
-                        </ul>
-                    @endif
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-2 control-label">自动加载</label>
-
-                <div class="col-md-8">
-                    <label class="radio-inline">
-                        <input type="radio" name="autoload" checked/>
-                        是
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="autoload"/>
-                        否
-                    </label>
-                    @if($errors->has('autoload'))
-                        <ul class="parsley-errors-list filled">
-                            <li class="parsley-required">{{$errors->first('autoload')}}</li>
-                        </ul>
-                    @endif
-                </div>
-            </div>
-            @if($errors->has('error'))
-                <ul class="parsley-errors-list filled">
-                    <li class="parsley-required">{{$errors->first('error')}}</li>
-                </ul>
-            @endif
-            <div class="form-group">
-                <label class="col-md-2"></label>
-
-                <div class="col-md-8">
-                    <button type="submit" class="btn btn-sm btn-success pull-right">&nbsp;提&nbsp;交&nbsp;</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-<!-- end panel -->
 
 
 @stop
 
 @section('footer-last-js')
+    <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+    <script src="/assets/lib/DataTables/js/jquery.dataTables.js"></script>
+    <script src="/assets/lib/DataTables/js/dataTables.colVis.js"></script>
+    <script src="/assets/admin//js/table-manage-colvis.demo.min.js"></script>
+    <script src="/assets/admin/js/apps.min.js"></script>
+    <!-- ================== END PAGE LEVEL JS ================== -->
 
-
+    <script type="text/javascript">
+        $(document).ready(function () {
+            TableManageColVis.init();
+        });
+    </script>
 @stop
 
 @section('last-css')
-
+    <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
+    <link href="/assets/lib/DataTables/css/data-table.css" rel="stylesheet"/>
+    <!-- ================== END PAGE LEVEL STYLE ================== -->
 @stop

@@ -11,6 +11,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 #Option模型
 use App\Model\Option;
+use App\Model\UserInfo;
 
 
 class OptionController extends Controller
@@ -48,7 +49,9 @@ class OptionController extends Controller
   
     public function getRecommend()
     {
-        return $this->view('recommend');
+       
+         $UserInfo = UserInfo::where('introduce_status','等待审核')->get();
+        return $this->view('recommend')->with('UserInfo', $UserInfo);;
     }
 
     public function getFlash()
