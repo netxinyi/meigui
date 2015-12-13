@@ -6,11 +6,12 @@
  */
 
 namespace App\Http\Controllers\Admin;
-
+use DB;
 use App\Http\Controllers\Controller;
 use App\Model\Register;
 use App\Model\User;
 use App\Enum\User as UserEnum;
+use App\Model\UserInfo;
 
 class UserController extends Controller
 {
@@ -190,6 +191,32 @@ class UserController extends Controller
         }
 
         return $this->error('删除失败');
+    }
+
+    //审核自我介绍
+    public function getIntroduce()
+    {
+      
+        $UserInfo = UserInfo::where('introduce_status','等待审核')->get();
+
+        return $this->view('introduce')->with('UserInfo', $UserInfo);
+    }
+
+    // 自我介绍审核状态
+    public function setIntroduceStatus(){
+        $data = $this->request()->all();
+
+        if($data['status']=="审核失败"){
+             DB::table("user_info")->where('user_id',$data['user_id'])->update(array('introduce_status'=>$data['status']));
+             
+        }else{
+             $new_introduce =  DB::table("user_info")->where('user_id',$data['user_id'])->pluck('new_introduce');
+             DB::table("user_info")->where('user_id',$data['user_id'])->update(array('introduce'=>$new_introduce,'introduce_status'=>$data['status']));
+
+        }
+
+        return $this->success('操作成功');
+
     }
 
     public function getRegister()

@@ -113,11 +113,18 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
 
 
     #用户管理
+    Route::get('user/introduce', array('uses' => 'Admin\UserController@getIntroduce', 'as' => 'admin.user.introduce'));
+    Route::post('user/setIntroduceStatus', array('uses' => 'Admin\UserController@setIntroduceStatus', 'as' => 'admin.user.setIntroduceStatus'));
+    #自我介绍
     Route::resource('user', 'Admin\UserController');
     Route::post('scase/image', 'Admin\ScaseController@postImage');
+  
+
     #成功案例
     Route::resource('scase', 'Admin\ScaseController');
     Route::controller('image', 'Admin\ImageCenterController');
+
+    
 
 });
 
