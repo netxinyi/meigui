@@ -34,13 +34,24 @@
     <div class="floatDtt">在线客服</div>
     <div class="floatShadow">
         <ul class="floatDqq">
-            <li>
-                <a target="_blank" href="tencent://message/?uin={{option('qq1')}}&Site=sc.chinaz.com&Menu=yes"><img
-                            src="/assets/images/qq.png" align="absmiddle">在线客服1号</a>
-            </li>
-            <li><a target="_blank" href="tencent://message/?uin={{option('qq2')}}&Site=sc.chinaz.com&Menu=yes"><img
-                            src="/assets/images/qq.png" align="absmiddle">在线客服2号</a>
-            </li>
+            <?php
+
+            $qqs = explode("\n", option('qq'));
+
+            ?>
+            @foreach($qqs as $qq)
+                <?php
+                    $q = explode('#',$qq);
+                    $q[1] =  $q[1]?:$q[0];
+                ?>
+                @if($q[0])
+                    <li>
+                        <a target="_blank" href="tencent://message/?uin={{$q[0]}}&Site=sc.chinaz.com&Menu=yes"><img
+                                    src="/assets/images/qq.png" align="absmiddle">{{$q[1]}}</a>
+                    </li>
+                @endif
+            @endforeach
+
         </ul>
         <div class="floatDtxt">热线电话</div>
         <div class="floatDtel">

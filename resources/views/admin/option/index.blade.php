@@ -120,33 +120,20 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-2 control-label">在线客服QQ一</label>
+                    <label class="col-md-2 control-label">在线客服QQ</label>
 
                     <div class="col-md-8">
-                        <input type="text" class="form-control" placeholder="请填写在线客服QQ" name="qq1"
-                               value="{{old('site_icp',$options['qq1'])}}"/>
-                        @if($errors->has('qq1'))
+                        <textarea name="qq" class="form-control" placeholder="格式:QQ号#昵称,一行一个">{{array_get($options,'qq')}}</textarea>
+
+                        @if($errors->has('qq'))
                             <ul class="parsley-errors-list filled">
-                                <li class="parsley-required">{{$errors->first('qq1')}}</li>
+                                <li class="parsley-required">{{$errors->first('qq')}}</li>
                             </ul>
                         @endif
 
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-md-2 control-label">在线客服QQ二</label>
 
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" placeholder="请填写在线客服QQ" name="qq2"
-                               value="{{old('site_icp',$options['qq2'])}}"/>
-                        @if($errors->has('qq2'))
-                            <ul class="parsley-errors-list filled">
-                                <li class="parsley-required">{{$errors->first('qq2')}}</li>
-                            </ul>
-                        @endif
-
-                    </div>
-                </div>
                 <div class="form-group">
                     <label class="col-md-2"></label>
 

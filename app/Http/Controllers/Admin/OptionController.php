@@ -87,7 +87,7 @@ class OptionController extends Controller
             // 'site_url.url' => '网站地址格式不正确'
         ]);
 
-        $options = $this->request()->only(['site_name', 'site_url', 'site_icp', 'site_keywords', 'site_description','tel','qq1','qq2']);
+        $options = $this->request()->only(['site_name', 'site_url', 'site_icp', 'site_keywords', 'site_description','tel','qq']);
 
         try {
             transaction();
