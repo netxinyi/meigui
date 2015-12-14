@@ -20,7 +20,7 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
 
 
     //支持Auth的Trait
-    use Authenticatable, CanResetPassword, SoftDeletes;
+    use Authenticatable, CanResetPassword;
 
     /**
      * 表名
