@@ -32,17 +32,8 @@
                         </div>
                     </li>
                         @endforeach
-
                 </ul>
-                <ul class="am-pagination am-pagination-centered">
-                    <li class="am-disabled"><a href="#">&laquo;</a></li>
-                    <li class="am-active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">&raquo;</a></li>
-                </ul>
+                <?php echo str_replace('pagination', 'am-pagination am-pagination-right', $assembly->render());?>
             </div>
             <!-- 左部分文章 end -->
 
