@@ -24,7 +24,7 @@
                     </tr>
                     <tr>
                         <td>民族：</td>
-                        <td><input type="text" name="stock" value="{{user()->info->stock}}"></td>
+                        <td><input type="text" name="stock" value="{{user()->info->getOriginal('stock')}}"></td>
                         <td></td>
                     </tr>
                     <tr>

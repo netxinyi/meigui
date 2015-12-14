@@ -177,11 +177,11 @@ class User
     #相册状态
     const GALLERY_CHECK = '待审核';
     const GALLERY_OK = '正常';
-    const GALLERY_NOCHECK = '审核未通过';
+    const GALLERY_NOCHECK = '审核失败';
 
     public static $galleryLang = [
         self::GALLERY_CHECK => '待审核',
-        self::GALLERY_NOCHECK => '审核未通过',
+        self::GALLERY_NOCHECK => '审核失败',
         self::GALLERY_OK => '正常'
     ];
 
