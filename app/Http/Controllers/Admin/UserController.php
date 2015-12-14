@@ -275,8 +275,15 @@ class UserController extends Controller
     public function getRecommend()
     {
 
-        $users = UserRecommend::with('user')->paginate(15);
+        $builder = UserRecommend::with('user');
+        $type = $this->request()->get('type');
+        if ($type) {
+            $builder->where('page', $type);
+        }
 
+        $users = $builder->paginate(15);
+
+        $users->appends('type', $type);
         return $this->view('recommend')->with('users', $users);
     }
 
@@ -312,7 +319,7 @@ class UserController extends Controller
 
             if ($recommend) {
                 $recommend->order = $this->request()->get('order');
-               $recommend->save();
+                $recommend->save();
                 return $this->rest()->success(array(), '添加成功');
             }
 
@@ -328,6 +335,14 @@ class UserController extends Controller
             return $this->rest()->error('抱歉,添加失败,请稍后再试');
         }
 
+    }
+
+    public function getDeleteRecommend()
+    {
+        $id = $this->request()->get('id');
+        $recommend = UserRecommend::find($id);
+        $recommend->delete();
+        return $this->success(array(), '删除成功');
     }
 
     // 设置推荐状态

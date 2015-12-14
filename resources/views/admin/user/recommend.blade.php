@@ -55,13 +55,13 @@
                     <form class="form-inline" action="admin/user/recommend" method="get">
                         <div class="form-group m-r-10">
                             <span>推荐位置</span>
-                            <select class="form-control" name="page">
+                            <select class="form-control" name="type" id="change-page">
                                 <option value="">全部</option>
 
-                                <option value="{{\App\Enum\User::RECOMMEND_INDEX}}" {{queryActive('page',\App\Enum\User::RECOMMEND_INDEX,'selected')}}>
+                                <option value="{{\App\Enum\User::RECOMMEND_INDEX}}" {{queryActive('type',\App\Enum\User::RECOMMEND_INDEX,'selected')}}>
                                     首页
                                 </option>
-                                <option value="{{\App\Enum\User::RECOMMEND_HOME}}" {{queryActive('page',\App\Enum\User::RECOMMEND_HOME,'selected')}}>
+                                <option value="{{\App\Enum\User::RECOMMEND_HOME}}" {{queryActive('type',\App\Enum\User::RECOMMEND_HOME,'selected')}}>
                                     专区
                                 </option>
                             </select>
@@ -116,6 +116,7 @@
                                 <th>会员等级</th>
                                 <th>推荐位置</th>
                                 <th>排序</th>
+                                <th>删除</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -127,20 +128,17 @@
                                     <td>{{$user->user->age_lang}}</td>
                                     <td>{{$user->user->level_lang}}</td>
                                     <td>
-                                        <select class="form-control" style="width: 100px">
-                                            <option value="{{\App\Enum\User::RECOMMEND_INDEX}}"
-                                                    @if($user->page == \App\Enum\User::RECOMMEND_INDEX) selected @endif>
-                                                首页
-                                            </option>
-                                            <option value="{{\App\Enum\User::RECOMMEND_HOME}}"
-                                                    @if($user->page == \App\Enum\User::RECOMMEND_HOME) selected @endif>
-                                                专区页
-                                            </option>
-                                        </select>
+                                        {{$user->page}}
                                     </td>
                                     <td>
-                                        <input type="number" class="form-control" value="{{$user->order}}"
-                                               style="width: 60px">
+                                        {{$user->order}}
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger btn-sm" data-click="delete"
+                                                data-id="{{$user->id}}">
+                                            删除
+                                        </button>
+
                                     </td>
 
                                 </tr>
@@ -211,6 +209,32 @@
 
             $('#add-form').form().success(function () {
                 $.redirect(null, 1500);
+            });
+
+            $('[data-click="delete"]').click(function () {
+                var id = $(this).data("id");
+                if (confirm("确定要这么做吗?")) {
+                    $.ajax({
+                        url: "/admin/user/deleteRecommend",
+                        data: {id: id},
+                        method: "get",
+                        success: function (ret) {
+                            if (ret.code == 1000) {
+                                $.alert("删除成功", "success");
+                                $.redirect(null, 1500);
+                            } else {
+                                $.alert(ret.msg, "danger");
+                            }
+                        },
+                        error: function () {
+                            $.alert("抱歉,删除失败,请稍后再试", "danger");
+                        }
+                    });
+                }
+            });
+
+            $('#change-page').change(function () {
+                window.location.href = location.origin + location.pathname + "?type=" + $(this).val();
             });
         });
     </script>
