@@ -97,8 +97,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
     Route::resource('column', 'Admin\ColumnController');
     #文章管理
     Route::resource('article', 'Admin\ArticleController');
-	#集结号
-	Route::resource('assembly', 'Admin\AssemblyController');
+    #集结号
+    Route::resource('assembly', 'Admin\AssemblyController');
     #评论管理
     Route::resource('comment', 'Admin\CommentController');
     #留言管理
@@ -127,7 +127,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
     #会员相片审核
     Route::get('user/gallerylist', array('uses' => 'Admin\UserController@getGallerylist', 'as' => 'admin.user.gallerylist'));
     Route::post('user/setGalleryStatus', array('uses' => 'Admin\UserController@setGalleryStatus', 'as' => 'admin.user.setGalleryStatus'));
-
+    Route::get('user/key', 'Admin\UserController@getKeyword');
     Route::resource('user', 'Admin\UserController');
     Route::post('scase/image', 'Admin\ScaseController@postImage');
 

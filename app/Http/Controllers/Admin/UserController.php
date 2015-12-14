@@ -6,6 +6,7 @@
  */
 
 namespace App\Http\Controllers\Admin;
+
 use DB;
 use App\Http\Controllers\Controller;
 use App\Model\Register;
@@ -30,35 +31,48 @@ class UserController extends Controller
         $sortby = array_get($where, 'sort', 'desc');
 
 
+        \DB::enableQueryLog();
         $users = User::orderBy($orderby, $sortby);
 
-        \DB::enableQueryLog();
-        foreach (array('status', 'sex', 'level', 'marriage', 'work_province', 'work_city', 'education', 'house', 'children', 'salary') as $field) {
 
-            if (array_has($where, $field) && $where[$field] != -1) {
-                $users->where($field, (string)$where[$field]);
-            }
+        if (array_get($where, 'status')) {
+            $users->status($where['status']);
         }
 
-        if (array_has($where, 'age_start') && $where['age_start'] != -1) {
+        if (array_get($where, 'level')) {
+            $users->level($where['level']);
+        }
+        if (array_get($where, 'sex')) {
+            $users->where('sex', $where['sex']);
+        }
+
+        if (array_get($where, 'age_start')) {
             $users->where('birthday', '<=', ageToYear($where['age_start']));
         }
-        if (array_has($where, 'age_end') && $where['age_end'] != -1) {
+        if (array_get($where, 'age_end')) {
             $users->where('birthday', '>=', ageToYear($where['age_end']));
         }
 
-        if (array_has($where, 'keyword') && $where['keyword']) {
+        if (array_get($where, 'keyword')) {
 
-            $users->where(function () use ($users, $where) {
-
-                $users->where('user_name', 'like', '%' . $where['keyword'] . '%');
-                $users->orWhere('mobile', $where['keyword']);
-                $users->orWhere('realname', 'like', '%' . $where['keyword'] . '%');
+            $users->where(function ($query) use ($where) {
+                $keyword = '%' . $where['keyword'] . '%';
+                $query->where('user_name', 'like', $keyword)
+                    ->orWhere('mobile', 'like', $keyword)
+                    ->orWhere('realname', 'like', $keyword)
+                    ->orWhere('user_id', 'like', $keyword);
             });
-
         }
 
-        $users = $users->paginate(array_get($where, 'size', 10))->appends($this->request()->all());
+
+        $users = $users->with('likeMe')->paginate(array_get($where, 'size', 10));
+
+        foreach ($where as $key => $query) {
+            if ($key && $query) {
+                $users->appends($key, $query);
+            }
+
+        }
 
         return $this->view('index')->with('users', $users);
     }
@@ -77,9 +91,9 @@ class UserController extends Controller
     {
 
         //验证表单
-        $this->validate($this->request(),$rules=array(
+        $this->validate($this->request(), $rules = array(
             'mobile' => 'required|digits:11|unique:users',
-            'realname'=>'required',
+            'realname' => 'required',
             'birthday' => 'required|date',
             'sex' => 'required|in:' . array_keys_impload(UserEnum::$sexLang),
             'password' => 'min:5|max:20',
@@ -89,17 +103,17 @@ class UserController extends Controller
             'education' => 'in:' . array_keys_impload(UserEnum::$educationLang),
             'salary' => 'in:' . array_keys_impload(UserEnum::$salaryLang)
 
-        ),$message=[
-            'mobile.required' =>'手机号不能为空',
-            'mobile.digits'  =>'手机号格式不正确',
-            'mobile.unique'  =>'手机号已经存在',
-            'birthday.required'=>'生日不能为空',
-            'realname.required'=>'真实姓名不能为空',
-            'sex.required'     =>'性别不能为空',
-            'password.min'     =>'密码最少5位',
-            'password.max'     =>'密码最多20位',
-            'password_confirm.same'=>'两次输入的密码不一致',
-            ], $customAttributes = [
+        ), $message = [
+            'mobile.required' => '手机号不能为空',
+            'mobile.digits' => '手机号格式不正确',
+            'mobile.unique' => '手机号已经存在',
+            'birthday.required' => '生日不能为空',
+            'realname.required' => '真实姓名不能为空',
+            'sex.required' => '性别不能为空',
+            'password.min' => '密码最少5位',
+            'password.max' => '密码最多20位',
+            'password_confirm.same' => '两次输入的密码不一致',
+        ], $customAttributes = [
 
         ]);
 
@@ -202,52 +216,94 @@ class UserController extends Controller
     public function destroy(User $user)
     {
 
-        if ($user->delete()) {
-            return $this->success('删除成功');
+        try {
+            transaction();
+            $user->gallery()->delete();
+            $user->info()->delete();
+            $user->object()->delete();
+            $user->recommend()->delete();
+            $user->like()->delete();
+            $user->likeMe()->delete();
+            $user->bind()->delete();
+            $user->delete();
+            commit();
+            return $this->rest()->success(array(), '删除成功');
+        } catch (\Exception $e) {
+            rollback();
+            return $this->rest()->error('删除失败,请稍后再试');
         }
 
-        return $this->error('删除失败');
     }
 
     //审核自我介绍
     public function getIntroduce()
     {
-      
-        $UserInfo = UserInfo::where('introduce_status','等待审核')->get();
 
-        return $this->view('introduce')->with('UserInfo', $UserInfo);
+        $users = UserInfo::with('user')
+            ->where('introduce_status', \App\Enum\User::INTRODUCE_CHECK)
+            ->paginate(15);
+
+        return $this->view('introduce')->with('users', $users);
     }
 
     // 自我介绍审核状态
-    public function setIntroduceStatus(){
+    public function setIntroduceStatus()
+    {
         $data = $this->request()->all();
+        try {
+            $userInfo = UserInfo::find($data['user_id']);
+            if (!$userInfo) {
+                return $this->rest()->error('不存在的用户');
+            }
 
-        if($data['status']=="审核失败"){
-             DB::table("user_info")->where('user_id',$data['user_id'])->update(array('introduce_status'=>$data['status']));
+            $userInfo->introduce_status = $data['status'];
+            if ($data['status'] == \App\Enum\User::INTRODUCE_OK) {
+                $userInfo->introduce = $userInfo->new_introduce;
+                $userInfo->new_introduce = NULL;
+            }
 
-        }else{
-             $new_introduce =  DB::table("user_info")->where('user_id',$data['user_id'])->pluck('new_introduce');
-             DB::table("user_info")->where('user_id',$data['user_id'])->update(array('introduce'=>$new_introduce,'introduce_status'=>$data['status']));
-
+            $userInfo->save();
+            return $this->rest()->success(array(), '操作成功');
+        } catch (\Exception $e) {
+            return $this->rest()->error($e->getMessage());
         }
 
-        return $this->success('操作成功');
 
     }
 
-     //会员展示推荐
+    //会员展示推荐
     public function getRecommend()
     {
-      
-        $users = UserRecommend::with('user')->get();
+
+        $users = UserRecommend::with('user')->paginate(15);
 
         return $this->view('recommend')->with('users', $users);
     }
 
+    public function getKeyword()
+    {
+        $key = $this->request()->get('keyword');
+
+        if ($key) {
+            $users = User::where(function ($query) use ($key) {
+                $keyword = '%' . $key . '%';
+                $query->where('user_name', 'like', $keyword)
+                    ->orWhere('mobile', 'like', $keyword)
+                    ->orWhere('realname', 'like', $keyword)
+                    ->orWhere('user_id', 'like', $keyword);
+            })->select('user_name', 'mobile', 'realname', 'user_id','avatar')->limit(20)->get();
+
+            return $this->rest()->success($users, '查询成功');
+        }
+
+        return $this->rest()->success(array());
+    }
+
     // 设置推荐状态
-    public function setRecommendPage(){
-        $data = $this->request()->only('id','page');
-        DB::table("user_recommend")->where('id',$data['id'])->update(array('page'=>$data['page']));
+    public function setRecommendPage()
+    {
+        $data = $this->request()->only('id', 'page');
+        DB::table("user_recommend")->where('id', $data['id'])->update(array('page' => $data['page']));
 
 
         return $this->success('操作成功');
@@ -255,32 +311,33 @@ class UserController extends Controller
     }
 
     // 会员推荐
-    public function setTuiUser(){
-        
-        $user_id = $this->request()->get('user_id');
-        $num = DB::table('user_recommend')->where('user_id',$user_id)->count();
+    public function setTuiUser()
+    {
 
-        if($num ==0){
-              $num = DB::table('user_recommend')->insert(array('user_id'=>$user_id));
+        $user_id = $this->request()->get('user_id');
+        $num = DB::table('user_recommend')->where('user_id', $user_id)->count();
+
+        if ($num == 0) {
+            $num = DB::table('user_recommend')->insert(array('user_id' => $user_id));
         }
 
-         return $this->success('操作成功');
+        return $this->success('操作成功');
 
     }
 
     //会员相片审核
     public function getGallerylist()
     {
-      
-        $users = UserGallery::where('status','待审核')->where('image_url','!=','')->with('user')->get();
+        $users = UserGallery::with('user')->where('status', UserEnum::GALLERY_CHECK)->paginate(15);
 
         return $this->view('gallery')->with('users', $users);
     }
 
     // 设置相片状态
-    public function setGalleryStatus(){
-        $data = $this->request()->only('photo_id','status');
-        DB::table("user_gallery")->where('photo_id',$data['photo_id'])->update(array('status'=>$data['status']));
+    public function setGalleryStatus()
+    {
+        $data = $this->request()->only('photo_id', 'status');
+        DB::table("user_gallery")->where('photo_id', $data['photo_id'])->update(array('status' => $data['status']));
 
         return $this->success('操作成功');
 

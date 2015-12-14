@@ -185,4 +185,8 @@ class User
         self::GALLERY_OK => '正常'
     ];
 
+
+    const INTRODUCE_CHECK = '等待审核';
+    const INTRODUCE_OK = '审核成功';
+    const INTRODUCE_NOCHECK = '审核失败';
 }

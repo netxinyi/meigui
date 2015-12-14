@@ -2,63 +2,62 @@
 
 @section('title')
     会员管理 - 后台管理中心
-@stop
-<style>
-    /*.table > thead > tr > th{text-align: center;}*/
-</style>
-@section('content')
-    <!-- begin panel -->
+    @stop
+
+    @section('content')
+            <!-- begin panel -->
     <div class="panel panel-inverse">
         <div class="panel-heading">
             <div class="panel-heading-btn">
-                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i
-                            class="fa fa-expand"></i></a>
+
             </div>
             <h4 class="panel-title">自我介绍审核</h4>
         </div>
-        @if($errors->has('success'))
-            <div class="alert alert-success fade in">
-                <button type="button" class="close" data-dismiss="alert">
-                    <span aria-hidden="true">×</span>
-                </button>
-                {{$errors->first('success')}}
-            </div>
-        @endif
-        @if($errors->has('error'))
-            <div class="alert alert-danger fade in">
-                <button type="button" class="close" data-dismiss="alert">
-                    <span aria-hidden="true">×</span>
-                </button>
-                {{$errors->first('error')}}
-            </div>
-        @endif
         <div class="panel-body">
             <div class="table-responsive">
-                <table id="data-table" class="table table-striped table-bordered">
-                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <table id="data-table" class="table table-striped">
+
                     <thead>
                     <tr>
-                        <th>用户名</th>
-                        <th>审核状态</th>
-                        <th>自我介绍待审内容</th>
-                        <th>操作</th>
+                        <th>ID</th>
+                        <th>昵称</th>
+                        <th>自我介绍</th>
+                        <th width="150">操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($UserInfo as $UserInfo)
+                    @foreach($users as $user)
                         <tr>
-                            <td>{{$UserInfo->user_id}}</td>
-                            <td>{{$UserInfo['introduce_status']}}</td>
-                            <td>{{$UserInfo['new_introduce']}}</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-info  m-r-5"   onclick="shenhe({{$UserInfo->user_id}},'审核成功')">审核成功</button>
-                                <button class="btn btn-sm btn-danger  m-r-5" onclick="shenhe({{$UserInfo->user_id}},'审核失败')">不通过</button>
+                            <td>{{$user->user_id}}</td>
+                            <td>
+                                <a href="/admin/user/{{$user->user_id}}/edit" target="_blank">
+                                    {{$user->user->user_name}}
+                                </a>
+                            </td>
+                            <td>
+                                {{$user->new_introduce}}
+                            </td>
+
+                            <td>
+                                <button class="btn btn-xs btn-info" data-status="{{\App\Enum\User::INTRODUCE_OK}}"
+                                        data-id="{{$user->user_id}}">通过
+                                </button>
+                                <button class="btn btn-xs btn-danger"
+                                        data-status="{{\App\Enum\User::INTRODUCE_NOCHECK}}"
+                                        data-id="{{$user->user_id}}">拒绝
+                                </button>
                             </td>
                         </tr>
                     @endforeach
-                    
+
                 </table>
             </div>
+        </div>
+        <div class="panel-footer">
+            <span style="line-height: 30px">共 {{$users->total() }} 条记录</span>
+
+            <?php echo str_replace('pagination', 'pagination pagination-sm m-t-0 m-b-0 pull-right', $users->render());?>
+
         </div>
     </div>
     <!-- end panel -->
@@ -68,42 +67,40 @@
 @stop
 
 @section('footer-last-js')
-    <!-- ================== BEGIN PAGE LEVEL JS ================== -->
-    <script src="/assets/lib/DataTables/js/jquery.dataTables.js"></script>
-    <script src="/assets/lib/DataTables/js/dataTables.colVis.js"></script>
-    <script src="/assets/admin//js/table-manage-colvis.demo.min.js"></script>
+
     <script src="/assets/js/common/common.js"></script>
     <script src="/assets/admin/js/apps.min.js"></script>
     <!-- ================== END PAGE LEVEL JS ================== -->
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            TableManageColVis.init();
-        });
-    </script>
+
 
     <script>
 
-    // 审核
-    function shenhe(user_id,str){
-        var token = $("input[name='_token']").val();
-       
-        $.rest({
-         url:'/admin/user/setIntroduceStatus',
-         method:'post',
-         data:{user_id:user_id,_token:token,status:str}
+        $(function () {
+
+            $('[data-status]').click(function () {
+                if (confirm("确定要这么做吗?")) {
+                    var status = $(this).data("status");
+                    var id = $(this).data("id");
+                    $.ajax({
+                        url: '/admin/user/setIntroduceStatus',
+                        method: 'post',
+                        data: {user_id: id, _token: "{{csrf_token()}}", status: status},
+                        success: function (ret) {
+                            if (ret.code == 1000) {
+                                $.alert("修改介绍状态成功", "success");
+                                $.redirect(null, 1500);
+                            } else {
+                                $.alert(ret.msg, "danger")
+                            }
+                        },
+                        error: function () {
+                            $.alert("修改介绍状态失败,请稍后再试", "danger");
+                        }
+                    });
+                }
+            });
         });
 
-
-        $.alert("操作成功","success");
-
-
-    }
     </script>
-@stop
-
-@section('last-css')
-    <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
-    <link href="/assets/lib/DataTables/css/data-table.css" rel="stylesheet"/>
-    <!-- ================== END PAGE LEVEL STYLE ================== -->
 @stop

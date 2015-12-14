@@ -42,4 +42,9 @@ class UserInfo extends BaseModel
         return !$pro && !$city ? '未填写' : $pro . ' ' . $city;
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'user_id');
+    }
+
 }

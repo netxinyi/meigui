@@ -6972,3 +6972,16 @@ body.flat-black {
 .profile-section .title small {
     font-weight: 400
 }
+.modal-alert {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 30px;
+    z-index: 999999;
+}
+.modal-alert .alert {
+    margin: 0 auto;
+    width: 350px;
+    padding-left: 25px;
+    padding-right: 25px;
+}

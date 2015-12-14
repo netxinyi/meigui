@@ -47,7 +47,7 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
      * 追加属性
      * @var array
      */
-    protected $append = ['house_lang', 'sex_lang', 'level_lang', 'age_lang', 'height_lang', 'age', 'education_lang', 'salary_lang', 'marriage_lang'];
+    protected $append = ['house_lang', 'recommend_lang', 'status_lang', 'sex_lang', 'level_lang', 'age_lang', 'height_lang', 'age', 'education_lang', 'salary_lang', 'marriage_lang'];
 
 
     /*
@@ -111,6 +111,15 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
     {
 
         return UserEnum::$sexLang[$this->attributes['sex']];
+    }
+
+    public function getRecommendLangAttribute()
+    {
+    }
+
+    public function getStatusLangAttribute()
+    {
+        return \App\Enum\User::$statusLang[$this->attributes['status']];
     }
 
     /**
