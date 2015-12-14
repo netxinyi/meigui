@@ -14,6 +14,8 @@ use App\Model\UserInfo;
 use App\Model\UserLike;
 use App\Model\UserObject;
 use App\Model\UserRecommend;
+use App\Model\Assembly;
+use App\Enum\Assembly as AssemblyasEnum;
 
 class IndexController extends Controller
 {
@@ -27,8 +29,9 @@ class IndexController extends Controller
             }
         ))->index()->orderBy('order')->get();
 
-
-        return $this->view('index')->with('users', $users);
+		//派对集结号
+		$assembly = Assembly::where('index_status','=',AssemblyasEnum::DISPLAY_BLOCK)->limit(6)->orderBy('created_at','desc')->get();
+		return $this->view('index')->with('users', $users)->with('assembly',$assembly);
     }
 
 //
