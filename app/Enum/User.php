@@ -137,15 +137,15 @@ class User
 
     #账号等级
     const LEVEL_1 = 1;
-    const LEVEL_2 = 2;
+//    const LEVEL_2 = 2;
     const LEVEL_3 = 3;
-    const LEVEL_4 = 4;
+//    const LEVEL_4 = 4;
 
     public static $levelLang = [
         self::LEVEL_1 => '普通用户',
-        self::LEVEL_2 => '普通会员',
+//        self::LEVEL_2 => '普通会员',
         self::LEVEL_3 => '高级会员',
-        self::LEVEL_4 => '特邀嘉宾'
+//        self::LEVEL_4 => '特邀嘉宾'
     ];
 
     #择偶条件-收入
