@@ -8,7 +8,7 @@
 @section('body')
     <div class="wap_vip search_bg">
         <div class="wap_vip_m">
-            <form action="/search" method="GET">
+            <form action="/search" method="GET" id="search-form">
                 <div class="search_menu">
                     <div class="menu_xuan">
                         我要找：
@@ -109,6 +109,12 @@
         $(function () {
             new PCAS('work_province', 'work_city', "{{Request::get('work_province')}}", "{{Request::get('work_city')}}");
 
+            $('#search-form').submit(function () {
+                if ($('[name="age_end"]').val() < $('[name="age_start"]').val()) {
+                    alert("年龄段选择有误");
+                    return false;
+                }
+            });
         });
     </script>
 @stop
