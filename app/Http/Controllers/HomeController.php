@@ -52,6 +52,24 @@ class HomeController extends Controller
 
     }
 
+    public function getSetAvatar()
+    {
+        $id = $this->request()->get('id');
+        $image = user()->gallery()->where('status', \App\Enum\User::GALLERY_OK)->find($id);
+        if (!$image) {
+            return $this->rest()->error('照片不存在或未通过审核');
+        }
+        try {
+            user()->avatar = $image->image_url;
+            user()->save();
+            return $this->rest()->success(user(), '设置成功');
+        } catch (\Exception $e) {
+            return $this->rest()->error('设置失败,请稍后再试');
+        }
+
+
+    }
+
     // 保存基本信息
     public function postUpdate()
     {
@@ -108,8 +126,12 @@ class HomeController extends Controller
 
         ));
 
-        user()->info()->update($data);
-        return $this->success('修改成功！');
+
+        user()->info()->update(array(
+            'introduce_status' => \App\Enum\User::INTRODUCE_CHECK,
+            'new_introduce' => $data['introduce']
+        ));
+        return $this->success('修改成功,请等待管理员审核');
 
     }
 

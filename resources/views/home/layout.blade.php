@@ -11,7 +11,7 @@
             <div class="home_content_v_left">
                 <div class="side-1">
                     <div class="side-1-img">
-                        <a href="/home/avatar">
+                        <a href="/home/gallery">
                             <img class="am-img-thumbnail am-circle" src="{{user()->avatar}}" width="140" height="140"/></a>
                     </div>
                 </div>

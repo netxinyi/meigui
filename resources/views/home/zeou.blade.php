@@ -14,6 +14,7 @@
                         <td>
                             <div class="zeou_table_select_n_left">
                                 <select class="zeou_table_select" name="age_start">
+                                    <option value="">不限</option>
                                      <?php 
                                         for ($x=18; $x<=99; $x++) {
                                             if(User()->object->age_start == $x){
@@ -28,6 +29,7 @@
                             <div class="zeou_table_select_n_left"><span>&nbsp &nbsp至 &nbsp &nbsp</span></div>
                             <div class="zeou_table_select_n_left">
                                 <select class="zeou_table_select" name="age_end">
+                                    <option value="">不限</option>
                                     <?php 
                                         for ($x=18; $x<=99; $x++) {
                                             if(User()->object->age_end == $x){
@@ -46,6 +48,7 @@
                         <td>婚姻状况：</td>
                         <td>
                             <select name="marriage"  class="zeou_table_select">
+                                <option value="">不限</option>
                                 @foreach(App\Enum\User::$marriageLang as $key=>$val)
                                     @if(User()->object->marriage == $key)
                                         <option value="{{$key}}" selected="selected">{{$val}}</option>
@@ -61,6 +64,7 @@
                         <td>居住情况：</td>
                         <td>
                             <select name="house"  class="zeou_table_select">
+                                <option value="">不限</option>
                                  @foreach(App\Enum\User::$houseLang as $key=>$val)
                                     @if(User()->object->house == $key)
                                         <option value="{{$key}}" selected="selected">{{$val}}</option>
@@ -89,6 +93,7 @@
                         <td>学历：</td>
                         <td>
                             <select name="education"  class="zeou_table_select">
+                                <option value="">不限</option>
                                  @foreach(App\Enum\User::$educationLang as $key=>$val)
                                     @if(user()->object->education == $key)
                                         <option value="{{$key}}" selected="selected">{{$val}}</option>
@@ -105,6 +110,7 @@
                         <td>有无孩子：</td>
                         <td>
                             <select name="children"  class="zeou_table_select">
+                                <option value="">不限</option>
                                  @foreach(App\Enum\User::$childrenLang as $key=>$val)
                                     @if(user()->object->children == $key)
                                         <option value="{{$key}}" selected="selected">{{$val}}</option>
@@ -121,6 +127,7 @@
                         <td>
                             <div class="zeou_table_select_n_left">
                                 <select  class="zeou_table_select" name="salary_start">
+                                    <option value="">不限</option>
                                     @foreach(App\Enum\User::$salaryObjectLang as $key=>$val)
                                         @if(user()->object->salary_start == $key)
                                             <option value="{{$key}}" selected="selected">{{$val}}</option>
@@ -133,6 +140,7 @@
                             <div class="zeou_table_select_n_left"><span>&nbsp &nbsp至 &nbsp &nbsp</span></div>
                             <div class="zeou_table_select_n_left">
                                 <select  class="zeou_table_select" name="salary_end">
+                                    <option value="">不限</option>
                                     @foreach(App\Enum\User::$salaryObjectLang as $key=>$val)
                                         @if(user()->object->salary_end == $key)
                                             <option value="{{$key}}" selected="selected">{{$val}}</option>
@@ -151,6 +159,7 @@
                         <td>
                             <div class="zeou_table_select_n_left">
                                 <select  class="zeou_table_select" name="height_start">
+                                    <option value="">不限</option>
                                     <?php 
                                         for ($x=130; $x<=226; $x++) {
                                             if($x == user()->object->height_start){
@@ -165,6 +174,7 @@
                             <div class="zeou_table_select_n_left"><span>&nbsp &nbsp至 &nbsp &nbsp</span></div>
                             <div class="zeou_table_select_n_left">
                                 <select  class="zeou_table_select" name="height_end">
+                                    <option value="">不限</option>
                                     <?php 
                                         for ($x=130; $x<=226; $x++) {
                                             if($x == user()->object->height_end){

@@ -46,20 +46,22 @@
                                     <div class="img_update_img_l">
                                         @if($photo->status == \App\Enum\User::GALLERY_CHECK)
                                             <button class="am-btn home_btn am-btn-sm " type="button">相片审核中</button>
-                                            <button type="button" class="am-btn am-btn-danger home_btn am-btn-sm"
-                                                    data-id="{{$photo->photo_id}}" data-click="delete">删除
-                                            </button>
+
                                         @elseif($photo->status == \App\Enum\User::GALLERY_NOCHECK)
                                             <button class="am-btn home_btn am-btn-sm " type="button">审核未通过</button>
-                                            <button type="button" class="am-btn am-btn-danger home_btn am-btn-sm"
-                                                    data-id="{{$photo->photo_id}}" data-click="delete">删除
+
+                                        @elseif($photo->image_url == user()->getOriginal('avatar'))
+                                            <button class="am-btn home_btn am-btn-sm" type="button">当前头像
                                             </button>
                                         @else
-                                            <button type="button" class="am-btn am-btn-danger home_btn am-btn-sm"
-                                                    data-id="{{$photo->photo_id}}" data-click="delete" style="width: 100%"> 删除
+                                            <button class="am-btn home_btn am-btn-sm am-btn-success" type="button"
+                                                    data-click="avatar" data-id="{{$photo->photo_id}}">设为头像
                                             </button>
                                         @endif
 
+                                        <button type="button" class="am-btn am-btn-danger home_btn am-btn-sm"
+                                                data-id="{{$photo->photo_id}}" data-click="delete"> 删除
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -157,6 +159,25 @@
                 $('.webuploader-pick').text("选择");
                 $.alert("抱歉,上传失败", 'danger');
                 uploader.reset();
+            });
+
+            $('[data-click="avatar"]').click(function () {
+                if (confirm("您确定要将此照片设置为头像吗?")) {
+                    var id = $(this).data('id');
+                    $.ajax('/home/set-avatar?id=' + id, {
+                        success: function (ret) {
+                            if (ret.code == 1000) {
+                                $.alert("设置成功", "success");
+                                $tr.remove();
+                            } else {
+                                $.alert(ret.msg, "danger");
+                            }
+                        },
+                        error: function () {
+                            $.alert("抱歉,设置失败,请稍后再试", "danger");
+                        }
+                    });
+                }
             });
         });
 
