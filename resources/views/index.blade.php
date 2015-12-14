@@ -101,32 +101,18 @@
                     <div class="am-list-news-hd am-cf">
                         <!--带更多链接-->
                         <h2>派对集结号</h2>
-                        <a href="./bottom.html" class="">
+                        <a href="/hdlist" class="">
                             <span class="am-list-news-more am-fr">更多 &raquo;</span>
                         </a>
                     </div>
                     <div class="am-list-news-bd">
-                        <ul class="am-list">
-                            <li class="am-g am-list-item-dated">
-                                <a href="./bottom.html" class="am-list-item-hd ">八月北京千人相亲会报名中</a>
-                                <span class="am-list-date">2013-09-18</span>
-                            </li>
-                            <li class="am-g am-list-item-dated">
-                                <a href="./bottom.html" class="am-list-item-hd ">七月爱情季节报名要脱光啦</a>
-                                <span class="am-list-date">2013-10-14</span>
-                            </li>
-                            <li class="am-g am-list-item-dated">
-                                <a href="./bottom.html" class="am-list-item-hd ">六月浪漫每一天报名相亲会</a>
-                                <span class="am-list-date">2013-11-18</span>
-                            </li>
-                            <li class="am-g am-list-item-dated">
-                                <a href="./bottom.html" class="am-list-item-hd ">5月浪漫每一天报名相亲会</a>
-                                <span class="am-list-date">2013-11-18</span>
-                            </li>
-                            <li class="am-g am-list-item-dated">
-                                <a href="./bottom.html" class="am-list-item-hd ">4月浪漫每一天报名相亲会</a>
-                                <span class="am-list-date">2013-11-18</span>
-                            </li>
+                        <ul class="am-list" style="line-height: 4px;font-size: 12px;">
+                            @foreach($assembly as $assembly)
+                                <li class="am-g am-list-item-dated">
+                                    <a href="/assembly/hddetail/{{$assembly->assembly_id}}" class="am-list-item-hd ">{{$assembly->title}}</a>
+                                    <span class="am-list-date">{{substr($assembly->created_at,0,10)}}</span>
+                                </li>
+                            @endforeach
 
                         </ul>
                     </div>

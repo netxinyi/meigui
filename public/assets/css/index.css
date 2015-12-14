@@ -285,8 +285,8 @@
 }
 
 .am-list {
-    line-height: 4px;
-    font-size: 12px;
+    /*line-height: 4px;
+    font-size: 12px;*/
 }
 
 .am-list > li {
