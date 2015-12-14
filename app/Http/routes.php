@@ -7,6 +7,7 @@ Route::bind('admins', function ($admin_id) {
 Route::model('user', 'App\Model\User');
 Route::model('column', 'App\Model\Column');
 Route::model('article', 'App\Model\Article');
+Route::model('assembly', 'App\Model\Assembly');
 Route::model('guestbook', 'App\Model\GuestBook');
 Route::model('register', 'App\Model\Register');
 Route::model('scase', 'App\Model\Scase');
@@ -96,6 +97,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
     Route::resource('column', 'Admin\ColumnController');
     #文章管理
     Route::resource('article', 'Admin\ArticleController');
+	#集结号
+	Route::resource('assembly', 'Admin\AssemblyController');
     #评论管理
     Route::resource('comment', 'Admin\CommentController');
     #留言管理
@@ -119,6 +122,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
     #会员展示推荐
     Route::get('user/recommend', array('uses' => 'Admin\UserController@getRecommend', 'as' => 'admin.user.recommend'));
     Route::post('user/setRecommendPage', array('uses' => 'Admin\UserController@setRecommendPage', 'as' => 'admin.user.setRecommendPage'));
+    Route::post('user/setTuiUser', array('uses' => 'Admin\UserController@setTuiUser', 'as' => 'admin.user.setTuiUser'));
 
     #会员相片审核
     Route::get('user/gallerylist', array('uses' => 'Admin\UserController@getGallerylist', 'as' => 'admin.user.gallerylist'));

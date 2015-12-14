@@ -12,10 +12,10 @@ class Scase
 {
 
     #发布类型-鸳鸯谱
-    const PUBLISH_YUANYANGPU = 1;
+    const PUBLISH_YUANYANGPU = '鸳鸯谱';
 
 	#发布类型-我要结婚
-    const PUBLISH_MARRY = 2;
+    const PUBLISH_MARRY = '我要结婚';
 
     #婚恋类型
     public static $publishLang = [

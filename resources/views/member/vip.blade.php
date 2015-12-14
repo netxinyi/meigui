@@ -2,6 +2,13 @@
 @section('last-css')
     <link rel="stylesheet" href="/assets/css/index.css">
     <link rel="stylesheet" href="/assets/css/detail.css"/>
+    <style>
+        .am-slider-default .am-control-thumbs img{height: 50px;}
+        .am-control-thumbs li {
+          width: 100%/5; /* n 为轮播图数量 */
+        }
+        .am-slider-default .am-control-thumbs li{width: 20%}
+    </style>
 @stop
 
 @section('body')
@@ -18,18 +25,16 @@
                                 @if($user->gallery->isEmpty())
                                     <li>
                                         @if($user->sex == \App\Enum\User::SEX_FEMALE)
-                                            <img src="/assets/images/default-photo-female.jpg">
+                                            <img src="/assets/images/default-photo-female.jpg" style="width:298px;height:300px;">
                                         @elseif($user->sex == \App\Enum\User::SEX_MALE)
-                                            <img src="/assets/images/default-photo-male.jpg">
+                                            <img src="/assets/images/default-photo-male.jpg" style="width:298px;height:300px;">
                                         @endif
                                     </li>
                                 @else
                                     @foreach($user->gallery as $photo)
-                                        @if($photo->image_url)
-                                            <li data-thumb="/uploads/images/{{$photo->image_url}}">
-                                                <img src="/uploads/images/{{$photo->image_url}}"/>
-                                            </li>
-                                        @endif
+                                        <li data-thumb="/uploads/avatar/{{$photo->image_url}}" >
+                                            <img src="/uploads/avatar/{{$photo->image_url}}"/ style="width:298px;height:300px;">
+                                        </li>
                                     @endforeach
                                 @endif
                             </ul>
@@ -64,8 +69,10 @@
                                         <td>住房：<span class="msg_font_color">{{$user->house_lang}}</span></td>
                                         <td>月薪：<span class="msg_font_color">{{$user->salary_lang}}</span></td>
                                     </tr>
-                                    <td>籍贯：<span class="msg_font_color">{{$user->info->origin}}</span></td>
-                                    <td>民族：<span class="msg_font_color">{{$user->info->stock}}</span></td>
+                                    <tr>
+                                        <td>籍贯：<span class="msg_font_color">{{$user->info->origin_province}}</span></td>
+                                        <td>民族：<span class="msg_font_color">{{$user->info->stock}}</span></td>
+                                    </tr>
                                     <tr>
                                         <td colspan="2">
                                             <button type="button" class="am-btn am-btn-danger dy_btn_color"
@@ -91,8 +98,10 @@
                         <div class="am-panel-bd">
                             <table class="am-table">
                                 <tr>
-                                    <td>年龄：<span class="msg_font_color">{{$user->object->age_lang}}</span></td>
-                                    <td>身高：<span class="msg_font_color">{{$user->object->height_lang}}</span></td>
+                                    <td>年龄：<span class="msg_font_color">{{$user->object->age_start}}
+                                            岁 至 {{$user->object->age_end}}岁</span></td>
+                                    <td>身高：<span class="msg_font_color">{{$user->object->height_start}}
+                                            cm 至 {{$user->object->height_end}}cm</span></td>
                                 </tr>
                                 <tr>
                                     <td>学历：<span class="msg_font_color">{{$user->object->education_lang}}</span></td>
@@ -132,7 +141,7 @@
             <!-- 右边部分 -->
             <div class="wap_vip_right">
                 <div class="jiaoyoutishi">
-                    <img src="/assets/images/yuehuiba.jpg" alt="">
+                    <img src="./images/yuehuiba.jpg" alt="">
                 </div>
                 <div class="jiaoyoutishi">
               <span>

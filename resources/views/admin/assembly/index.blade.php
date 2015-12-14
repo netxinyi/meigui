@@ -1,7 +1,7 @@
 @extends('admin.master')
 
 @section('title')
-    成功案例 - 后台管理中心
+    集结号 - 后台管理中心
 @stop
 
 @section('content')
@@ -12,7 +12,7 @@
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i
                             class="fa fa-expand"></i></a>
             </div>
-            <h4 class="panel-title">案例列表</h4>
+            <h4 class="panel-title">信息列表</h4>
         </div>
         @if($errors->has('success'))
             <div class="alert alert-success fade in">
@@ -36,32 +36,28 @@
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>标题</th>
-                        <th>男主角</th>
-                        <th>女主角</th>
-                        <th>封面</th>
-                        <th>发布类型</th>
-                        <th>创建时间</th>
+                        <th>文章标题</th>
+                        <th>首页状态</th>
+                        <th>作者</th>
+                        <th>发表时间</th>
                         <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($case as $case)
-                    <tr>
-                        <td>{{$case->case_id}}</td>
-                        <td>{{$case->title}}</td>
-                        <td>{{$case->male_id}}</td>
-                        <td>{{$case->female_id}}</td>
-                        <td><img width="100" height="100" src="{{$case->cover}}" alt=""/></td>
-                        <td>{{$case->publish_type}}</td>
-                        <td>{{$case->created_at}}</td>
-                        <td>
-                            <a href="{{route('admin.scase.edit',['case_id'=>$case->case_id])}}"
-                               class="btn btn-sm btn-success  m-r-5">编辑</a>
-                            <a href="{{route('admin.scase.destroy',['case_id'=>$case->case_id])}}"
-                               class="btn btn-sm btn-danger" data-method="delete">删除</a>
-                        </td>
-                    </tr>
+                    @foreach($models as $model)
+                        <tr>
+                            <td>{{$model->assembly_id}}</td>
+                            <td>{{$model->title}}</td>
+                            <td>{{$model->index_status}}</td>
+                            <td>{{$model->admin->admin_name}}</td>
+                            <td>{{$model->created_at}}</td>
+                            <td class="text-center">
+                                <a href="{{route('admin.assembly.edit',['assembly_id'=>$model->assembly_id])}}"
+                                   class="btn btn-sm btn-success  m-r-5">编辑</a>
+                                <a href="{{route('admin.assembly.destroy',['assembly_id'=>$model->assembly_id])}}"
+                                   class="btn btn-sm btn-danger" data-method="delete">删除</a>
+                            </td>
+                        </tr>
                     @endforeach
                     </tbody>
                 </table>

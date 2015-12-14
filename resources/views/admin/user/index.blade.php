@@ -77,7 +77,8 @@
             <!-- end col-2 -->
             <!-- begin col-10 -->
             <div class="col-md-12">
-                <form method="post">
+                
+                      <input type="hidden" name="_token" value="{{ csrf_token() }}" >
                     <div class="email-content">
                         <table class="table table-email">
                             <thead>
@@ -114,6 +115,7 @@
                                     <td class="email-date">{{$user->created_at}}</td>
                                      <td class="email-date">{{$user->status}}</td>
                                     <td>
+                                        <button onclick="tui({{$user->user_id}})">推荐会员</button>
                                         <a class="btn btn-success btn-sm"   href="/admin/user/{{$user->user_id}}/edit">编辑</a>
                                         <a class="btn btn-danger btn-sm" href="/admin/user/{{$user->user_id}}" data-method="delete">删除</a>
                                     </td>
@@ -127,7 +129,7 @@
 
                         </div>
                     </div>
-                </form>
+             
             </div>
             <!-- end col-10 -->
         </div>
@@ -139,6 +141,21 @@
     @section('footer-last-js')
             <!-- ================== BEGIN PAGE LEVEL JS ================== -->
     <script src="/assets/admin/js/apps.min.js"></script>
+    <script src="/assets/js/common/common.js"></script>
+
     <!-- ================== END PAGE LEVEL JS ================== -->
+
+    <script>
+        function tui(user_id){
+              var token = $("input[name='_token']").val();
+                $.rest({
+                 url:'/admin/user/setTuiUser',
+                 method:'post',
+                 data:{user_id:user_id,_token:token},
+                 
+                });
+           
+        }
+    </script>
 
 @stop

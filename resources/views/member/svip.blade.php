@@ -2,6 +2,13 @@
 @section('last-css')
     <link rel="stylesheet" href="/assets/css/index.css">
     <link rel="stylesheet" href="/assets/css/detail.css"/>
+    <style>
+        .am-slider-default .am-control-thumbs img{height: 50px;}
+        .am-control-thumbs li {
+          width: 100%/5; /* n 为轮播图数量 */
+        }
+        .am-slider-default .am-control-thumbs li{width: 20%}
+    </style>
 @stop
 @section('body')
     <div class="wap_vip">
@@ -17,16 +24,16 @@
                                 @if($user->gallery->isEmpty())
                                     <li>
                                         @if($user->sex == \App\Enum\User::SEX_FEMALE)
-                                            <img src="/assets/images/default-photo-female.jpg">
+                                            <img src="/assets/images/default-photo-female.jpg" style="width:298px;height:300px;">
                                         @elseif($user->sex == \App\Enum\User::SEX_MALE)
-                                            <img src="/assets/images/default-photo-male.jpg">
+                                            <img src="/assets/images/default-photo-male.jpg" style="width:298px;height:300px;">
                                         @endif
                                     </li>
                                 @else
                                     @foreach($user->gallery as $photo)
                                         @if($photo->image_url)
-                                            <li data-thumb="/uploads/images/{{$photo->image_url}}">
-                                                <img src="/uploads/images/{{$photo->image_url}}"/>
+                                            <li data-thumb="/uploads/avatar/{{$photo->image_url}}" >
+                                                <img src="/uploads/avatar/{{$photo->image_url}}" style="width:298px;height:300px;" />
                                             </li>
                                         @endif
                                     @endforeach
