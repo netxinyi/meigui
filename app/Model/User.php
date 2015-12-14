@@ -82,7 +82,7 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
 
     public function getUserNameAttribute()
     {
-        return $this->attributes['user_name'] ?: "注册用户";
+        return $this->attributes['user_name'] ?: "报名用户";
     }
 
     /**
