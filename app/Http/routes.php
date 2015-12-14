@@ -7,6 +7,7 @@ Route::bind('admins', function ($admin_id) {
 Route::model('user', 'App\Model\User');
 Route::model('column', 'App\Model\Column');
 Route::model('article', 'App\Model\Article');
+Route::model('assembly', 'App\Model\Assembly');
 Route::model('guestbook', 'App\Model\GuestBook');
 Route::model('register', 'App\Model\Register');
 Route::model('scase', 'App\Model\Scase');
@@ -96,6 +97,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
     Route::resource('column', 'Admin\ColumnController');
     #文章管理
     Route::resource('article', 'Admin\ArticleController');
+	#集结号
+	Route::resource('assembly', 'Admin\AssemblyController');
     #评论管理
     Route::resource('comment', 'Admin\CommentController');
     #留言管理

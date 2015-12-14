@@ -40,6 +40,18 @@
                     <li><a href="{{route('admin.column.create')}}">发布栏目</a></li>
                 </ul>
             </li>
+
+            <li class="has-sub">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-building-o"></i>
+                    <span>集结号</span>
+                </a>
+                <ul class="sub-menu">
+                    <li><a href="{{route('admin.assembly.index')}}">信息列表</a></li>
+                    <li><a href="{{route('admin.assembly.create')}}">发表信息</a></li>
+                </ul>
+            </li>
         <!--     <li class="has-sub">
                 <a href="javascript:;">
                     <b class="caret pull-right"></b>
