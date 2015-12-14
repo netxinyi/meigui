@@ -157,9 +157,10 @@ class WechatController extends Controller
      *
      * @return string
      */
-    public function anyApi(Server $server)
+    public function anyApi()
     {
         $url = Config::get('app.url');
+
         $server = new Server(option('wechat_app_id'), option('wechat_token'), option('wechat_encode_key'));
         //关注回复
         $server->on('event', 'subscribe', function ($event) {
