@@ -32,4 +32,13 @@ class Scase extends BaseModel
     ];
 
 
+    public function male()
+    {
+        return $this->belongsTo(User::class, 'male_id', 'user_id');
+    }
+    public function female()
+    {
+        return $this->belongsTo(User::class, 'female_id', 'user_id');
+    }
+
 }

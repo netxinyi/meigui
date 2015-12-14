@@ -2,10 +2,10 @@
 
 @section('title')
     成功案例 - 后台管理中心
-@stop
+    @stop
 
-@section('content')
-    <!-- begin panel -->
+    @section('content')
+            <!-- begin panel -->
     <div class="panel panel-inverse">
         <div class="panel-heading">
             <div class="panel-heading-btn">
@@ -47,21 +47,30 @@
                     </thead>
                     <tbody>
                     @foreach($case as $case)
-                    <tr>
-                        <td>{{$case->case_id}}</td>
-                        <td>{{$case->title}}</td>
-                        <td>{{$case->male_id}}</td>
-                        <td>{{$case->female_id}}</td>
-                        <td><img width="100" height="100" src="{{$case->cover}}" alt=""/></td>
-                        <td>{{$case->publish_type}}</td>
-                        <td>{{$case->created_at}}</td>
-                        <td>
-                            <a href="{{route('admin.scase.edit',['case_id'=>$case->case_id])}}"
-                               class="btn btn-sm btn-success  m-r-5">编辑</a>
-                            <a href="{{route('admin.scase.destroy',['case_id'=>$case->case_id])}}"
-                               class="btn btn-sm btn-danger" data-method="delete">删除</a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>{{$case->case_id}}</td>
+                            <td>{{$case->title}}</td>
+                            <td>
+                                @if($case->male)
+
+                                {{$case->male->user_name}}
+                                @endif
+                            </td>
+                            <td>
+                                @if($case->female)
+                                {{$case->female->user_name}}
+                                    @endif
+                            </td>
+                            <td><img width="100" height="100" src="{{$case->cover}}" alt=""/></td>
+                            <td>{{$case->publish_type}}</td>
+                            <td>{{$case->created_at}}</td>
+                            <td>
+                                <a href="{{route('admin.scase.edit',['case_id'=>$case->case_id])}}"
+                                   class="btn btn-sm btn-success  m-r-5">编辑</a>
+                                <a href="{{route('admin.scase.destroy',['case_id'=>$case->case_id])}}"
+                                   class="btn btn-sm btn-danger" data-method="delete">删除</a>
+                            </td>
+                        </tr>
                     @endforeach
                     </tbody>
                 </table>
@@ -72,10 +81,10 @@
 
 
 
-@stop
+    @stop
 
-@section('footer-last-js')
-    <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+    @section('footer-last-js')
+            <!-- ================== BEGIN PAGE LEVEL JS ================== -->
     <script src="/assets/lib/DataTables/js/jquery.dataTables.js"></script>
     <script src="/assets/lib/DataTables/js/dataTables.colVis.js"></script>
     <script src="/assets/admin//js/table-manage-colvis.demo.min.js"></script>
@@ -87,10 +96,10 @@
             TableManageColVis.init();
         });
     </script>
-@stop
+    @stop
 
-@section('last-css')
-    <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
+    @section('last-css')
+            <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
     <link href="/assets/lib/DataTables/css/data-table.css" rel="stylesheet"/>
     <!-- ================== END PAGE LEVEL STYLE ================== -->
 @stop
