@@ -6,6 +6,7 @@
  */
 
 namespace App\Http\Controllers\Admin;
+use App\Model\UserInfo;
 use DB;
 use App\Http\Controllers\Controller;
 use App\Model\AdminMessage;
@@ -41,29 +42,30 @@ class HomeController extends Controller
 
 
         // 总会员数量/待审核会员/普通会员/高端会员
-        $user_all_num = DB::table('users')->count('user_id');
-        $user_shenhe_num = DB::table('users')->where('status','待审核')->count('user_id');
-        $user_level1_num = DB::table('users')->where('level',1)->count('user_id');
-        $user_level2_num = DB::table('users')->where('level',2)->count('user_id');
-        $user_level3_num = DB::table('users')->where('level',3)->count('user_id');
+        $user_all_num = User::count('user_id');
+        $user_shenhe_num = User::status(\App\Enum\User::STATUS_CHECK)->count('user_id');
+
+        $user_level1_num = User::level(\App\Enum\User::LEVEL_1)->count('user_id');
+        $user_level3_num = User::level(\App\Enum\User::LEVEL_3)->count('user_id');
+
 
         // 自我介绍待审核数量
-        $user_info_num = DB::table('user_info')->where('introduce_status','等待审核')->count('user_id');
+        $user_info_num =UserInfo::where('introduce_status',\App\Enum\User::INTRODUCE_CHECK)->count('user_id');
+
 
         // 会员相片审核数量
         $user_gallery_num = DB::table('user_gallery')->where('status','待审核')->where('image_url','!=','')->count('photo_id');
 
         // 文章数量
-        $user_info_num = DB::table('articles')->count('article_id');
+        $article_num = DB::table('articles')->count('article_id');
         $res = array(
             'user_all_num'=>$user_all_num,
             'user_shenhe_num'=>$user_shenhe_num,
             'user_level1_num'=>$user_level1_num,
-            'user_level2_num'=>$user_level2_num,
             'user_level3_num'=>$user_level3_num,
             'user_info_num'=>$user_info_num,
             'user_gallery_num'=>$user_gallery_num,
-            'user_info_num'=>$user_info_num,
+            'article_num'=>$article_num,
             );
 
         return $this->view('index',$res);

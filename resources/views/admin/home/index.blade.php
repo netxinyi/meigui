@@ -14,7 +14,7 @@
                     <p>{{$user_shenhe_num}} 个</p>
                 </div>
                 <div class="stats-link">
-                    <a href="/admin/user?status={{\App\Enum\User::STATUS_CHECK}}">[总会员: {{$user_all_num}}] - [普通会员：{{$user_level2_num}}] - [高端会员：{{$user_level3_num}}]</a>
+                    <a href="/admin/user?status={{\App\Enum\User::STATUS_CHECK}}">[普通用户：{{$user_level1_num}}] - [高端会员：{{$user_level3_num}}]</a>
                 </div>
             </div>
         </div>
@@ -56,7 +56,7 @@
                 <div class="stats-info">
                     <h4>文章数</h4>
 
-                    <p>{{$user_info_num}} 篇</p>
+                    <p>{{$article_num}} 篇</p>
                 </div>
                 <div class="stats-link">
                     <a href="{{route('admin.article.index')}}">点击查看</a>
