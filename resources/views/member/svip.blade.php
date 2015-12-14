@@ -14,6 +14,13 @@
         .am-slider-default .am-control-thumbs li {
             width: 20%
         }
+        #register-form table tr>td:first-child{
+            width: 80px;
+        }
+        #register-form table tr>td:nth-child(2)>input{
+            max-width: 168px;
+        }
+
     </style>
 @stop
 @section('body')
@@ -159,11 +166,11 @@
                                 <table>
                                     <tr>
                                         <td>真实姓名:</td>
-                                        <td><input type="text" name="realname" required></td>
+                                        <td><input type="text" name="realname" required class="w_input"></td>
                                     </tr>
                                     <tr>
                                         <td>手机号码:</td>
-                                        <td><input type="text" name="mobile" required></td>
+                                        <td><input type="text" name="mobile" required class="w_input"></td>
                                     </tr>
                                     <tr>
                                         <td>性别:</td>
@@ -189,7 +196,7 @@
                                     </tr>
                                     <tr>
                                         <td>出生年月:</td>
-                                        <td><input type="text" name="birthday" required></td>
+                                        <td><input type="text" name="birthday" required class="w_input"></td>
                                     </tr>
                                     <tr>
                                         <td>婚姻状况:</td>
