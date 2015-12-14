@@ -1,7 +1,5 @@
 <div id="head_id">
-    <!-- 顶部 -->
-    <div id="top"></div>
-    <!-- 顶部 -->
+
     <div id="head">
         <div id="logo">
             <img src="/assets/images/logo.png" alt="">
