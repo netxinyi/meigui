@@ -32,8 +32,8 @@
                                 @else
                                     @foreach($user->gallery as $photo)
                                         @if($photo->image_url)
-                                            <li data-thumb="/uploads/avatar/{{$photo->image_url}}" >
-                                                <img src="/uploads/avatar/{{$photo->image_url}}" style="width:298px;height:300px;" />
+                                            <li data-thumb="{{$photo->image_url}}" >
+                                                <img src="{{$photo->image_url}}" style="width:298px;height:300px;" />
                                             </li>
                                         @endif
                                     @endforeach

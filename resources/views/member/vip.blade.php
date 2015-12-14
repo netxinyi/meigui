@@ -33,7 +33,7 @@
                                 @else
                                     @foreach($user->gallery as $photo)
                                         <li data-thumb="{{$photo->image_url}}" >
-                                            <img src="{{$photo->image_url}}"/ style="width:298px;height:300px;">
+                                            <img src="{{$photo->image_url}}" style="width:298px;height:300px;">
                                         </li>
                                     @endforeach
                                 @endif
