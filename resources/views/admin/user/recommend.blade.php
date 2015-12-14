@@ -172,27 +172,35 @@
         $(function () {
 
             $('#search-user').autocomplete({
+                minChars: 3,
+                max: 5,
                 source: function (request, response) {
                     var key = request.term;
-                    $.ajax({
-                        url: "/admin/user/key",
-                        data: {keyword: key},
-                        success: function (ret) {
-                            if (ret.code == 1000 && $.isArray(ret.data) && ret.data.length > 0) {
-                                var params = [];
-                                $.each(ret.data, function (index, user) {
-                                    params.push({
-                                        label: user.user_name,
-                                        value: user.user_id,
-                                        avatar: user.avatar,
-                                        mobile: user.mobile,
-                                        realname: user.realname
-                                    });
-                                })
-                                response(params);
+                    if (key.length >= 3) {
+                        $.ajax({
+                            url: "/admin/user/key",
+                            data: {keyword: key},
+                            success: function (ret) {
+                                if (ret.code == 1000 && $.isArray(ret.data) && ret.data.length > 0) {
+                                    var params = [];
+                                    $.each(ret.data, function (index, user) {
+                                        if(params.length <= 5){
+                                            params.push({
+                                                label: user.user_name,
+                                                value: user.user_id,
+                                                avatar: user.avatar,
+                                                mobile: user.mobile,
+                                                realname: user.realname
+                                            });
+                                        }
+
+                                    })
+                                    response(params);
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
+
                 }
             }).data("uiAutocomplete")._renderItem = function (widget, ret) {
                 var $a = $('<a></a>');
