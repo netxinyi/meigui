@@ -67,11 +67,12 @@ class PasteventsController extends Controller
             'title.required'  => '请填写标题',
             'title.max'       => '标题太长',
             'description.required'  => '描述不能为空',
-            'content.required' =>'文章内容不能为空'
+            'content.required' =>'文章内容不能为空',
+            'content.min' =>'文章内容太短'
         ], $customAttributes = [
 
         ]);
-        
+
         $form             = $this->request()->all();
         $form['admin_id'] = admin()->admin_id;
         if ($model = with(new $this->model)->create($form)) {
@@ -79,6 +80,26 @@ class PasteventsController extends Controller
         }
 
         return $this->error('添加失败');
+    }
+
+    /*
+	 * 图片上传
+	 * */
+    public function postImage()
+    {
+        $image = $this->request()->file('image');
+
+        $name = md5($image->getClientOriginalName() . rand(100, 99999)) . '.' . $image->getClientOriginalExtension();
+        $file = $image->move(public_path('/') . 'uploads/pastevents', $name);
+
+        return array(
+            'image' => array(
+                'name' => $name,
+                'size' => $file->getSize(),
+                'type' => $file->getMimeType(),
+                'url' => '/uploads/pastevents/'.$name
+            )
+        );
     }
 
 }

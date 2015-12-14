@@ -104,6 +104,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
     Route::resource('assembly', 'Admin\AssemblyController');
     #往期活动
     Route::resource('pastevents', 'Admin\PasteventsController');
+    Route::post('pastevents/image', 'Admin\PasteventsController@postImage');
     #评论管理
     Route::resource('comment', 'Admin\CommentController');
     #留言管理
