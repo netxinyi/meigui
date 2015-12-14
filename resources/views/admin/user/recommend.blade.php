@@ -5,6 +5,43 @@
 @stop
 
 @section('content')
+    <style>
+        .ui-menu-item {
+            padding: 5px;
+
+        }
+
+        .ui-menu-item a {
+            display: block;
+        }
+
+        .ui-menu .ui-menu-item a:after {
+            content: " ";
+            display: table;
+            clear: both;
+        }
+
+        .ui-menu-item:after {
+            display: table;
+            clear: both;
+            float: none;
+            content: " ";
+        }
+
+        .ui-menu-item .avatar {
+            width: 50px;
+            float: left;
+        }
+
+        .ui-menu-item .info {
+            float: right;
+        }
+
+        .ui-menu-item .info span {
+            display: block;
+
+        }
+    </style>
     <div class="panel panel-inverse">
         <div class="panel-heading">
             <div class="panel-heading-btn">
@@ -32,18 +69,33 @@
                     </form>
                 </div>
                 <div class="col-sm-9">
-                    <form class="form-inline pull-right" action="/admin/user" method="get">
+                    <form class="form-inline pull-right" action="/admin/user/add-recommend" method="post">
 
                         <div class="form-group">
                             <div class="ui-widget">
                                 <input type="text" class="form-control" placeholder="搜索会员" id="search-user">
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group m-r-10">
+                            <span>推荐位置</span>
+                            <select class="form-control" name="page">
+                                <option value="">全部</option>
 
-
+                                <option value="{{\App\Enum\User::RECOMMEND_INDEX}}" {{queryActive('page',\App\Enum\User::RECOMMEND_INDEX,'selected')}}>
+                                    首页
+                                </option>
+                                <option value="{{\App\Enum\User::RECOMMEND_HOME}}" {{queryActive('page',\App\Enum\User::RECOMMEND_HOME,'selected')}}>
+                                    专区
+                                </option>
+                            </select>
                         </div>
-                        <button type="submit" class="btn btn-sm btn-primary m-r-5">搜索</button>
+                        <div class="form-group">
+                            <div class="ui-widget">
+                                <span>排序</span>
+                                <input type="number" class="form-control" style="width: 100px" value="0">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-primary m-r-5">添加</button>
                     </form>
                 </div>
             </div>
@@ -132,20 +184,28 @@
                                 var params = [];
                                 $.each(ret.data, function (index, user) {
                                     params.push({
-                                        username: user.user_name,
+                                        label: user.user_name,
+                                        value: user.user_id,
                                         avatar: user.avatar,
                                         mobile: user.mobile,
-                                        realname: user.realname,
-                                        id:user.user_id
+                                        realname: user.realname
                                     });
                                 })
-                                console.log(params);
+                                response(params);
                             }
                         }
                     });
                 }
-            }).data("uiAutocomplete")._renderItem = function () {
-                console.log(arguments, this);
+            }).data("uiAutocomplete")._renderItem = function (widget, ret) {
+                var $a = $('<a></a>');
+                var $li = $('<li class="user-list-item"></li>').append($a);
+
+
+                $('<div class="avatar"><img src="' + ret.avatar + '" width="50px" height="50px" /></div>').appendTo($a);
+                $('<div class="info"><span>' + ret.label + " (" + ret.value + ')</span><span>' + ret.realname + '</span><span>' + ret.mobile + '</span></div>').appendTo($a);
+
+
+                return $li.data("item.autocomplete", ret).appendTo(widget);
             };
 
         });

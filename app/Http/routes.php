@@ -130,6 +130,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
     Route::get('user/gallerylist', array('uses' => 'Admin\UserController@getGallerylist', 'as' => 'admin.user.gallerylist'));
     Route::post('user/setGalleryStatus', array('uses' => 'Admin\UserController@setGalleryStatus', 'as' => 'admin.user.setGalleryStatus'));
     Route::get('user/key', 'Admin\UserController@getKeyword');
+    Route::post('user/add-recommend', 'Admin\UserController@postAddRecommend');
     Route::resource('user', 'Admin\UserController');
     Route::post('scase/image', 'Admin\ScaseController@postImage');
 

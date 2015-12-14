@@ -291,12 +291,16 @@ class UserController extends Controller
                     ->orWhere('mobile', 'like', $keyword)
                     ->orWhere('realname', 'like', $keyword)
                     ->orWhere('user_id', 'like', $keyword);
-            })->select('user_name', 'mobile', 'realname', 'user_id','avatar')->limit(20)->get();
+            })->limit(20)->get();
 
             return $this->rest()->success($users, '查询成功');
         }
 
         return $this->rest()->success(array());
+    }
+
+    public function postAddRecommend(){
+
     }
 
     // 设置推荐状态
