@@ -7,8 +7,8 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Model\Assembly;
+use DB;
 
 class AssemblyController extends Controller
 {
@@ -20,7 +20,9 @@ class AssemblyController extends Controller
     }
 
 	public function getHdlist(){
-		$assembly = Assembly::all();
+		$assembly = Assembly::orderBy('updated_at');
+		$pageSize = $this->request()->get('pageSize',6);
+		$assembly = $assembly->paginate($pageSize);
 		return $this->view('hdlist')->with('assembly',$assembly);
 	}
 
