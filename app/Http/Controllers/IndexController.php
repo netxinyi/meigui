@@ -30,7 +30,7 @@ class IndexController extends Controller
         ))->index()->orderBy('order')->get();
 
 		//派对集结号
-		$assembly = Assembly::where('index_status','=',AssemblyasEnum::DISPLAY_BLOCK)->limit(6)->orderBy('created_at','desc')->get();
+		$assembly = Assembly::where('index_status','=',AssemblyasEnum::DISPLAY_BLOCK)->limit(5)->orderBy('created_at','desc')->get();
 		return $this->view('index')->with('users', $users)->with('assembly',$assembly);
     }
 
