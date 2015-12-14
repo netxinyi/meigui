@@ -23,17 +23,17 @@ class MemberController extends Controller
     {
 
         $users['male'] = User::leftJoin('user_recommend', 'user_recommend.user_id', '=', 'users.user_id')
-            ->where('user_recommend.page',\App\Enum\User::RECOMMEND_HOME)
-            ->whereIn('level',array(\App\Enum\User::LEVEL_1,\App\Enum\User::LEVEL_2))
+            ->where('user_recommend.page', \App\Enum\User::RECOMMEND_HOME)
+            ->whereIn('level', array(\App\Enum\User::LEVEL_1, \App\Enum\User::LEVEL_2))
             ->male()->limit(24)->orderBy('user_recommend.order')->get();
 
 
         $users['female'] = User::leftJoin('user_recommend', 'user_recommend.user_id', '=', 'users.user_id')
-            ->where('user_recommend.page',\App\Enum\User::RECOMMEND_HOME)
+            ->where('user_recommend.page', \App\Enum\User::RECOMMEND_HOME)
             ->female()->limit(24)->orderBy('user_recommend.order')->get();
 
         $users['vip'] = User::leftJoin('user_recommend', 'user_recommend.user_id', '=', 'users.user_id')
-            ->where('user_recommend.page',\App\Enum\User::RECOMMEND_HOME)
+            ->where('user_recommend.page', \App\Enum\User::RECOMMEND_HOME)
             ->male()->level(\App\Enum\User::LEVEL_3)->limit(24)->orderBy('user_recommend.order')->get();
 
 
@@ -45,8 +45,8 @@ class MemberController extends Controller
     public function getMale()
     {
         $users = User::leftJoin('user_recommend', 'user_recommend.user_id', '=', 'users.user_id')
-            ->where('user_recommend.page',\App\Enum\User::RECOMMEND_HOME)
-            ->whereIn('level',array(\App\Enum\User::LEVEL_1,\App\Enum\User::LEVEL_2))
+            ->where('user_recommend.page', \App\Enum\User::RECOMMEND_HOME)
+            ->whereIn('level', array(\App\Enum\User::LEVEL_1, \App\Enum\User::LEVEL_2))
             ->male()->orderBy('user_recommend.order')->paginate(36);
 
         $users->appends($this->request()->all());
@@ -56,7 +56,7 @@ class MemberController extends Controller
     public function getFemale()
     {
         $users = User::leftJoin('user_recommend', 'user_recommend.user_id', '=', 'users.user_id')
-            ->where('user_recommend.page',\App\Enum\User::RECOMMEND_HOME)
+            ->where('user_recommend.page', \App\Enum\User::RECOMMEND_HOME)
             ->female()->limit(24)->orderBy('user_recommend.order')->paginate(36);
         $users->appends($this->request()->all());
         return $this->view('female')->with('users', $users);
@@ -65,7 +65,7 @@ class MemberController extends Controller
     public function getViplist()
     {
         $users = User::leftJoin('user_recommend', 'user_recommend.user_id', '=', 'users.user_id')
-            ->where('user_recommend.page',\App\Enum\User::RECOMMEND_HOME)
+            ->where('user_recommend.page', \App\Enum\User::RECOMMEND_HOME)
             ->male()->level(\App\Enum\User::LEVEL_3)->limit(24)->orderBy('user_recommend.order')->paginate(36);
         $users->appends($this->request()->all());
         return $this->view('viplist')->with('users', $users);
@@ -76,6 +76,9 @@ class MemberController extends Controller
         $status = $user['status'];
         if ($status == (userEnum::STATUS_OK)) {
             $tpl = $user->level == \App\Enum\User::LEVEL_1 ? 'vip' : 'svip';
+            $user->load(array('gallery' => function ($query) {
+                return $query->where('status', \App\Enum\User::GALLERY_OK);
+            }));
             return $this->view($tpl)->with('user', $user);
         } else {
             return \Redirect::back()->with('status', '该会员尚未通过审核');

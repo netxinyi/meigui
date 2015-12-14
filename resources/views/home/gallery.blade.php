@@ -46,12 +46,20 @@
                                     <div class="img_update_img_l">
                                         @if($photo->status == \App\Enum\User::GALLERY_CHECK)
                                             <button class="am-btn home_btn am-btn-sm " type="button">相片审核中</button>
+                                            <button type="button" class="am-btn am-btn-danger home_btn am-btn-sm"
+                                                    data-id="{{$photo->photo_id}}" data-click="delete">删除
+                                            </button>
                                         @elseif($photo->status == \App\Enum\User::GALLERY_NOCHECK)
                                             <button class="am-btn home_btn am-btn-sm " type="button">审核未通过</button>
+                                            <button type="button" class="am-btn am-btn-danger home_btn am-btn-sm"
+                                                    data-id="{{$photo->photo_id}}" data-click="delete">删除
+                                            </button>
+                                        @else
+                                            <button type="button" class="am-btn am-btn-danger home_btn am-btn-sm"
+                                                    data-id="{{$photo->photo_id}}" data-click="delete" style="width: 100%"> 删除
+                                            </button>
                                         @endif
-                                        <button type="button" class="am-btn am-btn-danger home_btn am-btn-sm"
-                                                data-id="{{$photo->photo_id}}" data-click="delete">删除
-                                        </button>
+
                                     </div>
                                 </div>
                             </div>
