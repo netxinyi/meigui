@@ -3,11 +3,17 @@
     <link rel="stylesheet" href="/assets/css/index.css">
     <link rel="stylesheet" href="/assets/css/detail.css"/>
     <style>
-        .am-slider-default .am-control-thumbs img{height: 50px;}
-        .am-control-thumbs li {
-          width: 100%/5; /* n 为轮播图数量 */
+        .am-slider-default .am-control-thumbs img {
+            height: 50px;
         }
-        .am-slider-default .am-control-thumbs li{width: 20%}
+
+        .am-control-thumbs li {
+            width: 100%/5; /* n 为轮播图数量 */
+        }
+
+        .am-slider-default .am-control-thumbs li {
+            width: 20%
+        }
     </style>
 @stop
 @section('body')
@@ -24,16 +30,18 @@
                                 @if($user->gallery->isEmpty())
                                     <li>
                                         @if($user->sex == \App\Enum\User::SEX_FEMALE)
-                                            <img src="/assets/images/default-photo-female.jpg" style="width:298px;height:300px;">
+                                            <img src="/assets/images/default-photo-female.jpg"
+                                                 style="width:298px;height:300px;">
                                         @elseif($user->sex == \App\Enum\User::SEX_MALE)
-                                            <img src="/assets/images/default-photo-male.jpg" style="width:298px;height:300px;">
+                                            <img src="/assets/images/default-photo-male.jpg"
+                                                 style="width:298px;height:300px;">
                                         @endif
                                     </li>
                                 @else
                                     @foreach($user->gallery as $photo)
                                         @if($photo->image_url)
-                                            <li data-thumb="{{$photo->image_url}}" >
-                                                <img src="{{$photo->image_url}}" style="width:298px;height:300px;" />
+                                            <li data-thumb="{{$photo->image_url}}">
+                                                <img src="{{$photo->image_url}}" style="width:298px;height:300px;"/>
                                             </li>
                                         @endif
                                     @endforeach
@@ -160,10 +168,23 @@
                                     <tr>
                                         <td>性别:</td>
                                         <td>
-                                            <input type="radio" name="sex" id="male" value="{{\App\Enum\User::SEX_MALE}}" checked>
-                                            <label for="male">男</label>
-                                            <input type="radio" name="sex" id="female" value="{{\App\Enum\User::SEX_FEMALE}}">
-                                            <label for="female">女</label>
+                                            @if($user->sex== \App\Enum\User::SEX_MALE)
+                                                <input type="radio" name="sex" id="male"
+                                                       value="{{\App\Enum\User::SEX_MALE}}" disabled="disabled" title="仅限女性">
+                                                <label for="male">男</label>
+                                                <input type="radio" name="sex" id="female"
+                                                       value="{{\App\Enum\User::SEX_FEMALE}}" checked>
+                                                <label for="female">女</label>
+                                            @elseif($user->sex== \App\Enum\User::SEX_FEMALE)
+
+                                                <input type="radio" name="sex" id="male"
+                                                       value="{{\App\Enum\User::SEX_MALE}}" checked>
+                                                <label for="male">男</label>
+                                                <input type="radio" name="sex" id="female"
+                                                       value="{{\App\Enum\User::SEX_FEMALE}}"  disabled="disabled" title="仅限男性">
+                                                <label for="female">女</label>
+                                            @endif
+
                                         </td>
                                     </tr>
                                     <tr>
@@ -174,11 +195,14 @@
                                         <td>婚姻状况:</td>
                                         <td>
 
-                                            <input type="radio" name="marriage" id="status_1" checked value="{{\App\Enum\User::MARRIAGE_UNMARRIED}}">
+                                            <input type="radio" name="marriage" id="status_1" checked
+                                                   value="{{\App\Enum\User::MARRIAGE_UNMARRIED}}">
                                             <label for="status_1">未婚</label>
-                                            <input type="radio" name="marriage" id="status_2" value="{{\App\Enum\User::MARRIAGE_DIVORCED}}">
+                                            <input type="radio" name="marriage" id="status_2"
+                                                   value="{{\App\Enum\User::MARRIAGE_DIVORCED}}">
                                             <label for="status_2">离婚</label>
-                                            <input type="radio" name="marriage" id="status_3" value="{{\App\Enum\User::MARRIAGE_WIDOWED}}">
+                                            <input type="radio" name="marriage" id="status_3"
+                                                   value="{{\App\Enum\User::MARRIAGE_WIDOWED}}">
                                             <label for="status_3">丧偶</label>
                                         </td>
                                     </tr>
@@ -221,7 +245,7 @@
 @section('footer-last-js')
 
     <script type="text/javascript">
-        $(function(){
+        $(function () {
             $('#register-form').success(function () {
                 $.redirect(null, 2);
             }).form();
