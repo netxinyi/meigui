@@ -52,6 +52,18 @@
                     <li><a href="{{route('admin.assembly.create')}}">发表信息</a></li>
                 </ul>
             </li>
+
+            <li class="has-sub">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-building-o"></i>
+                    <span>往期活动</span>
+                </a>
+                <ul class="sub-menu">
+                    <li><a href="{{route('admin.pastevents.index')}}">活动列表</a></li>
+                    <li><a href="{{route('admin.pastevents.create')}}">发表活动</a></li>
+                </ul>
+            </li>
             <!--     <li class="has-sub">
                 <a href="javascript:;">
                     <b class="caret pull-right"></b>
