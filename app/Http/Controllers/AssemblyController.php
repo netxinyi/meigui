@@ -20,10 +20,11 @@ class AssemblyController extends Controller
     }
 
 	public function getHdlist(){
-		$assembly = Assembly::orderBy('updated_at');
+
 		$pageSize = $this->request()->get('pageSize',6);
-		$assembly = $assembly->paginate($pageSize);
-		return $this->view('hdlist')->with('assembly',$assembly);
+		$assembly =Assembly::orderBy('updated_at')->paginate($pageSize);
+
+		return $this->view('hdlist')->with('assemblys',$assembly);
 	}
 
 	public function hddetail(Assembly $assembly){

@@ -14,12 +14,12 @@
             <!-- 左部分文章 -->
             <div class="content_zuo">
                 <ul class="am-list am-list-border wz_border">
-                    @foreach($assembly as $assembly)
+                    @foreach($assemblys as $assembly)
                     <li>
                         <div class="content_title"><h3><span>【{{str_replace('-','',substr($assembly->created_at,0,10))}}期】{{$assembly->title}}</span></h3></div>
                         <div class="content_ms">
                             <div class="content_ms_left">
-                                <img src="/template/images/mgslt.jpg" alt="">
+                                <img src="/assets/images/mgslt.jpg" alt="">
                             </div>
                             <div class="content_ms_right">
                   <span>
@@ -33,7 +33,7 @@
                     </li>
                         @endforeach
                 </ul>
-                <?php echo str_replace('pagination', 'am-pagination am-pagination-right', $assembly->render());?>
+                <?php echo str_replace('pagination', 'am-pagination am-pagination-right', $assemblys->render());?>
             </div>
             <!-- 左部分文章 end -->
 
