@@ -69,18 +69,18 @@
                     </form>
                 </div>
                 <div class="col-sm-9">
-                    <form class="form-inline pull-right" action="/admin/user/add-recommend" method="post">
+                    <form class="form-inline pull-right" action="/admin/user/add-recommend" method="post" id="add-form">
+                        <input type="hidden" name="_token" value="{{csrf_token()}}">
 
                         <div class="form-group">
                             <div class="ui-widget">
-                                <input type="text" class="form-control" placeholder="搜索会员" id="search-user">
+                                <input type="text" class="form-control" placeholder="搜索会员" id="search-user"
+                                       name="user_id">
                             </div>
                         </div>
                         <div class="form-group m-r-10">
                             <span>推荐位置</span>
                             <select class="form-control" name="page">
-                                <option value="">全部</option>
-
                                 <option value="{{\App\Enum\User::RECOMMEND_INDEX}}" {{queryActive('page',\App\Enum\User::RECOMMEND_INDEX,'selected')}}>
                                     首页
                                 </option>
@@ -92,7 +92,7 @@
                         <div class="form-group">
                             <div class="ui-widget">
                                 <span>排序</span>
-                                <input type="number" class="form-control" style="width: 100px" value="0">
+                                <input type="number" class="form-control" style="width: 100px" value="0" name="order">
                             </div>
                         </div>
                         <button type="submit" class="btn btn-sm btn-primary m-r-5">添加</button>
@@ -133,7 +133,7 @@
                                                 首页
                                             </option>
                                             <option value="{{\App\Enum\User::RECOMMEND_HOME}}"
-                                                    @if($user->page == \App\Enum\User::RECOMMEND_INDEX) selected @endif>
+                                                    @if($user->page == \App\Enum\User::RECOMMEND_HOME) selected @endif>
                                                 专区页
                                             </option>
                                         </select>
@@ -172,7 +172,7 @@
     <script type="text/javascript">
 
         $(function () {
-            console.log($('#search-user'));
+
             $('#search-user').autocomplete({
                 source: function (request, response) {
                     var key = request.term;
@@ -208,6 +208,10 @@
                 return $li.data("item.autocomplete", ret).appendTo(widget);
             };
 
+
+            $('#add-form').form().success(function () {
+                $.redirect(null, 1500);
+            });
         });
     </script>
 

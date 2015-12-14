@@ -299,7 +299,34 @@ class UserController extends Controller
         return $this->rest()->success(array());
     }
 
-    public function postAddRecommend(){
+    public function postAddRecommend()
+    {
+        try {
+            transaction();
+            $user = User::find($this->request()->get('user_id'));
+            if (!$user) {
+                return $this->rest()->error('用户不存在');
+            }
+
+            $recommend = UserRecommend::where('user_id', $user->user_id)->where('page', $this->request()->get('page'))->first();
+
+            if ($recommend) {
+                $recommend->order = $this->request()->get('order');
+               $recommend->save();
+                return $this->rest()->success(array(), '添加成功');
+            }
+
+            $form = new UserRecommend(array(
+                'page' => $this->request()->get('page'),
+                'order' => $this->request()->get('order', 0)
+            ));
+            $user->recommend()->save($form);
+            commit();
+            return $this->rest()->success(array(), '添加成功');
+        } catch (\Exception $e) {
+            rollback();
+            return $this->rest()->error('抱歉,添加失败,请稍后再试');
+        }
 
     }
 
