@@ -6,7 +6,7 @@
 @section('body')
     <div class="content">
         <div class="content_w_title">
-            <h2><span>&nbsp;&nbsp;集&nbsp;结&nbsp;号</span></h2>
+            <h2><span>往期活动</span></h2>
         </div>
     </div>
     <div class="content">
@@ -14,26 +14,26 @@
             <!-- 左部分文章 -->
             <div class="content_zuo">
                 <ul class="am-list am-list-border wz_border">
-                    @foreach($assemblys as $assembly)
+                    @foreach($pastevents as $pastevent)
                     <li>
-                        <div class="content_title"><h3><span>【{{str_replace('-','',substr($assembly->created_at,0,10))}}期】{{$assembly->title}}</span></h3></div>
+                        <div class="content_title"><h3><span>【{{str_replace('-','',substr($pastevent->created_at,0,10))}}期】{{$pastevent->title}}</span></h3></div>
                         <div class="content_ms">
                             <div class="content_ms_left">
-                                <img src="/assets/images/mgslt.jpg" alt="">
+                                <img src="{{$pastevent->event_img}}" alt="">
                             </div>
                             <div class="content_ms_right">
                   <span>
-                   <?php echo substr($assembly->content,0,300);?>
+                   {{$pastevent->description}}
                   </span>
                             </div>
                             <div class="yd_btn">
-                                <button><a href="/assembly/hddetail/{{$assembly->assembly_id}}">阅读全文</a></button>
+                                <button><a href="/pastevents/hddetail/{{$pastevent->pastevents_id}}">阅读全文</a></button>
                             </div>
                         </div>
                     </li>
                         @endforeach
                 </ul>
-                <?php echo str_replace('pagination', 'am-pagination am-pagination-right', $assemblys->render());?>
+                <?php echo str_replace('pagination', 'am-pagination am-pagination-right', $pastevents->render());?>
             </div>
             <!-- 左部分文章 end -->
 

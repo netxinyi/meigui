@@ -51,8 +51,10 @@ Route::get('yylist', 'ScaseController@getYylist');
 Route::get('scase/yydetail/{scase}', 'ScaseController@yydetail');
 Route::get('jjlist', 'ScaseController@getJjlist');
 Route::get('scase/jjdetail/{scase}', 'ScaseController@jjdetail');
-Route::get('hdlist', 'AssemblyController@getHdlist');
-Route::get('assembly/hddetail/{assembly}', 'AssemblyController@hddetail');
+//Route::get('hdlist', 'AssemblyController@getHdlist');
+//Route::get('assembly/hddetail/{assembly}', 'AssemblyController@hddetail');
+Route::get('hdlist', 'PasteventsController@getHdlist');
+Route::get('pastevents/hddetail/{pastevents}', 'PasteventsController@hddetail');
 /*
 |--------------------------------------------------------------------------
 | 文章

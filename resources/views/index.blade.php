@@ -120,7 +120,7 @@
             </div>
             <div class="c_right_2">
                 <div id="show_huodong">
-                    <a href="./hd.html"><img src="/assets/images/huodong1.jpg" alt=""></a>
+                    <a href="/hdlist"><img src="/assets/images/huodong1.jpg" alt=""></a>
                 </div>
             </div>
         </div>
