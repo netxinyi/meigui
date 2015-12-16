@@ -20,8 +20,7 @@ class WechatController extends Controller
 
     public function getLogin()
     {
-
-        dd($this->request()->all());
+        
         return $this->view('login');
 
     }
