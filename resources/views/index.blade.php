@@ -101,7 +101,7 @@
                     <div class="am-list-news-hd am-cf">
                         <!--带更多链接-->
                         <h2>派对集结号</h2>
-                        <a href="/hdlist" class="">
+                        <a href="/assembly/{{$assembly[0]['assembly_id']}}" class="">
                             <span class="am-list-news-more am-fr">更多 &raquo;</span>
                         </a>
                     </div>
@@ -109,7 +109,7 @@
                         <ul class="am-list" style="line-height: 4px;font-size: 12px;">
                             @foreach($assembly as $assembly)
                                 <li class="am-g am-list-item-dated">
-                                    <a href="/assembly/hddetail/{{$assembly->assembly_id}}" class="am-list-item-hd ">{{$assembly->title}}</a>
+                                    <a href="/assembly/{{$assembly->assembly_id}}" class="am-list-item-hd ">{{$assembly->title}}</a>
                                     <span class="am-list-date">{{substr($assembly->created_at,0,10)}}</span>
                                 </li>
                             @endforeach

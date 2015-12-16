@@ -8,26 +8,15 @@
 namespace App\Http\Controllers;
 
 use App\Model\Assembly;
-use DB;
+use App\Enum\Assembly as EnumAssembly;
 
 class AssemblyController extends Controller
 {
     protected $viewPrefix = 'assembly';
 
-    public function index()
+    public function index(Assembly $assembly)
     {
-		return $this->view('');
+		$lanmus = Assembly::where('index_status','=',EnumAssembly::DISPLAY_BLOCK)->orderBy('created_at','desc')->get();
+		return $this->view('index')->with('assembly',$assembly)->with('lanmus',$lanmus);
     }
-
-	public function getHdlist(){
-
-		$pageSize = $this->request()->get('pageSize',6);
-		$assembly =Assembly::orderBy('updated_at')->paginate($pageSize);
-
-		return $this->view('hdlist')->with('assemblys',$assembly);
-	}
-
-	public function hddetail(Assembly $assembly){
-		return $this->view('hddetail')->with('assembly',$assembly);
-	}
 }

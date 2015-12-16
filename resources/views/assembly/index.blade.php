@@ -12,22 +12,20 @@
             <!-- 左部分文章分类 -->
             <div class="content_zuo">
                 <section data-am-widget="accordion" class="am-accordion am-accordion-gapped" data-am-accordion='{  }'>
-
                     <dl class="am-accordion-item am-active">
                         <dt class="am-accordion-title">
-
+                            集结号
                         </dt>
-
                         <dd class="am-accordion-bd am-collapse am-in">
                             <!-- 规避 Collapase 处理有 padding 的折叠内容计算计算有误问题， 加一个容器 -->
                             <div class="am-accordion-content">
                                 <ul class="am-list">
-
+                                    @foreach($lanmus as $lanmu)
                                     <li class="am-g am-list-item-dated">
-                                        <a href="" class="am-list-item-hd "></a>
-                                        <span class="am-list-date"></span>
+                                        <a href="{{$lanmu->assembly_id}}" class="am-list-item-hd ">{{$lanmu->title}}</a>
+                                        <span class="am-list-date">{{substr($lanmu->created_at,0,10)}}</span>
                                     </li>
-
+                                    @endforeach
                                 </ul>
                             </div>
                         </dd>
@@ -50,13 +48,13 @@
                 <div>
                     <article class="am-article">
                         <div class="am-article-hd">
-                            <h1 class="am-article-title"></h1>
+                            <h1 class="am-article-title">{{$assembly->title}}</h1>
 
-                            <p class="am-article-meta">发布时间： </p>
+                            <p class="am-article-meta">发布时间：{{$assembly->created_at}} </p>
                         </div>
                         <div class="am-article-bd">
                             <p class="am-article-lead">
-
+                                <?php echo $assembly->content;?>
                             </p>
                         </div>
                     </article>

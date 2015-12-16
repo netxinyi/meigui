@@ -51,10 +51,6 @@ Route::get('yylist', 'ScaseController@getYylist');
 Route::get('scase/yydetail/{scase}', 'ScaseController@yydetail');
 Route::get('jjlist', 'ScaseController@getJjlist');
 Route::get('scase/jjdetail/{scase}', 'ScaseController@jjdetail');
-//Route::get('hdlist', 'AssemblyController@getHdlist');
-//Route::get('assembly/hddetail/{assembly}', 'AssemblyController@hddetail');
-Route::get('hdlist', 'PasteventsController@getHdlist');
-Route::get('pastevents/hddetail/{pastevents}', 'PasteventsController@hddetail');
 /*
 |--------------------------------------------------------------------------
 | 文章
@@ -63,6 +59,15 @@ Route::get('pastevents/hddetail/{pastevents}', 'PasteventsController@hddetail');
 */
 Route::get('article/{article}', 'ArticleController@index');
 
+/*
+|--------------------------------------------------------------------------
+| 集结号、往期活动
+|--------------------------------------------------------------------------
+|
+*/
+Route::get('assembly/{assembly}', 'AssemblyController@index');
+Route::get('hdlist', 'PasteventsController@getHdlist');
+Route::get('pastevents/hddetail/{pastevents}', 'PasteventsController@hddetail');
 /*
 |--------------------------------------------------------------------------
 | Auth支持-控制器路由
