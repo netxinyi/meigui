@@ -29,7 +29,7 @@ class WechatController extends Controller
     public function postLogin()
     {
 
-        print_r($_SERVER);
+        echo json_encode($_SERVER);
         die;
         //验证字段有效性
         $this->validate($this->request(), $rules = array(
