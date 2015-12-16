@@ -32,7 +32,7 @@ class PasteventsController extends Controller
     public function index()
     {
 
-        $models = Pastevents::all(['pastevents_id', 'admin_id', 'title','description', 'created_at']);
+        $models = Pastevents::all(['pastevents_id', 'admin_id', 'title','description','event_img','created_at']);
         $models->load(['admin']);
 
         return $this->view('index')->with('models', $models);

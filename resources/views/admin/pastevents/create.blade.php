@@ -51,7 +51,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-md-2 control-label">活动封面</label>
+                    <label for="title">活动封面</label>
 
                     <div class="row fileupload-buttonbar">
                         <div class="col-lg-8">
@@ -71,7 +71,7 @@
                             </button>
                             <!-- The global file processing state -->
                             <span class="fileupload-process"></span>
-                            <span style="color:red">建议图片尺寸<span style="color:blue">2048*1280</span>,只允许上传一张照片</span>
+                            <span style="color:red">建议图片尺寸<span style="color:blue">600*400像素</span>,只允许上传一张照片</span>
                             @if($errors->has('photos'))
                                 <ul class="parsley-errors-list filled">
                                     <li class="parsley-required">{{$errors->first('photos')}}</li>

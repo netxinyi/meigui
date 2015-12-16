@@ -37,6 +37,7 @@
                     <tr>
                         <th>ID</th>
                         <th>文章标题</th>
+                        <th>活动图片</th>
                         <th>作者</th>
                         <th>发表时间</th>
                         <th>操作</th>
@@ -47,6 +48,7 @@
                         <tr>
                             <td>{{$model->pastevents_id}}</td>
                             <td>{{$model->title}}</td>
+                            <td><img width="140" height="100" src="{{$model->event_img}}" alt=""/></td>
                             <td>{{$model->admin->admin_name}}</td>
                             <td>{{$model->created_at}}</td>
                             <td class="text-center">

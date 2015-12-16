@@ -61,7 +61,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li><a href="{{route('admin.pastevents.index')}}">活动列表</a></li>
-                    <li><a href="{{route('admin.pastevents.create')}}">发表活动</a></li>
+                    <li><a href="{{route('admin.pastevents.create')}}">发布活动</a></li>
                 </ul>
             </li>
             <!--     <li class="has-sub">
