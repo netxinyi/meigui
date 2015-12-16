@@ -44,7 +44,7 @@
             <li class="has-sub">
                 <a href="javascript:;">
                     <b class="caret pull-right"></b>
-                    <i class="fa fa-building-o"></i>
+                    <i class="fa fa-bullhorn"></i>
                     <span>集结号</span>
                 </a>
                 <ul class="sub-menu">
