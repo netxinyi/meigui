@@ -29,6 +29,8 @@ class WechatController extends Controller
     public function postLogin()
     {
 
+        print_r($_SERVER);
+        die;
         //验证字段有效性
         $this->validate($this->request(), $rules = array(
             'mobile' => 'required|digits:11|exists:users',
