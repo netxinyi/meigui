@@ -161,7 +161,9 @@
                 <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
             </div>
             <div class="am-modal-bd">
-                温馨提示：请拨打010-1234567 或者联系在线客服QQ：568888888获取心仪对象的联系方式。
+                温馨提示：请拨打0470—3565578
+                或者联系在线客服QQ：907027086
+                获取心仪对象的联系方式。
             </div>
         </div>
     </div>
