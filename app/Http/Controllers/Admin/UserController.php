@@ -134,11 +134,31 @@ class UserController extends Controller
             'realname',
             'status'
         ]);
-        if ($user = User::create($form)) {
-            return $this->success('添加成功', $user);
-        }
+		try {
+			transaction();
+			//创建用户
+			$user = User::create($form);
 
-        return $this->error('添加失败');
+			if ($this->request()->has('like')) {
+				//创建喜欢的人
+				$user->like()->create(array(
+					'like_user_id' => $this->request()->get('like')
+				));
+			}
+			//创建用户信息
+			$user->info()->create(array());
+			//创建择偶条件
+			$user->object()->create(array(
+				//初始化性别,不允许同性恋
+				'sex' => $user->sex == \App\Enum\User::SEX_FEMALE ? \App\Enum\User::SEX_MALE : \App\Enum\User::SEX_FEMALE
+			));
+			commit();
+			return $this->success('添加成功', $user);
+		} catch (\Exception $ex) {
+			rollback();
+			dd($ex->getMessage());
+			return $this->error('添加失败', $user);
+		}
 
     }
 
@@ -171,6 +191,7 @@ class UserController extends Controller
 
 
         $form = $this->request()->only([
+			'sex',
             'user_name',
             'mobile',
             'birthday',
