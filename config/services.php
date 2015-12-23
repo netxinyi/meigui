@@ -38,7 +38,7 @@ return [
     'weixinweb' => [
         'client_id' => 'wx3bbe4d851173e3a6',
         'client_secret' => '40f2417cd268d43bc1f71be247cdce9b',
-        'redirect' => 'http://www.yuexiameigui.com'
+        'redirect' => 'http://www.yuexiameigui.com/auth/callback/weixinweb'
     ],
     'weixin' => [
         'client_id' => 'wx58ff9f9c7b2ce4d9',
