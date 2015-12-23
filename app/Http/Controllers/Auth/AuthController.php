@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Model\Register;
 use App\Model\User;
 use App\Http\Controllers\Controller;
+use App\Model\UserBind;
 use App\Model\UserInfo;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Laravel\Socialite\Facades\Socialite;
@@ -41,6 +42,7 @@ class AuthController extends Controller
         $type = $this->request()->segment(3);
 
         $info = Socialite::driver($type)->user();
+        dd($info);
 
         //已经在本站注册
         if ($bind = UserBind::openId($info->getId())->first()) {

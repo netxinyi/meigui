@@ -25,4 +25,8 @@ class UserBind extends BaseModel
 	protected $primaryKey = 'bind_id';
 
 	public $timestamps = false;
+
+	public function scopeOpenId($query,$openid){
+		return $query->where('openid',$openid);
+	}
 }
