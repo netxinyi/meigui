@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="/assets/lib/amazeui/amazeui.min.css"/>
     <link rel="stylesheet" href="/assets/css/base.css"/>
     <link rel="stylesheet" href="/assets/css/lanren.css"/>
+    <meta name="viewport"  content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 @stop
 
 @section('header-global-js')

@@ -1,0 +1,44 @@
+
+
+/*【头部header样式】------------------------------------------*/
+#head_id{min-width: 1170px;}
+#banner{width: 1170px;height: 100px;line-height: 100px; margin: 0px auto;}
+    /*logo*/
+    #logo{margin-left: 5%;float:left;}
+    /*登录输入框*/
+    #login_new{float:right;margin-right: 5%}
+
+
+/*【导航栏样式】------------------------------------------*/
+#menu{height: 40px;width: 100%;background-color: #f15481;}
+#nav{width: 1170px; margin: 0px auto;}
+    /*导航菜单*/
+    #nav_list{ width:800px; float: left;}
+    #nav_list ul{width: 800px7;margin: 0px;padding: 0px;}
+    #nav #nav_list ul li{height: 40px;line-height: 40px;color: #fff;width: 130px;float: left;display: inline;text-align: center;}
+    /*超链接样式*/
+    #nav #nav_list ul li a{display: block;width:130px;font-family: Microsoft Yahei,宋体;color: #fff}
+    #nav #nav_list ul li a:hover{display: block;background-color:#dd406d;width:130px;}
+
+
+    /*登录状态信息*/
+    #nav_user_msg{width: 370px; height: 40px;float: right;line-height: 40px; background-color: #f15481; margin: 0px;padding: 0px;}
+    #nav_user_msg ul{ width: 370px;height: 20px;line-height: 20px;margin-top: 10px;}
+    #nav_user_msg ul li{float: left;display: inline;text-align: center;width: 105px;}
+    /*超链接样式*/
+    #nav_user_msg ul li a{display: block;font-family: Microsoft Yahei,宋体;color: #fff;height: 20px;}
+    #nav_user_msg ul li a:hover{display: block;color:#fff713;}
+
+
+
+/*【底部footer样式】------------------------------------------*/
+#footer_id{min-width: 1170px;height: 100px; background-color: #e5e5e5;margin: 0px;padding: 0px;clear:both;}
+#footer{width:1170px;line-height: 40px;margin:0px auto;height: 40px;padding: 0px;}
+
+/*底部列表菜单*/
+.footer_list{width: 800px;margin: 0px auto;height: 40px;line-height: 40px;text-align: center;}
+/*版权信息*/
+.footer_list ul li{float: left; display: inline;width: 94px;}
+
+
+
